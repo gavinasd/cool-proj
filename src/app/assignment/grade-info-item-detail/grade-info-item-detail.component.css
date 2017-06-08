@@ -1,0 +1,77 @@
+.row{
+    padding:0;
+    margin:0;
+    height: 60px;
+}
+
+.row:hover{
+    background-color: #f0fbff;
+}
+
+
+.grade-mark{
+    height:100%;
+    padding:0;
+}
+
+.grade-tag{
+    position: relative;
+    top: 50%;
+    width: 80px;
+    height: 22px;
+    margin: -11px auto 0;
+    border-radius: 11px 0 0 11px;
+    text-align: center;
+}
+
+.grade-tag p{
+    padding-left: 10px;
+    color: white;
+    font-size: 13px;
+    line-height: 22px;
+}
+
+.grade-mark span{
+    width: 100px;
+    height: 30px;
+}
+
+
+p{
+    padding-right: 15px;
+}
+
+.grade-detail p{
+    display: inline-table;
+}
+
+.grade-detail{
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+    height: 60px;
+}
+
+.grade-detail label,p{
+    margin-bottom: 0px;
+}
+
+
+.grade-header{
+    height:60px;
+}
+
+.grade-header p{
+    margin-bottom: 0px;
+}
+
+#student-name{
+    font-weight: bolder;
+}
+
+.grade-header small{
+    font-size: 11px;
+    color: gray;
+}

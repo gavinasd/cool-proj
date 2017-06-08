@@ -1,0 +1,17 @@
+.assignment-header{
+    border-color: dimgray;
+    border-width: thin;
+}
+
+#question-detail{
+    background-color: white;
+}
+
+#question-pager{
+    background-color: white;
+    text-align: center;
+}
+
+li a:hover{
+    cursor: pointer;
+}

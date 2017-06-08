@@ -1,0 +1,57 @@
+
+<div class="login-screen">
+
+  <div class="login-icon">
+    <img src="../../../../public/resources/img/Mail.png" alt="Welcome to Mail App">
+    <h4>欢迎加入<small>云课堂</small></h4>
+  </div>
+
+  <div class="login-form">
+    <form role="form" #f="ngForm"
+          (ngSubmit) = "onSubmit(f.value)">
+      <div class="form-group">
+        <input class="form-control login-field"
+               type="text"
+               id="inputName"
+               name="name"
+               placeholder="姓名" required ngModel>
+        <label class="login-field-icon fui-user" for="inputName"></label>
+      </div>
+
+      <div class="form-group">
+        <input class="form-control login-field"
+               type="email"
+               id="inputEmail"
+               name="email"
+               placeholder="电子邮箱" required ngModel>
+        <label class="login-field-icon fui-mail" for="inputEmail"></label>
+      </div>
+
+      <div class="form-group">
+        <input type="password"
+               class="form-control login-field"
+               id="InputPassword"
+               name="password"
+               placeholder="密码" required ngModel>
+        <label class="login-field-icon fui-lock" for="InputPassword"></label>
+      </div>
+
+      <div class="form-group">
+        <label class="radio-inline">
+          <input type="radio" name="type" id="inlineRadio1"
+                 value="teacher" data-toggle="radio">
+          教师
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="type" id="inlineRadio2"
+                 value="student" data-toggle="radio">
+          学生
+        </label>
+      </div>
+
+      <button class="btn btn-primary btn-lg btn-block" type="submit">注册</button>
+      <a class="login-link" routerLink="/login">已经有账号？立刻登录</a>
+
+    </form>
+  </div>
+</div>

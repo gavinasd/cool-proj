@@ -1,0 +1,11 @@
+<div class="assignment-list">
+    <div class="assignment-list-header">
+        <p>作业列表</p>
+    </div>
+
+    <app-grade-info-detail
+            *ngFor="let assignmentInfo of assignmentInfoList"
+            [assignmentInfo]="assignmentInfo"
+            [classId]="classId"
+    ></app-grade-info-detail>
+</div>

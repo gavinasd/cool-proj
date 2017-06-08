@@ -1,0 +1,24 @@
+<div class="container" >
+  <div class="row">
+    <div class="col-md-5" id="question">
+      <p><strong>{{question.question}}</strong></p>
+      <div class="radio" *ngFor="let option of question.options; let i = index">
+        <label>
+          <input type="radio"
+                 [(ngModel)]="answer"
+                 (change)="changeAnswer()"
+                 name="choices"
+                 id="option{{i}}"
+                 [value]="convert09ToAz(i)"
+          >
+          <p>{{option}}</p>
+        </label>
+      </div>
+    </div>
+
+    <div class="col-md-7" id="passage">
+      <p>{{question.passage}}</p>
+    </div>
+  </div>
+</div>
+

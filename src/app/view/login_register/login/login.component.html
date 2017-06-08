@@ -1,0 +1,33 @@
+<div class="login-screen">
+    <div class="login-icon">
+        <img src="../../../../public/resources/img/Mail.png" alt="Welcome to Mail App">
+        <h4>欢迎加入<small>云课堂</small></h4>
+    </div>
+
+    <div class="login-form">
+        <form role="form" #f="ngForm"
+              (ngSubmit) = "onSubmit(f.value)">
+        <div class="form-group">
+            <input class="form-control login-field"
+                   type="email"
+                   id="exampleInputEmail1"
+                   name="email"
+                   placeholder="电子邮箱" required ngModel>
+            <label class="login-field-icon fui-user" for="exampleInputEmail1"></label>
+        </div>
+
+        <div class="form-group">
+            <input type="password"
+                   class="form-control login-field"
+                   id="InputPassword"
+                   name="password"
+                   placeholder="密码" required ngModel>
+            <label class="login-field-icon fui-lock" for="InputPassword"></label>
+        </div>
+
+        <button class="btn btn-primary btn-lg btn-block" type="submit">登录</button>
+        <a class="login-link" routerLink="/register">还没有账号？立刻注册</a>
+
+        </form>
+    </div>
+</div>

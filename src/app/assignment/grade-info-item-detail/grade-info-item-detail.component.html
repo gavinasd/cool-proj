@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-sm-2 grade-mark">
+        <div class="grade-tag"
+             [ngClass]="{ 'palette-turquoise':gradePercentage >= 0.8,
+                        'palette-sun-flower':gradePercentage < 0.8 && gradePercentage >= 0.5,
+                        'palette-alizarin':gradePercentage < 0.5}">
+            <p *ngIf="gradePercentage >= 0.8">学霸你好</p>
+            <p *ngIf="gradePercentage < 0.8 && gradePercentage >= 0.5">不错哦</p>
+            <p *ngIf="gradePercentage < 0.5">继续加油</p>
+        </div>
+    </div>
+    <div class="col-sm-4 grade-header">
+        <p id="student-name">{{gradeInfo.studentName}}</p>
+        <p><small>未完成{{gradeInfo.undoneNum}}题</small></p>
+    </div>
+    <div class="col-sm-6">
+        <div class="grade-detail">
+            <label>得分：</label>
+            <p>{{gradeInfo.score}}/{{gradeInfo.totalScore}}</p>
+
+            <a *ngIf="gradeInfo.undoneNum>0 && userType != '1'" [routerLink]="['/question/class',classId,'assignment',assignmentId]">
+                <button class="btn btn-inverse">做题</button>
+            </a>
+
+            <a *ngIf="gradeInfo.undoneNum == 0 || userType == '1'" [routerLink]="['/assignment/grade/detail',assignmentId]">
+                <button class="btn btn-inverse">查看</button>
+            </a>
+        </div>
+    </div>
+</div>

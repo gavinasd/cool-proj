@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>新建题目</h1>
+            <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" >
+                <div class="form-group">
+                    <label>题目类型</label>
+                    <select
+                            class="form-control"
+                            id="questionType"
+                            name="questionType"
+                            ngModel
+                            required
+                    ><option *ngFor="let type of types" value="{{type.value}}">{{type.name}}</option> </select>
+                </div>
+
+                <div class="form-group">
+                    <label>文章段落</label>
+                    <textarea class="form-control"
+                              rows="10"
+                              id="passage"
+                              name="passage"
+                              ngModel
+                              required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>题目</label>
+                    <input class="form-control"
+                           id="question"
+                           name="question"
+                           type="text"
+                           ngModel
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>选项</label>
+                    <input class="form-control"
+                           id="option1"
+                           name="option1"
+                           type="text"
+                           placeholder="选项A"
+                           ngModel
+                           required>
+                    <input class="form-control"
+                           id="option2"
+                           name="option2"
+                           type="text"
+                           placeholder="选项B"
+                           ngModel
+                           required>
+                    <input class="form-control"
+                           id="option3"
+                           name="option3"
+                           type="text"
+                           placeholder="选项C"
+                           ngModel
+                           required>
+                    <input class="form-control"
+                           id="option4"
+                           name="option4"
+                           type="text"
+                           placeholder="选项D"
+                           ngModel
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>答案</label>
+                    <input class="form-control"
+                           id="answer"
+                           name="answer"
+                           type="text"
+                           ngModel
+                           required>
+                </div>
+
+                <button type="submit" class="btn-primary">提交</button>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,20 @@
+<div class="grade-info-list" role="tablist">
+    <div class="assignment-list-item">
+        <p class="assignment-name">{{assignmentInfo.assignmentName}}</p>
+        <a data-toggle="collapse" href="#collapseExample{{assignmentInfo.assignmentId}}" aria-expanded="false" aria-controls="collapseExample">
+            <p class="more-info"><small>详情<span class="caret"></span></small></p>
+        </a>
+    </div>
+
+    <div id="collapseExample{{assignmentInfo.assignmentId}}" class="panel-collapse collapse">
+
+        <app-grade-info-item-detail
+                *ngFor="let gradeInfo of assignmentInfo.gradeInfoList"
+                [gradeInfo]="gradeInfo"
+                [classId]="classId"
+                [assignmentId]="assignmentInfo.assignmentId">
+        </app-grade-info-item-detail>
+    </div>
+
+</div>
+

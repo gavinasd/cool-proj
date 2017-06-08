@@ -1,0 +1,15 @@
+<div class="col-md-3">
+    <div class="thumbnail">
+        <img src="../../../../public/resources/img/1.jpg" alt="...">
+        <div class="caption" >
+            <h5>{{classInfo.className}}</h5>
+
+            <p>{{classInfo.classId}}</p>
+            <p>
+                <button class="btn btn-primary" [routerLink]="['/class',classInfo.classId]">
+                    进入班级
+                </button>
+            </p>
+        </div>
+    </div>
+</div>

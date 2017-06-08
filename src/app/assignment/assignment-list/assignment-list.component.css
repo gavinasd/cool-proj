@@ -1,0 +1,20 @@
+.assignment-list{
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    background-color: white;
+    border: thin solid lightgray;
+}
+
+.assignment-list-header{
+    border-bottom: 0.5px solid lightgray;
+    height: 70px;
+    font-size: 19px;
+}
+
+.assignment-list-header p{
+    line-height: 70px;
+    font-size: 21px;
+    font-weight: 600;
+}

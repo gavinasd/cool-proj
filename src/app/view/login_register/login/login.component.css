@@ -1,0 +1,19 @@
+.login-background{
+    background-color: #1abc9c;
+    height: 100%;
+}
+
+.login-screen{
+    height:100%;
+    padding-right: 299px;
+    padding-left: 406px;
+}
+
+.login-icon{
+    left: 300px;
+}
+
+
+.login-icon > h4 {
+    color: white;
+}
