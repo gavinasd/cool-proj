@@ -11,8 +11,8 @@ import {AssignmentService} from "../../services/assignment.service";
 })
 export class AssignmentNavComponent implements OnInit {
     @Input() classId:string;
-    assignmentList:any[];
-    private userType:number;
+    public assignmentList:any[];
+    public userType:number;
 
     constructor(private router:Router, private httpService:HttpService,
                 private assignmentService:AssignmentService, private toastService:ToastService) { }

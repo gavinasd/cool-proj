@@ -12,7 +12,7 @@ import {AssignmentInfo} from "../../models/models";
 })
 export class AssignmentListComponent implements OnInit {
     @Input() private classId:string;
-    private assignmentInfoList:AssignmentInfo[];
+    public assignmentInfoList:AssignmentInfo[];
 
     constructor(private route:ActivatedRoute,
                 private toastService:ToastService,

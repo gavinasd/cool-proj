@@ -8,8 +8,8 @@ import {AssignmentService} from "../../services/assignment.service";
     styleUrls: ['./assignment-grade-detail.component.css']
 })
 export class AssignmentGradeDetailComponent implements OnInit {
-    private assignmentId:string;
-    private gradeDetailList:any[];
+    public assignmentId:string;
+    public gradeDetailList:any[];
 
     constructor(private route:ActivatedRoute,
                 private assignmentService:AssignmentService) {

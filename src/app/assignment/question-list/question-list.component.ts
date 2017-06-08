@@ -11,12 +11,12 @@ import {ToastService} from "../../services/toast.service";
   styleUrls: ['question-list.component.css']
 })
 export class QuestionListComponent implements OnInit {
-	private assignmentId:string;
-	private assignmentName:string;
-	private classId:string;
-	private index:number;
-	private questionListLength:number;
-	private answer:string;
+	public assignmentId:string;
+  public assignmentName:string;
+  public classId:string;
+  public index:number;
+  public questionListLength:number;
+  public answer:string;
 
   	constructor(private route:ActivatedRoute,
 				private toastService:ToastService,

@@ -10,38 +10,38 @@ import {ToastService} from "../../../services/toast.service";
     styleUrls: ['navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-    private userName:string;
-    private userType:number;
+    public userName: string;
+    public userType: number;
 
-    constructor(private router:Router, private httpService:HttpService,
-                private classService:ClassService, private toastService:ToastService) { }
+    constructor(private router: Router, private httpService: HttpService,
+                private classService: ClassService, private toastService: ToastService) { }
 
     ngOnInit() {
         this.userName = String(this.httpService.getCurrentUserName());
-        this.userType = Number(this.httpService.getUserType());//把string转成number
+        this.userType = Number(this.httpService.getUserType()); // 把string转成number
     }
 
-    submitCreateClass(form:any){
+    submitCreateClass(form: any) {
         console.log(form.verifier);
         console.log(form.className);
-        this.classService.createClass(form.className,form.verifier)
+        this.classService.createClass(form.className, form.verifier)
             .subscribe(
-                (json)=>{
+                (json) => {
                     document.getElementById('closeModal').click();
-                    this.toastService.success("成功创建班级");
-                },(err)=>{
+                    this.toastService.success('成功创建班级');
+                }, (err) => {
                     document.getElementById('closeModal').click();
                     this.toastService.error(err);
                 }
             )
     }
 
-    searchClass(form:any){
+    searchClass(form: any){
         console.log(form.classForSearch);
-        this.router.navigate(['/class/search',form.classForSearch]);
+        this.router.navigate(['/class/search', form.classForSearch]);
     }
 
-    logout(){
+    logout() {
         this.httpService.logout();
         this.router.navigate(['/login']);
     }

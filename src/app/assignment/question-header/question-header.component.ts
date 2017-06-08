@@ -6,7 +6,7 @@ import {Component, Input, OnInit} from '@angular/core';
     styleUrls: ['./question-header.component.css']
 })
 export class QuestionHeaderComponent implements OnInit {
-    @Input() assignmentName:string;
+    @Input() public assignmentName: string;
 
     constructor() { }
 
