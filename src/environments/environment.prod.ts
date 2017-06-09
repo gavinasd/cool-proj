@@ -1,3 +1,21 @@
 export const environment = {
-  production: true
+  production: true,
+  loginUrl:'http://localhost:3000/api/login',
+  registerUrl:'http://localhost:3000/api/register',
+  createClassUrl:'http://localhost:3000/api/classes',
+  addResourceUrl:'http://localhost:3000/api/resource/addResource',
+  getClassDetailUrl:'http://localhost:3000/api/classes/detail',
+  getQuestionListByAssignmentUrl:'http://localhost:3000/api/question',
+  addResponseUrlToQuestionUrl:'http://localhost:3000/api/question/addResponse',
+  addQuestionUrl:'http://localhost:3000/api/classes/addQuestion',
+  getAssignmentListUrl:'http://localhost:3000/api/classes/getAssignmentList',
+  getClassListUrl:'http://localhost:3000/api/classes',
+  getAllAssignmentListUrl:'http://localhost:3000/api/assignment',
+  searchClassUrl:'http://localhost:3000/api/classes/search',
+  addStudentUrl:'http://localhost:3000/api/classes/addStudent',
+  addTeacherUrl:'http://localhost:3000/api/classes/addTeacher',
+  getAssignmentByIdUrl:'http://localhost:3000/api/assignment/assignmentId',
+  getAssignmentDetailUrl:'http://localhost:3000/api/assignment/detail',
+  addAssignmentToClassUrl:'http://localhost:3000/api/classes/addAssignment',
+  getClassAllUserUrl:'http://localhost:3000/api/classes/user'
 };
