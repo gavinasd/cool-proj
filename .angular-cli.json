@@ -21,13 +21,13 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/ng2-toasty/style-bootstrap.css",
-        "../bower_components/flat-ui/dist/css/flat-ui.css",
-        "../node_modules/font-awesome/css/font-awesome.css",
+        "../bower_components/flat-ui/dist/css/flat-ui.min.css",
+        "../node_modules/font-awesome/css/font-awesome.min.css",
         "styles.css"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.js",
-        "../bower_components/flat-ui/dist/js/flat-ui.js"
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../bower_components/flat-ui/dist/js/flat-ui.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
