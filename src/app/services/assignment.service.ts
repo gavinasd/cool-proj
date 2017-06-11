@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable, BehaviorSubject, Subject} from "rxjs";
 import {environment} from "../../environments/environment";
 import {HttpService} from "./http.service";
-import {ResponseToQuestion, Question, GradeInfo, AssignmentInfo} from "../models/models";
-import {isNestedModuleDeclaration} from "tslint/lib/language/utils";
+import {ResponseToQuestion, Question, AssignmentInfo} from "../models/models";
 
 @Injectable()
 export class AssignmentService {

@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs/Observable';
 import {environment} from "../../environments/environment";
 import {ClassInfo} from "../models/models";
-import 'rxjs';
 import {Response} from "@angular/http";
 
 @Injectable()
 export class ClassService {
 
-    constructor(private httpService : HttpService) {
+    constructor(private httpService: HttpService) {
     }
 
     public createClass(className:string,verifier:string):Observable<any[]>{
