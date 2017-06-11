@@ -81,7 +81,7 @@ const routes:Routes = [
       UserService,
       ClassService,
       AssignmentService,
-	  ToastService
+	    ToastService
   ],
   exports:[
       NavbarComponent,
