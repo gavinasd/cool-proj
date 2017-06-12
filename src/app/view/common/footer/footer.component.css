@@ -1,4 +1,7 @@
 footer{
     background-color: #34495e;
     margin-top: 200px;
+    position: fixed;
+    bottom:0;
+    width:100%;
 }
