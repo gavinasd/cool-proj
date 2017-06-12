@@ -7,7 +7,7 @@
   </div>
 
   <div class="login-form">
-    <form role="form" #f="ngForm"
+    <form ngNativeValidate role="form" #f="ngForm"
           (ngSubmit) = "onSubmit(f.value)">
       <div class="form-group">
         <input class="form-control login-field"

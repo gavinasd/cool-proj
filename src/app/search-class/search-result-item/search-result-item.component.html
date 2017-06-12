@@ -18,7 +18,7 @@
                 <h4 class="modal-title" id="myModalLabel">请输入邀请码</h4>
             </div>
             <div class="modal-body" >
-                <form role="form" #f="ngForm"
+                <form ngNativeValidate role="form" #f="ngForm"
                       (ngSubmit) = "followClass(f.value)">
                     <div class="form-group">
                         <label class="control-label">邀请码:</label>

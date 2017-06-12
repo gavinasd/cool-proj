@@ -13,10 +13,10 @@
     </div>
 
     <ul class="nav navbar-nav">
-      <form
-              #form="ngForm"
-              (ngSubmit)="searchClass(form.value)"
-              class="navbar-form navbar-left">
+      <form #form="ngForm"
+            ngNativeValidate
+            (ngSubmit)="searchClass(form.value)"
+            class="navbar-form navbar-left">
 
         <div class="form-group">
           <div class="input-group">
@@ -64,7 +64,7 @@
         <h4 class="modal-title">添加作业</h4>
       </div>
       <div class="modal-body">
-        <form id="createClassForm" role="form" #f="ngForm"
+        <form ngNativeValidate id="createClassForm" role="form" #f="ngForm"
               (ngSubmit) = "addAssignment(f.value)">
           <div class="form-group">
             <label class="control-label">选择作业</label>

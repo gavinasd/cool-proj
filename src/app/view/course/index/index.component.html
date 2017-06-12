@@ -6,7 +6,7 @@
       <app-course-list></app-course-list>
     </div>
     <div id="2" class="tab-pane">
-      <form role="form" #f="ngForm"
+      <form ngNativeValidate role="form" #f="ngForm"
             (ngSubmit) = "onSubmit(f.value)">
         <div class="form-group">
           <input type="text"

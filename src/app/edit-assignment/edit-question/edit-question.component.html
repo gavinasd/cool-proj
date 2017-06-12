@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6">
             <h1>新建题目</h1>
-            <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" >
+            <form ngNativeValidate #form="ngForm" (ngSubmit)="onSubmit(form.value)" >
                 <div class="form-group">
                     <label>题目类型</label>
                     <select

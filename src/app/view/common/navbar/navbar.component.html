@@ -13,7 +13,7 @@
         </div>
 
         <ul class="nav navbar-nav">
-          <form
+          <form   ngNativeValidate
                   #form="ngForm"
                   (ngSubmit)="searchClass(form.value)"
                   class="navbar-form navbar-left">
@@ -64,7 +64,7 @@
                 <h4 class="modal-title">创建班级</h4>
             </div>
             <div class="modal-body">
-                <form id="createClassForm" role="form" #f="ngForm"
+                <form ngNativeValidate id="createClassForm" role="form" #f="ngForm"
                       (ngSubmit) = "submitCreateClass(f.value)">
                     <div class="form-group">
                         <label class="control-label">班级名称:</label>
