@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+    <div class="panel-heading">题目列表</div>
+    <div class="panel-body">
+        <fieldset class="question-list">
+            <div id="question"
+                 *ngFor="let question of questionList">
+                <p>{{question.question}}</p>
+                <ul>
+                    <li *ngFor="let option of question.options;let i = index">
+                        {{i | convert09ToAZ}}. {{option}}
+                    </li>
+                </ul>
+                <p>答案：{{question.answer}}</p>
+            </div>
+        </fieldset>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+#question{
+    border-top: thin lightgray solid;
+}
+
+#question li{
+    list-style: none;
+}

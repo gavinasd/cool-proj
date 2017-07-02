@@ -1,0 +1,36 @@
+<app-question-pager [content]="getPagerContent()"
+                    (next)="next()" (pre)="pre()"
+></app-question-pager>
+
+<div class="container" *ngIf="getCurrentIndex() < getContentPage()">
+    <div class="tpo-passage">
+        <h5>阅读以下文章，然后做题</h5>
+        <p>{{passage}}</p>
+    </div>
+</div>
+
+<div class="container" *ngIf="getCurrentIndex() >= getContentPage()">
+    <div class="row">
+        <div class="col-md-5" id="question">
+            <p><strong>{{question.question}}</strong></p>
+            <div class="radio" *ngFor="let option of question.options; let i = index">
+                <label>
+                    <input type="radio"
+                           [(ngModel)]="answer"
+                           (change)="changeAnswer()"
+                           name="choices"
+                           id="option{{i}}"
+                           [value]="i|convert09ToAZ"
+                           checked=""
+                    >
+                    {{i|convert09ToAZ}}. {{option}}
+                </label>
+            </div>
+        </div>
+
+        <div class="col-md-7" id="passage">
+            <p>{{question.passage}}</p>
+        </div>
+
+    </div>
+</div>

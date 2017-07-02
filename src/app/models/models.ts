@@ -13,37 +13,6 @@ export class User{
 	phone:String;
 }
 
-export class Question{
-	_id:string;
-	creator: string;
-	questionType:string;
-
-	public static TPO_READING_TYPE = 'tpo_reading';
-
-	constructor(id?:string, creator?:string, questionType?:string){
-		this._id = id;
-		this.creator = creator;
-		this.questionType = questionType;
-	}
-}
-
-export class TPOReadingQuestion extends Question{
-	passage:string;
-	question:string;
-	options:string[] = [];
-	answer:string;
-	content:string;
-
-	constructor(obj?:any,content?:string){
-		super(obj && obj.id, obj && obj.creator, obj && obj.questionType);
-		this.passage = obj && obj.passage;
-		this.question = obj && obj.question;
-		this.options = obj && obj.options;
-		this.answer = obj && obj.answer;
-		this.content = content || '';
-	}
-}
-
 export class ResponseToQuestion{
 	//创建者
 	creator:string;

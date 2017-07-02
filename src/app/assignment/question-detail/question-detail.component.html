@@ -1,8 +1,0 @@
-<div [ngSwitch]="question.questionType">
-    <app-tpo-reading-question-detail
-            *ngSwitchCase="'tpo_reading'"
-            [question]="question"
-            (onAnswerChanged)="changeAnswer($event)">
-    </app-tpo-reading-question-detail>
-    <div *ngSwitchDefault>{{question.creator}}</div>
-</div>

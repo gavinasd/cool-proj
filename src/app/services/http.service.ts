@@ -40,6 +40,13 @@ export class HttpService {
 		return this.http.post(url,body,{headers:header});
 	}
 
+	public makePutWithToken(url:string, body:any):Observable<Response>{
+		var header = new Headers();
+		header.append('Content-Type', 'application/json');
+		header.append('Authorization', 'Bearer ' + this.getToken());
+		return this.http.put(url,body,{headers:header});
+	}
+
 	public getToken():string{
 		return localStorage.getItem("auth_token");
 	}

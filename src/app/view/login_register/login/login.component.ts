@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
 
 
     onSubmit(form:any):boolean{
-      console.log(form.email+form.password);
       this.userService.login(form.email,form.password)
           .subscribe(
               (resp)=>{

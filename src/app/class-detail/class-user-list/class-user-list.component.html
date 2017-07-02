@@ -1,0 +1,25 @@
+<div class="user-list">
+    <div class="user-header">
+        <p>班级成员</p>
+    </div>
+    <ul>
+        <li class="user-item" *ngFor="let teacher of teacherList">
+            <div class="user-icon fui-user"></div>
+            <div class="user-content">
+                <h4 class="user-name">
+                    {{teacher.nickName}}
+                </h4>
+                老师
+            </div>
+        </li>
+        <li class="user-item"  *ngFor="let student of studentList">
+            <div class="user-icon fui-user"></div>
+            <div class="user-content">
+                <h4 class="user-name">
+                    {{student.nickName}}
+                </h4>
+                学生
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,45 @@
+<div class="panel panel-default">
+    <div class="panel-heading">题目</div>
+    <div class="panel-body">
+        <fieldset class="word-list">
+            <legend>词汇列表</legend>
+            <div class="vocabulary-list">
+                <!--第一列单词-->
+                <div class="col-sm-6">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>英文</th>
+                            <th>中文</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let word of wordList;let i = index">
+                            <th>{{i + 1}}</th>
+                            <td>{{word.english}}</td>
+                            <td>{{word.chinese}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="question-list">
+            <legend>题目列表</legend>
+            <div id="question"
+                 *ngFor="let question of questionList">
+                <p>翻译：{{question.question}}</p>
+                <ul>
+                    <li *ngFor="let option of question.options;let i = index">
+                        {{i | convert09ToAZ}}. {{option}}
+                    </li>
+                </ul>
+                <p>答案：{{question.answer}}</p>
+            </div>
+        </fieldset>
+    </div>
+</div>
+

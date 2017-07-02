@@ -1,0 +1,12 @@
+.radio{
+    padding-left: 0px;
+    padding-top: 10px;
+    font-size: 17px;
+    vertical-align: top;
+}
+
+.radio input{
+    position: relative;
+    margin-left: 2px;
+    margin-right: 0px;
+}

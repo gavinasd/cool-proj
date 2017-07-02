@@ -1,0 +1,8 @@
+li{
+    list-style: none;
+}
+
+#question{
+    padding-top: 10px;
+    border-top: thin lightgray solid;
+}

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {AssignmentService} from "../../services/assignment.service";
 import {HttpService} from "../../services/http.service";
 import {ActivatedRoute, Params} from "@angular/router";
-import {Question, TPOReadingQuestion} from "../../models/models";
 import {ToastService} from "../../services/toast.service";
+import {Question} from "../../models/Questions/Question";
+import {TPOReadingQuestion} from "../../models/Questions/TPOReadingQuestion";
+import {Assignment} from "../../models/assignments/Assignment";
 
 @Component({
   selector: 'app-edit-question',
@@ -11,22 +13,28 @@ import {ToastService} from "../../services/toast.service";
   styleUrls: ['edit-question.component.css']
 })
 export class EditQuestionComponent implements OnInit {
-	private assignmentId:string;
-	private question:any = new Question();
-	types:any[] = [
-		{name:'TPO阅读', value:'tpo_reading'},
-		{name:'选择题',value:'choose_question'}];
+	public assignmentId:string;
+	public questionGroupId:string;
+	public questionType:string;
+	private question:any = new Question({});
 
 	constructor(private route:ActivatedRoute,
 				private toastService:ToastService,
 				private httpService:HttpService,
-				private assignmentService:AssignmentService) {
+				public assignmentService:AssignmentService) {
 		this.route.params.forEach((param:Params)=>{
 			this.assignmentId = param['assignmentId'];
+			this.questionGroupId = param['questionGroupId'];
+			this.questionType = param['type'];
 		});
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+	}
+
+	onChangeQuestionType(){
+
+	}
 
 	onSubmit(form:any):boolean{
 		let question = new TPOReadingQuestion({
@@ -39,7 +47,7 @@ export class EditQuestionComponent implements OnInit {
 		});
 
 		console.log(question);
-		this.assignmentService.addQuestion(this.assignmentId,question)
+		this.assignmentService.addQuestionToGroup(this.assignmentId, this.questionGroupId, question)
 			.subscribe(
 				(resp)=> {
 					console.log(resp);

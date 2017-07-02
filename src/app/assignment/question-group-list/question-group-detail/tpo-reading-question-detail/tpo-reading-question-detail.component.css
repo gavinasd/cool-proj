@@ -1,0 +1,16 @@
+
+#question,#passage{
+    padding: 15px 30px 15px 15px;
+}
+
+.radio{
+    padding-left: 0px;
+    padding-top: 10px;
+    vertical-align: top;
+}
+
+.radio input{
+    position: relative;
+    margin-left: 2px;
+    margin-right: 0px;
+}

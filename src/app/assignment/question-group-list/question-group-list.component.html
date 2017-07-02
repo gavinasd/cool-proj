@@ -1,0 +1,22 @@
+<app-question-header [assignmentName]="assignmentName"></app-question-header>
+
+<div class="container" id="question-group-list" [ngSwitch]="group.type">
+    <app-tpo-reading-question-detail
+            *ngSwitchCase="assignmentService.getTPOReadingQuestionType()"
+            [group]="group"
+            [lastAnswerList]="questionLastAnswer"
+            (onNextGroup)="next()"
+            (onPreGroup)="pre()"
+            (onSubmitAnswer)="submitAnswer($event)"
+    ></app-tpo-reading-question-detail>
+    <app-vocabulary-question-detail
+            *ngSwitchCase="assignmentService.getVocabularyQuestionType()"
+            [group]="group"
+            [lastAnswerList]="questionLastAnswer"
+            (onNextGroup)="next()"
+            (onPreGroup)="pre()"
+            (onChangeAnswer)="updateLastAnswer($event)"
+            (onSubmitAnswer)="submitAnswer($event)"
+    ></app-vocabulary-question-detail>
+    <div *ngSwitchDefault>{{group}}</div>
+</div>
