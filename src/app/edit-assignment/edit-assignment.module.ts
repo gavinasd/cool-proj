@@ -11,13 +11,15 @@ import {EditVocabularyQuestionComponent} from './edit-question/edit-vocabulary-q
 import { VocabularyItemComponent } from './edit-question-list/vocabulary-item/vocabulary-item.component';
 import { TpoReadingItemComponent } from './edit-question-list/tpo-reading-item/tpo-reading-item.component';
 import {SharedModule} from "../shared/shared.module";
+import { FroalaEditorModule, FroalaViewModule} from 'angular2-froala-wysiwyg';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule,
         FormsModule,
-	    SharedModule
+	    SharedModule,
+	    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
     ],
     declarations: [
         EditAssignmentComponent,

@@ -22,7 +22,12 @@
                 <button class="btn btn-inverse">做题</button>
             </a>
 
-            <a *ngIf="gradeInfo.undoneNum == 0 || userType == '1'" [routerLink]="['/assignment/grade/detail',assignmentId]">
+            <a *ngIf="gradeInfo.undoneNum == 0 && userType == '0'" [routerLink]="['/assignment/grade/detail',assignmentId]">
+                <button class="btn btn-inverse">查看</button>
+            </a>
+
+            <a *ngIf="gradeInfo.undoneNum == 0 && userType == '1'"
+               [routerLink]="['/assignment/grade/detail'+'/'+gradeInfo.studentId+'/'+assignmentId]">
                 <button class="btn btn-inverse">查看</button>
             </a>
         </div>

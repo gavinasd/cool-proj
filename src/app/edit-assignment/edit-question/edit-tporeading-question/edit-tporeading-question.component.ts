@@ -16,7 +16,11 @@ export class EditTporeadingQuestionComponent implements OnInit {
 	@Input() assignmentId;
 	@Input() groupId;
 	protected questionGroup:QuestionGroup;
-	content:string;
+	editorPassage:string;               //用来接收Editor里面的内容
+
+	public EditorOptions: Object= {
+		wordPasteModal:false
+	};
 
 	constructor(private assignmentService:AssignmentService,
 				private httpService:HttpService,
@@ -26,15 +30,13 @@ export class EditTporeadingQuestionComponent implements OnInit {
 
 	ngOnInit() {
 		this.assignmentService.getQuestionGroupById(this.assignmentId, this.groupId)
-			.subscribe((group:QuestionGroup)=>{
+			.subscribe((group: QuestionGroup) => {
 				this.questionGroup = group;
-				this.content = this.questionGroup.content;
 			});
 	}
 
 	addContent(form:NgForm){
-		this.content = form.value.passageContent;
-		this.assignmentService.updateQuestionGroupContent(this.assignmentId, this.groupId, this.content)
+		this.assignmentService.updateQuestionGroupContent(this.assignmentId, this.groupId, '')
 			.subscribe((assignment)=>{
 				console.log(assignment);
 				//清空input
@@ -46,7 +48,7 @@ export class EditTporeadingQuestionComponent implements OnInit {
 		let question = new TPOReadingQuestion({
 			creator:this.httpService.getCurrentId(),
 			questionType : Question.TPO_READING_TYPE,
-			passage:form.value.passage,
+			passage: this.editorPassage,
 			question : form.value.question,
 			options : [form.value.option1,form.value.option2,
 				form.value.option3,form.value.option4],
@@ -59,6 +61,7 @@ export class EditTporeadingQuestionComponent implements OnInit {
 				(resp)=> {
 					console.log(resp);
 					this.toastService.success("成功提交");
+					this.editorPassage = '';
 					form.reset();
 				},
 				(error:string)=>this.toastService.error(error)

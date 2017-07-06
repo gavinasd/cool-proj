@@ -179,9 +179,12 @@ export class AssignmentService {
 		    })
     }
 
-    public getAssignmentGradeDetail(assignmentId:string):Observable<any[]>{
+    public getAssignmentGradeDetail(assignmentId:string, userId?:string):Observable<any[]>{
         let url = environment.getAssignmentDetailUrl;
-        url = url + '/' + this.httpService.getCurrentId() + '/' + assignmentId;
+        if(!userId){
+        	userId = this.httpService.getCurrentId();
+        }
+        url = url + '/' + userId + '/' + assignmentId;
         return this.httpService.makeGetWithToken(url)
             .map(resp=>resp.json().results)
             .catch(HttpService.handleError);

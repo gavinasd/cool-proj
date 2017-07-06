@@ -66,6 +66,10 @@ import {QuestionGroup} from "../../../models/Questions/QuestionGroup";
 		return false;
 	}
 
+	public play(word:string){
+		let audio = new Audio('http://dict.youdao.com/dictvoice?type=2&audio='+word);
+		audio.play();
+	}
 }
 
 class Vocabulary{

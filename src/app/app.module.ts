@@ -46,7 +46,7 @@ const routes:Routes = [
 	{path:'question/edit/:assignmentId/:questionGroupId/:type',component:EditQuestionComponent},
     {path:'assignmentList/:classId',component:AssignmentListComponent},
     {path:'class/search/:className',component:SearchClassComponent},
-    {path:'assignment/grade/detail/:assignmentId',component:AssignmentGradeDetailComponent}
+    {path:'assignment/grade/detail/:userId/:assignmentId',component:AssignmentGradeDetailComponent}
 ];
 
 @NgModule({

@@ -1,30 +1,19 @@
 <div class="container">
     <div class="row" id="wordlist">
-        <div class="col-sm-8">
+        <div class="col-sm-12">
             <fieldset>
                 <legend>单词表</legend>
-                <div class="vocabulary-list">
-                <!--第一列单词-->
-                <div class="col-sm-6">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>英文</th>
-                                <th>中文</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr *ngFor="let word of wordList;let i = index">
-                                <th>{{i + 1}}</th>
-                                <td>{{word.english}}</td>
-                                <td>{{word.chinese}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="row" *ngFor="let word of wordList;let i=index">
+                    <div class="col-sm-3">
+                        <p>{{i+1}}.
+                            <strong>{{word.english}}</strong>
+                            <span><app-simple-audio-player [src]="'http://dict.youdao.com/dictvoice?type=2&audio='+word.english"></app-simple-audio-player></span>
+                        </p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p>{{word.chinese}}</p>
+                    </div>
                 </div>
-            </div>
             </fieldset>
             <fieldset>
             <legend>添加词汇</legend>

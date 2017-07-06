@@ -6,6 +6,7 @@ import {MainNavComponent} from "./view/main-nav/main-nav.component";
 import {NavbarComponent} from "./view/navbar/navbar.component";
 import {FormsModule} from "@angular/forms";
 import { Convert09ToAZPipe } from './pipes/convert09-to-az.pipe';
+import { SimpleAudioPlayerComponent } from './view/audio/simple-audio-player/simple-audio-player.component';
 
 @NgModule({
     imports: [
@@ -18,14 +19,16 @@ import { Convert09ToAZPipe } from './pipes/convert09-to-az.pipe';
 	    FooterComponent,
 	    MainNavComponent,
 	    NavbarComponent,
-	    Convert09ToAZPipe
+	    Convert09ToAZPipe,
+	    SimpleAudioPlayerComponent
     ],
 	exports:[
 		OddEvenPipe,
 		Convert09ToAZPipe,
 		FooterComponent,
 		MainNavComponent,
-		NavbarComponent
+		NavbarComponent,
+		SimpleAudioPlayerComponent
 	]
 })
 export class SharedModule { }

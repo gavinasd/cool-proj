@@ -1,5 +1,6 @@
 export const environment = {
     production: true,
+	getWordPronunciationUrl:'http://dict.youdao.com/dictvoice?audio',
 	loginUrl: 'http://123.207.109.53:3000/api/login',
 	registerUrl: 'http://123.207.109.53:3000/api/register',
 	createClassUrl: 'http://123.207.109.53:3000/api/classes',

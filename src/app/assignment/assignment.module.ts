@@ -12,13 +12,16 @@ import {QuestionHeaderComponent} from "./question-group-list/question-header/que
 import {QuestionGroupListComponent} from "./question-group-list/question-group-list.component";
 import {AssignmentGradeDetailComponent} from "./assignment-grade-detail/assignment-grade-detail.component";
 import { QuestionPagerComponent } from './question-group-list/question-group-detail/question-pager/question-pager.component';
+import {FroalaEditorModule, FroalaViewModule} from "angular2-froala-wysiwyg";
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
 		RouterModule,
-		SharedModule
+		SharedModule,
+		FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
+
 	],
 	declarations: [
 		TpoReadingQuestionDetailComponent,
