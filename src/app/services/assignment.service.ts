@@ -7,6 +7,7 @@ import {Question} from "../models/Questions/Question";
 import {Assignment} from "../models/assignments/Assignment";
 import {QuestionGroup} from "../models/Questions/QuestionGroup";
 import {LastAnswer} from "../models/Questions/LastAnswer";
+import {MarkingScore, MarkingScoreToQuestion} from "../models/Questions/MarkingScore";
 
 @Injectable()
 export class AssignmentService {
@@ -93,6 +94,21 @@ export class AssignmentService {
             .catch(HttpService.handleError);
     }
 
+    public addMarkingScore(score:MarkingScoreToQuestion):Observable<MarkingScore>{
+	    let url = environment.addMarkingScoreUrl;
+	    var body = JSON.stringify({
+		    'userId': score.creator,
+		    'classId': score.class,
+		    'assignmentId': score.assignment,
+		    'questionId': score.question,
+		    'score': score.score
+	    });
+	    console.log(score);
+	    return this.httpService.makePostWithToken(url, body)
+		    .map(resp => resp.json())
+		    .catch(HttpService.handleError);
+    }
+
     public addQuestionToGroup(assignmentId: string, groupId: string, question: Question): Observable<Question> {
         let url = environment.addQuestionToGroupUrl;
         var body = JSON.stringify({
@@ -154,9 +170,14 @@ export class AssignmentService {
 		    .catch(HttpService.handleError);
     }
 
-    public getQuestionLastAnswer(assignmetnId: string):Observable<any[]>{
+    public getQuestionLastAnswer(assignmentId: string, studentId?:string):Observable<any[]>{
 	    let url = environment.getQuestionLastAnswerUrl;
-	    url = url + '/' + this.httpService.getCurrentId() + '/' + assignmetnId;
+	    if(studentId && studentId.length>0){
+	    	url = url + '/' + studentId + '/' + assignmentId;
+	    }
+	    else {
+		    url = url + '/' + this.httpService.getCurrentId() + '/' + assignmentId;
+	    }
 
 	    return this.httpService.makeGetWithToken(url)
 		    .map((resp)=>{
@@ -165,6 +186,25 @@ export class AssignmentService {
 	    	    	results.push(new LastAnswer(result));
 		        }
 		        return results;
+		    });
+    }
+
+    public getQuestionMarkingScore(assignmentId:string, studentId?:string):Observable<MarkingScore[]>{
+	    let url = environment.getQuestionMarkingScoreUrl;
+	    if(studentId && studentId.length>0){
+		    url = url + '/' + studentId + '/' + assignmentId;
+	    }
+	    else {
+		    url = url + '/' + this.httpService.getCurrentId() + '/' + assignmentId;
+	    }
+
+	    return this.httpService.makeGetWithToken(url)
+		    .map((resp)=>{
+			    let results:MarkingScore[] = [];
+			    for(let result of resp.json().responseList){
+				    results.push(new MarkingScore(result));
+			    }
+			    return results;
 		    });
     }
 

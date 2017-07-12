@@ -1,7 +1,6 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
-import {AssignmentService} from '../../services/assignment.service';
-import {Question} from "../../models/Questions/Question";
-import {QuestionGroup} from "../../models/Questions/QuestionGroup";
+import {AssignmentService} from "../../../services/assignment.service";
+import {QuestionGroup} from "../../../models/Questions/QuestionGroup";
 
 @Component({
   selector: 'app-edit-question-list',

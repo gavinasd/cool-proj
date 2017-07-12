@@ -9,6 +9,7 @@ export const environment = {
 	getQuestionGroupListUrl: 'http://123.207.109.53:3000/api/question',
 	getQuestionGroupByIdUrl: 'http://123.207.109.53:3000/api/question/group',
 	addResponseUrlToQuestionUrl: 'http://123.207.109.53:3000/api/question/addResponse',
+	addMarkingScoreUrl:'http://123.207.109.53:3000/api/question/addScore',
 	addQuestionToGroupUrl: 'http://123.207.109.53:3000/api/classes/addQuestion',
 	getAssignmentListUrl: 'http://123.207.109.53:3000/api/classes/getAssignmentList',
 	getClassListUrl : 'http://123.207.109.53:3000/api/classes',
@@ -23,5 +24,6 @@ export const environment = {
 	createAssignmentUrl : 'http://123.207.109.53:3000/api/assignment/createone',
 	updateQuestionGroupContentUrl : 'http://123.207.109.53:3000/api/assignment/content',
 	addQuestionGroupToAssignmentUrl : 'http://123.207.109.53:3000/api/assignment/addQuestionGroup',
-	getQuestionLastAnswerUrl: 'http://123.207.109.53:3000/api/question/lastAnswer'
+	getQuestionLastAnswerUrl: 'http://123.207.109.53:3000/api/question/lastAnswer',
+	getQuestionMarkingScoreUrl: 'http://123.207.109.53:3000/api/question/markingScore'
 };

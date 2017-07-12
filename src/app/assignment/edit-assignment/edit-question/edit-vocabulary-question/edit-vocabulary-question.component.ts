@@ -1,11 +1,11 @@
 import {Component, Input, OnInit, Pipe, PipeTransform} from '@angular/core';
-import {AssignmentService} from "../../../services/assignment.service";
-import {VocabularyQuestion} from "../../../models/Questions/VocabularyQuestion";
-import {HttpService} from "../../../services/http.service";
-import {ToastService} from "../../../services/toast.service";
-import {Question} from "../../../models/Questions/Question";
+import {QuestionGroup} from "../../../../models/Questions/QuestionGroup";
+import {AssignmentService} from "../../../../services/assignment.service";
+import {HttpService} from "../../../../services/http.service";
+import {ToastService} from "../../../../services/toast.service";
 import {NgForm} from "@angular/forms";
-import {QuestionGroup} from "../../../models/Questions/QuestionGroup";
+import {VocabularyQuestion} from "../../../../models/Questions/VocabularyQuestion";
+import {Question} from "../../../../models/Questions/Question";
 
 @Component({
   selector: 'app-edit-vocabulary-question',

@@ -1,3 +1,8 @@
+.container{
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .assignment-header{
     border-color: dimgray;
     border-width: thin;
@@ -5,4 +10,6 @@
 
 #question-group-list{
     background-color: white;
+    min-height: 80%;
+    position: relative;
 }

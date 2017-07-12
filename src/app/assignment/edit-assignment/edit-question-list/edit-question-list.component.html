@@ -1,10 +1,10 @@
 <div *ngFor="let group of groupList;let i = index;">
     <div [ngSwitch]="group.type">
-        <app-vocabulary-item
+        <edit-app-vocabulary-item
                 *ngSwitchCase="assignmentService.getVocabularyQuestionType()"
                 [group]="group"
         >
-        </app-vocabulary-item>
+        </edit-app-vocabulary-item>
         <app-tpo-reading-item
                 [group]="group"
                 *ngSwitchCase="assignmentService.getTPOReadingQuestionType()">

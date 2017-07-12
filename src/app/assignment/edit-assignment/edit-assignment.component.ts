@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Assignment} from "../models/assignments/Assignment";
-import {AssignmentService} from "../services/assignment.service";
 import {NgForm} from "@angular/forms";
-import {Question} from "../models/Questions/Question";
-import {QuestionGroup} from "../models/Questions/QuestionGroup";
 import {Router} from "@angular/router";
+import {Assignment} from "../../models/assignments/Assignment";
+import {AssignmentService} from "../../services/assignment.service";
+import {QuestionGroup} from "../../models/Questions/QuestionGroup";
 
 @Component({
   selector: 'app-edit-assignment',

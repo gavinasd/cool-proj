@@ -7,6 +7,8 @@ import {NavbarComponent} from "./view/navbar/navbar.component";
 import {FormsModule} from "@angular/forms";
 import { Convert09ToAZPipe } from './pipes/convert09-to-az.pipe';
 import { SimpleAudioPlayerComponent } from './view/audio/simple-audio-player/simple-audio-player.component';
+import { HalfPipe } from './pipes/half.pipe';
+import { PronunciationOfWordPipe } from './pipes/pronunciation-of-word.pipe';
 
 @NgModule({
     imports: [
@@ -20,11 +22,15 @@ import { SimpleAudioPlayerComponent } from './view/audio/simple-audio-player/sim
 	    MainNavComponent,
 	    NavbarComponent,
 	    Convert09ToAZPipe,
-	    SimpleAudioPlayerComponent
+	    SimpleAudioPlayerComponent,
+	    HalfPipe,
+	    PronunciationOfWordPipe
     ],
 	exports:[
 		OddEvenPipe,
 		Convert09ToAZPipe,
+		HalfPipe,
+		PronunciationOfWordPipe,
 		FooterComponent,
 		MainNavComponent,
 		NavbarComponent,

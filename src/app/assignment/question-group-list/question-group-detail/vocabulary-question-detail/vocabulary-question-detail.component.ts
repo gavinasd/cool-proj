@@ -22,20 +22,22 @@ export class VocabularyQuestionDetailComponent extends QuestionGroupDetailCompon
 
 
 	ngOnChanges(changes: SimpleChanges): void {
-		super.ngOnChanges(changes);
 		super.setContentPage(1);    //单词练习，只需要展示一页的单词列表即可
+		super.ngOnChanges(changes);
 		super.getCurrentQuestion().subscribe((question:VocabularyQuestion)=>{
 			if(question) {
 				this.question = question;
 				this.answer = super.getLastAnswer(question.id);
 			}
 		});
-		this.wordList = JSON.parse(super.getGroupContent());
-
+		if(super.getGroupContent() && super.getGroupContent().length > 0){
+			this.wordList = JSON.parse(this.group.content);
+		}
 	}
 
 	//学生的回答发生了改变
 	changeAnswer(){
+		console.log('answer',this.answer);
 		super.updateLastAnswer();
 	}
 

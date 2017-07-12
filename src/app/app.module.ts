@@ -21,19 +21,18 @@ import {UserService} from "./services/user.service";
 import {ClassService} from "./services/class.service";
 import {AssignmentService} from "./services/assignment.service";
 import {AssignmentModule} from "./assignment/assignment.module";
-import {EditQuestionComponent} from "./edit-assignment/edit-question/edit-question.component";
 import { MainComponent } from './view/main/main.component';
 import {ToastyModule} from "ng2-toasty";
 import {ToastService} from "./services/toast.service";
 import {AssignmentListComponent} from "./class-detail/assignment-list/assignment-list.component";
-import {EditAssignmentModule} from "./edit-assignment/edit-assignment.module";
-import {EditAssignmentComponent} from "./edit-assignment/edit-assignment.component";
 import { SearchClassComponent } from './search-class/search-class.component';
 import {SearchClassModule} from "./search-class/search-class.module";
 import {AssignmentGradeDetailComponent} from "./assignment/assignment-grade-detail/assignment-grade-detail.component";
 import {ClassDetailModule} from "./class-detail/class-detail.module";
 import {SharedModule} from "./shared/shared.module";
 import {QuestionGroupListComponent} from "./assignment/question-group-list/question-group-list.component";
+import {EditQuestionComponent} from "./assignment/edit-assignment/edit-question/edit-question.component";
+import {EditAssignmentComponent} from "./assignment/edit-assignment/edit-assignment.component";
 
 const routes:Routes = [
   	{path:'',redirectTo:'index',pathMatch:'full'},
@@ -41,9 +40,10 @@ const routes:Routes = [
     {path:'register',component:RegisterComponent},
   	{path:'index',component:IndexComponent},
 	{path:'class/:classId',component:ClassDetailComponent},
-    {path:'question/class/:classId/assignment/:assignmentId',component:QuestionGroupListComponent},
-	{path:'edit_assignment',component:EditAssignmentComponent},
+    {path:'question/list/:classId/:assignmentId/:studentId/:mode',
+	    component:QuestionGroupListComponent},
 	{path:'question/edit/:assignmentId/:questionGroupId/:type',component:EditQuestionComponent},
+	{path:'edit_assignment',component:EditAssignmentComponent},
     {path:'assignmentList/:classId',component:AssignmentListComponent},
     {path:'class/search/:className',component:SearchClassComponent},
     {path:'assignment/grade/detail/:userId/:assignmentId',component:AssignmentGradeDetailComponent}
@@ -59,7 +59,7 @@ const routes:Routes = [
       CourseListComponent,
       CourseListItemComponent,
       ResListComponent,
-      MainComponent
+      MainComponent,
   ],
   imports: [
       BrowserModule,
@@ -67,7 +67,6 @@ const routes:Routes = [
       HttpModule,
       NgUploaderModule,
       AssignmentModule,
-      EditAssignmentModule,
       SearchClassModule,
 	  ClassDetailModule,
       SharedModule,

@@ -11,6 +11,7 @@ export class Question {
 	question:string;            //题目
 	answer:string;              //题目的答案
 	explanation:string;         //解释
+	score:number;
 
 
 	constructor(obj:any,content?:string) {

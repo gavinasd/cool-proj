@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TPOReadingQuestion} from "../../../models/Questions/TPOReadingQuestion";
-import {QuestionGroup} from "../../../models/Questions/QuestionGroup";
+import {TPOReadingQuestion} from "../../../../models/Questions/TPOReadingQuestion";
+import {QuestionGroup} from "../../../../models/Questions/QuestionGroup";
 
 @Component({
   selector: 'app-tpo-reading-item',

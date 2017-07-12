@@ -18,16 +18,23 @@
             <label>得分：</label>
             <p>{{gradeInfo.score}}/{{gradeInfo.totalScore}}</p>
 
-            <a *ngIf="gradeInfo.undoneNum>0 && userType != '1'" [routerLink]="['/question/class',classId,'assignment',assignmentId]">
+            <a *ngIf="gradeInfo.undoneNum>0 && userType != '1'"
+               [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ httpService.getCurrentId() + '/' + ModeType.HomeWork]">
                 <button class="btn btn-inverse">做题</button>
             </a>
 
-            <a *ngIf="gradeInfo.undoneNum == 0 && userType == '0'" [routerLink]="['/assignment/grade/detail',assignmentId]">
+            <a *ngIf="userType == '1'"
+                [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ gradeInfo.studentId + '/' + ModeType.Marking]">
+                <button class="btn btn-success">批改</button>
+            </a>
+
+            <a *ngIf="gradeInfo.undoneNum == 0 && userType == '0'"
+               [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ httpService.getCurrentId() + '/' + ModeType.Review]">
                 <button class="btn btn-inverse">查看</button>
             </a>
 
             <a *ngIf="userType == '1'"
-               [routerLink]="['/assignment/grade/detail'+'/'+gradeInfo.studentId+'/'+assignmentId]">
+               [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ gradeInfo.studentId + '/' + ModeType.Review]">
                 <button class="btn btn-inverse">查看</button>
             </a>
         </div>

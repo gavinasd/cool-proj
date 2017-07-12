@@ -1,0 +1,12 @@
+<div class="vocabulary-list">
+    <div class="col-sm-12">
+        <table class="table table-bordered">
+            <tbody>
+            <tr *ngFor="let word of (wordList|oddeven:'odd');let i = index">
+                <td><app-vocabulary-item [index]="2*i+1" [english]="word.english" [chinese]="word.chinese"></app-vocabulary-item></td>
+                <td><app-vocabulary-item [index]="2*i+2" *ngIf="wordList[2*i+1]" [english]="wordList[2*i+1].english" [chinese]="wordList[2*i+1].chinese"></app-vocabulary-item></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

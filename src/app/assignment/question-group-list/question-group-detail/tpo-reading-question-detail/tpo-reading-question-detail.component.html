@@ -21,7 +21,8 @@
                            name="choices"
                            id="option{{i}}"
                            [value]="i|convert09ToAZ"
-                           checked=""
+                           [disabled]="reviewMode()"
+                           [checked]="answer == (i|convert09ToAZ)"
                     >
                     {{i|convert09ToAZ}}. {{option}}
                 </label>
@@ -33,4 +34,13 @@
         </div>
 
     </div>
+
+    <div class="row" *ngIf="!homeWorkMode()">
+        <div class="col-sm-12">
+            <p>你的选择：{{answer}}</p>
+            <p>正确答案：{{question.answer}}</p>
+        </div>
+    </div>
+
+
 </div>

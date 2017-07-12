@@ -5,6 +5,9 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {LastAnswer} from "../../../models/Questions/LastAnswer";
+import {Mode} from "../../../models/assignments/Assignment";
+import {MarkingScore} from "../../../models/Questions/MarkingScore";
+import {nextTick} from "q";
 
 @Component({
   selector: 'app-question-group-detail',
@@ -12,16 +15,21 @@ import {LastAnswer} from "../../../models/Questions/LastAnswer";
   styleUrls: ['./question-group-detail.component.css']
 })
 export class QuestionGroupDetailComponent implements OnInit,OnChanges {
+	@Input() mode:Mode;
 	@Input() group:QuestionGroup;
-	@Input() lastAnswerList:any[];
+	@Input() lastAnswerList:LastAnswer[];
+	@Input() scoreList:MarkingScore[];
 	@Output() onNextGroup:EventEmitter<string> = new EventEmitter<string>();
 	@Output() onPreGroup:EventEmitter<string> = new EventEmitter<string>();
 	@Output() onChangeAnswer:EventEmitter<LastAnswer> = new EventEmitter<LastAnswer>();
 	@Output() onSubmitAnswer:EventEmitter<LastAnswer> = new EventEmitter<LastAnswer>();
+	@Output() onMarking:EventEmitter<MarkingScore> = new EventEmitter<MarkingScore>();
+	public ModeType = Mode;
 	public currentQuestion:Observable<Question>;
 	public questionList:Question[];
 	public contentPage:number = 0;
-	public indexValue:number;            //和Observable的index同步
+	public indexValue:number=0;            //和Observable的index同步
+	public currentQuestionId:string = '';   //和currentQuestion里面的id同步
 	public index: Observable<number> = Observable.from([0]);
 	public changeIndex: Subject<boolean> = new BehaviorSubject<boolean>(false);
 	public answer:string;
@@ -38,6 +46,7 @@ export class QuestionGroupDetailComponent implements OnInit,OnChanges {
 		this.index = Observable.from([0]);
 		this.changeIndex = new BehaviorSubject<boolean>(false);
 		this.setupQuestionList();
+		//this.answer = this.getLastAnswer(this.questionList[this.indexValue - this.contentPage].id);
 	}
 
 	//获取所有的questionList,并且设置上next和pre的切换功能
@@ -72,6 +81,7 @@ export class QuestionGroupDetailComponent implements OnInit,OnChanges {
 				this.showContent(i);
 			}
 			else if(i < this.questionList.length + this.contentPage && i >= this.contentPage){
+				this.currentQuestionId = this.questionList[ i- this.contentPage].id;
 				return this.questionList[i - this.contentPage];
 			}
 		});
@@ -89,6 +99,10 @@ export class QuestionGroupDetailComponent implements OnInit,OnChanges {
 
 	//答案改变了，那么需要保存下这次的内容
 	public updateLastAnswer(){
+		if(this.mode == Mode.Review){
+			return;
+		}
+
 		if(this.indexValue - this.contentPage >= 0) {
 			this.onChangeAnswer.emit(new LastAnswer({
 				'questionId': this.questionList[this.indexValue - this.contentPage].id,
@@ -98,12 +112,57 @@ export class QuestionGroupDetailComponent implements OnInit,OnChanges {
 	}
 
 	public submitAnswer(){
+		if(this.mode == Mode.Review){
+			return;
+		}
+
 		if(this.indexValue - this.contentPage >= 0) {
 			this.onSubmitAnswer.emit(new LastAnswer({
 				'questionId': this.questionList[this.indexValue - this.contentPage].id,
 				'lastAnswer': this.answer
 			}));
 		}
+	}
+
+	public getScore(questionId:string):number{
+		for(let score of this.scoreList){
+			if(score.questionId == questionId){
+				return score.score;
+			}
+		}
+	}
+
+	//分数改变了，需要保存这次的分数
+	public updateScore(score:number){
+		if(this.mode != Mode.Marking){
+			//只有批改模式有可能改变score
+			return;
+		}
+
+		if(this.indexValue - this.contentPage >= 0) {
+			this.onMarking.emit(new MarkingScore({
+				'questionId': this.questionList[this.indexValue - this.contentPage].id,
+				'score': score
+			}));
+		}
+		this.changeIndex.next(true);
+	}
+
+	public correct():boolean{
+		let question = this.questionList[this.indexValue - this.contentPage];
+		return this.getScore(question.id) == (question.score || 1);
+	}
+
+	public homeWorkMode():boolean{
+		return this.mode == this.ModeType.HomeWork;
+	}
+
+	public markingMode():boolean{
+		return this.mode == this.ModeType.Marking;
+	}
+
+	public reviewMode():boolean{
+		return this.mode == this.ModeType.Review;
 	}
 
 	public getContentPage():number{

@@ -21,15 +21,17 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		super.ngOnChanges(changes);
 		super.setContentPage(0);    //TPO练习，不需要需要展示一页的文章题目，然后即可开始做题
+		super.ngOnChanges(changes);
 		super.getCurrentQuestion().subscribe((question:TPOReadingQuestion)=>{
 			if(question) {
 				this.question = question;
 				this.answer = super.getLastAnswer(question.id);
 			}
 		});
-		this.passage = JSON.parse(super.getGroupContent());
+		if(super.getGroupContent() && super.getGroupContent().length > 0){
+			this.passage = JSON.parse(super.getGroupContent());
+		}
 	}
 
 	//学生的回答发生了改变

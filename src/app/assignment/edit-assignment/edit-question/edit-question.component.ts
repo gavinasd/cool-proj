@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {AssignmentService} from "../../services/assignment.service";
-import {HttpService} from "../../services/http.service";
 import {ActivatedRoute, Params} from "@angular/router";
-import {ToastService} from "../../services/toast.service";
-import {Question} from "../../models/Questions/Question";
-import {TPOReadingQuestion} from "../../models/Questions/TPOReadingQuestion";
-import {Assignment} from "../../models/assignments/Assignment";
+import {AssignmentService} from "../../../services/assignment.service";
+import {HttpService} from "../../../services/http.service";
+import {ToastService} from "../../../services/toast.service";
+import {Question} from "../../../models/Questions/Question";
+import {TPOReadingQuestion} from "../../../models/Questions/TPOReadingQuestion";
 
 @Component({
   selector: 'app-edit-question',

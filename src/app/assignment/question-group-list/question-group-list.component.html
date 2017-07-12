@@ -5,18 +5,23 @@
             *ngSwitchCase="assignmentService.getTPOReadingQuestionType()"
             [group]="group"
             [lastAnswerList]="questionLastAnswer"
+            [mode]="mode"
             (onNextGroup)="next()"
             (onPreGroup)="pre()"
+            (onChangeAnswer)="updateLastAnswer($event)"
             (onSubmitAnswer)="submitAnswer($event)"
     ></app-tpo-reading-question-detail>
     <app-vocabulary-question-detail
             *ngSwitchCase="assignmentService.getVocabularyQuestionType()"
             [group]="group"
             [lastAnswerList]="questionLastAnswer"
+            [scoreList]="questionMarkingScore"
+            [mode]="mode"
             (onNextGroup)="next()"
             (onPreGroup)="pre()"
             (onChangeAnswer)="updateLastAnswer($event)"
             (onSubmitAnswer)="submitAnswer($event)"
+            (onMarking)="submitMarkingScore($event)"
     ></app-vocabulary-question-detail>
     <div *ngSwitchDefault>{{group}}</div>
 </div>

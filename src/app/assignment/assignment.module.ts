@@ -11,8 +11,18 @@ import {VocabularyQuestionDetailComponent} from "./question-group-list/question-
 import {QuestionHeaderComponent} from "./question-group-list/question-header/question-header.component";
 import {QuestionGroupListComponent} from "./question-group-list/question-group-list.component";
 import {AssignmentGradeDetailComponent} from "./assignment-grade-detail/assignment-grade-detail.component";
-import { QuestionPagerComponent } from './question-group-list/question-group-detail/question-pager/question-pager.component';
+import { QuestionPagerComponent } from './question-group-list/question-group-detail/common/question-pager/question-pager.component';
 import {FroalaEditorModule, FroalaViewModule} from "angular2-froala-wysiwyg";
+import { VocabularyItemComponent } from './question-group-list/question-group-detail/vocabulary-question-detail/vocabulary-item/vocabulary-item.component';
+import { VocabularyListComponent } from './question-group-list/question-group-detail/vocabulary-question-detail/vocabulary-list/vocabulary-list.component';
+import {TpoReadingItemComponent} from "./edit-assignment/edit-question-list/tpo-reading-item/tpo-reading-item.component";
+import {EditVocabularyItemComponent} from "./edit-assignment/edit-question-list/edit-vocabulary-item/edit-vocabulary-item.component";
+import {EditVocabularyQuestionComponent} from "./edit-assignment/edit-question/edit-vocabulary-question/edit-vocabulary-question.component";
+import {EditTporeadingQuestionComponent} from "./edit-assignment/edit-question/edit-tporeading-question/edit-tporeading-question.component";
+import {EditQuestionListComponent} from "./edit-assignment/edit-question-list/edit-question-list.component";
+import {EditQuestionComponent} from "./edit-assignment/edit-question/edit-question.component";
+import {EditAssignmentComponent} from "./edit-assignment/edit-assignment.component";
+import { QuestionMarkerComponent } from './question-group-list/question-group-detail/common/question-marker/question-marker.component';
 
 @NgModule({
 	imports: [
@@ -30,14 +40,25 @@ import {FroalaEditorModule, FroalaViewModule} from "angular2-froala-wysiwyg";
 		QuestionHeaderComponent,
 		QuestionGroupListComponent,
 		AssignmentGradeDetailComponent,
-		QuestionPagerComponent
+		QuestionPagerComponent,
+		VocabularyItemComponent,
+		VocabularyListComponent,
+		EditAssignmentComponent,
+		EditQuestionComponent,
+		EditQuestionListComponent,
+		EditTporeadingQuestionComponent,
+		EditVocabularyQuestionComponent,
+		EditVocabularyItemComponent,
+		TpoReadingItemComponent,
+		QuestionMarkerComponent,
 	],
 	providers:[
 		AssignmentService,
 		HttpService
 	],
 	exports:[
-		QuestionGroupListComponent
+		QuestionGroupListComponent,
+		VocabularyListComponent
 	]
 })
 export class AssignmentModule { }
