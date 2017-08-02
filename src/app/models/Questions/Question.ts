@@ -21,5 +21,6 @@ export class Question {
 		this.question = obj && obj.question;
 		this.answer = obj && obj.answer;
 		this.explanation = obj && obj.explanation;
+		this.score = obj && obj.score;
 	}
 }

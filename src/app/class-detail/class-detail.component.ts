@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import 'rxjs/Rx';
-import {ClassService} from "../../services/class.service";
+import {ClassService} from "../services/class.service";
 
 @Component({
   selector: 'app-class-detail',
   templateUrl: './class-detail.component.html',
   styleUrls: ['./class-detail.component.css']
 })
-export class ClassDetailComponent implements OnInit {
+export class ClassDetailComponent implements OnInit, OnDestroy {
     public classId: string;
     constructor(private route: ActivatedRoute, private classService: ClassService) {
         this.route.params.forEach((param: Params) => {
@@ -19,4 +19,8 @@ export class ClassDetailComponent implements OnInit {
     ngOnInit() {
     }
 
+
+	ngOnDestroy(): void {
+		console.log('destroy');
+    }
 }

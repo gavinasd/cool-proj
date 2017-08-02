@@ -4,8 +4,19 @@
     </div>
 
     <app-grade-info-detail
-            *ngFor="let assignmentInfo of assignmentInfoList"
+            *ngFor="let assignmentInfo of listForShow"
             [assignmentInfo]="assignmentInfo"
             [classId]="classId"
     ></app-grade-info-detail>
+    <div id="more" role="tablist" class="text-center">
+        <a *ngIf="listForShow && canShowMore()" (click)="showMore()" type="button">
+            <p class="more-info"><small>更多<span class="caret"></span></small></p>
+        </a>
+        <a *ngIf="listForShow && !loading && !canShowMore()" type="button" disabled="disabled">
+            <p class="more-info"><small>已经没有更多作业</small></p>
+        </a>
+        <a *ngIf="loading">
+            <p class="more-info"><small>读取数据中</small></p>
+        </a>
+    </div>
 </div>

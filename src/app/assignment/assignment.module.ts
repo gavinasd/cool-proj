@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {AssignmentService} from "../services/assignment.service";
 import {HttpService} from "../services/http.service";
 import {FormsModule} from "@angular/forms";
@@ -10,7 +10,6 @@ import {QuestionGroupDetailComponent} from "./question-group-list/question-group
 import {VocabularyQuestionDetailComponent} from "./question-group-list/question-group-detail/vocabulary-question-detail/vocabulary-question-detail.component";
 import {QuestionHeaderComponent} from "./question-group-list/question-header/question-header.component";
 import {QuestionGroupListComponent} from "./question-group-list/question-group-list.component";
-import {AssignmentGradeDetailComponent} from "./assignment-grade-detail/assignment-grade-detail.component";
 import { QuestionPagerComponent } from './question-group-list/question-group-detail/common/question-pager/question-pager.component';
 import {FroalaEditorModule, FroalaViewModule} from "angular2-froala-wysiwyg";
 import { VocabularyItemComponent } from './question-group-list/question-group-detail/vocabulary-question-detail/vocabulary-item/vocabulary-item.component';
@@ -23,6 +22,7 @@ import {EditQuestionListComponent} from "./edit-assignment/edit-question-list/ed
 import {EditQuestionComponent} from "./edit-assignment/edit-question/edit-question.component";
 import {EditAssignmentComponent} from "./edit-assignment/edit-assignment.component";
 import { QuestionMarkerComponent } from './question-group-list/question-group-detail/common/question-marker/question-marker.component';
+import { QuestionTimerComponent } from './question-group-list/question-header/question-timer/question-timer.component';
 
 @NgModule({
 	imports: [
@@ -31,7 +31,6 @@ import { QuestionMarkerComponent } from './question-group-list/question-group-de
 		RouterModule,
 		SharedModule,
 		FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
-
 	],
 	declarations: [
 		TpoReadingQuestionDetailComponent,
@@ -39,7 +38,6 @@ import { QuestionMarkerComponent } from './question-group-list/question-group-de
 		QuestionGroupDetailComponent,
 		QuestionHeaderComponent,
 		QuestionGroupListComponent,
-		AssignmentGradeDetailComponent,
 		QuestionPagerComponent,
 		VocabularyItemComponent,
 		VocabularyListComponent,
@@ -51,10 +49,11 @@ import { QuestionMarkerComponent } from './question-group-list/question-group-de
 		EditVocabularyItemComponent,
 		TpoReadingItemComponent,
 		QuestionMarkerComponent,
+		QuestionTimerComponent,
 	],
 	providers:[
 		AssignmentService,
-		HttpService
+		HttpService,
 	],
 	exports:[
 		QuestionGroupListComponent,

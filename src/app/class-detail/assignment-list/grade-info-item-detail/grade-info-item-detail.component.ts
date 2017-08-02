@@ -23,8 +23,6 @@ export class GradeInfoItemDetailComponent implements OnInit {
     ngOnInit() {
         this.userType = this.httpService.getUserType();
         this.gradePercentage = this.gradeInfo.score/this.gradeInfo.totalScore;
-        console.log("percentage",this.gradePercentage);
-        console.log(this.ModeType);
     }
 
 }

@@ -2,9 +2,9 @@
     padding-left: 30px;
     padding-right: 30px;
     margin-bottom: 20px;
+    border: thin solid lightgray;
     border-radius: 6px;
     background-color: white;
-    border: thin solid lightgray;
 }
 
 .assignment-list-header{
@@ -17,4 +17,19 @@
     line-height: 70px;
     font-size: 21px;
     font-weight: 600;
+}
+
+#more{
+    height: 40px;
+    line-height: 40px;
+    margin:0;
+}
+
+#more:hover{
+    cursor: pointer;
+}
+
+#more p{
+    line-height: 40px;
+    margin:0;
 }

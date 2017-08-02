@@ -7,3 +7,16 @@
 .navbar-center a{
     font-size: 20px;
 }
+
+.navbar-center a:hover{
+    cursor:default;
+}
+
+.navbar-right{
+    position: absolute;
+    height: 28px;
+    margin-top: -14px;
+    top:50%;
+    right: 20px;
+
+}

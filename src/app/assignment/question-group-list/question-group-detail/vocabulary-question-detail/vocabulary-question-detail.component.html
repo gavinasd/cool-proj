@@ -1,9 +1,4 @@
-
-<app-question-pager [content]="getPagerContent()"
-                    (next)="next()" (pre)="pre()"
-></app-question-pager>
-
-<div class="container" *ngIf="getCurrentIndex() < getContentPage()">
+<div class="container" *ngIf="showContent && wordList">
     <fieldset class="word-list">
         <legend>词汇列表</legend>
         <p>背诵下列单词：</p>
@@ -11,7 +6,7 @@
     </fieldset>
 </div>
 
-<div class="container" *ngIf="getCurrentIndex() >= getContentPage()">
+<div class="container" *ngIf="!showContent">
     <div class="row">
         <div class="col-sm-10 col-md-offset-2" id="question">
 

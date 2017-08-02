@@ -1,27 +1,31 @@
-<app-question-header [assignmentName]="assignmentName"></app-question-header>
+<app-question-header [assignmentName]="assignmentName$ | async" [mode]="mode"></app-question-header>
 
-<div class="container" id="question-group-list" [ngSwitch]="group.type">
+<app-question-pager
+    [shouldShowContent]="shouldShowContent$|async"
+    [questionIndex]="questionIndex$ | async"
+    [questionListLength]="questionListLength$ | async"
+    (next)="next()"
+    (pre)="pre()"
+></app-question-pager>
+<div class="container" id="question-group-list" [ngSwitch]="groupType$ | async">
     <app-tpo-reading-question-detail
             *ngSwitchCase="assignmentService.getTPOReadingQuestionType()"
-            [group]="group"
-            [lastAnswerList]="questionLastAnswer"
+            [groupContent]="groupContent$ | async"
+            [question]="currentQuestion$ | async"
+            [lastAnswer]="lastAnswer$ | async"
+            [markingScore]="markingScore$ | async"
             [mode]="mode"
-            (onNextGroup)="next()"
-            (onPreGroup)="pre()"
-            (onChangeAnswer)="updateLastAnswer($event)"
-            (onSubmitAnswer)="submitAnswer($event)"
+            (OnChangeAnswer)="changeAnswer($event)"
     ></app-tpo-reading-question-detail>
     <app-vocabulary-question-detail
             *ngSwitchCase="assignmentService.getVocabularyQuestionType()"
-            [group]="group"
-            [lastAnswerList]="questionLastAnswer"
-            [scoreList]="questionMarkingScore"
+            [groupContent]="groupContent$ | async"
+            [question]="currentQuestion$ | async"
+            [lastAnswer]="lastAnswer$ | async"
+            [markingScore]="markingScore$ | async"
             [mode]="mode"
-            (onNextGroup)="next()"
-            (onPreGroup)="pre()"
-            (onChangeAnswer)="updateLastAnswer($event)"
-            (onSubmitAnswer)="submitAnswer($event)"
-            (onMarking)="submitMarkingScore($event)"
+            [showContent]="shouldShowContent$ | async"
+            (OnChangeAnswer)="changeAnswer($event)"
     ></app-vocabulary-question-detail>
     <div *ngSwitchDefault>{{group}}</div>
 </div>

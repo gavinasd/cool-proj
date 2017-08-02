@@ -6,7 +6,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./question-pager.component.css']
 })
 export class QuestionPagerComponent implements OnInit {
-	@Input() content:string;      //pager中需要显示的内容
+	@Input() shouldShowContent:boolean;      //是否需要展示cotnent
+	@Input() questionIndex:number;
+	@Input() questionListLength:number;
 	@Output() next:EventEmitter<string> = new EventEmitter<string>();
 	@Output() pre:EventEmitter<string> = new EventEmitter<string>();
 
@@ -21,5 +23,15 @@ export class QuestionPagerComponent implements OnInit {
 
 	preQuestion(){
 		this.pre.emit('pre');
+	}
+
+	getPagerContent(){
+		if(!this.shouldShowContent) {
+			return '第' + (this.questionIndex + 1) + '题/' +
+				'共' + (this.questionListLength) + '题';
+		}
+		else{
+			return '';
+		}
 	}
 }

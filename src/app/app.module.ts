@@ -14,7 +14,7 @@ import { LoginRegisterComponent } from './view/login_register/login-register/log
 import { IndexComponent } from './view/course/index/index.component';
 import { CourseListComponent } from './view/course/course-list/course-list.component';
 import { CourseListItemComponent } from './view/course/course-list-item/course-list-item.component';
-import { ClassDetailComponent } from './class-detail/class-detail/class-detail.component';
+import { ClassDetailComponent } from './class-detail/class-detail.component';
 import { NavbarComponent } from './shared/view/navbar/navbar.component';
 import { ResListComponent } from './view/course/res-list/res-list.component';
 import {UserService} from "./services/user.service";
@@ -27,12 +27,15 @@ import {ToastService} from "./services/toast.service";
 import {AssignmentListComponent} from "./class-detail/assignment-list/assignment-list.component";
 import { SearchClassComponent } from './search-class/search-class.component';
 import {SearchClassModule} from "./search-class/search-class.module";
-import {AssignmentGradeDetailComponent} from "./assignment/assignment-grade-detail/assignment-grade-detail.component";
 import {ClassDetailModule} from "./class-detail/class-detail.module";
 import {SharedModule} from "./shared/shared.module";
 import {QuestionGroupListComponent} from "./assignment/question-group-list/question-group-list.component";
 import {EditQuestionComponent} from "./assignment/edit-assignment/edit-question/edit-question.component";
 import {EditAssignmentComponent} from "./assignment/edit-assignment/edit-assignment.component";
+import {StoreModule} from "@ngrx/store";
+import {reducers} from './redux/index.reducer';
+import {EffectsModule} from "@ngrx/effects";
+import {AssignmentEffect} from "./redux/assignment/assignment.effects";
 
 const routes:Routes = [
   	{path:'',redirectTo:'index',pathMatch:'full'},
@@ -46,7 +49,6 @@ const routes:Routes = [
 	{path:'edit_assignment',component:EditAssignmentComponent},
     {path:'assignmentList/:classId',component:AssignmentListComponent},
     {path:'class/search/:className',component:SearchClassComponent},
-    {path:'assignment/grade/detail/:userId/:assignmentId',component:AssignmentGradeDetailComponent}
 ];
 
 @NgModule({
@@ -71,14 +73,16 @@ const routes:Routes = [
 	  ClassDetailModule,
       SharedModule,
       ToastyModule.forRoot(),
-      RouterModule.forRoot(routes)
+      RouterModule.forRoot(routes),
+	  StoreModule.forRoot(reducers),
+	  EffectsModule.forRoot([AssignmentEffect])
   ],
   providers: [
       HttpService,
       UserService,
       ClassService,
       AssignmentService,
-	    ToastService
+	  ToastService,
   ],
   exports:[
       NavbarComponent,

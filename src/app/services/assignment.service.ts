@@ -6,8 +6,7 @@ import {ResponseToQuestion, AssignmentInfo} from "../models/models";
 import {Question} from "../models/Questions/Question";
 import {Assignment} from "../models/assignments/Assignment";
 import {QuestionGroup} from "../models/Questions/QuestionGroup";
-import {LastAnswer} from "../models/Questions/LastAnswer";
-import {MarkingScore, MarkingScoreToQuestion} from "../models/Questions/MarkingScore";
+import {MarkingScore, SpendTime, StudentAnswer} from "../models/assignments/AssignmentInfo";
 
 @Injectable()
 export class AssignmentService {
@@ -94,6 +93,7 @@ export class AssignmentService {
             .catch(HttpService.handleError);
     }
 
+    /**
     public addMarkingScore(score:MarkingScoreToQuestion):Observable<MarkingScore>{
 	    let url = environment.addMarkingScoreUrl;
 	    var body = JSON.stringify({
@@ -108,6 +108,7 @@ export class AssignmentService {
 		    .map(resp => resp.json())
 		    .catch(HttpService.handleError);
     }
+     **/
 
     public addQuestionToGroup(assignmentId: string, groupId: string, question: Question): Observable<Question> {
         let url = environment.addQuestionToGroupUrl;
@@ -123,10 +124,10 @@ export class AssignmentService {
             .map(resp => resp.json()).catch(HttpService.handleError);
     }
 
-    public getAssignmentList(classId: string): Observable<AssignmentInfo[]> {
+    public getAssignmentList(classId: string, page:number): Observable<AssignmentInfo[]> {
         let url = environment.getAssignmentListUrl;
         let userId = this.httpService.getCurrentId();
-        url = url + '/' + classId + '/' + userId;
+        url = url + '/' + classId + '/' + userId + '/' + page;
         return this.httpService.makeGetWithToken(url)
             .map(resp => resp.json().gradeInfo).catch(HttpService.handleError);
     }
@@ -155,9 +156,9 @@ export class AssignmentService {
             .catch(HttpService.handleError);
     }
 
-    public getQuestionGroupList(assignmentId: string):Observable<QuestionGroup[]>{
+    public getQuestionGroupList(assignmentId: string, studentId?: string):Observable<QuestionGroup[]>{
     	let url = environment.getQuestionGroupListUrl;
-    	url = url + '/' + assignmentId;
+    	url = url + '/' + assignmentId + '/' + studentId;
     	return this.httpService.makeGetWithToken(url)
 		    .map((resp) =>{
 			    let groupList : QuestionGroup[] = [];
@@ -170,6 +171,72 @@ export class AssignmentService {
 		    .catch(HttpService.handleError);
     }
 
+    public getAssignment(assignmentId: string):Observable<Assignment>{
+    	let url = environment.getAssignmentByIdUrl;
+	    url = url + '/' + assignmentId;
+	    return this.httpService.makeGetWithToken(url)
+		    .map(resp =>{
+				return new Assignment(resp.json());
+		    })
+		    .catch(HttpService.handleError);
+    }
+
+    public getAssignmentInfo(assignmentId: string, studentId: string):Observable<any> {
+    	let url = environment.getAssignmentInfoUrl;
+    	url = url + '/' + assignmentId + '/' + studentId;
+    	return this.httpService.makeGetWithToken(url)
+		    .map(resp =>{
+		    	const data = resp.json();
+		    	const spendTime:SpendTime = new SpendTime(false, data.spendTime);
+
+		    	let studentAnswer: StudentAnswer = new StudentAnswer(false, new Map());
+		    	for(let answerItem of data.studentAnswer){
+		    		let questionId = answerItem.questionId;
+		    		let answer = answerItem.studentAnswer;
+		    		studentAnswer.answer.set(questionId, answer);
+			    }
+
+			    let markScore: MarkingScore = new MarkingScore(false, new Map());
+			    for(let scoreItem of data.markScore){
+				    let questionId = scoreItem.questionId;
+				    let score = scoreItem.score;
+				    markScore.score.set(questionId, score);
+			    }
+
+			    return {
+			    	spendTime: spendTime,
+				    studentAnswer: studentAnswer,
+				    markScore: markScore
+			    };
+		    })
+		    .catch(HttpService.handleError);
+    }
+
+    public submitAssignmentInfo(data: any):Observable<any>{
+		let url = environment.submitAssignmentInfoUrl;
+	    var body = JSON.stringify({
+		    'classId': data.classId,
+		    'assignmentId':data.assignmentId,
+		    'questionId': data.questionId,
+		    'studentId': data.studentId,
+		    'spendTime': data.spendTime,
+		    'studentAnswer': data.studentAnswer,
+		    'markScore': data.markScore
+	    });
+
+	    if (!data.spendTime && !data.studentAnswer && !data.markScore){
+	    	return Observable.of('');
+	    }
+
+	    console.log(body);
+	    return this.httpService.makePostWithToken(url, body)
+		    .map(resp =>{
+			    console.log(resp.json());
+		    })
+		    .catch(HttpService.handleError);
+    }
+
+    /**
     public getQuestionLastAnswer(assignmentId: string, studentId?:string):Observable<any[]>{
 	    let url = environment.getQuestionLastAnswerUrl;
 	    if(studentId && studentId.length>0){
@@ -181,14 +248,16 @@ export class AssignmentService {
 
 	    return this.httpService.makeGetWithToken(url)
 		    .map((resp)=>{
-	    	    let results:LastAnswer[] = [];
+	    	    let results:StudentAnswer[] = [];
 	    	    for(let result of resp.json().results){
-	    	    	results.push(new LastAnswer(result));
+	    	    	results.push(new StudentAnswer(result));
 		        }
 		        return results;
 		    });
     }
+     **/
 
+    /**
     public getQuestionMarkingScore(assignmentId:string, studentId?:string):Observable<MarkingScore[]>{
 	    let url = environment.getQuestionMarkingScoreUrl;
 	    if(studentId && studentId.length>0){
@@ -205,6 +274,22 @@ export class AssignmentService {
 				    results.push(new MarkingScore(result));
 			    }
 			    return results;
+		    });
+    }
+     **/
+
+    public getQuestionSpendTime(assignmentId:string, studentId?:string):Observable<number>{
+	    let url = environment.getQuestionSpendTimeUrl;
+	    if(studentId && studentId.length>0){
+		    url = url + '/' + studentId + '/' + assignmentId;
+	    }
+	    else {
+		    url = url + '/' + this.httpService.getCurrentId() + '/' + assignmentId;
+	    }
+
+	    return this.httpService.makeGetWithToken(url)
+		    .map((resp)=>{
+			    return resp.json().spendTime;
 		    });
     }
 

@@ -12,7 +12,6 @@ export class GradeInfoDetailComponent implements OnInit {
 
     constructor() {}
     ngOnInit() {
-        console.log(this.assignmentInfo);
     }
 
 }
