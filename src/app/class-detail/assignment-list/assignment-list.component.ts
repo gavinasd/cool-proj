@@ -1,11 +1,12 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {Component, OnInit, Input} from '@angular/core';
 import {ToastService} from "../../services/toast.service";
 import {AssignmentService} from "../../services/assignment.service";
 import {AssignmentInfo} from "../../models/models";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Subject} from "rxjs/Subject";
-import {Observable} from "rxjs/Observable";
+import {MdDialog, MdDialogConfig} from "@angular/material";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {HttpService} from "../../services/http.service";
+import {AddAssignmentDialogComponent} from "../../shared/view/dialogs/add-assignment-dialog/add-assignment-dialog.component";
 
 @Component({
     selector: 'app-assignment-list',
@@ -16,16 +17,18 @@ export class AssignmentListComponent implements OnInit {
     @Input() public classId:string;
     private more$:Subject<boolean> = new BehaviorSubject<boolean>(true);
     private page:number = 0;
+    public userType:string;
     public loading:boolean = true;
     public listForShow:AssignmentInfo[] = [];
 
-    constructor(private route:ActivatedRoute,
-                private toastService:ToastService,
+    constructor(private dialog: MdDialog,
+                private toastService: ToastService,
+                private httpService: HttpService,
                 private assignmentService:AssignmentService) {
     }
 
     ngOnInit() {
-        console.log(this.classId);
+		this.userType = this.httpService.getUserType();
 
 		this.more$.switchMap(
 			()=>{
@@ -41,6 +44,28 @@ export class AssignmentListComponent implements OnInit {
 		        }
 	        });
     }
+
+    openAddAssignmentDialog(){
+	    let config = new MdDialogConfig();
+	    config.width = '400px';
+	    this.dialog.open(AddAssignmentDialogComponent, config).afterClosed()
+		    .filter(result => !!result)
+		    .subscribe(data => {
+			    this.addAssignment(data);
+		    });
+    }
+
+	addAssignment(form:any){
+		console.log(form.assignment);
+		this.assignmentService.addAssignmentToClass(this.classId,form.assignment)
+			.subscribe(
+				(json)=>{
+					this.toastService.success("成功添加作业");
+				},(err)=>{
+					this.toastService.error(err);
+				}
+			)
+	}
 
     //还有更多的作业可以显示
 	public canShowMore():boolean{

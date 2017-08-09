@@ -1,0 +1,20 @@
+<h4>添加作业</h4>
+<form ngNativeValidate id="addAssignmentForm" role="form" #f="ngForm"
+      (ngSubmit) = "dialogRef.close(f.value)">
+    <div fxLayout="column" fxLayoutGap="8px">
+        <md-select placeholder="选择作业"
+                   name="assignment"
+                   ngModel
+                   required>
+            <md-option *ngFor="let assignment of assignmentList"
+                       [value]="assignment.id">
+                {{assignment.assignmentName}}
+            </md-option>
+        </md-select>
+    </div>
+
+    <md-dialog-actions align="end">
+        <button md-button type="button" (click)="dialogRef.close()">取消</button>
+        <button md-button type="submit" color="accent">确定</button>
+    </md-dialog-actions>
+</form>

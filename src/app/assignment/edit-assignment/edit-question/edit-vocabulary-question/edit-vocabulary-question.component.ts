@@ -12,8 +12,8 @@ import {Question} from "../../../../models/Questions/Question";
   templateUrl: './edit-vocabulary-question.component.html',
   styleUrls: ['./edit-vocabulary-question.component.css']
 })export class EditVocabularyQuestionComponent implements OnInit {
-	@Input() assignmentId;
-	@Input() groupId;
+	@Input() assignmentId: string;
+	@Input() groupId: string;
 	protected questionGroup:QuestionGroup;
 	wordList:Vocabulary[] = [];
 

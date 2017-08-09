@@ -1,32 +1,32 @@
-<div class="login-screen">
-    <div class="login-icon">
-        <img src="/assets/resources/img/Mail.png" alt="Welcome to Mail App">
-        <h4>欢迎加入<small>琢玉课堂</small></h4>
-    </div>
+<div class="login-screen" fxLayoutAlign="column" fxLayoutAlign="center center">
+    <div class="login" >
+        <div class="brand">
+            <h3>欢迎加入琢玉课堂</h3>
+            <p>让自己变得更好</p>
+        </div>
 
-    <div class="login-form">
         <form ngNativeValidate role="form" #f="ngForm"
-              (ngSubmit) = "onSubmit(f.value)">
-        <div class="form-group">
-            <input class="form-control login-field"
-                   type="email"
-                   id="exampleInputEmail1"
-                   name="email"
-                   placeholder="电子邮箱" required ngModel>
-            <label class="login-field-icon fui-user" for="exampleInputEmail1"></label>
-        </div>
+              (ngSubmit) = "onSubmit(f.value)" fxLayout="column" fxLayoutGap="20px">
+            <md-input-container>
+                <input mdInput type="email"
+                       placeholder="电子邮箱" name="email"
+                       required ngModel>
+                <md-icon mdSuffix>email</md-icon>
+            </md-input-container>
 
-        <div class="form-group">
-            <input type="password"
-                   class="form-control login-field"
-                   id="InputPassword"
-                   name="password"
-                   placeholder="密码" required ngModel>
-            <label class="login-field-icon fui-lock" for="InputPassword"></label>
-        </div>
+            <md-input-container>
+                <input mdInput type="password"
+                       placeholder="密码" name="password"
+                       required ngModel>
+                <md-icon mdSuffix>lock</md-icon>
+            </md-input-container>
 
-        <button class="btn btn-primary btn-lg btn-block" type="submit">登录</button>
-        <a class="login-link" routerLink="/register">还没有账号？立刻注册</a>
+            <button type="submit" md-raised-button color="primary" fxFlexAlign="end">
+                登录
+            </button>
+
+            <a routerLink="/register" fxFlexAlign="center"><small>还没有账号？立刻注册</small></a>
+
 
         </form>
     </div>

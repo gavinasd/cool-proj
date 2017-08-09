@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AssignmentService} from "../../../services/assignment.service";
 import {Mode} from "../../../models/assignments/Assignment";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-question-header',
@@ -12,13 +13,17 @@ export class QuestionHeaderComponent implements OnInit {
     @Input() public mode:Mode;
 	public ModeType = Mode;
 
-    constructor() { }
+    constructor(private router:Router) { }
 
     ngOnInit() {
     }
 
 	homeworkMode(){
 		return this.mode == this.ModeType.HomeWork;
+	}
+
+	gotoHome(){
+		this.router.navigate(['/']);
 	}
 
 }

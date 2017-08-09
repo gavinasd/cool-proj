@@ -1,6 +1,22 @@
 footer{
     background-color: #34495e;
-    margin-top: 200px;
     bottom:0;
-    width:100%;
+    left: 0;
+    right: 0;
+    height: 70px;
+    padding-left: 50px;
+    padding-right: 50px;
+    color: white;
+    position: absolute;
+    max-height: 70px !important;
+}
+
+footer h6{
+    font-size: 18px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+p{
+    margin: 0px;
 }

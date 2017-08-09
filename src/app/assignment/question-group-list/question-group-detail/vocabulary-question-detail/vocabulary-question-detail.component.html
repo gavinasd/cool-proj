@@ -1,27 +1,23 @@
 <div class="container" *ngIf="showContent && wordList">
     <fieldset class="word-list">
-        <legend>词汇列表</legend>
-        <p>背诵下列单词：</p>
+        <legend>背诵下列单词：</legend>
         <app-vocabulary-list [wordList]="wordList"></app-vocabulary-list>
     </fieldset>
 </div>
 
-<div class="container" *ngIf="!showContent">
-    <div class="row">
-        <div class="col-sm-10 col-md-offset-2" id="question">
-
-            <p>请写出该单词的中英文： <app-simple-audio-player [src]="question.question|pronunciationOfWord"></app-simple-audio-player></p>
-            <textarea type="text" [(ngModel)]="answer" rows="2" cols="50"
-                      (change)="changeAnswer()" [disabled]="reviewMode() || markingMode()"></textarea>
-        </div>
+<div *ngIf="!showContent" class="question-content" fxLayout="row"
+     fxLayoutWrap="wrap" fxLayout.sm="column"
+     fxLayoutGap="10px" fxLayoutAlign="center">
+    <div class="question" fxLayout="column" fxFlex="60%">
+        <p>请写出该单词的中英文： <app-simple-audio-player [src]="question.question|pronunciationOfWord"></app-simple-audio-player></p>
+        <textarea type="text" [(ngModel)]="answer" rows="4" cols="50"
+                  (change)="changeAnswer()" [disabled]="reviewMode() || markingMode()"></textarea>
     </div>
 
-    <div class="row" *ngIf="!homeWorkMode()">
-        <div class="col-sm-10 col-md-offset-2">
-            <p [ngClass]="{'text-success':correct(),'text-danger':!correct()}">学生答案：{{answer}}</p>
-            <p style="color:#2ECC71;">正确答案：{{question.answer}}</p>
-        </div>
+
+    <div class="answer" *ngIf="!homeWorkMode()" fxFlex="60%">
+        <p [ngClass]="{'correct-answer':correct(),'wrong-answer':!correct()}">学生答案：{{answer}}</p>
+        <p class="correct-answer">正确答案：{{question.answer}}</p>
     </div>
-    <app-question-marker *ngIf="markingMode()" [score]="question.score || 1" (marking)="updateScore($event)"></app-question-marker>
 </div>
 

@@ -13,8 +13,8 @@ import {Question} from "../../../../models/Questions/Question";
   styleUrls: ['edit-tporeading-question.component.css']
 })
 export class EditTporeadingQuestionComponent implements OnInit {
-	@Input() assignmentId;
-	@Input() groupId;
+	@Input() assignmentId: string;
+	@Input() groupId: string;
 	protected questionGroup:QuestionGroup;
 	editorPassage:string;               //用来接收Editor里面的内容
 

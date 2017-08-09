@@ -1,22 +1,21 @@
 .assignment-list{
-    padding-left: 30px;
-    padding-right: 30px;
-    margin-bottom: 20px;
-    border: thin solid lightgray;
-    border-radius: 6px;
+    position: relative;
+}
+
+md-list {
+    border: 1pt solid rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
     background-color: white;
 }
 
-.assignment-list-header{
-    border-bottom: 0.5px solid lightgray;
-    height: 70px;
-    font-size: 19px;
+md-list .header{
+    font-size: 18px;
+    color: #262626;
+    margin: 10px 0 10px 20px;
 }
 
-.assignment-list-header p{
-    line-height: 70px;
-    font-size: 21px;
-    font-weight: 600;
+.fab-top-right {
+    margin-right: 20px;
 }
 
 #more{
@@ -29,7 +28,12 @@
     cursor: pointer;
 }
 
+#more a{
+    width: 100%;
+}
+
 #more p{
+    color:#4caf50;
     line-height: 40px;
     margin:0;
 }

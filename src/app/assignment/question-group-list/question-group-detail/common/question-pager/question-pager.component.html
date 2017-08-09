@@ -1,18 +1,11 @@
-<div class="container" id="question-pager">
-    <ul class="pager">
-        <li class="previous">
-            <button class="btn btn-inverse"
-                    type="button"
-                    (click)="preQuestion()">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                {{getPagerContent()}}
-            </button>
-        </li>
-        <li class="next">
-            <button class="btn btn-inverse"
-                    (click)="nextQuestion()">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </button>
-        </li>
-    </ul>
+<div class="question-pager" fxLayout="row" fxLayoutGap="0px" fxLayoutAlign="center">
+    <div class="pager-container" fxLayout="row" fxLayoutGap="0px">
+        <button md-raised-button (click)="preQuestion()">
+            <md-icon>navigate_before</md-icon>
+            <span>{{getPagerContent()}}</span>
+        </button>
+        <button md-raised-button (click)="nextQuestion()">
+            <md-icon>navigate_next</md-icon>
+        </button>
+    </div>
 </div>

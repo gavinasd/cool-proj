@@ -1,8 +1,11 @@
-<div class="container">
-  <div class="row">
+<div fxLayout="row" fxLayout.sm="column" fxLayoutGap="30px" fxLayoutAlign="space-around" fxLayoutAlign.sm="start center">
     <app-course-list-item
             *ngFor="let classInfo of classInfoList"
             [classInfo]="classInfo"
     ></app-course-list-item>
-  </div>
+
+
+    <h5 *ngIf="classInfoList && classInfoList.length == 0">
+        你还没有加入任何班级，可以尝试搜索班级加入
+    </h5>
 </div>

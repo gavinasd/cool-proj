@@ -19,17 +19,15 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/ng2-toasty/style-bootstrap.css",
-        "../bower_components/flat-ui/dist/css/flat-ui.min.css",
         "../node_modules/font-awesome/css/font-awesome.min.css",
         "../node_modules/froala-editor/css/froala_editor.pkgd.min.css",
-        "styles.css"
+        "styles.css",
+        "theme.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js",
-        "../bower_components/flat-ui/dist/js/flat-ui.min.js"
+        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js"
       ],
       "addons": [
         "../node_modules/font-awesome/fonts/*.+(otf|eot|svg|ttf|woff|woff2)"

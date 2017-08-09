@@ -10,8 +10,8 @@ import {Observable} from "rxjs/Observable";
 	styleUrls: ['./question-timer.component.css']
 })
 export class QuestionTimerComponent implements OnInit,  AfterViewInit {
-	@Input() assignmentId;
-	@Input() studentId;
+	@Input() assignmentId:string;
+	@Input() studentId:string;
 	private spendTime$:Observable<number>;
 	private lastTime:Date = new Date();
 	public content: string = '';

@@ -36,6 +36,18 @@ import {StoreModule} from "@ngrx/store";
 import {reducers} from './redux/index.reducer';
 import {EffectsModule} from "@ngrx/effects";
 import {AssignmentEffect} from "./redux/assignment/assignment.effects";
+import {MaterialModule} from "./view/common/material.module";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {
+	MdButtonModule,
+	MdCardModule,
+	MdCheckboxModule, MdDialogModule, MdExpansionModule, MdIconModule, MdInputModule, MdListModule, MdMenuModule,
+	MdSelectModule,
+	MdSidenavModule,
+	MdSlideToggleModule,
+	MdTabsModule, MdToolbarModule
+} from "@angular/material";
 
 const routes:Routes = [
   	{path:'',redirectTo:'index',pathMatch:'full'},
@@ -67,6 +79,23 @@ const routes:Routes = [
       BrowserModule,
       FormsModule,
       HttpModule,
+      MaterialModule,
+      FlexLayoutModule,
+	  BrowserAnimationsModule,
+	  MdToolbarModule,
+	  MdSidenavModule,
+	  MdTabsModule,
+	  MdListModule,
+	  MdIconModule,
+	  MdSlideToggleModule,
+	  MdCardModule,
+	  MdButtonModule,
+	  MdMenuModule,
+	  MdDialogModule,
+	  MdSelectModule,
+	  MdInputModule,
+	  MdCheckboxModule,
+	  MdExpansionModule,
       NgUploaderModule,
       AssignmentModule,
       SearchClassModule,

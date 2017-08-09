@@ -1,16 +1,20 @@
-
-#question,#passage{
-    padding: 15px 30px 15px 15px;
-}
-
-.radio{
-    padding-left: 0px;
+.question-content{
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
     padding-top: 10px;
-    vertical-align: top;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);;
 }
 
-.radio input{
-    position: relative;
-    margin-left: 2px;
-    margin-right: 0px;
+md-radio-button p{
+    margin: 0px;
+    white-space: normal;
+}
+
+.correct-answer{
+    color: #4caf50;
+}
+
+.answer{
+    padding-top: 20px;
 }

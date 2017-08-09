@@ -3,6 +3,8 @@ import {ClassService} from "../../../services/class.service";
 import {Router} from "@angular/router";
 import {HttpService} from "../../../services/http.service";
 import {ToastService} from "../../../services/toast.service";
+import {MdDialog, MdDialogConfig} from "@angular/material";
+import {CreateClassDialogComponent} from "../dialogs/create-class-dialog/create-class-dialog.component";
 
 @Component({
     selector: 'app-navbar',
@@ -13,7 +15,7 @@ export class NavbarComponent implements OnInit {
     public userName: string;
     public userType: number;
 
-    constructor(private router: Router, private httpService: HttpService,
+    constructor(private router: Router, private httpService: HttpService, private dialog: MdDialog,
                 private classService: ClassService, private toastService: ToastService) { }
 
     ngOnInit() {
@@ -34,6 +36,16 @@ export class NavbarComponent implements OnInit {
                     this.toastService.error(err);
                 }
             )
+    }
+
+    openCreateClassDialog(){
+    	let config = new MdDialogConfig();
+	    config.width = '400px';
+    	this.dialog.open(CreateClassDialogComponent, config).afterClosed()
+		    .filter(result => !!result)
+		    .subscribe(data => {
+			    this.submitCreateClass(data);
+		    });
     }
 
     searchClass(form: any){

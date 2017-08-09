@@ -1,21 +1,16 @@
-<nav class="navbar navbar-inverse navbar-embossed navbar-static-top" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand"
-           routerLink="/index"
-           routerLinkActive="active">琢玉课堂</a>
+
+<md-toolbar color="primary">
+    <div class="brand" fxFlex="20" fxLayoutAlign="start">
+        <button  md-button class="brand" (click)="gotoHome()">
+            <md-icon>edit</md-icon>
+            <span>琢玉课堂</span>
+        </button>
     </div>
 
-    <ul class="nav navbar-nav navbar-center">
-        <li>
-            <a>{{assignmentName}}</a>
-        </li>
-    </ul>
+    <span fxFlex="60" fxLayoutAlign="center">{{assignmentName}}</span>
 
-    <ul *ngIf="homeworkMode()" class="nav navbar-nav navbar-right">
-        <li>
-            <app-question-timer></app-question-timer>
-        </li>
-    </ul>
+    <span fxFlex="20" fxLayoutAlign="end" *ngIf="homeworkMode()">
+        <app-question-timer></app-question-timer>
+    </span>
+</md-toolbar>
 
-
-</nav>

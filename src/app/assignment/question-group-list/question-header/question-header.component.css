@@ -1,22 +1,4 @@
-.navbar-center{
-    position: absolute;
-    left: 50%;
-    transform: translatex(-50%);
-}
-
-.navbar-center a{
+.brand{
     font-size: 20px;
-}
-
-.navbar-center a:hover{
-    cursor:default;
-}
-
-.navbar-right{
-    position: absolute;
-    height: 28px;
-    margin-top: -14px;
-    top:50%;
-    right: 20px;
-
+    font-weight: 600;
 }

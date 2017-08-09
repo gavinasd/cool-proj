@@ -1,11 +1,12 @@
-<app-class-detail-nav [classId]="classId"></app-class-detail-nav>
-<div class="container">
-    <div class="col-sm-4">
-        <app-class-user-list [classId]="classId"></app-class-user-list>
+<div id="container" fxLayout="column" fxFlex>
+    <app-class-detail-nav [classId]="classId"></app-class-detail-nav>
+    <div id="content" fxlayout="row" fxLayoutGap="50px" fxLayoutAlign="space-around">
+        <app-class-user-list fxFlex="33" [classId]="classId"></app-class-user-list>
+        <app-assignment-list fxFlex="67" [classId]="classId"></app-assignment-list>
     </div>
-    <div class="col-sm-8">
-        <app-assignment-list [classId]="classId"></app-assignment-list>
-    </div>
+
+    <span fxFlex></span>
+
 </div>
 
 <app-footer></app-footer>

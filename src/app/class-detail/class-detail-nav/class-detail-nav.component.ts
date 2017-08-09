@@ -4,6 +4,7 @@ import {HttpService} from "../../services/http.service";
 import {AssignmentService} from "../../services/assignment.service";
 import {ToastService} from "../../services/toast.service";
 import {Assignment} from "../../models/assignments/Assignment";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-class-detail-nav',
@@ -14,12 +15,14 @@ export class ClassDetailNavComponent implements OnInit {
 	@Input() classId:string;
 	public assignmentList:Assignment[];
 	public userType:number;
+	public userName:string;
 
 	constructor(private router:Router, private httpService:HttpService,
 	            private assignmentService:AssignmentService, private toastService:ToastService) { }
 
 	ngOnInit() {
 		this.userType = Number(this.httpService.getUserType());//把string转成number
+		this.userName = String(this.httpService.getCurrentUserName());
 		if(this.userType == 1) {
 			this.assignmentService.getAllAssignmentList().subscribe((assignmentList:Assignment[]) => {
 				this.assignmentList = assignmentList;
@@ -27,27 +30,17 @@ export class ClassDetailNavComponent implements OnInit {
 		}
 	}
 
-	addAssignment(form:any){
-		console.log(form.assignment);
-		this.assignmentService.addAssignmentToClass(this.classId,form.assignment)
-			.subscribe(
-				(json)=>{
-					document.getElementById('closeModal').click();
-					this.toastService.success("成功添加作业");
-				},(err)=>{
-					document.getElementById('closeModal').click();
-					this.toastService.error(err);
-				}
-			)
-	}
-
-	searchClass(form:any){
-		console.log(form.classForSearch);
-		this.router.navigate(['/class/search',form.classForSearch]);
+	searchClass(form:NgForm){
+		console.log(form.value.classForSearch);
+		this.router.navigate(['/class/search',form.value.classForSearch]);
 	}
 
 	logout(){
 		this.httpService.logout();
-		this.router.navigate(['/login_register']);
+		this.router.navigate(['/login']);
+	}
+
+	gotoHome(){
+		this.router.navigate(['/']);
 	}
 }

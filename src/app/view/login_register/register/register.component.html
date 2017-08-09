@@ -1,57 +1,44 @@
 
-<div class="login-screen">
+<div class="register-screen" fxLayoutAlign="column" fxLayoutAlign="center center">
+    <div class="register" >
+        <div class="brand">
+            <h3>欢迎加入琢玉课堂</h3>
+            <p>让自己变得更好</p>
+        </div>
 
-  <div class="login-icon">
-    <img src="../../../../assets/resources/img/Mail.png" alt="Welcome to Mail App">
-    <h4>欢迎加入<small>琢玉课堂</small></h4>
-  </div>
+        <form ngNativeValidate role="form" #f="ngForm"
+              (ngSubmit) = "onSubmit(f.value)" fxLayout="column" fxLayoutGap="20px">
+            <md-input-container>
+                <input mdInput type="text"
+                       placeholder="用户昵称" name="name"
+                       required ngModel>
+                <md-icon mdSuffix>person</md-icon>
+            </md-input-container>
 
-  <div class="login-form">
-    <form ngNativeValidate role="form" #f="ngForm"
-          (ngSubmit) = "onSubmit(f.value)">
-      <div class="form-group">
-        <input class="form-control login-field"
-               type="text"
-               id="inputName"
-               name="name"
-               placeholder="姓名" required ngModel>
-        <label class="login-field-icon fui-user" for="inputName"></label>
-      </div>
+            <md-input-container>
+                <input mdInput type="email"
+                       placeholder="电子邮箱" name="email"
+                       required ngModel>
+                <md-icon mdSuffix>email</md-icon>
+            </md-input-container>
 
-      <div class="form-group">
-        <input class="form-control login-field"
-               type="email"
-               id="inputEmail"
-               name="email"
-               placeholder="电子邮箱" required ngModel>
-        <label class="login-field-icon fui-mail" for="inputEmail"></label>
-      </div>
+            <md-input-container>
+                <input mdInput type="password"
+                       placeholder="密码" name="password"
+                       required ngModel>
+                <md-icon mdSuffix>lock</md-icon>
+            </md-input-container>
 
-      <div class="form-group">
-        <input type="password"
-               class="form-control login-field"
-               id="InputPassword"
-               name="password"
-               placeholder="密码" required ngModel>
-        <label class="login-field-icon fui-lock" for="InputPassword"></label>
-      </div>
+            <md-radio-group fxLayoutGap="10px" name="type" required ngModel>
+                <md-radio-button value="teacher"><p>教师</p></md-radio-button>
+                <md-radio-button value="student"><p>学生</p></md-radio-button>
+            </md-radio-group>
 
-      <div class="form-group">
-        <label class="radio-inline">
-          <input type="radio" name="type" id="inlineRadio1"
-                 value="teacher" data-toggle="radio" required ngModel>
-          教师
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="type" id="inlineRadio2"
-                 value="student" data-toggle="radio" required ngModel>
-          学生
-        </label>
-      </div>
+            <button type="submit" md-raised-button color="primary" fxFlexAlign="end">
+                注册
+            </button>
 
-      <button class="btn btn-primary btn-lg btn-block" type="submit">注册</button>
-      <a class="login-link" routerLink="/login">已经有账号？立刻登录</a>
-
-    </form>
-  </div>
+            <a routerLink="/login" fxFlexAlign="center"><small>已经有账号？立刻登录</small></a>
+        </form>
+    </div>
 </div>

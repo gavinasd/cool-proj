@@ -3,13 +3,11 @@
     padding-right: 0;
 }
 
-.assignment-header{
-    border-color: dimgray;
-    border-width: thin;
-}
 
 #question-group-list{
-    background-color: white;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 15px;
     min-height: 80%;
     position: relative;
 }

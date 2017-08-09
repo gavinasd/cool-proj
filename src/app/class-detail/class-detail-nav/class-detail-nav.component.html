@@ -1,90 +1,33 @@
-<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand"
-               routerLink="/index"
-               routerLinkActive="active">琢玉课堂</a>
-        </div>
+<md-toolbar color="primary" fxLayoutGap="20px">
+    <button md-button class="brand" (click)="gotoHome()">
+        <md-icon>edit</md-icon>
+        <span>琢玉课堂</span>
+    </button>
 
-        <ul class="nav navbar-nav">
-            <form #form="ngForm"
-                  ngNativeValidate
-                  (ngSubmit)="searchClass(form.value)"
-                  class="navbar-form navbar-left">
+    <div class="search">
+        <form  ngNativeValidate
+               #form="ngForm"
+               (ngSubmit)="searchClass(form)"
+               class="navbar-form navbar-left">
 
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text"
-                               name="classForSearch"
-                               class="form-control"
-                               placeholder="搜索班级"
-                               required
-                               ngModel>
-                        <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-              </span>
-                    </div>
-                </div>
-            </form>
-            <li><a href="#1" data-toggle="tab"  routerLink="/index">班级</a></li>
-            <li *ngIf="userType == 1" style="cursor: pointer">
-                <a data-toggle="modal" data-target="#addAssignmentModal">
-                    添加作业
-                </a>
-            </li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a (click)="logout()">退出</a></li>
-                </ul>
-            </li>
-        </ul>
-
-
-    </div>
-</nav>
-<div id="addAssignmentModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">添加作业</h4>
+            <div class="form-group search-bar" fxLayout="row">
+                <input type="text" placeholder="搜索班级" name="classForSearch" required ngModel>
+                <button md-icon-button class="input-after" type="submit">
+                    <md-icon >search</md-icon>
+                </button>
             </div>
-            <div class="modal-body">
-                <form ngNativeValidate id="createClassForm" role="form" #f="ngForm"
-                      (ngSubmit) = "addAssignment(f.value)">
-                    <div class="form-group">
-                        <label class="control-label">选择作业</label>
-                        <select
-                                class="form-control"
-                                id="assignment"
-                                name="assignment"
-                                ngModel
-                                required
-                        ><option *ngFor="let assignment of assignmentList"
-                                 value="{{assignment.id}}">{{assignment.assignmentName}}</option> </select>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="submit" class="btn btn-primary">确定</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
+        </form>
     </div>
-</div>
+
+    <span fxFlex></span>
+
+    <button md-button [mdMenuTriggerFor]="menu">
+        {{userName}}<md-icon>expand_more</md-icon>
+    </button>
+</md-toolbar>
+
+<md-menu #menu="mdMenu" x-position="before">
+    <button md-menu-item (click)="logout()">
+        <span >退出</span>
+    </button>
+</md-menu>

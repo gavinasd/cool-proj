@@ -12,10 +12,10 @@ export class ToastService {
 			showClose:true,
 			timeout:3000,
 			theme:'bootstrap',
-			onAdd:(toast)=>{
+			onAdd:(toast:string)=>{
 				console.log("toasting");
 			},
-			onRemove:(toast)=>{}
+			onRemove:(toast:string)=>{}
 		};
 	}
 

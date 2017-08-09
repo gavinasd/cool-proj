@@ -1,7 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
 import {TPOReadingQuestion} from "../../../../models/Questions/TPOReadingQuestion";
-import {Mode} from "../../../../models/assignments/Assignment";
-import {Question} from "../../../../models/Questions/Question";
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 
 @Component({
@@ -10,6 +8,8 @@ import {QuestionGroupDetailComponent} from "../question-group-detail.component";
   styleUrls: ['./tpo-reading-question-detail.component.css']
 })
 export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailComponent implements OnInit,OnChanges {
+	public tpoReadingQuestion: TPOReadingQuestion;
+
 	constructor() {
 		super();
 	}
@@ -21,7 +21,7 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.answer = this.lastAnswer;
-		this.question = <TPOReadingQuestion>this.question;
+		this.tpoReadingQuestion = <TPOReadingQuestion>this.question;
 	}
 
 }

@@ -1,12 +1,21 @@
-<div class="vocabulary-list">
-    <div class="col-sm-12">
-        <table class="table table-bordered">
-            <tbody>
-            <tr *ngFor="let word of (wordList|oddeven:'odd');let i = index">
-                <td><app-vocabulary-item [index]="2*i+1" [english]="word.english" [chinese]="word.chinese"></app-vocabulary-item></td>
-                <td><app-vocabulary-item [index]="2*i+2" *ngIf="wordList[2*i+1]" [english]="wordList[2*i+1].english" [chinese]="wordList[2*i+1].chinese"></app-vocabulary-item></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="word-list" fxLayout="row" fxLayoutAlign="center">
+    <md-list fxFlex="50%">
+        <md-list-item *ngFor="let word of (wordList|oddeven:'odd');let i = index">
+            <h4 md-line>
+                {{2*i+1}}.{{word.english}}
+                <app-simple-audio-player [src]="word.english | pronunciationOfWord"></app-simple-audio-player>
+            </h4>
+            <p md-line>{{word.chinese}}</p>
+        </md-list-item>
+    </md-list>
+
+    <md-list fxFlex="50%">
+        <md-list-item *ngFor="let word of (wordList|oddeven:'even');let i = index">
+            <h4 md-line>
+                {{2*i+2}}.{{word.english}}
+                <app-simple-audio-player [src]="word.english | pronunciationOfWord"></app-simple-audio-player>
+            </h4>
+            <p md-line>{{word.chinese}}</p>
+        </md-list-item>
+    </md-list>
 </div>

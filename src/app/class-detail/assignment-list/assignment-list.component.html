@@ -1,22 +1,34 @@
-<div class="assignment-list">
-    <div class="assignment-list-header">
-        <p>作业列表</p>
-    </div>
+<div class="assignment-list" fxFlex>
+    <md-list>
+        <div fxFlexLayout="row" fxLayoutAlign="start center">
+            <p class="header">作业列表</p>
+            <span fxFlex></span>
+            <button *ngIf="userType == '1'" md-button class="fab-top-right" (click)="openAddAssignmentDialog()">
+                添加作业
+            </button>
+        </div>
+        <md-divider></md-divider>
+        <md-accordion [displayMode]="'flat'" [multi]="false">
+            <app-grade-info-detail
+                    *ngFor="let assignmentInfo of listForShow;let i = index"
+                    [open]="i == 0"
+                    [assignmentInfo]="assignmentInfo"
+                    [classId]="classId"
+            ></app-grade-info-detail>
+        </md-accordion>
 
-    <app-grade-info-detail
-            *ngFor="let assignmentInfo of listForShow"
-            [assignmentInfo]="assignmentInfo"
-            [classId]="classId"
-    ></app-grade-info-detail>
-    <div id="more" role="tablist" class="text-center">
-        <a *ngIf="listForShow && canShowMore()" (click)="showMore()" type="button">
-            <p class="more-info"><small>更多<span class="caret"></span></small></p>
-        </a>
-        <a *ngIf="listForShow && !loading && !canShowMore()" type="button" disabled="disabled">
-            <p class="more-info"><small>已经没有更多作业</small></p>
-        </a>
-        <a *ngIf="loading">
-            <p class="more-info"><small>读取数据中</small></p>
-        </a>
-    </div>
+        <div id="more">
+            <a fxLayoutAlign="center" *ngIf="listForShow && canShowMore()" (click)="showMore()" type="button">
+                <p class="more-info"><small>更多<span class="caret"></span></small></p>
+            </a>
+            <a fxLayoutAlign="center" *ngIf="listForShow && !loading && !canShowMore()" type="button" disabled="disabled">
+                <p class="more-info"><small>已经没有更多作业</small></p>
+            </a>
+            <a fxLayoutAlign="center" *ngIf="loading">
+                <p class="more-info"><small>读取数据中</small></p>
+            </a>
+        </div>
+
+
+    </md-list>
 </div>

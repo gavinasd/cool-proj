@@ -1,54 +1,15 @@
-.user-list{
-    padding-left: 30px;
-    padding-right: 30px;
-    margin-bottom: 20px;
-    border-radius: 6px;
+h3{
+    font-size: 18px;
+    font-weight: bolder;
+}
+md-list {
+    border: 1pt solid rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
     background-color: white;
-    border: thin solid lightgray;
 }
 
-.user-header{
-    border-bottom: 0.5px solid lightgray;
-    height: 70px;
-    font-size: 19px;
-}
-
-.user-header p{
-    line-height: 70px;
-    font-size: 21px;
-    font-weight: 600;
-}
-
-.user-list ul{
-    padding-left: 0px;
-}
-
-
-.user-list li{
-    background: white;
-    background-size: 20px 20px;
-    font-size: 14px;
-    line-height: 1.214;
-    margin-top: 2px;
-    padding: 8px 42px 8px 0px;
-    position: relative;
-    -webkit-transition: .25s;
-    transition: .25s;
-    list-style: none;
-}
-
-.user-icon{
-    float: left;
-    font-size: 24px;
-    padding: 11px 22px 0 0;
-}
-
-.user-content{
-    padding-top: 1px;
-    overflow: hidden;
-}
-
-.user-name{
-    font-size: 17px;
-    margin: 1px 0 3px;
+md-list .header{
+    font-size: 18px;
+    color: #262626;
+    margin: 10px 0 10px 20px;
 }

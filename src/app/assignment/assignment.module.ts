@@ -23,6 +23,9 @@ import {EditQuestionComponent} from "./edit-assignment/edit-question/edit-questi
 import {EditAssignmentComponent} from "./edit-assignment/edit-assignment.component";
 import { QuestionMarkerComponent } from './question-group-list/question-group-detail/common/question-marker/question-marker.component';
 import { QuestionTimerComponent } from './question-group-list/question-header/question-timer/question-timer.component';
+import {MaterialModule} from "../view/common/material.module";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {AddAssignmentDialogComponent} from "../shared/view/dialogs/add-assignment-dialog/add-assignment-dialog.component";
 
 @NgModule({
 	imports: [
@@ -30,6 +33,8 @@ import { QuestionTimerComponent } from './question-group-list/question-header/qu
 		FormsModule,
 		RouterModule,
 		SharedModule,
+		MaterialModule,
+		FlexLayoutModule,
 		FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
 	],
 	declarations: [
@@ -50,6 +55,9 @@ import { QuestionTimerComponent } from './question-group-list/question-header/qu
 		TpoReadingItemComponent,
 		QuestionMarkerComponent,
 		QuestionTimerComponent,
+	],
+	entryComponents:[
+		AddAssignmentDialogComponent
 	],
 	providers:[
 		AssignmentService,
