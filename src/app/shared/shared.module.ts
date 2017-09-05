@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {OddEvenPipe} from "./pipes/odd-even.pipe";
 import {FooterComponent} from "./view/footer/footer.component";
-import {MainNavComponent} from "./view/main-nav/main-nav.component";
 import {NavbarComponent} from "./view/navbar/navbar.component";
 import {FormsModule} from "@angular/forms";
 import { Convert09ToAZPipe } from './pipes/convert09-to-az.pipe';
@@ -13,6 +12,13 @@ import {MaterialModule} from "../view/common/material.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { CreateClassDialogComponent } from './view/dialogs/create-class-dialog/create-class-dialog.component';
 import { AddAssignmentDialogComponent } from './view/dialogs/add-assignment-dialog/add-assignment-dialog.component';
+import { CreateAssignmentDialogComponent } from './view/dialogs/create-assignment-dialog/create-assignment-dialog.component';
+import { AddQuestionDialogComponent } from './view/dialogs/add-question-dialog/add-question-dialog.component';
+import { DataComponent } from './view/dev/data/data.component';
+import { SubmitConfirmDialogComponent } from './view/dialogs/submit-confirm-dialog/submit-confirm-dialog.component';
+import { FollowClassDialogComponent } from './view/dialogs/follow-class-dialog/follow-class-dialog.component';
+import {ClassDetailNavComponent} from "./view/navbar/class-detail-nav/class-detail-nav.component";
+import { AudioPlayerComponent } from './view/audio/audio-player/audio-player.component';
 
 @NgModule({
     imports: [
@@ -25,14 +31,20 @@ import { AddAssignmentDialogComponent } from './view/dialogs/add-assignment-dial
     	OddEvenPipe,
 	    Convert09ToAZPipe,
 	    FooterComponent,
-	    MainNavComponent,
 	    NavbarComponent,
+	    ClassDetailNavComponent,
 	    Convert09ToAZPipe,
 	    SimpleAudioPlayerComponent,
 	    HalfPipe,
 	    PronunciationOfWordPipe,
 	    CreateClassDialogComponent,
-	    AddAssignmentDialogComponent
+	    AddAssignmentDialogComponent,
+	    CreateAssignmentDialogComponent,
+	    AddQuestionDialogComponent,
+	    DataComponent,
+	    SubmitConfirmDialogComponent,
+	    FollowClassDialogComponent,
+	    AudioPlayerComponent
     ],
 	entryComponents:[CreateClassDialogComponent],
 	exports:[
@@ -41,9 +53,10 @@ import { AddAssignmentDialogComponent } from './view/dialogs/add-assignment-dial
 		HalfPipe,
 		PronunciationOfWordPipe,
 		FooterComponent,
-		MainNavComponent,
 		NavbarComponent,
-		SimpleAudioPlayerComponent
+		ClassDetailNavComponent,
+		SimpleAudioPlayerComponent,
+		AudioPlayerComponent
 	]
 })
 export class SharedModule { }

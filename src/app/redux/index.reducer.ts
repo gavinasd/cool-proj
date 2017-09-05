@@ -19,6 +19,7 @@ export const getAssignmentSpendTime = createSelector(getAssignmentState, fromAss
 export const getCurrentGroup = createSelector(getAssignmentState, fromAssignment.getCurrentQuestionGroup);
 export const getGroupType = createSelector(getCurrentGroup, (group) =>group?group.type:'');
 export const getGroupContent = createSelector(getAssignmentState, fromAssignment.getCurrentGroupContent);
+export const getContentIndex = createSelector(getAssignmentState, fromAssignment.getCurrentContentIndex);
 export const shouldShowContent = createSelector(getGroupContent, (content) => content && content.length>0?true:false);
 
 export const getQuestionIndex = createSelector(getAssignmentState, (state) => state.currentQuestionIndex);

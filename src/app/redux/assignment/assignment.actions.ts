@@ -1,6 +1,5 @@
 import {Action} from "@ngrx/store";
 import {Assignment} from "../../models/assignments/Assignment";
-import {Question} from "../../models/Questions/Question";
 import {MarkingScore, SpendTime, StudentAnswer} from "../../models/assignments/AssignmentInfo";
 
 export const FETCH =                '[ASSIGNMENT] FETCH';
@@ -17,6 +16,8 @@ export const PRE =                  '[ASSIGNMENT] PRE';
 export const SUBMIT =               '[ASSIGNMENT] SUBMIT';
 export const SUBMIT_SUCCESS =       '[ASSIGNMENT] SUBMIT_SUCCESS';
 export const SUBMIT_FAILURE =       '[ASSIGNMENT] SUBMIT_FAILURE';
+export const SET_UNCOMPLETE =       '[ASSIGNMENT] SET_UNCOMPLETE';
+export const SET_ASSIGNMENT_DONE =  '[ASSIGNMENT] SET_ASSIGNMENT_DONE';
 export const RESET =                '[ASSIGNMENT] RESET';
 
 export class FetchAssignmentAction implements Action{
@@ -91,6 +92,11 @@ export class SubmitFailureAction implements Action{
 	constructor(public payload: string){}
 }
 
+export class SetUnCompleteAction implements Action {
+	readonly type = SET_UNCOMPLETE;
+	constructor(){}
+}
+
 export class ResetAction implements Action{
 	readonly type = RESET;
 	constructor(){}
@@ -111,6 +117,7 @@ export type Actions
 	| SubmitAction
 	| SubmitSuccessAction
 	| SubmitFailureAction
+	| SetUnCompleteAction
 	| ResetAction;
 
 

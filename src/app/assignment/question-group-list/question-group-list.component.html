@@ -24,8 +24,29 @@
             [lastAnswer]="lastAnswer$ | async"
             [markingScore]="markingScore$ | async"
             [mode]="mode"
-            [showContent]="shouldShowContent$ | async"
+            [contentIndex]="contentIndex$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
     ></app-vocabulary-question-detail>
+    <app-independent-writing-question-detail
+            *ngSwitchCase="assignmentService.getIndependentWritingType()"
+            [groupContent]="groupContent$ | async"
+            [question]="currentQuestion$ | async"
+            [lastAnswer]="lastAnswer$ | async"
+            [markingScore]="markingScore$ | async"
+            [mode]="mode"
+            (OnChangeAnswer)="changeAnswer($event)"
+            (OnMarkScore)="changeScore($event)"
+    ></app-independent-writing-question-detail>
+    <app-integrated-writing-question-detail
+            *ngSwitchCase="assignmentService.getIntegratedWritingType()"
+            [groupContent]="groupContent$ | async"
+            [question]="currentQuestion$ | async"
+            [lastAnswer]="lastAnswer$ | async"
+            [markingScore]="markingScore$ | async"
+            [mode]="mode"
+            [contentIndex]="contentIndex$ | async"
+            (OnChangeAnswer)="changeAnswer($event)"
+            (OnMarkScore)="changeScore($event)"
+    ></app-integrated-writing-question-detail>
     <div *ngSwitchDefault>{{group}}</div>
 </div>

@@ -1,24 +1,16 @@
-<div class="panel panel-default">
-    <div class="panel-heading">题目</div>
-    <div class="panel-body">
-        <fieldset class="word-list">
-            <legend>词汇列表</legend>
-            <voca
-        </fieldset>
+<md-card-content>
+    <h5>词汇列表</h5>
+    <app-vocabulary-list [wordList]="wordList"></app-vocabulary-list>
+</md-card-content>
 
-        <fieldset class="question-list">
-            <legend>题目列表</legend>
-            <div id="question"
-                 *ngFor="let question of questionList">
-                <p>翻译：{{question.question}}</p>
-                <ul>
-                    <li *ngFor="let option of question.options;let i = index">
-                        {{i | convert09ToAZ}}. {{option}}
-                    </li>
-                </ul>
-                <p>答案：{{question.answer}}</p>
-            </div>
-        </fieldset>
-    </div>
-</div>
+<md-card-content>
+    <h5>题目</h5>
+    <md-list>
+        <md-list-item *ngFor="let question of questionList;let i = index">
+            <h4 md-line>{{i+1}}. 英文单词：{{question.question}}</h4>
+            <p md-line>答案：{{question.answer}}</p>
+        </md-list-item>
+    </md-list>
+</md-card-content>
+
 

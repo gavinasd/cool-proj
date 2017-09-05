@@ -1,8 +1,15 @@
-<div class="container">
-  <div class="row">
+<app-class-detail-nav></app-class-detail-nav>
+<div fxLayout="row" fxLayoutAlign="start"
+     fxLayout.sm="column" fxLayoutGap.sm="30px" fxLayoutAlign.sm="start center">
     <app-search-result-item
+            fxFlex="33%"
+            fxFlex.sm="100%"
             *ngFor="let classInfo of classInfoList"
             [classInfo]="classInfo"
     ></app-search-result-item>
-  </div>
+
+
+    <h5 *ngIf="classInfoList && classInfoList.length == 0">
+        找不到任何班级，请重新搜索
+    </h5>
 </div>

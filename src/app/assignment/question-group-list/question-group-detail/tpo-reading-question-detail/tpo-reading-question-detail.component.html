@@ -11,8 +11,7 @@
             <md-radio-button *ngFor="let option of tpoReadingQuestion.options; let i = index"
                              color="accent"
                              name="choices"
-                             [value]="i|convert09ToAZ"
-                             [checked]="answer == (i|convert09ToAZ)">
+                             [value]="i|convert09ToAZ">
                 <p>{{i|convert09ToAZ}}. {{option}}</p>
             </md-radio-button>
         </md-radio-group>
@@ -21,7 +20,7 @@
         <div [froalaView]="tpoReadingQuestion.passage"></div>
     </div>
 
-    <div class="answer" *ngIf="!homeWorkMode()" fxFlex="0 0 100%">
+    <div class="answer" *ngIf="!homeworkMode()" fxFlex="0 0 100%">
         <p [ngClass]="{'correct-answer':correct(),'text-danger':!correct()}">学生答案：{{answer}}</p>
         <p class="correct-answer">正确答案：{{tpoReadingQuestion.answer}}</p>
     </div>

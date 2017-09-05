@@ -6,12 +6,14 @@ export class Assignment{
 	id:string;
 	creator:string;
 	assignmentName:string;
+	type:string;
 	questionGroupList:QuestionGroup[] = [];
 
 	public constructor(obj:any){
 		this.id = obj && obj._id;
 		this.creator = obj && obj.creator;
 		this.assignmentName = obj && obj.assignmentName;
+		this.type = obj && obj.type;
 		if(obj && obj.questionGroupList){
 			for(let group of obj.questionGroupList){
 				this.questionGroupList.push(new QuestionGroup(group));

@@ -7,6 +7,11 @@
     font-weight: 600;
 }
 
+.search{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .search-bar{
     padding: 4px 10px 4px 10px;
     margin: 0px;
@@ -28,7 +33,7 @@
     position: absolute;
     top: 50%;
     right: 0px;
-    margin-top: -18px;
+    margin-top: -20px;
     color: lightgray;
     background-color: transparent;
 }

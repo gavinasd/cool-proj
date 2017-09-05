@@ -1,11 +1,11 @@
-<div class="container" *ngIf="showContent && wordList">
+<div class="container" *ngIf="contentIndex == 0 && wordList">
     <fieldset class="word-list">
         <legend>背诵下列单词：</legend>
         <app-vocabulary-list [wordList]="wordList"></app-vocabulary-list>
     </fieldset>
 </div>
 
-<div *ngIf="!showContent" class="question-content" fxLayout="row"
+<div *ngIf="contentIndex > 0" class="question-content" fxLayout="row"
      fxLayoutWrap="wrap" fxLayout.sm="column"
      fxLayoutGap="10px" fxLayoutAlign="center">
     <div class="question" fxLayout="column" fxFlex="60%">
@@ -15,7 +15,7 @@
     </div>
 
 
-    <div class="answer" *ngIf="!homeWorkMode()" fxFlex="60%">
+    <div class="answer" *ngIf="!homeworkMode()" fxFlex="60%">
         <p [ngClass]="{'correct-answer':correct(),'wrong-answer':!correct()}">学生答案：{{answer}}</p>
         <p class="correct-answer">正确答案：{{question.answer}}</p>
     </div>

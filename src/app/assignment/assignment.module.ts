@@ -21,11 +21,21 @@ import {EditTporeadingQuestionComponent} from "./edit-assignment/edit-question/e
 import {EditQuestionListComponent} from "./edit-assignment/edit-question-list/edit-question-list.component";
 import {EditQuestionComponent} from "./edit-assignment/edit-question/edit-question.component";
 import {EditAssignmentComponent} from "./edit-assignment/edit-assignment.component";
-import { QuestionMarkerComponent } from './question-group-list/question-group-detail/common/question-marker/question-marker.component';
 import { QuestionTimerComponent } from './question-group-list/question-header/question-timer/question-timer.component';
 import {MaterialModule} from "../view/common/material.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {AddAssignmentDialogComponent} from "../shared/view/dialogs/add-assignment-dialog/add-assignment-dialog.component";
+import {CreateAssignmentDialogComponent} from "../shared/view/dialogs/create-assignment-dialog/create-assignment-dialog.component";
+import {AddQuestionDialogComponent} from "../shared/view/dialogs/add-question-dialog/add-question-dialog.component";
+import { EditIndependentWritingQuestionComponent } from './edit-assignment/edit-question/edit-independent-writing-question/edit-independent-writing-question.component';
+import { EditIntegratedWritingQuestionComponent } from './edit-assignment/edit-question/edit-integrated-writing-question/edit-integrated-writing-question.component';
+import { IndependentWritingItemComponent } from './edit-assignment/edit-question-list/independent-writing-item/independent-writing-item.component';
+import { IndependentWritingQuestionDetailComponent } from './question-group-list/question-group-detail/independent-writing-question-detail/independent-writing-question-detail.component';
+import { ScoreMarkerComponent } from './question-group-list/question-group-detail/common/question-marker/score-marker/score-marker.component';
+import { CommonMarkerComponent } from './question-group-list/question-group-detail/common/question-marker/common-marker/common-marker.component';
+import {SubmitConfirmDialogComponent} from "../shared/view/dialogs/submit-confirm-dialog/submit-confirm-dialog.component";
+import { IntegratedWritingQuestionDetailComponent } from './question-group-list/question-group-detail/integrated-writing-question-detail/integrated-writing-question-detail.component';
+import { IntegratedWritingItemComponent } from './edit-assignment/edit-question-list/integrated-writing-item/integrated-writing-item.component';
 
 @NgModule({
 	imports: [
@@ -53,11 +63,21 @@ import {AddAssignmentDialogComponent} from "../shared/view/dialogs/add-assignmen
 		EditVocabularyQuestionComponent,
 		EditVocabularyItemComponent,
 		TpoReadingItemComponent,
-		QuestionMarkerComponent,
 		QuestionTimerComponent,
+		EditIndependentWritingQuestionComponent,
+		EditIntegratedWritingQuestionComponent,
+		IndependentWritingItemComponent,
+		IndependentWritingQuestionDetailComponent,
+		ScoreMarkerComponent,
+		CommonMarkerComponent,
+		IntegratedWritingQuestionDetailComponent,
+		IntegratedWritingItemComponent,
 	],
 	entryComponents:[
-		AddAssignmentDialogComponent
+		AddAssignmentDialogComponent,
+		CreateAssignmentDialogComponent,
+		AddQuestionDialogComponent,
+		SubmitConfirmDialogComponent
 	],
 	providers:[
 		AssignmentService,

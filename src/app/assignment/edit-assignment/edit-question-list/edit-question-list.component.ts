@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import {AssignmentService} from "../../../services/assignment.service";
 import {QuestionGroup} from "../../../models/Questions/QuestionGroup";
+import {Assignment} from "../../../models/assignments/Assignment";
 
 @Component({
   selector: 'app-edit-question-list',
@@ -17,10 +18,9 @@ export class EditQuestionListComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges() {
-        this.assignmentService.getQuestionGroupList(this.assignmentId)
-            .subscribe((groupList:QuestionGroup[]) => {
-                console.log(groupList);
-                this.groupList = groupList;
+        this.assignmentService.getAssignment(this.assignmentId)
+            .subscribe((assignment:Assignment) => {
+                this.groupList = assignment.questionGroupList;
             });
     }
 

@@ -1,7 +1,18 @@
 <h4>添加作业</h4>
 <form ngNativeValidate id="addAssignmentForm" role="form" #f="ngForm"
       (ngSubmit) = "dialogRef.close(f.value)">
-    <div fxLayout="column" fxLayoutGap="8px">
+    <div fxLayout="column" fxLayoutGap="40px">
+        <md-select placeholder="选择作业类型"
+                   (change)="changeType()"
+                   [ngModelOptions]="{standalone:true}"
+                   [(ngModel)]="type">
+            <md-option *ngFor="let assignmentType of assignmentTypes"
+                       [value]="assignmentType.value">
+                {{assignmentType.name}}
+            </md-option>
+        </md-select>
+
+
         <md-select placeholder="选择作业"
                    name="assignment"
                    ngModel

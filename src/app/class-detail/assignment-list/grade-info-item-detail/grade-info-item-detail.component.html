@@ -1,79 +1,41 @@
-<!--<div class="row">-->
-    <!--<div class="col-sm-2 grade-mark">-->
-        <!--<div class="grade-tag"-->
-             <!--[ngClass]="{ 'palette-turquoise':gradePercentage >= 0.8,-->
-                        <!--'palette-sun-flower':gradePercentage < 0.8 && gradePercentage >= 0.5,-->
-                        <!--'palette-alizarin':gradePercentage < 0.5}">-->
-            <!--<p *ngIf="gradePercentage >= 0.8">学霸你好</p>-->
-            <!--<p *ngIf="gradePercentage < 0.8 && gradePercentage >= 0.5">不错哦</p>-->
-            <!--<p *ngIf="gradePercentage < 0.5">继续加油</p>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col-sm-4 grade-header">-->
-        <!--<p id="student-name">{{gradeInfo.studentName}}</p>-->
-        <!--<p><small>未完成{{gradeInfo.undoneNum}}题</small></p>-->
-    <!--</div>-->
-    <!--<div class="col-sm-6">-->
-        <!--<div class="grade-detail">-->
-            <!--<label>得分：</label>-->
-            <!--<p>{{gradeInfo.score}}/{{gradeInfo.totalScore}}</p>-->
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
 
-            <!--<a *ngIf="gradeInfo.undoneNum>0 && userType != '1'"-->
-               <!--[routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ httpService.getCurrentId() + '/' + ModeType.HomeWork]">-->
-                <!--<button class="btn btn-inverse">做题</button>-->
-            <!--</a>-->
+    <md-icon svgIcon="avatars:{{gradeInfo.studentAvatar}}" class="avatar"></md-icon>
 
-            <!--<a *ngIf="userType == '1'"-->
-                <!--[routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ gradeInfo.studentId + '/' + ModeType.Marking]">-->
-                <!--<button class="btn btn-success">批改</button>-->
-            <!--</a>-->
-
-            <!--<a *ngIf="gradeInfo.undoneNum == 0 && userType == '0'"-->
-               <!--[routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ httpService.getCurrentId() + '/' + ModeType.Review]">-->
-                <!--<button class="btn btn-inverse">查看</button>-->
-            <!--</a>-->
-
-            <!--<a *ngIf="userType == '1'"-->
-               <!--[routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ gradeInfo.studentId + '/' + ModeType.Review]">-->
-                <!--<button class="btn btn-inverse">查看</button>-->
-            <!--</a>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-
-<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-    <div class="star-tag" fxLayout="row" fxLayoutAlign="center">
-        <span><md-icon class="star" *ngIf="gradePercentage >= 0.8">star</md-icon></span>
-        <span><md-icon class="star" *ngIf="gradePercentage >= 0.5">star</md-icon></span>
-        <span><md-icon class="star" >star</md-icon></span>
-    </div>
-
-    <div class="content" fxLayout="column">
+    <div class="content" fxLayout="column" fxLayoutAlign="center" fxLayoutGap="3px">
         <p class="name">{{gradeInfo.studentName}}</p>
-        <p class="fulfill" *ngIf="gradeInfo.undoneNum>0">{{gradeInfo.undoneNum}}题未做</p>
-        <p class="fulfill" *ngIf="gradeInfo.undoneNum == 0">全部做完</p>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+            <p class="grade">得分：{{gradeInfo.score}}/{{gradeInfo.totalScore}}</p>
+            <div class="star-tag" fxLayout="row" fxLayoutAlign="start center">
+                <span><md-icon class="star" *ngIf="gradePercentage >= 0.8">star</md-icon></span>
+                <span><md-icon class="star" *ngIf="gradePercentage >= 0.5">star</md-icon></span>
+                <span><md-icon class="star">star</md-icon></span>
+            </div>
+        </div>
     </div>
 
     <span fxFlex></span>
 
-    <div class="grade">
-        <p>得分：{{gradeInfo.score}}/{{gradeInfo.totalScore}}</p>
+    <div class="grade-zone" fxLayout="column" fxLayoutAlign="center end" fxLayoutGap="5px">
+        <p *ngIf="gradeInfo.undoneNum>0" >{{gradeInfo.undoneNum}}题未做</p>
+        <p *ngIf="gradeInfo.undoneNum==0" >全部完成</p>
+        <p>耗时:{{getTimeForShow()}}</p>
     </div>
 
     <div class="button-zone" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="5px">
-        <a *ngIf="gradeInfo.undoneNum>0 && userType != '1'"
+        <a *ngIf="!gradeInfo.done && userType != '1'"
            [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ httpService.getCurrentId() + '/' + ModeType.HomeWork]">
             <button md-raised-button color="accent">做题</button>
+        </a>
+
+        <a *ngIf="gradeInfo.done && userType == '0'"
+           [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ httpService.getCurrentId() + '/' + ModeType.Review]">
+            <button md-raised-button color="primary">查看</button>
         </a>
 
         <a *ngIf="userType == '1'"
            [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ gradeInfo.studentId + '/' + ModeType.Marking]">
             <button md-raised-button color="accent">批改</button>
-        </a>
-
-        <a *ngIf="gradeInfo.undoneNum == 0 && userType == '0'"
-           [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ httpService.getCurrentId() + '/' + ModeType.Review]">
-            <button md-raised-button color="primary">查看</button>
         </a>
 
         <a *ngIf="userType == '1'"

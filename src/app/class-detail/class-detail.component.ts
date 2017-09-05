@@ -8,19 +8,14 @@ import {ClassService} from "../services/class.service";
   templateUrl: './class-detail.component.html',
   styleUrls: ['./class-detail.component.css']
 })
-export class ClassDetailComponent implements OnInit, OnDestroy {
+export class ClassDetailComponent implements OnInit {
     public classId: string;
-    constructor(private route: ActivatedRoute, private classService: ClassService) {
+    constructor(private route: ActivatedRoute) {
         this.route.params.forEach((param: Params) => {
             this.classId = param['classId'];
         });
     }
 
     ngOnInit() {
-    }
-
-
-	ngOnDestroy(): void {
-		console.log('destroy');
     }
 }

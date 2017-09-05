@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {ClassService} from "../services/class.service";
 import {ClassInfo} from "../models/models";
@@ -10,18 +10,18 @@ import {Observable} from "rxjs";
     styleUrls: ['./search-class.component.css']
 })
 export class SearchClassComponent implements OnInit {
-    className:string;
+    className$:Observable<string>;
     classInfoList:ClassInfo[];
     classInfoList$:Observable<any[]>;
 
     constructor(private route:ActivatedRoute, private classService:ClassService) {
-        this.route.params.forEach((param:Params)=>{
-            this.className = param['className'];
-        });
+		this.className$ = this.route.params.map((param:Params)=>{
+			return param['className'];
+		});
     }
 
     ngOnInit() {
-        this.classInfoList$ = this.classService.searchClass(this.className);
+        this.classInfoList$ = this.className$.switchMap(className => this.classService.searchClass(className));
         this.classInfoList$.map((classInfoList:any[])=>{
             return classInfoList.map((classInfo:any)=>{
                 let mClassInfo:ClassInfo = new ClassInfo(classInfo._id,classInfo.name);
@@ -31,5 +31,4 @@ export class SearchClassComponent implements OnInit {
             this.classInfoList = classInfoList;
         });
     }
-
 }

@@ -1,0 +1,42 @@
+<div id="container" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start">
+    <div class="direction">
+        <p>Directions: You have 30 minutes to plan and write your response. Your response will be judged on the basis of the quality of your writing and on how well your response presents the points in the lecture and their relationship to the reading passage. Typically an effective response will be 300 words at least.</p>
+    </div>
+
+    <div class="question-content" fxLayout="row"
+         fxLayoutWrap="wrap" fxLayout.sm="column"
+         fxLayoutAlign="start">
+
+        <div class="question" fxLayout="column" fxFlex="1 1 45%">
+            <div [froalaView]="independentWritingQuestion.question"></div>
+        </div>
+        <div class="passage" fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 55%">
+            <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                <md-card>
+                    <md-card-content>
+                        <label class="word-count">Word Count:{{wordCount}}</label>
+                    </md-card-content>
+                </md-card>
+
+                <md-card *ngIf="!homeworkMode()">
+                    <md-card-content>
+                        <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
+                    </md-card-content>
+                </md-card>
+
+                <span fxFlex></span>
+                <app-score-marker *ngIf="markingMode()" [score]="independentWritingQuestion.score" (marking)="markScore($event)"></app-score-marker>
+            </div>
+            <textarea class="form-control" *ngIf="!reviewMode()"
+                      [froalaEditor]="markingMode()?EditorTeacherOptions:EditorStudentOptions"
+                      [(froalaModel)]="content"
+                      [(ngModel)]="content" (ngModelChange)="changeAnswer()"
+                      rows="10" required ></textarea>
+            <div class="review-content" [froalaView]="content" *ngIf="reviewMode()"></div>
+        </div>
+    </div>
+    <div class="answer" *ngIf="reviewMode()">
+        <p>参考范文：</p>
+        <div [froalaView]="independentWritingQuestion.answer"></div>
+    </div>
+</div>

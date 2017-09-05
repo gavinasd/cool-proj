@@ -24,18 +24,20 @@ export class UserService {
 					this.httpService.setCurrentId(resp.json().id);
                     this.httpService.setUserType(resp.json().userType);
                     this.httpService.setCurrentUserName(resp.json().userName);
+                    this.httpService.setCurrentUserAvatar(resp.json().avatarUrl);
 					return resp.json();
 				})
 			.catch(HttpService.handleError);
 
 	}
 
-	public register(name:string, email:string,
+	public register(name:string, avatar:string, email:string,
 					password:string, type:number):Observable<string>{
 
 		console.log('service register start');
 		var body = JSON.stringify({
 			'nickName':name,
+			'avatar': avatar,
 			'email':email,
 			'password':password,
 			'userType':type.toString()
@@ -47,6 +49,7 @@ export class UserService {
 				this.httpService.setCurrentId(resp.json().id);
 				this.httpService.setUserType(resp.json().userType);
 				this.httpService.setCurrentUserName(resp.json().userName);
+				this.httpService.setCurrentUserAvatar(resp.json().avatar);
 				return resp.json().id;
 			})
 			.catch(HttpService.handleError);

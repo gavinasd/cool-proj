@@ -6,6 +6,11 @@
     align-items: flex-start !important;
   }
 
+  .question .mat-radio-container{
+    top: 1px !important;
+    flex-shrink: 0;
+  }
+
   .mat-radio-container{
     top: 5px !important;
     flex-shrink: 0;

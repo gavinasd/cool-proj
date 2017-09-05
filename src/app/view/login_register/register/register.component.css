@@ -1,8 +1,5 @@
 .register-screen{
-    height:100%;
-    margin-top: 60px;
-    padding-right: 200px;
-    padding-left: 200px;
+    height:100vh;
 }
 
 .register{
@@ -20,6 +17,17 @@
 
 form{
     padding: 30px 30px 20px 30px;
+}
+
+md-grid-list{
+    width: 250px;
+}
+
+md-icon.avatar{
+    overflow: hidden;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
 }
 
 md-radio-button p{

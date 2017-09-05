@@ -1,0 +1,6 @@
+<md-card-content *ngFor="let question of questionList;let i = index">
+    <h4>{{i+1}}. 题目：</h4>
+    <div [froalaView]="question.question"></div>
+    <h4>范文：</h4>
+    <div [froalaView]="question.answer"></div>
+</md-card-content>

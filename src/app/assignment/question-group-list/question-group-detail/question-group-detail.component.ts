@@ -1,11 +1,6 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {QuestionGroup} from "../../../models/Questions/QuestionGroup";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Question} from "../../../models/Questions/Question";
-import {Observable} from "rxjs/Observable";
 import {Mode} from "../../../models/assignments/Assignment";
-import {ApplicationState} from "../../../redux/index.reducer";
-import {Store} from "@ngrx/store";
-import * as fromApplication from '../../../redux/index.reducer';
 
 @Component({
   selector: 'app-question-group-detail',
@@ -39,7 +34,7 @@ export class QuestionGroupDetailComponent implements OnInit {
 		this.OnMarkScore.emit(score);
 	}
 
-	public homeWorkMode():boolean{
+	public homeworkMode():boolean{
 		return this.mode == this.ModeType.HomeWork;
 	}
 

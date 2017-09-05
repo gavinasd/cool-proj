@@ -13,3 +13,26 @@ md-list .header{
     color: #262626;
     margin: 10px 0 10px 20px;
 }
+
+.info{
+    height: 72px;
+}
+
+md-icon{
+    overflow: hidden;
+    width: 48px;
+    height: 48px;
+    margin: 12px;
+}
+
+.info h4{
+    margin: 0px;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.info p{
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 400;
+}

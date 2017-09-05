@@ -1,0 +1,7 @@
+<h4 md-dialog-title>确认提交</h4>
+<md-dialog-content>是否确认提交？作业一经提交后将无法修改。</md-dialog-content>
+<md-dialog-actions>
+    <button md-button (click)="dialogRef.close('cancel')">取消</button>
+    <button md-button color="accent" (click)="dialogRef.close('save')">保存，暂时不提交</button>
+    <button md-button color="primary" (click)="dialogRef.close('confirm')">确认提交</button>
+</md-dialog-actions>

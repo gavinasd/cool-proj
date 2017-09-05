@@ -1,35 +1,12 @@
-<div class="col-md-3">
-    <div class="thumbnail">
-        <img src="/src/assets/resources/img/1.jpg" alt="...">
-        <div class="caption">
-            <h3>{{classInfo.className}}</h3>
+<div fxLayout="row" fxLayoutAlign="center">
+    <md-card>
+        <img md-card-image src="../../../../assets/resources/img/1.jpg">
+        <md-card-title>{{classInfo.className}}</md-card-title>
+        <md-card-content>
             <p>{{classInfo.classId}}</p>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#verifyCodeModal" >加入班级</button>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="verifyCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">请输入邀请码</h4>
-            </div>
-            <div class="modal-body" >
-                <form ngNativeValidate role="form" #f="ngForm"
-                      (ngSubmit) = "followClass(f.value)">
-                    <div class="form-group">
-                        <label class="control-label">邀请码:</label>
-                        <input type="text" class="form-control" name="verifyCode" ngModel>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="submit" class="btn btn-primary" >确定</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
+        </md-card-content>
+        <md-card-actions align="end">
+            <button md-button (click)="openFollowClassDialog()">加入班级</button>
+        </md-card-actions>
+    </md-card>
 </div>

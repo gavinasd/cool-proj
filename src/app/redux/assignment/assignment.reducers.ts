@@ -3,6 +3,7 @@ import './assignment.actions';
 import * as AssignmentAction from "./assignment.actions";
 import {createSelector} from "@ngrx/store";
 import {MarkingScore, SpendTime, StudentAnswer} from "../../models/assignments/AssignmentInfo";
+import {current} from "codelyzer/util/syntaxKind";
 
 export interface State{
 	assignment: Assignment;
@@ -111,7 +112,7 @@ export function reducer(state:State = initialState, action: AssignmentAction.Act
 			newScore.set(currentQuestionId, (<AssignmentAction.SetMarkingScoreAction>action).payload);
 
 			return Object.assign({}, state, {
-				studentAnswer: Object.assign({}, state.markScore, {
+				markScore: Object.assign({}, state.markScore, {
 					changed: true,
 					score: newScore
 				})
@@ -121,14 +122,15 @@ export function reducer(state:State = initialState, action: AssignmentAction.Act
 		case AssignmentAction.NEXT:{
 			//先把当前的group给找出来
 			let currentGroup = state.assignment.questionGroupList[state.currentGroupIndex];
+			let content = currentGroup && currentGroup.content || '{}';
 
-			//如果这个group的content从来没有显示过，并且group里面有content需要展示
-			if(state.currentContentIndex == 0 && currentGroup.content && currentGroup.content.length > 0){
+			const contentLength = Object.keys(JSON.parse(content)).length;
+			//如果这个group的contentIndex没有超过content的key的长度
+			if(currentGroup.content && state.currentContentIndex < contentLength){
 				return Object.assign({}, state, {
-					//把contentIndex设置为1，意思就是已经显示过这里的content了，下次无需再显示
-					currentContentIndex: 1
+					//把contentIndex+1
+					currentContentIndex: state.currentContentIndex + 1
 				});
-
 			}
 
 			let questionListLength = currentGroup.questionList.length;
@@ -161,27 +163,34 @@ export function reducer(state:State = initialState, action: AssignmentAction.Act
 		case AssignmentAction.PRE:{
 			//先把当前的group给找出来
 			let currentGroup = state.assignment.questionGroupList[state.currentGroupIndex];
+			let content = currentGroup && currentGroup.content || '{}';
+			const contentLength = Object.keys(JSON.parse(content)).length;
 
 			//直接把questionIndex减1
 			if(state.currentQuestionIndex > 0 ){
 				return Object.assign({}, state, {
-					currentQuestionIndex: state.currentQuestionIndex - 1
+					currentQuestionIndex: state.currentQuestionIndex - 1,
+					complete: false
 				});
 			}
 			//如果这个group的content已经显示过，并且group里面有content需要展示
-			else if(state.currentContentIndex == 1 && currentGroup.content && currentGroup.content.length > 0){
+			else if(state.currentContentIndex <= contentLength && state.currentContentIndex > 0
+				&& currentGroup.content && currentGroup.content.length > 0 ){
 				return Object.assign({}, state, {
-					//把contentIndex设置为0，意思就是没有显示过这里的content了，下次需要显示
-					currentContentIndex: 0
+					//把contentIndex-1, 下次需要显示
+					currentContentIndex: state.currentContentIndex - 1,
+					complete: false
 				});
 			}
 			//需要group少1位
-			else if (state.currentQuestionIndex == 0 && state.currentGroupIndex > 0){
+			else if (state.currentGroupIndex > 0){
 				return Object.assign({}, state, {
 					currentGroupIndex: state.currentGroupIndex - 1,
-					currentContentIndex: 1,             //设置为已经显示过content
+					currentContentIndex: Object.keys(JSON.parse(    //设置为已经显示过content
+						state.assignment.questionGroupList[state.currentGroupIndex-1].content)).length,
 					currentQuestionIndex: state.assignment.questionGroupList[state.currentGroupIndex-1]
-						.questionList.length-1          //quesitonIndex去到上一个group中的最后一个
+						.questionList.length-1,         //questionIndex去到上一个group中的最后一个
+					complete: false
 				});
 			}
 
@@ -193,6 +202,12 @@ export function reducer(state:State = initialState, action: AssignmentAction.Act
 		case AssignmentAction.SUBMIT:{
 			return Object.assign({}, state, {
 				loading: true
+			});
+		}
+
+		case AssignmentAction.SET_UNCOMPLETE:{
+			return Object.assign({}, state, {
+				complete: false
 			});
 		}
 
@@ -213,12 +228,18 @@ export const getAssignmentName = createSelector(getAssignment, (assignment) => a
 export const getCurrentQuestionGroup = (state: State) => state.assignment.questionGroupList[state.currentGroupIndex];
 
 export const getCurrentGroupContent = (state: State) => {
-	if(state.currentContentIndex == 0 && state.assignment.questionGroupList.length > 0){
+	const currentGroup = state.assignment.questionGroupList[state.currentGroupIndex];
+	const content = currentGroup && currentGroup.content || '{}';
+	if(state.currentContentIndex < Object.keys(JSON.parse(content)).length && state.assignment.questionGroupList.length > 0){
 		return state.assignment.questionGroupList[state.currentGroupIndex].content;
 	}
 	else {
 		return '';
 	}
+};
+
+export const getCurrentContentIndex = (state: State) =>{
+	return state.currentContentIndex;
 };
 
 export const getCurrentQuestion = (state: State ) => {

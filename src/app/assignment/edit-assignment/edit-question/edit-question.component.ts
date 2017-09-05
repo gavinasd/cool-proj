@@ -31,36 +31,4 @@ export class EditQuestionComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	onChangeQuestionType(){
-
-	}
-
-	onSubmit(form:any):boolean{
-		let question = new TPOReadingQuestion({
-			creator:this.httpService.getCurrentId(),
-			questionType : form.questionType,
-			passage : form.passage,
-			question : form.question,
-			options : [form.option1,form.option2,form.option3,form.option4],
-			answer:form.answer
-		});
-
-		console.log(question);
-		this.assignmentService.addQuestionToGroup(this.assignmentId, this.questionGroupId, question)
-			.subscribe(
-				(resp)=> {
-					console.log(resp);
-					this.toastService.success("成功提交");
-				},
-				(error:string)=>this.toastService.error(error)
-
-			);
-		return false;
-	}
-
-}
-
-class QuestionType{
-	name:string;
-	value:string;
 }

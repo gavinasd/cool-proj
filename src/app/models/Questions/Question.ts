@@ -4,6 +4,8 @@
 export class Question {
 	public static TPO_READING_TYPE = 'tpo_reading';
 	public static VOCABULARY_TYPE = 'vocabulary';
+	public static INTEGRATED_WRITING_TYPE = 'integrated_writing';
+	public static INDEPENDENT_WRITING_TYPE = 'independent_writing';
 
 	id: string;                //题目的ID
 	creator: string;            //题目的作者

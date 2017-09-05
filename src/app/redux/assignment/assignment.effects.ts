@@ -44,7 +44,7 @@ export class AssignmentEffect{
 		.map(([payload, state]) => [payload, state.assignment])
 		.switchMap(([payload, state])=> {
 			const questionId = state.assignment.questionGroupList[state.currentGroupIndex]
-				.questionList[state.currentGroupIndex].id;
+				.questionList[state.currentQuestionIndex].id;
 			const spendTime = state.spendTime.changed?state.spendTime.time:null;
 			const studentAnswer = state.studentAnswer.changed?state.studentAnswer.answer.get(questionId):null;
 			const markScore = state.markScore.changed?state.markScore.score.get(questionId):null;

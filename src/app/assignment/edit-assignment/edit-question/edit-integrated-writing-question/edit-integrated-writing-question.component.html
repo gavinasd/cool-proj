@@ -1,0 +1,39 @@
+
+<form ngNativeValidate #form="ngForm" (ngSubmit)="submit()"
+      fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="start center">
+
+    <div class="content" fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around">
+        <div fxLayout="column" fxLayoutGap="30px" fxFlex="0 0 40%">
+            <md-input-container>
+                <textarea mdInput class="form-control" [froalaEditor]="teacherOptions"
+                          placeholder="请输入阅读文章"
+                          [(froalaModel)]="passage"
+                          rows="10" columns="5" required ></textarea>
+
+            </md-input-container>
+
+            <md-select placeholder="选择听力材料"
+                       name="recordUrl"
+                       [(ngModel)]="recordUrl"
+                       required>
+                <md-option *ngFor="let record of recordUrlList;let i = index"
+                           [value]="record">
+                    TPO{{(i+1)}}-综合写作
+                </md-option>
+            </md-select>
+        </div>
+
+        <md-input-container fxFlex="0 0 40%">
+            <textarea mdInput class="form-control" [froalaEditor]="teacherOptions"
+                      placeholder="范文"
+                      [(froalaModel)]="answer"
+                      rows="10" columns="10" required ></textarea>
+
+        </md-input-container>
+    </div>
+
+
+    <button md-raised-button color="primary" type="submit">
+        提交
+    </button>
+</form>

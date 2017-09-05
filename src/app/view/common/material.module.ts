@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-	MdButtonModule, MdCardModule, MdCheckboxModule, MdDialogModule, MdExpansionModule, MdIconModule, MdInputModule,
+	MdButtonModule, MdCardModule, MdCheckboxModule, MdDialogModule, MdExpansionModule, MdGridListModule, MdIconModule,
+	MdInputModule,
 	MdListModule,
-	MdMenuModule, MdRadioModule, MdSelectModule,
+	MdMenuModule, MdProgressBarModule, MdRadioModule, MdSelectModule,
 	MdSidenavModule,
-	MdSlideToggleModule,
+	MdSlideToggleModule, MdSnackBarModule,
 	MdTabsModule,
 	MdToolbarModule
 } from "@angular/material";
@@ -27,7 +28,10 @@ import {
 		MdInputModule,
 		MdCheckboxModule,
 		MdExpansionModule,
-		MdRadioModule
+		MdRadioModule,
+		MdGridListModule,
+		MdSnackBarModule,
+		MdProgressBarModule
 	],
 	exports: [
 		MdToolbarModule,
@@ -44,7 +48,10 @@ import {
 		MdInputModule,
 		MdCheckboxModule,
 		MdExpansionModule,
-		MdRadioModule
+		MdRadioModule,
+		MdGridListModule,
+		MdSnackBarModule,
+		MdProgressBarModule
 	],
 	declarations: []
 })

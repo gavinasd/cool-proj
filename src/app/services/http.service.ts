@@ -83,6 +83,18 @@ export class HttpService {
         localStorage.removeItem('current_name');
     }
 
+	public getCurrentUserAvatar(){
+		return localStorage.getItem('current_avatar');
+	}
+
+	public setCurrentUserAvatar(avatar:string){
+		localStorage.setItem('current_avatar', avatar);
+	}
+
+	public deleteUserAvatar(){
+		localStorage.removeItem('current_avatar');
+	}
+
 	public getUserType():string{
 		return localStorage.getItem("current_user_type");
 	}
@@ -102,6 +114,7 @@ export class HttpService {
 	public logout(){
 		this.deleteCurrentId();
 		this.deleteUserName();
+		this.deleteUserAvatar();
 		this.deleteUserType();
 		this.deleteToken();
 	}

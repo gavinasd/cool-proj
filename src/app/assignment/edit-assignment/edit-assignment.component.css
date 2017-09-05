@@ -1,3 +1,25 @@
-button.btn.btn-default{
-    width:200px;
+:host {
+    display: flex;
+    flex: 1;
+}
+
+#container{
+    height: 100vh;
+    width: 100vh;
+}
+
+md-sidenav {
+    width: 320px;
+}
+
+md-list-item{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    align-content: center;
+}
+
+
+.content {
+    padding: 12px;
+    height: 100%;
 }

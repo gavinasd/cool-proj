@@ -8,12 +8,18 @@
 
         <form ngNativeValidate role="form" #f="ngForm"
               (ngSubmit) = "onSubmit(f.value)" fxLayout="column" fxLayoutGap="20px">
-            <md-input-container>
-                <input mdInput type="text"
-                       placeholder="用户昵称" name="name"
-                       required ngModel>
-                <md-icon mdSuffix>person</md-icon>
-            </md-input-container>
+            <div class="name" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="30px">
+                <md-input-container fxFlex>
+                    <input mdInput type="text"
+                           placeholder="用户昵称" name="name"
+                           required ngModel>
+                </md-input-container>
+
+                <md-icon class="avatar"
+                         [mdMenuTriggerFor]="menu" svgIcon="avatars:{{selectedAvatarUrl}}">
+                </md-icon>
+            </div>
+
 
             <md-input-container>
                 <input mdInput type="email"
@@ -42,3 +48,11 @@
         </form>
     </div>
 </div>
+
+<md-menu #menu="mdMenu" x-position="before">
+    <md-grid-list cols="4">
+        <md-grid-tile *ngFor="let avatar of avatarList" (click)="changeAvatar(avatar)">
+            <md-icon  class="avatar" svgIcon="avatars:{{avatar}}"></md-icon>
+        </md-grid-tile>
+    </md-grid-list>
+</md-menu>

@@ -34,4 +34,27 @@ export const environment = {
 	getQuestionSpendTimeUrl: 'http://localhost:3000/api/question/spendTime',
 	getAssignmentInfoUrl: 'http://localhost:3000/api/assignment/info',
 	submitAssignmentInfoUrl: 'http://localhost:3000/api/assignment/info',
+	submitAssignmentDoneUrl: 'http://localhost:3000/api/assignment/done',
+	teacherEditorOptions: {
+		placeholderText: '',
+		charCounterCount: false,
+		toolbarButtons: ['fullscreen','bold','italic','strikeThrough','color',],
+		colorsText:['#d71345','#f58220','#ffe600','#bed742','#1d953f','#2b4490','#000000'],
+		height: 500,
+		quickInsertTags: [],
+		spellcheck: true,
+	},
+	studentEditorOptions:{
+		placeholderText: '',
+		charCounterCount: false,
+		toolbarButtons: [],
+		height: 500,
+		quickInsertTags: [],
+		spellcheck: false,
+		events: {
+			'froalaEditor.initialized': function (e, editor) {
+				console.log(editor.toolbar.hide());
+			}
+		}
+	}
 };

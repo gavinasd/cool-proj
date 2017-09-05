@@ -1,13 +1,16 @@
-<div *ngFor="let group of groupList;let i = index;">
-    <div [ngSwitch]="group.type">
-        <edit-app-vocabulary-item
-                *ngSwitchCase="assignmentService.getVocabularyQuestionType()"
-                [group]="group"
-        >
-        </edit-app-vocabulary-item>
-        <app-tpo-reading-item
-                [group]="group"
-                *ngSwitchCase="assignmentService.getTPOReadingQuestionType()">
-        </app-tpo-reading-item>
-    </div>
-</div>
+<md-card *ngFor="let group of groupList;let i = index;" [ngSwitch]="group.type">
+    <edit-app-vocabulary-item
+            *ngSwitchCase="assignmentService.getVocabularyQuestionType()"
+            [group]="group"
+    >
+    </edit-app-vocabulary-item>
+    <app-tpo-reading-item
+            [group]="group"
+            *ngSwitchCase="assignmentService.getTPOReadingQuestionType()">
+    </app-tpo-reading-item>
+    <app-independent-writing-item
+            [group]="group"
+            *ngSwitchCase="assignmentService.getIndependentWritingType()"
+    ></app-independent-writing-item>
+    <p *ngSwitchDefault>还需要完成item的设计</p>
+</md-card>

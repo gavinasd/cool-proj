@@ -14,6 +14,7 @@ import {CreateClassDialogComponent} from "../dialogs/create-class-dialog/create-
 export class NavbarComponent implements OnInit {
     public userName: string;
     public userType: number;
+    public avatar: string;
 
     constructor(private router: Router, private httpService: HttpService, private dialog: MdDialog,
                 private classService: ClassService, private toastService: ToastService) { }
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.userName = String(this.httpService.getCurrentUserName());
         this.userType = Number(this.httpService.getUserType()); // 把string转成number
+	    this.avatar = String(this.httpService.getCurrentUserAvatar());
     }
 
     submitCreateClass(form: any) {

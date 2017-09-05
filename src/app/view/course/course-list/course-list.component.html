@@ -1,5 +1,8 @@
-<div fxLayout="row" fxLayout.sm="column" fxLayoutGap="30px" fxLayoutAlign="space-around" fxLayoutAlign.sm="start center">
+<div fxLayout="row" fxLayoutAlign="start"
+     fxLayout.sm="column" fxLayoutGap.sm="30px" fxLayoutAlign.sm="start center">
     <app-course-list-item
+            fxFlex="33%"
+            fxFlex.sm="100%"
             *ngFor="let classInfo of classInfoList"
             [classInfo]="classInfo"
     ></app-course-list-item>

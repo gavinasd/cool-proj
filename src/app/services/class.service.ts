@@ -32,13 +32,6 @@ export class ClassService {
         });
     }
 
-    public getClassDetail(classId:string):Observable<Response>{
-        let url = environment.getClassDetailUrl;
-        let userId = this.httpService.getCurrentId();
-        url = url +'/'+ classId +'/'+userId;
-        return this.httpService.makeGetWithToken(url);
-    }
-
     public searchClass(className:string):Observable<any>{
         let url = environment.searchClassUrl;
         url = url + '/' + className;

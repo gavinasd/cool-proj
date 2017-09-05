@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ClassDetailComponent} from "./class-detail.component";
-import { ClassDetailNavComponent } from './class-detail-nav/class-detail-nav.component';
 import {GradeInfoDetailComponent} from "./assignment-list/grade-info-detail/grade-info-detail.component";
 import {GradeInfoItemDetailComponent} from "./assignment-list/grade-info-item-detail/grade-info-item-detail.component";
 import {AssignmentListComponent} from "./assignment-list/assignment-list.component";
@@ -23,7 +22,6 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 	],
 	declarations: [
 		ClassDetailComponent,
-		ClassDetailNavComponent,
 		GradeInfoDetailComponent,
 		GradeInfoItemDetailComponent,
 		AssignmentListComponent,

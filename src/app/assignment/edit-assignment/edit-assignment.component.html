@@ -1,83 +1,33 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="btn-group-vertical" role="group" >
-                <button *ngFor="let assignment of assignmentList"
-                        type="button"
-                        class="btn btn-default"
-                        (click)="selectAssignment(assignment.id)"
-                >
-                    {{assignment.assignmentName}}
-                </button>
-            </div>
-            <button class="btn btn-inverse" data-toggle="modal" data-target="#createAssignmentModal">
-                新建作业<span class="glyphicon glyphicon-plus"></span>
-            </button>
-        </div>
+<div id="container" fxLayout="column" fxFlex>
+    <md-toolbar color="primary">
+        <span>琢玉课堂</span>
 
-        <div class="col-md-9" *ngIf="selectAssignmentId.length > 0">
+        <span fxFlex></span>
+    </md-toolbar>
+
+    <md-sidenav-container fxFlex>
+
+        <md-sidenav mode="side" opened>
+            <md-nav-list>
+                <md-list-item *ngFor="let assignment of assignmentList"
+                   (click)="selectAssignment(assignment.id)">
+                    <span>{{assignment.assignmentName}}</span>
+                </md-list-item>
+                <md-list-item (click)="openCreateAssignmentDialog()">
+                    <span>新建作业</span>
+                </md-list-item>
+
+            </md-nav-list>
+        </md-sidenav>
+
+        <div class="content" *ngIf="selectAssignmentId.length > 0">
             <app-edit-question-list [assignmentId]="selectAssignmentId"></app-edit-question-list>
-            <button class="btn btn-inverse" data-toggle="modal" data-target="#createQuestionGroupModal">
-                添加作业<span class="glyphicon glyphicon-plus"></span>
+            <button md-raised-button (click)="openAddQuestionDialog()">
+                添加作业
             </button>
-
         </div>
-    </div>
-</div>
 
-<div id="createAssignmentModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" id="closeModal1" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">新建作业</h4>
-            </div>
-            <div class="modal-body">
-                <form ngNativeValidate id="createClassForm" role="form" #form1="ngForm"
-                      (ngSubmit) = "createAssignment(form1)">
-                    <div class="form-group">
-                        <label class="control-label">作业名称:</label>
-                        <input type="text" class="form-control" id="assignmentName" name="assignmentName" required ngModel>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-inverse" data-dismiss="modal">取消</button>
-                        <button type="submit" class="btn btn-primary">确定</button>
-                    </div>
-                </form>
-            </div>
+    </md-sidenav-container>
 
-        </div>
-    </div>
-</div>
 
-<div id="createQuestionGroupModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" id="closeModal2" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">添加题目</h4>
-            </div>
-            <div class="modal-body">
-                <form ngNativeValidate id="createQuestionGroup" role="form" #form2="ngForm"
-                      (ngSubmit) = "addQuestionGroupToAssignment(form2)">
-                    <div class="form-group">
-                        <label class="control-label">题目类型：</label>
-                        <select
-                                class="form-control"
-                                id="type"
-                                name="type"
-                                ngModel
-                                required
-                        ><option *ngFor="let type of assignmentService.getQuestionTypes()"
-                                 value="{{type.value}}">{{type.name}}</option> </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-inverse" data-dismiss="modal">取消</button>
-                        <button type="submit" class="btn btn-primary">确定</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
 </div>

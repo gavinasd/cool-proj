@@ -1,7 +1,6 @@
 import {Component, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {VocabularyQuestion} from "../../../../models/Questions/VocabularyQuestion";
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
-import {Question} from "../../../../models/Questions/Question";
 
 @Component({
   selector: 'app-vocabulary-question-detail',
@@ -10,7 +9,7 @@ import {Question} from "../../../../models/Questions/Question";
 })
 export class VocabularyQuestionDetailComponent extends QuestionGroupDetailComponent implements OnInit,OnChanges {
 
-	@Input() showContent: boolean;
+	@Input() contentIndex: number;
 	wordList:any[];
 
 	constructor() {

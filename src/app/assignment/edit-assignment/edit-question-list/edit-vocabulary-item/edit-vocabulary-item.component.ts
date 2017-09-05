@@ -15,7 +15,9 @@ export class EditVocabularyItemComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		this.wordList = JSON.parse(this.group.content);
+		if(this.group.content) {
+			this.wordList = JSON.parse(this.group.content);
+		}
 		this.questionList = <VocabularyQuestion[]> this.group.questionList;
 	}
 

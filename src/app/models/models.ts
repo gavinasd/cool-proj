@@ -55,19 +55,28 @@ export class GradeInfo{
     studentId:string;
     //学生名字
     studentName:string;
+    //学生的头像
+	studentAvatar:string;
     //得分
     score:number;
     //作业的总分
     totalScore:number;
     //还没完成的题目数量
     undoneNum:number;
+    //用时
+	spendTime:number;
+	//作业是否已经提交
+	done:boolean;
 
     constructor(obj:any){
         this.studentId = obj && obj.studentId;
         this.studentName = obj && obj.studentName;
+        this.studentAvatar = obj && obj.studentAvatar;
         this.score = obj && obj.score;
         this.totalScore = obj && obj.totalScore;
         this.undoneNum = obj && obj.undoneNum;
+        this.spendTime = obj && obj.spendTime;
+        this.done = obj && obj.done;
     }
 }
 
