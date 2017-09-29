@@ -20,6 +20,16 @@ export class Assignment{
 			}
 		}
 	}
+
+	public static needToMark(type:string):boolean{
+		if(type == 'independent_writing'
+			|| type == 'integrated_writing'
+			|| type == 'vocabulary'
+		){
+			return true;
+		}
+		return false;
+	}
 }
 
 export enum Mode{

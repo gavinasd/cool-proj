@@ -3,7 +3,6 @@ import './assignment.actions';
 import * as AssignmentAction from "./assignment.actions";
 import {createSelector} from "@ngrx/store";
 import {MarkingScore, SpendTime, StudentAnswer} from "../../models/assignments/AssignmentInfo";
-import {current} from "codelyzer/util/syntaxKind";
 
 export interface State{
 	assignment: Assignment;
@@ -197,6 +196,39 @@ export function reducer(state:State = initialState, action: AssignmentAction.Act
 			return state;
 		}
 
+		case AssignmentAction.SKIP_CONTENT:{
+			//先把当前的group给找出来
+			let currentGroup = state.assignment.questionGroupList[state.currentGroupIndex];
+			let content = currentGroup && currentGroup.content || '{}';
+
+			const contentLength = Object.keys(JSON.parse(content)).length;
+			return Object.assign({}, state, {
+				currentContentIndex: contentLength
+			});
+		}
+
+		case AssignmentAction.SKIP_TO_QUESTION:{
+			const groupIndex = (<AssignmentAction.SkipToQuestionAction>action).groupIndex;
+			const questionIndex = (<AssignmentAction.SkipToQuestionAction>action).questionIndex;
+
+			const currentGroup = state.assignment.questionGroupList[groupIndex];
+			const content = currentGroup && currentGroup.content || '{}';
+			const contentLength = Object.keys(JSON.parse(content)).length;
+			const questionListLength = currentGroup.questionList.length;
+			if(questionIndex >= questionListLength || questionIndex < 0){
+				return state;
+			}
+
+			else {
+				return Object.assign({}, state, {
+					currentGroupIndex: groupIndex,
+					currentContentIndex: contentLength,
+					currentQuestionIndex: questionIndex
+				})
+			}
+
+		}
+
 		case AssignmentAction.FETCH:
 		case AssignmentAction.FETCH_INFO:
 		case AssignmentAction.SUBMIT:{
@@ -225,31 +257,67 @@ export const getAssignment = (state: State) => state.assignment;
 
 export const getAssignmentName = createSelector(getAssignment, (assignment) => assignment.assignmentName);
 
+export const getAssignmentScoreList = (state:State) => {
+	let scoreList : any[] = [];
+	if(!state || !state.assignment){
+		return scoreList;
+	}
+
+	let groupIndex = 0;
+	for(let group of state.assignment.questionGroupList){
+		let questionIndex = 0;
+
+		for(let question of group.questionList){
+			if(!state.markScore){
+				continue;
+			}
+			let score = state.markScore.score.get(question.id) || 0;
+			let scoreItem = {
+				'groupIndex':groupIndex,
+				'questionIndex': questionIndex,
+				'correct': score == question.score
+			};
+			scoreList.push(scoreItem);
+			questionIndex ++;
+		}
+		groupIndex ++ ;
+	}
+	return scoreList;
+};
+
 export const getCurrentQuestionGroup = (state: State) => state.assignment.questionGroupList[state.currentGroupIndex];
 
 export const getCurrentGroupContent = (state: State) => {
 	const currentGroup = state.assignment.questionGroupList[state.currentGroupIndex];
-	const content = currentGroup && currentGroup.content || '{}';
-	if(state.currentContentIndex < Object.keys(JSON.parse(content)).length && state.assignment.questionGroupList.length > 0){
-		return state.assignment.questionGroupList[state.currentGroupIndex].content;
-	}
-	else {
-		return '';
-	}
+	const content = currentGroup && currentGroup.content || '';
+	return content;
 };
 
 export const getCurrentContentIndex = (state: State) =>{
 	return state.currentContentIndex;
 };
 
+export const shouldShowContent = (state:State) => {
+	let content = getCurrentGroupContent(state);
+	let contentIndex = getCurrentContentIndex(state);
+
+	if(content && content.length > 0){
+		if(contentIndex < Object.keys(JSON.parse(content)).length){
+			return true;
+		}
+	}
+	return false;
+};
+
 export const getCurrentQuestion = (state: State ) => {
-	return state.assignment.questionGroupList[state.currentGroupIndex]
-		.questionList[state.currentQuestionIndex];
+
+	return state.assignment.questionGroupList[state.currentGroupIndex] &&
+		state.assignment.questionGroupList[state.currentGroupIndex].questionList[state.currentQuestionIndex];
 };
 
 export const getStudentAnswer = (state: State) =>{
-	const questionId = state.assignment.questionGroupList[state.currentGroupIndex]
-		.questionList[state.currentQuestionIndex].id;
+	const questionId = state.assignment.questionGroupList[state.currentGroupIndex] &&
+		state.assignment.questionGroupList[state.currentGroupIndex].questionList[state.currentQuestionIndex].id;
 	if(!state.studentAnswer){
 		return '';
 	}
@@ -257,8 +325,8 @@ export const getStudentAnswer = (state: State) =>{
 };
 
 export const getMarkScore = (state: State) =>{
-	const questionId = state.assignment.questionGroupList[state.currentGroupIndex]
-		.questionList[state.currentQuestionIndex].id;
+	const questionId = state.assignment.questionGroupList[state.currentGroupIndex] &&
+		state.assignment.questionGroupList[state.currentGroupIndex].questionList[state.currentQuestionIndex].id;
 
 	if(!state.markScore){
 		return 0;
@@ -267,4 +335,6 @@ export const getMarkScore = (state: State) =>{
 };
 
 //Fetch成功之前的值是-1，表示这里并没有fetch成功
-export const getSpendTime = (state: State) => state.spendTime?state.spendTime.time : -1;
+export const getSpendTime = (state: State) =>{
+	return state.spendTime?state.spendTime.time : -1;
+};

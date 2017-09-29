@@ -1,61 +1,136 @@
-<div id="content-page-1" class="container" *ngIf="contentIndex == 0"
-     fxLayout="row" fxLayoutAlign="start">
-    <div class="passage" fxFlex="45%">
-        <div [froalaView]="passage"></div>
-    </div>
-</div>
-
-<div id="content-page-2" class="container" *ngIf="contentIndex == 1"
-     fxLayout="column">
-    <div fxLayout="row" fxLayoutAlign="start center">
-        <p>Listen to the Lecture:  </p>
-        <md-icon>volume_up</md-icon>
-    </div>
-    <app-audio-player [src]="'/assets/records/'+recordUrl+'.mp3'"></app-audio-player>
-</div>
-
-<div id="question-page" class="container" *ngIf="contentIndex > 1"
-     fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start">
-    <div class="direction">
-        <p>Directions: You have 20 minutes to plan and write your response. Your response will be judged on the basis of the quality of your writing and on how well your response presents the points in the lecture and their relationship to the reading passage. Typically an effective response will be 150 to 225 words. </p>
-        <p>Question: Summarize the points made in the lecture, being sure to explain how they challenge the specific theories presented in the reading passage.</p>
-    </div>
-
-    <div class="question-content" fxLayout="row"
-         fxLayoutWrap="wrap" fxLayout.sm="column"
-         fxLayoutAlign="start">
-
-        <div class="passage"  fxFlex="45%">
+<div *ngIf="homeworkMode()">
+    <div class="container content-page-1" *ngIf="contentIndex == 0"
+         fxLayout="row" fxLayoutAlign="start">
+        <div class="passage" fxFlex="50%">
             <div [froalaView]="passage"></div>
         </div>
-        <div  fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 55%">
-            <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                <md-card>
-                    <md-card-content>
-                        <label class="word-count">Word Count:{{wordCount}}</label>
-                    </md-card-content>
-                </md-card>
-
-                <md-card *ngIf="!homeworkMode()">
-                    <md-card-content>
-                        <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
-                    </md-card-content>
-                </md-card>
-
-                <span fxFlex></span>
-                <app-score-marker *ngIf="markingMode()" [score]="integratedWritingQuestion.score" (marking)="markScore($event)"></app-score-marker>
-            </div>
-            <textarea class="form-control" *ngIf="!reviewMode()"
-                      [froalaEditor]="markingMode()?EditorTeacherOptions:EditorStudentOptions"
-                      [(froalaModel)]="content"
-                      [(ngModel)]="content" (ngModelChange)="changeAnswer()"
-                      rows="10" required ></textarea>
-            <div class="review-content" [froalaView]="content" *ngIf="reviewMode()"></div>
-        </div>
     </div>
 
-    <div class="answer" *ngIf="reviewMode()">
-        <p>参考范文：</p>
-        <div [froalaView]="integratedWritingQuestion.answer"></div>
+    <div class="container content-page-2" *ngIf="contentIndex == 1"
+         fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <p>Listen to the Lecture:  </p>
+            <md-icon>volume_up</md-icon>
+        </div>
+        <app-audio-player [src]="'/assets/records/'+recordUrl+'.mp3'"></app-audio-player>
+    </div>
+
+    <div class="container question-page" *ngIf="contentIndex > 1"
+         fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start">
+        <div class="direction">
+            <p>Directions: You have 20 minutes to plan and write your response. Your response will be judged on the basis of the quality of your writing and on how well your response presents the points in the lecture and their relationship to the reading passage. Typically an effective response will be 150 to 225 words. </p>
+            <p>Question: Summarize the points made in the lecture, being sure to explain how they challenge the specific theories presented in the reading passage.</p>
+        </div>
+
+        <div class="question-content" fxLayout="row"
+             fxLayoutWrap="wrap" fxLayout.sm="column"
+             fxLayoutAlign="start">
+
+            <div class="passage"  fxFlex="50%">
+                <div [froalaView]="passage"></div>
+            </div>
+            <div  fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 50%">
+                <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <md-card>
+                        <md-card-content>
+                            <label class="word-count">Word Count:{{wordCount}}</label>
+                        </md-card-content>
+                    </md-card>
+
+                    <span fxFlex></span>
+                </div>
+                <textarea class="form-control"
+                          [froalaEditor]="EditorStudentOptions"
+                          [(froalaModel)]="content"
+                          [(ngModel)]="content" (ngModelChange)="changeAnswer()"
+                          rows="10" required ></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="markingMode()">
+
+    <div class="question-page" class="container" *ngIf="contentIndex > 1"
+         fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start">
+        <div class="direction">
+            <p>Directions: You have 20 minutes to plan and write your response. Your response will be judged on the basis of the quality of your writing and on how well your response presents the points in the lecture and their relationship to the reading passage. Typically an effective response will be 150 to 225 words. </p>
+            <p>Question: Summarize the points made in the lecture, being sure to explain how they challenge the specific theories presented in the reading passage.</p>
+        </div>
+
+        <div class="question-content" fxLayout="row"
+             fxLayoutWrap="wrap" fxLayout.sm="column"
+             fxLayoutAlign="start">
+
+            <div class="passage"  fxFlex="50%">
+                <div [froalaView]="passage"></div>
+            </div>
+            <div  fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 50%">
+                <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <md-card>
+                        <md-card-content>
+                            <label class="word-count">Word Count:{{wordCount}}</label>
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card>
+                        <md-card-content>
+                            <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
+                        </md-card-content>
+                    </md-card>
+
+                    <span fxFlex></span>
+                    <app-score-marker [score]="integratedWritingQuestion.score" (marking)="markScore($event)"></app-score-marker>
+                </div>
+                <textarea class="form-control"
+                          [froalaEditor]="EditorTeacherOptions"
+                          [(froalaModel)]="content"
+                          [(ngModel)]="content" (ngModelChange)="changeAnswer()"
+                          rows="10" required ></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="reviewMode()">
+    <div class="question-page" class="container" *ngIf="contentIndex > 1"
+         fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start">
+        <div class="direction">
+            <p>Directions: You have 20 minutes to plan and write your response. Your response will be judged on the basis of the quality of your writing and on how well your response presents the points in the lecture and their relationship to the reading passage. Typically an effective response will be 150 to 225 words. </p>
+            <p>Question: Summarize the points made in the lecture, being sure to explain how they challenge the specific theories presented in the reading passage.</p>
+        </div>
+
+        <div class="question-content" fxLayout="row"
+             fxLayoutWrap="wrap" fxLayout.sm="column"
+             fxLayoutAlign="start">
+
+            <div class="passage"  fxFlex="50%">
+                <div [froalaView]="passage"></div>
+            </div>
+            <div  fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 50%">
+                <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+                    <md-card>
+                        <md-card-content>
+                            <label class="word-count">Word Count:{{wordCount}}</label>
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card>
+                        <md-card-content>
+                            <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
+                        </md-card-content>
+                    </md-card>
+
+                    <span fxFlex></span>
+                </div>
+                <div class="review-content" [froalaView]="content"></div>
+            </div>
+        </div>
+
+        <div class="answer">
+            <p>参考范文：</p>
+            <div [froalaView]="integratedWritingQuestion.answer"></div>
+        </div>
     </div>
 </div>

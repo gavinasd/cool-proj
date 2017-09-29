@@ -33,7 +33,7 @@
             <button md-raised-button color="primary">查看</button>
         </a>
 
-        <a *ngIf="userType == '1'"
+        <a *ngIf="userType == '1' && needToMark"
            [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ gradeInfo.studentId + '/' + ModeType.Marking]">
             <button md-raised-button color="accent">批改</button>
         </a>

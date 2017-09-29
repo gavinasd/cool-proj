@@ -15,15 +15,18 @@ export const getAssignmentState = createFeatureSelector<fromAssignment.State>('a
 export const getAssignment = createSelector(getAssignmentState, fromAssignment.getAssignment);
 export const getAssignmentName = createSelector(getAssignmentState, fromAssignment.getAssignmentName);
 export const getAssignmentSpendTime = createSelector(getAssignmentState, fromAssignment.getSpendTime);
+export const getAssignmentScoreList = createSelector(getAssignmentState, fromAssignment.getAssignmentScoreList);
 
+export const getCurrentGroupIndex = createSelector(getAssignmentState, (state)=> state.currentGroupIndex);
 export const getCurrentGroup = createSelector(getAssignmentState, fromAssignment.getCurrentQuestionGroup);
 export const getGroupType = createSelector(getCurrentGroup, (group) =>group?group.type:'');
 export const getGroupContent = createSelector(getAssignmentState, fromAssignment.getCurrentGroupContent);
 export const getContentIndex = createSelector(getAssignmentState, fromAssignment.getCurrentContentIndex);
-export const shouldShowContent = createSelector(getGroupContent, (content) => content && content.length>0?true:false);
+export const shouldShowContent = createSelector(getAssignmentState, fromAssignment.shouldShowContent);
 
 export const getQuestionIndex = createSelector(getAssignmentState, (state) => state.currentQuestionIndex);
 export const getCurrentQuestion = createSelector(getAssignmentState, fromAssignment.getCurrentQuestion);
+export const getCurrentQuestionType = createSelector(getCurrentQuestion, (question)=>question?question.questionType:'');
 export const getQuestionListLength = createSelector(getCurrentGroup, (group) =>group?group.questionList.length:0);
 export const getLastAnswer = createSelector(getAssignmentState,fromAssignment.getStudentAnswer);
 export const getMarkingScore = createSelector(getAssignmentState, fromAssignment.getMarkScore);

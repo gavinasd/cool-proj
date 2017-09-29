@@ -48,6 +48,7 @@ import {
 	MdSlideToggleModule,
 	MdTabsModule, MdToolbarModule
 } from "@angular/material";
+import {DndModule} from "ng2-dnd";
 
 const routes:Routes = [
   	{path:'',redirectTo:'index',pathMatch:'full'},

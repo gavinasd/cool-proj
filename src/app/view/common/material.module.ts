@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-	MdButtonModule, MdCardModule, MdCheckboxModule, MdDialogModule, MdExpansionModule, MdGridListModule, MdIconModule,
+	MdButtonModule, MdCardModule, MdCheckboxModule, MdChipsModule, MdDialogModule, MdExpansionModule, MdGridListModule,
+	MdIconModule,
 	MdInputModule,
 	MdListModule,
 	MdMenuModule, MdProgressBarModule, MdRadioModule, MdSelectModule,
@@ -31,7 +32,8 @@ import {
 		MdRadioModule,
 		MdGridListModule,
 		MdSnackBarModule,
-		MdProgressBarModule
+		MdProgressBarModule,
+		MdChipsModule
 	],
 	exports: [
 		MdToolbarModule,
@@ -51,7 +53,8 @@ import {
 		MdRadioModule,
 		MdGridListModule,
 		MdSnackBarModule,
-		MdProgressBarModule
+		MdProgressBarModule,
+		MdChipsModule
 	],
 	declarations: []
 })

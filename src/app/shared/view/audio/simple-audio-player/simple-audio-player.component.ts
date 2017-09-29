@@ -15,6 +15,8 @@ export class SimpleAudioPlayerComponent implements OnInit,OnChanges{
 
 
 	ngOnChanges(changes: SimpleChanges): void {
+		this.pause();
+
 		this.myAudio = new Audio(this.src);
 		this.myAudio.addEventListener('ended', function() {
 			this.currentTime = 0;
@@ -25,5 +27,11 @@ export class SimpleAudioPlayerComponent implements OnInit,OnChanges{
 
 	play(){
 		this.myAudio.play();
+	}
+
+	pause(){
+		if(this.myAudio){
+			this.myAudio.pause();
+		}
 	}
 }

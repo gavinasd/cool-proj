@@ -13,13 +13,15 @@ export class QuestionGroupDetailComponent implements OnInit {
 	@Input() question:Question;
 	@Input() lastAnswer:string;
 	@Input() markingScore:number;
+	@Input() shouldShowContent:boolean;
+	@Input() questionIndex:number;
+	@Input() questionListLength:number;
 	@Output() OnChangeAnswer:EventEmitter<string> = new EventEmitter<string>();
 	@Output() OnMarkScore:EventEmitter<number> = new EventEmitter<number>();
 	public ModeType = Mode;
 	public answer:string;
 
 	constructor() {
-
 	}
 
 	ngOnInit() {
@@ -48,6 +50,16 @@ export class QuestionGroupDetailComponent implements OnInit {
 
 	public correct():boolean {
 		return this.markingScore == this.question.score;
+	}
+
+	getPagerContent(){
+		if(!this.shouldShowContent) {
+				return 'Question ' + (this.questionIndex + 1) + ' of ' +
+				(this.questionListLength);
+		}
+		else{
+			return '';
+		}
 	}
 
 }

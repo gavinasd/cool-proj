@@ -8,13 +8,32 @@ import {AssignmentService} from "../../../../services/assignment.service";
   styleUrls: ['./add-question-dialog.component.css']
 })
 export class AddQuestionDialogComponent implements OnInit{
-	public types:any[] = [];
+	public types:any[] = [
+		{
+			value:'vocabulary',
+			name:'词汇'
+		},
+		{
+			value: 'tpo_reading',
+			name:'TPO阅读'
+		},
+		{
+			value:'tpo_listening',
+			name:'TPO听力'
+		},
+		{
+			value:'independent_writing',
+			name:'独立写作'
+		},
+		{
+			value:'integrated_writing',
+			name:'综合写作'
+		}
+	];
 
 	constructor(private assignmentService:AssignmentService,
 	            public dialogRef: MdDialogRef<AddQuestionDialogComponent>) {}
 
 
-	ngOnInit() {
-		this.types = this.assignmentService.getQuestionTypes();
-	}
+	ngOnInit() {}
 }

@@ -15,4 +15,16 @@
     top: 5px !important;
     flex-shrink: 0;
   }
+
+  .mat-radio-label-content p{
+    line-height: 23px;
+  }
+
+  .question-header .mat-toolbar-row{
+    height: 90px !important;
+  }
+
+  .header-button .mat-button-ripple{
+    border-radius: 13px !important;
+  }
 }

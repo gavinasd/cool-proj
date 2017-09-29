@@ -1,5 +1,4 @@
-
-<md-toolbar color="primary">
+<md-toolbar class="question-header" color="primary">
     <div class="brand" fxFlex="20" fxLayoutAlign="start">
         <button  md-button class="brand" (click)="gotoHome()">
             <md-icon>edit</md-icon>
@@ -9,8 +8,25 @@
 
     <span fxFlex="60" fxLayoutAlign="center">{{assignmentName}}</span>
 
-    <span fxFlex="20" fxLayoutAlign="end" *ngIf="homeworkMode()">
-        <app-question-timer></app-question-timer>
+    <span class="header-button" *ngIf="needToShowButton()"
+          fxLayout="column" fxFlex="20" fxLayoutAlign="center end" fxLayoutGap="8px">
+        <div id="first-line" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="5px">
+            <button md-button (click)="quit()">
+                Quit
+            </button>
+
+            <button md-button *ngIf="questionType == 'tpo_reading_topic'" (click)="changeView()">
+                {{viewText?'View Question':'View Text'}}
+            </button>
+
+            <button md-button *ngIf="needToShowPre()" (click)="preQuestion()">
+                Back
+            </button>
+            <button md-button (click)="nextQuestion()">
+                Next
+            </button>
+        </div>
+        <app-question-timer *ngIf="homeworkMode()"></app-question-timer>
     </span>
 </md-toolbar>
 

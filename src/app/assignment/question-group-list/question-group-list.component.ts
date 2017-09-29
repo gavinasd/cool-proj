@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {ToastService} from "../../services/toast.service";
 import {AssignmentService} from "../../services/assignment.service";
 import {QuestionGroup} from "../../models/Questions/QuestionGroup";
 import {Observable} from "rxjs/Observable";
@@ -12,7 +11,6 @@ import * as assignmentActions from '../../redux/assignment/assignment.actions';
 import {Question} from "../../models/Questions/Question";
 import {MdDialog, MdDialogConfig} from "@angular/material";
 import {SubmitConfirmDialogComponent} from "../../shared/view/dialogs/submit-confirm-dialog/submit-confirm-dialog.component";
-import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-question-group-list',
@@ -28,7 +26,9 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 	public assignmentId:string;
 	public studentId:string;    //老师所需要查看成绩内容的学生id
 	public classId:string;
+	private viewMode = 'question';
 	public assignmentName$:Observable<string>;
+	public assignmentScoreList$:Observable<any[]>;
 	public group$:Observable<QuestionGroup>;
 	public groupType$:Observable<string>;
 	public groupContent$:Observable<string>;
@@ -37,6 +37,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 
 	public questionIndex$:Observable<number>;
 	public currentQuestion$:Observable<Question>;
+	public currentQuestionType$:Observable<string>;
 	public questionListLength$:Observable<number>;
 	public lastAnswer$:Observable<string>;
 	public markingScore$:Observable<number>;
@@ -65,6 +66,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 		this.complete$ = this.store.select(fromApplication.getComplete);
 
 		this.assignmentName$ = this.store.select(fromApplication.getAssignmentName);
+		this.assignmentScoreList$ = this.store.select(fromApplication.getAssignmentScoreList);
 		this.group$ = this.store.select(fromApplication.getCurrentGroup);
 		this.groupType$ = this.store.select(fromApplication.getGroupType);
 		this.groupContent$ = this.store.select(fromApplication.getGroupContent);
@@ -72,6 +74,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 		this.shouldShowContent$ = this.store.select(fromApplication.shouldShowContent);
 
 		this.currentQuestion$ = this.store.select(fromApplication.getCurrentQuestion);
+		this.currentQuestionType$ = this.store.select(fromApplication.getCurrentQuestionType);
 		this.questionIndex$ = this.store.select(fromApplication.getQuestionIndex);
 		this.questionListLength$ = this.store.select(fromApplication.getQuestionListLength);
 		this.lastAnswer$ = this.store.select(fromApplication.getLastAnswer);
@@ -79,8 +82,14 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 	}
 
 	ngOnInit() {
+		if(this.mode != Mode.HomeWork){
+			this.group$.takeWhile(()=>this.alive).subscribe(()=>{
+				this.store.dispatch(new assignmentActions.SkipContentAction());
+			});
+		}
+
 		this.complete$.takeWhile(()=>this.alive).subscribe((complete) => {
-			if(complete && this.mode !== Mode.HomeWork){
+			if(complete && this.mode != Mode.HomeWork){
 				this.router.navigate(['/class/' + this.classId]);
 				return;
 			}
@@ -106,6 +115,10 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 		this.autoSave();
 	}
 
+	skipContent(){
+		this.store.dispatch(new assignmentActions.SkipContentAction());
+	}
+
 	changeAnswer(answer: string){
 		this.store.dispatch(new assignmentActions.SetStudentAnswerAction(answer));
 	}
@@ -125,6 +138,15 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 
 	pre(){
 		this.store.dispatch(new assignmentActions.PreAction());
+	}
+
+	changeView(){
+		if(this.viewMode == 'question'){
+			this.viewMode = 'text';
+		}
+		else{
+			this.viewMode = 'question';
+		}
 	}
 
 	autoSave() {

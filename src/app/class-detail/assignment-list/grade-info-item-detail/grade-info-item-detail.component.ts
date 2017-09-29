@@ -14,6 +14,7 @@ export class GradeInfoItemDetailComponent implements OnInit {
     @Input() gradeInfo:GradeInfo;
     @Input() classId:string;
     @Input() assignmentId:string;
+    @Input() needToMark:boolean;
     ModeType = Mode;
     userType:string;
     gradePercentage:number;     //正确率

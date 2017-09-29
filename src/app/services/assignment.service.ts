@@ -13,15 +13,25 @@ export class AssignmentService {
 
     public questionList: Observable<any[]>
     public question: Observable<any>;
-    public currentQuestionId: string;
     public index: Observable<number> = Observable.from([0]);
-    public changeIndex: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(private httpService: HttpService) {
     }
 
     public getTPOReadingQuestionType():string{
-    	return Question.TPO_READING_TYPE;
+    	return 'tpo_reading';
+    }
+
+    public getTPOReadingSingleChoice():string{
+    	return Question.TPO_READING_SINGLE_TYPE;
+    }
+
+    public getTPOReadingInsertChoice():string{
+    	return Question.TPO_READING_INSERT_TYPE;
+    }
+
+    public getTPOReadingTopic():string{
+    	return Question.TPO_READING_TOPIC_TYPE;
     }
 
 	public getVocabularyQuestionType():string{
@@ -36,13 +46,16 @@ export class AssignmentService {
 		return Question.INDEPENDENT_WRITING_TYPE;
 	}
 
-	public getQuestionTypes():any[] {
-		return[
-			{'value':Question.TPO_READING_TYPE, 'name':'TPO阅读题'},
-			{'value':Question.VOCABULARY_TYPE, 'name':'词汇题'},
-			{'value':Question.INTEGRATED_WRITING_TYPE, 'name':'综合写作'},
-			{'value':Question.INDEPENDENT_WRITING_TYPE, 'name':'独立写作'}
-		]
+	public getTpoListeningSingleChoice():string{
+    	return Question.TPO_LISTENING_SINGLE_CHOICE_TYPE;
+	}
+
+	public getTpoListeningMultipleChoice():string{
+		return Question.TPO_LISTENING_MULTIPLE_CHOICE_TYPE;
+	}
+
+	public getTpoListeningRepeatQuestion():string{
+    	return Question.TPO_LISTENING_REPEAT_TYPE;
 	}
 
     public addQuestionToGroup(assignmentId: string, groupId: string, question: Question): Observable<Question> {

@@ -1,11 +1,10 @@
-<div class="question-pager" fxLayout="row" fxLayoutGap="0px" fxLayoutAlign="center">
-    <div class="pager-container" fxLayout="row" fxLayoutGap="0px">
-        <button md-raised-button (click)="preQuestion()">
-            <md-icon>navigate_before</md-icon>
-            <span>{{getPagerContent()}}</span>
-        </button>
-        <button md-raised-button (click)="nextQuestion()">
-            <md-icon>navigate_next</md-icon>
-        </button>
+<div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+    <div class="pager-item" fxLayoutAlign="center center"
+         *ngFor="let score of (scoreList$ | async);let i = index"
+         [ngClass]="{'selected': selected(score.groupIndex, score.questionIndex),
+                     'correct': score.correct, 'wrong': !score.correct}"
+         (click)="skipTo(score.groupIndex, score.questionIndex)"
+    >
+        <p>{{i+1}}</p>
     </div>
 </div>

@@ -19,6 +19,7 @@ import { SubmitConfirmDialogComponent } from './view/dialogs/submit-confirm-dial
 import { FollowClassDialogComponent } from './view/dialogs/follow-class-dialog/follow-class-dialog.component';
 import {ClassDetailNavComponent} from "./view/navbar/class-detail-nav/class-detail-nav.component";
 import { AudioPlayerComponent } from './view/audio/audio-player/audio-player.component';
+import { TpoReviewPlayerComponent } from './view/audio/tpo-review-player/tpo-review-player.component';
 
 @NgModule({
     imports: [
@@ -44,7 +45,8 @@ import { AudioPlayerComponent } from './view/audio/audio-player/audio-player.com
 	    DataComponent,
 	    SubmitConfirmDialogComponent,
 	    FollowClassDialogComponent,
-	    AudioPlayerComponent
+	    AudioPlayerComponent,
+	    TpoReviewPlayerComponent
     ],
 	entryComponents:[CreateClassDialogComponent],
 	exports:[
@@ -56,7 +58,8 @@ import { AudioPlayerComponent } from './view/audio/audio-player/audio-player.com
 		NavbarComponent,
 		ClassDetailNavComponent,
 		SimpleAudioPlayerComponent,
-		AudioPlayerComponent
+		AudioPlayerComponent,
+		TpoReviewPlayerComponent
 	]
 })
 export class SharedModule { }

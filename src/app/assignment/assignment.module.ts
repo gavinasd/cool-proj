@@ -36,6 +36,11 @@ import { CommonMarkerComponent } from './question-group-list/question-group-deta
 import {SubmitConfirmDialogComponent} from "../shared/view/dialogs/submit-confirm-dialog/submit-confirm-dialog.component";
 import { IntegratedWritingQuestionDetailComponent } from './question-group-list/question-group-detail/integrated-writing-question-detail/integrated-writing-question-detail.component';
 import { IntegratedWritingItemComponent } from './edit-assignment/edit-question-list/integrated-writing-item/integrated-writing-item.component';
+import { EditTpolisteningQuestionComponent } from './edit-assignment/edit-question/edit-tpolistening-question/edit-tpolistening-question.component';
+import { TpoListeningQuestionDetailComponent } from './question-group-list/question-group-detail/tpo-listening-question-detail/tpo-listening-question-detail.component';
+import { Convert09ToAZPipe} from "../shared/pipes/convert09-to-az.pipe";
+import {DndModule} from "ng2-dnd";
+import { QuestionIndexComponent } from './question-group-list/question-group-detail/common/question-index/question-index.component';
 
 @NgModule({
 	imports: [
@@ -45,7 +50,9 @@ import { IntegratedWritingItemComponent } from './edit-assignment/edit-question-
 		SharedModule,
 		MaterialModule,
 		FlexLayoutModule,
-		FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
+		DndModule.forRoot(),
+		FroalaEditorModule.forRoot(),
+		FroalaViewModule.forRoot()
 	],
 	declarations: [
 		TpoReadingQuestionDetailComponent,
@@ -72,6 +79,9 @@ import { IntegratedWritingItemComponent } from './edit-assignment/edit-question-
 		CommonMarkerComponent,
 		IntegratedWritingQuestionDetailComponent,
 		IntegratedWritingItemComponent,
+		EditTpolisteningQuestionComponent,
+		TpoListeningQuestionDetailComponent,
+		QuestionIndexComponent
 	],
 	entryComponents:[
 		AddAssignmentDialogComponent,
@@ -82,6 +92,7 @@ import { IntegratedWritingItemComponent } from './edit-assignment/edit-question-
 	providers:[
 		AssignmentService,
 		HttpService,
+		Convert09ToAZPipe
 	],
 	exports:[
 		QuestionGroupListComponent,

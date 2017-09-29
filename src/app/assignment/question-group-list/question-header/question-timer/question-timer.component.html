@@ -1,1 +1,6 @@
-<a>{{content}}</a>
+<div class="header-button" fxLayout="row" fxLayoutAlign="end center">
+    <a *ngIf="showTime">{{content}}</a>
+    <button md-button (click)="toggleShowTime()">
+        {{showTime?'Hide Time':'Show Time'}}
+    </button>
+</div>

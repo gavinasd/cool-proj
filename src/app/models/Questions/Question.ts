@@ -2,10 +2,15 @@
  * 这是作业列表里面的题目的父类，所有具体的题目都应该继承它
  */
 export class Question {
-	public static TPO_READING_TYPE = 'tpo_reading';
+	public static TPO_READING_SINGLE_TYPE = 'tpo_reading_single';
+	public static TPO_READING_INSERT_TYPE = 'tpo_reading_insert';
+	public static TPO_READING_TOPIC_TYPE = 'tpo_reading_topic';
 	public static VOCABULARY_TYPE = 'vocabulary';
 	public static INTEGRATED_WRITING_TYPE = 'integrated_writing';
 	public static INDEPENDENT_WRITING_TYPE = 'independent_writing';
+	public static TPO_LISTENING_SINGLE_CHOICE_TYPE = 'tpo_listening_single_choice';
+	public static TPO_LISTENING_MULTIPLE_CHOICE_TYPE = 'tpo_listening_multiple_choice';
+	public static TPO_LISTENING_REPEAT_TYPE = 'tpo_listening_repeat_type';
 
 	id: string;                //题目的ID
 	creator: string;            //题目的作者
@@ -25,4 +30,6 @@ export class Question {
 		this.explanation = obj && obj.explanation;
 		this.score = obj && obj.score;
 	}
+
+
 }

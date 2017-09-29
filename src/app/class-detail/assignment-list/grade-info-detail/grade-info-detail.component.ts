@@ -10,6 +10,7 @@ export class GradeInfoDetailComponent implements OnInit {
 	@Input() open: boolean;
     @Input() assignmentInfo:AssignmentInfo;
     @Input() classId:string;
+    @Input() needToMark:boolean = false; //是否需要批改
 
     constructor() {}
     ngOnInit() {

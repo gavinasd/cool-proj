@@ -1,4 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ApplicationState} from "../../../../../redux/index.reducer";
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs/Observable";
+import * as fromApplication from '../../../../../redux/index.reducer';
+import * as assignmentActions from '../../../../../redux/assignment/assignment.actions';
+
 
 @Component({
   selector: 'app-question-pager',
@@ -6,32 +12,29 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./question-pager.component.css']
 })
 export class QuestionPagerComponent implements OnInit {
-	@Input() shouldShowContent:boolean;      //是否需要展示cotnent
-	@Input() questionIndex:number;
-	@Input() questionListLength:number;
-	@Output() next:EventEmitter<string> = new EventEmitter<string>();
-	@Output() pre:EventEmitter<string> = new EventEmitter<string>();
+	public scoreList$:Observable<any[]>;
+	public groupIndex:number;
+	public questionIndex:number;
 
-	constructor() { }
+
+	constructor(private store:Store<ApplicationState>) {
+		this.scoreList$ = store.select(fromApplication.getAssignmentScoreList);
+		store.select(fromApplication.getCurrentGroupIndex).subscribe((groupIndex)=>{
+			this.groupIndex = groupIndex;
+		});
+		store.select(fromApplication.getQuestionIndex).subscribe((questionIndex)=>{
+			this.questionIndex = questionIndex;
+		})
+	}
 
 	ngOnInit() {
 	}
 
-	nextQuestion(){
-		this.next.emit('next');
+	skipTo(groupIndex:number, questionIndex:number){
+		this.store.dispatch(new assignmentActions.SkipToQuestionAction(groupIndex, questionIndex));
 	}
 
-	preQuestion(){
-		this.pre.emit('pre');
-	}
-
-	getPagerContent(){
-		if(!this.shouldShowContent) {
-			return '第' + (this.questionIndex + 1) + '题/' +
-				'共' + (this.questionListLength) + '题';
-		}
-		else{
-			return '';
-		}
+	selected(groupIndex:number, questionIndex:number):boolean{
+		return this.groupIndex == groupIndex && this.questionIndex == questionIndex;
 	}
 }

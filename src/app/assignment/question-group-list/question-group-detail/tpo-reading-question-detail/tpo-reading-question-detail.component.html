@@ -1,27 +1,122 @@
-<div class="question-content" fxLayout="row"
-     fxLayoutWrap="wrap" fxLayout.sm="column"
-     fxLayoutGap="10px" fxLayoutAlign="space-around">
-    <div class="question" fxLayout="column" fxFlex="1 1 37%">
-        <p><strong>{{tpoReadingQuestion.question}}</strong></p>
-        <md-radio-group fxLayout="column"
-                        fxLayoutGap="5px"
-                        [(ngModel)]="answer"
-                        (change)="changeAnswer()"
-                        [disabled]="reviewMode()">
-            <md-radio-button *ngFor="let option of tpoReadingQuestion.options; let i = index"
-                             color="accent"
-                             name="choices"
-                             [value]="i|convert09ToAZ">
-                <p>{{i|convert09ToAZ}}. {{option}}</p>
-            </md-radio-button>
-        </md-radio-group>
-    </div>
-    <div class="passage" fxFlex="1 1 58%">
-        <div [froalaView]="tpoReadingQuestion.passage"></div>
+<div *ngIf="homeworkMode()">
+    <div class="question-content" *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_single'" fxLayout="row"
+         fxLayoutWrap="wrap" fxLayout.sm="column" fxLayoutAlign="space-around">
+        <div class="question" fxLayout="column" fxFlex="1 1 50%">
+            <app-question-index [content]="getPagerContent()"></app-question-index>
+            <p><strong>{{tpoReadingQuestion.question}}</strong></p>
+            <md-radio-group fxLayout="column"
+                            fxLayoutGap="5px"
+                            [(ngModel)]="answer"
+                            (change)="changeAnswer()">
+                <md-radio-button *ngFor="let option of tpoReadingQuestion.options; let i = index"
+                                 color="accent"
+                                 name="choices"
+                                 [value]="i|convert09ToAZ">
+                    <p>{{i|convert09ToAZ}}. {{option}}</p>
+                </md-radio-button>
+            </md-radio-group>
+        </div>
+        <div class="passage" fxFlex="1 1 50%">
+            <div [froalaView]="tpoReadingQuestion.passage"></div>
+        </div>
     </div>
 
-    <div class="answer" *ngIf="!homeworkMode()" fxFlex="0 0 100%">
-        <p [ngClass]="{'correct-answer':correct(),'text-danger':!correct()}">学生答案：{{answer}}</p>
-        <p class="correct-answer">正确答案：{{tpoReadingQuestion.answer}}</p>
+    <div class="question-content"
+         *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_topic' && viewMode =='question'">
+        <div class="topic-question" fxLayout="column" fxLayoutAlign="start">
+            <p>Directions:An introductory sentence for a brief summary of the passage is provided below.Complete the summary by selecting THREE answer choices that express the most important ideas in the passage.Some answer choices do not belong in summary because they express ideas that are not presented in the passage or are minor ideas in the passage.The Question is worth 2 points.</p>
+            <p><strong>{{tpoReadingQuestion.question}}</strong></p>
+
+            <div class="selected-answer" fxLayout="column" fxLayoutAlign="start center">
+                <div class="choice-item-container"
+                     *ngFor="let selectedAnswerIndex of selectedAnswers;let i = index"
+                     dnd-droppable (onDropSuccess)="dropAnswer(i, $event)">
+                    <div class="choice-item" fxLayout="column" fxLayoutAlign="center" (click)="removeAnswer(i)" >
+                        <p *ngIf="selectedAnswerIndex >= 0">
+                            {{selectedAnswerIndex|convert09ToAZ}}.{{tpoReadingQuestion.options[selectedAnswerIndex]}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 fxFlexAlign="center">Answer Choices</h3>
+            <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-around" fxLayoutGap="20px">
+                <div class="choice-item-container" *ngFor="let option of tpoReadingQuestion.options;let i = index"
+                     fxFlex="1 1 47%" dnd-draggable [dragEnabled]="!selectedAnswers.includes(i)" [dragData]="i">
+                    <div class="choice-item" fxLayout="column" fxLayoutAlign="center">
+                        <p *ngIf="!selectedAnswers.includes(i)">{{i|convert09ToAZ}}.{{option}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="question-content"
+         *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_topic' && viewMode =='text'"
+         fxLayout="row" fxLayoutAlign="end">
+
+        <div class="passage" fxFlex="1 1 50%">
+            <div [froalaView]="tpoReadingQuestion.passage"></div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="reviewMode()">
+    <div class="question-content" *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_single'" fxLayout="row"
+         fxLayoutWrap="wrap" fxLayout.sm="column" fxLayoutAlign="space-around">
+        <div class="question" fxLayout="column" fxFlex="1 1 50%">
+            <app-question-pager></app-question-pager>
+            <p><strong>{{tpoReadingQuestion.question}}</strong></p>
+
+            <md-list>
+                <md-list-item *ngFor="let option of tpoReadingQuestion.options; let i = index">
+                    {{i|convert09ToAZ}}. {{option}}
+                </md-list-item>
+            </md-list>
+
+            <div class="answer">
+                <p [ngClass]="{'correct-answer':correct(),'text-danger':!correct()}">学生答案：{{answer}}</p>
+                <p class="correct-answer">正确答案：{{tpoReadingQuestion.answer}}</p>
+            </div>
+        </div>
+        <div class="passage" fxFlex="1 1 50%">
+            <div [froalaView]="tpoReadingQuestion.passage"></div>
+        </div>
+    </div>
+
+    <div class="question-content"
+         *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_topic'">
+        <div class="topic-question" fxLayout="column" fxLayoutAlign="start">
+            <p>Directions:An introductory sentence for a brief summary of the passage is provided below.Complete the summary by selecting THREE answer choices that express the most important ideas in the passage.Some answer choices do not belong in summary because they express ideas that are not presented in the passage or are minor ideas in the passage.The Question is worth 2 points.</p>
+            <p><strong>{{tpoReadingQuestion.question}}</strong></p>
+
+            <div class="selected-answer" fxLayout="column" fxLayoutAlign="start center">
+                <div class="choice-item-container"
+                     *ngFor="let selectedAnswerIndex of selectedAnswers;let i = index"
+                     dnd-droppable (onDropSuccess)="dropAnswer(i, $event)">
+                    <div class="choice-item" fxLayout="column" fxLayoutAlign="center" (click)="removeAnswer(i)" >
+                        <p *ngIf="selectedAnswerIndex >= 0">
+                            {{selectedAnswerIndex|convert09ToAZ}}.{{tpoReadingQuestion.options[selectedAnswerIndex]}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 fxFlexAlign="center">Answer Choices</h3>
+            <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-around" fxLayoutGap="20px">
+                <div class="choice-item-container" *ngFor="let option of tpoReadingQuestion.options;let i = index"
+                     fxFlex="1 1 47%" dnd-draggable [dragEnabled]="!selectedAnswers.includes(i)" [dragData]="i">
+                    <div class="choice-item" fxLayout="column" fxLayoutAlign="center">
+                        <p *ngIf="!selectedAnswers.includes(i)">{{i|convert09ToAZ}}.{{option}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="answer">
+                <p [ngClass]="{'correct-answer':correct(),'text-danger':!correct()}">学生答案：{{answer}}</p>
+                <p class="correct-answer">正确答案：{{tpoReadingQuestion.answer}}</p>
+            </div>
+        </div>
     </div>
 </div>

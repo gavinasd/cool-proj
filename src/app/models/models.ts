@@ -39,12 +39,15 @@ export class AssignmentInfo{
     assignmentId:string;
     //作业名称
     assignmentName:string;
+    //作业类型
+	assignmentType:string;
     //每个同学的成绩信息列表
     gradeInfoList:[GradeInfo];
 
     constructor(obj:any){
         this.assignmentId = obj && obj.assignmentId;
         this.assignmentName = obj && obj.assignmentName;
+        this.assignmentType = obj && obj.assignmentType;
         this.gradeInfoList = obj && obj.gradeInfoList;
     }
 }

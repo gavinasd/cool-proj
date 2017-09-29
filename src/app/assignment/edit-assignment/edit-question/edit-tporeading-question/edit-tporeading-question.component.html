@@ -1,66 +1,53 @@
-<div class="container">
-    <div class="row">
-        <form ngNativeValidate #form1="ngForm" (ngSubmit)="addQuestion(form1)">
-        <div class="form-group">
-            <label>文章段落</label>
+<div id="question-div">
+    <fieldset>
+        <legend>编辑题目</legend>
+        <form ngNativeValidate #form="ngForm" (ngSubmit)="addQuestion(form)"
+              fxLayout="column" fxLayoutGap="30px">
+
+
             <textarea class="form-control" [froalaEditor]="EditorOptions"
                       id="passage" [(froalaModel)]="editorPassage"
                       rows="10" required ></textarea>
-        </div>
 
-        <div class="form-group">
-            <label>题目</label>
-            <input class="form-control"
-                   id="question"
-                   name="question"
-                   type="text"
-                   ngModel
-                   required>
-        </div>
+            <md-select placeholder="选择题目类型" name="questionType" required [(ngModel)]="questionType">
+                <md-option [value]="assignmentService.getTPOReadingSingleChoice()">单选题</md-option>
+                <md-option [value]="assignmentService.getTPOReadingInsertChoice()">插入题</md-option>
+                <md-option [value]="assignmentService.getTPOReadingTopic()">主旨题</md-option>
+            </md-select>
 
-        <div class="form-group">
-            <label>选项</label>
-            <input class="form-control"
-                   id="option1"
-                   name="option1"
-                   type="text"
-                   placeholder="选项A"
-                   ngModel
-                   required>
-            <input class="form-control"
-                   id="option2"
-                   name="option2"
-                   type="text"
-                   placeholder="选项B"
-                   ngModel
-                   required>
-            <input class="form-control"
-                   id="option3"
-                   name="option3"
-                   type="text"
-                   placeholder="选项C"
-                   ngModel
-                   required>
-            <input class="form-control"
-                   id="option4"
-                   name="option4"
-                   type="text"
-                   placeholder="选项D"
-                   ngModel
-                   required>
-        </div>
+            <md-input-container>
+                <input mdInput name="question" type="text" required ngModel placeholder="题目">
+            </md-input-container>
 
-        <div class="form-group">
-            <label>答案</label>
-            <input class="form-control"
-                   id="answer"
-                   name="answer"
-                   type="text"
-                   ngModel
-                   required>
-        </div>
+            <md-input-container>
+                <input mdInput name="option1" type="text" required ngModel placeholder="选项A">
+            </md-input-container>
 
-        <button type="submit" class="btn-primary">提交</button>
+            <md-input-container>
+                <input mdInput name="option2" type="text" required ngModel placeholder="选项B">
+            </md-input-container>
+
+            <md-input-container>
+                <input mdInput name="option3" type="text" required ngModel placeholder="选项C">
+            </md-input-container>
+
+            <md-input-container>
+                <input mdInput name="option4" type="text" required ngModel placeholder="选项D">
+            </md-input-container>
+
+            <md-input-container *ngIf="questionType == 'tpo_reading_topic'">
+                <input mdInput name="option5" type="text" required ngModel placeholder="选项E">
+            </md-input-container>
+
+            <md-input-container *ngIf="questionType == 'tpo_reading_topic'">
+                <input mdInput name="option6" type="text" required ngModel placeholder="选项F">
+            </md-input-container>
+
+            <md-input-container>
+                <input mdInput name="answer" type="text" required ngModel placeholder="答案">
+            </md-input-container>
+
+            <button md-raised-button color="primary" type="submit">确认</button>
         </form>
-    </div>
+    </fieldset>
 </div>

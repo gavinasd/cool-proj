@@ -1,0 +1,10 @@
+md-chip{
+    background-color: #f44336;
+}
+
+.mat-chip{
+    background-color: dimgray !important;
+    color: white !important;
+    outline:none;
+    cursor: default;
+}

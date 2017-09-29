@@ -13,6 +13,8 @@ export const SET_STUDENT_ANSWER =   '[ASSIGNMENT] SET_STUDENT_ANSWER';
 export const SET_MARKING_SCORE =    '[ASSIGNMENT] SET_MARKING_SCORE';
 export const NEXT =                 '[ASSIGNMENT] NEXT';
 export const PRE =                  '[ASSIGNMENT] PRE';
+export const SKIP_CONTENT =         '[ASSIGNMENT] SKIP_CONTENT';
+export const SKIP_TO_QUESTION =     '[ASSIGNMENT] SKIP_TO_QUESTION';
 export const SUBMIT =               '[ASSIGNMENT] SUBMIT';
 export const SUBMIT_SUCCESS =       '[ASSIGNMENT] SUBMIT_SUCCESS';
 export const SUBMIT_FAILURE =       '[ASSIGNMENT] SUBMIT_FAILURE';
@@ -77,6 +79,16 @@ export class PreAction implements Action{
 	constructor(){}
 }
 
+export class SkipContentAction implements Action{
+	readonly type = SKIP_CONTENT;
+	constructor(){}
+}
+
+export class SkipToQuestionAction implements Action{
+	readonly type = SKIP_TO_QUESTION;
+	constructor(public groupIndex:number, public questionIndex:number){}
+}
+
 export class SubmitAction implements Action{
 	readonly type = SUBMIT;
 	constructor(public payload:object){}
@@ -114,6 +126,8 @@ export type Actions
 	| SetMarkingScoreAction
 	| NextAction
 	| PreAction
+	| SkipContentAction
+	| SkipToQuestionAction
 	| SubmitAction
 	| SubmitSuccessAction
 	| SubmitFailureAction

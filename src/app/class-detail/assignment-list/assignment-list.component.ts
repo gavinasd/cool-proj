@@ -7,6 +7,7 @@ import {MdDialog, MdDialogConfig} from "@angular/material";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {HttpService} from "../../services/http.service";
 import {AddAssignmentDialogComponent} from "../../shared/view/dialogs/add-assignment-dialog/add-assignment-dialog.component";
+import {Assignment} from "../../models/assignments/Assignment";
 
 @Component({
     selector: 'app-assignment-list',
@@ -43,6 +44,10 @@ export class AssignmentListComponent implements OnInit {
 		        	this.listForShow.push(assignment);
 		        }
 	        });
+    }
+
+    needToMark(assignmentType:string):boolean{
+    	return Assignment.needToMark(assignmentType);
     }
 
     openAddAssignmentDialog(){

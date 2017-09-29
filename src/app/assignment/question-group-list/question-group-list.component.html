@@ -1,12 +1,13 @@
-<app-question-header [assignmentName]="assignmentName$ | async" [mode]="mode"></app-question-header>
+<app-question-header
+        [assignmentName]="assignmentName$ | async"
+        [mode]="mode"
+        [questionType]="currentQuestionType$ | async"
+        [classId]="classId"
+        (next)="next()"
+        (pre)="pre()"
+        (viewChanged)="changeView()"
+></app-question-header>
 
-<app-question-pager
-    [shouldShowContent]="shouldShowContent$|async"
-    [questionIndex]="questionIndex$ | async"
-    [questionListLength]="questionListLength$ | async"
-    (next)="next()"
-    (pre)="pre()"
-></app-question-pager>
 <div class="container" id="question-group-list" [ngSwitch]="groupType$ | async">
     <app-tpo-reading-question-detail
             *ngSwitchCase="assignmentService.getTPOReadingQuestionType()"
@@ -15,6 +16,10 @@
             [lastAnswer]="lastAnswer$ | async"
             [markingScore]="markingScore$ | async"
             [mode]="mode"
+            [viewMode]="viewMode"
+            [shouldShowContent]="shouldShowContent$|async"
+            [questionIndex]="questionIndex$ | async"
+            [questionListLength]="questionListLength$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
     ></app-tpo-reading-question-detail>
     <app-vocabulary-question-detail
@@ -25,6 +30,9 @@
             [markingScore]="markingScore$ | async"
             [mode]="mode"
             [contentIndex]="contentIndex$ | async"
+            [shouldShowContent]="shouldShowContent$|async"
+            [questionIndex]="questionIndex$ | async"
+            [questionListLength]="questionListLength$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
     ></app-vocabulary-question-detail>
     <app-independent-writing-question-detail
@@ -34,6 +42,9 @@
             [lastAnswer]="lastAnswer$ | async"
             [markingScore]="markingScore$ | async"
             [mode]="mode"
+            [shouldShowContent]="shouldShowContent$|async"
+            [questionIndex]="questionIndex$ | async"
+            [questionListLength]="questionListLength$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
             (OnMarkScore)="changeScore($event)"
     ></app-independent-writing-question-detail>
@@ -45,8 +56,24 @@
             [markingScore]="markingScore$ | async"
             [mode]="mode"
             [contentIndex]="contentIndex$ | async"
+            [shouldShowContent]="shouldShowContent$|async"
+            [questionIndex]="questionIndex$ | async"
+            [questionListLength]="questionListLength$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
             (OnMarkScore)="changeScore($event)"
     ></app-integrated-writing-question-detail>
+    <app-tpo-listening-question-detail
+            *ngSwitchCase="'tpo_listening'"
+            [groupContent]="groupContent$ | async"
+            [question]="currentQuestion$ | async"
+            [lastAnswer]="lastAnswer$ | async"
+            [markingScore]="markingScore$ | async"
+            [mode]="mode"
+            [shouldShowContent]="shouldShowContent$|async"
+            [questionIndex]="questionIndex$ | async"
+            [questionListLength]="questionListLength$ | async"
+            [contentIndex]="contentIndex$ | async"
+            (OnChangeAnswer)="changeAnswer($event)"
+    ></app-tpo-listening-question-detail>
     <div *ngSwitchDefault>{{group}}</div>
 </div>

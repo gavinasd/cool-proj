@@ -3,7 +3,7 @@
 @import "https://fonts.googleapis.com/css?family=Roboto:400,300";
 
 html, body {
-    font-family: Helvetica Neue,Helvetica,PingFang SC;
+    font-family: -apple-system, "San Francisco", "Helvetica Neue", Arial, "Segoe UI", "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft Yahei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", 驿微米黑, SimSun, sans-serif;
     margin: 0;
 }
 

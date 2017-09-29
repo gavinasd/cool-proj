@@ -1,0 +1,52 @@
+.question-page{
+    background-color: #efeff0;
+    padding: 60px 30px 30px 100px;
+    min-height: 100vh;
+}
+
+.question-page.review{
+    padding: 0px;
+}
+
+.question-page.review .question-container{
+    padding: 20px 20px 20px 40px;
+}
+
+#content-page{
+    background-color: white;
+    padding: 30px 30px 30px 60px;
+    min-height: 100vh;
+}
+
+p{
+    font-size: 17px;
+}
+
+#audio-text{
+    height: 24px;
+    line-height: 24px;
+}
+
+md-radio-button{
+    margin-bottom: 10px !important;
+}
+
+md-radio-button p{
+    margin: 0px;
+    white-space: normal;
+}
+
+.correct-answer{
+    color: #4caf50;
+}
+
+.passage-container{
+    padding: 26px 20px 20px 20px;
+    background-color: white;
+    border-left: 1px solid dimgray;
+}
+
+.passage{
+    height: 100vh;
+    overflow: scroll;
+}

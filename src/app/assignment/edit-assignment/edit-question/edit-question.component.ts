@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {AssignmentService} from "../../../services/assignment.service";
-import {HttpService} from "../../../services/http.service";
-import {ToastService} from "../../../services/toast.service";
 import {Question} from "../../../models/Questions/Question";
-import {TPOReadingQuestion} from "../../../models/Questions/TPOReadingQuestion";
 
 @Component({
   selector: 'app-edit-question',
@@ -18,8 +15,6 @@ export class EditQuestionComponent implements OnInit {
 	private question:any = new Question({});
 
 	constructor(private route:ActivatedRoute,
-				private toastService:ToastService,
-				private httpService:HttpService,
 				public assignmentService:AssignmentService) {
 		this.route.params.forEach((param:Params)=>{
 			this.assignmentId = param['assignmentId'];

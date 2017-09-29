@@ -14,12 +14,16 @@ export class AddAssignmentDialogComponent implements OnInit {
 	public type:string;
 	public assignmentTypes=[
 		{
+			value:'vocabulary',
+			name:'词汇'
+		},
+		{
 			value: 'tpo_reading',
 			name:'TPO阅读'
 		},
 		{
-			value:'vocabulary',
-			name:'词汇'
+			value: 'tpo_listening',
+			name:'TPO听力'
 		},
 		{
 			value:'independent_writing',

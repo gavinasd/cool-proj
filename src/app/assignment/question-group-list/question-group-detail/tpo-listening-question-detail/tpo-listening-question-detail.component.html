@@ -1,0 +1,91 @@
+<div *ngIf="homeworkMode()">
+    <div id="content-page" class="container" *ngIf="contentIndex == 0" fxLayout="column" fxLayoutAlign="start">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <p>Listen to this material:</p>
+            <md-icon>volume_up</md-icon>
+        </div>
+        <app-audio-player [src]="recordUrl"></app-audio-player>
+    </div>
+
+    <div class="question-page"
+         *ngIf="contentIndex > 0" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start">
+        <app-question-index [content]="getPagerContent()"></app-question-index>
+
+        <div class="question" fxLayout="column" fxLayoutAlign="start"
+             *ngIf="tpoListeningQuestion.questionType == assignmentService.getTpoListeningSingleChoice() ||
+                tpoListeningQuestion.questionType == assignmentService.getTpoListeningRepeatQuestion()">
+
+            <div *ngIf="tpoListeningQuestion.questionType == assignmentService.getTpoListeningRepeatQuestion()"
+                 fxLayout="row" fxLayoutAlign="start center">
+                <p>Listen again to part of the conversation. Then answer the question.</p>
+                <md-icon>volume_up</md-icon>
+            </div>
+            <p><strong>{{tpoListeningQuestion.question}}</strong></p>
+            <md-radio-group fxLayout="column"
+                            fxLayoutGap="5px"
+                            [(ngModel)]="answer"
+                            (change)="changeAnswer()"
+                            [disabled]="reviewMode()">
+                <md-radio-button *ngFor="let option of tpoListeningQuestion.options; let i = index"
+                                 color="accent"
+                                 name="choices"
+                                 [value]="i|convert09ToAZ">
+                    <p>{{i|convert09ToAZ}}. {{option}}</p>
+                </md-radio-button>
+            </md-radio-group>
+        </div>
+        <div class="question" fxLayout="column"
+             *ngIf="tpoListeningQuestion.questionType == assignmentService.getTpoListeningMultipleChoice()">
+            <p><strong>{{tpoListeningQuestion.question}}</strong></p>
+            <div fxLayout="column" fxLayoutGap="10px">
+                <md-checkbox *ngFor="let option of tpoListeningQuestion.options;let i = index"
+                             [(ngModel)]="checkboxAnswers[i]" (change)="changeCheckboxAnswer()">
+                    {{i|convert09ToAZ}}. {{option}}
+                </md-checkbox>
+            </div>
+        </div>
+
+
+        <div class="answer" *ngIf="!homeworkMode()" >
+            <p [ngClass]="{'correct-answer':correct(),'text-danger':!correct()}">学生答案：{{answer}}</p>
+            <p class="correct-answer">正确答案：{{tpoListeningQuestion.answer}}</p>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="reviewMode()">
+    <div class="question-page review"
+         *ngIf="contentIndex > 0" fxLayout="row" fxLayoutAlign="start">
+
+        <div class="question-container" fxFlex="50%">
+            <app-question-pager></app-question-pager>
+            <div class="question" fxLayout="column" fxLayoutAlign="start">
+                <div *ngIf="tpoListeningQuestion.questionType == assignmentService.getTpoListeningRepeatQuestion()"
+                     fxLayout="row" fxLayoutAlign="start center">
+                    <p>Listen again to part of the conversation. Then answer the question.</p>
+                    <app-simple-audio-player [src]="tpoListeningQuestion.recordUrl.replace('question','repeat')"></app-simple-audio-player>
+                </div>
+
+                <div class="review-question" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+                    <p><strong>{{tpoListeningQuestion.question}}</strong></p>
+                    <app-simple-audio-player [src]="tpoListeningQuestion.recordUrl"></app-simple-audio-player>
+                </div>
+                <md-list>
+                    <md-list-item *ngFor="let option of tpoListeningQuestion.options; let i = index">
+                        {{i|convert09ToAZ}}. {{option}}
+                    </md-list-item>
+                </md-list>
+            </div>
+            <div class="answer">
+                <p [ngClass]="{'correct-answer':correct(),'text-danger':!correct()}">学生答案：{{answer}}</p>
+                <p class="correct-answer">正确答案：{{tpoListeningQuestion.answer}}</p>
+                <div [froalaView]="tpoListeningQuestion.explanation"></div>
+            </div>
+        </div>
+        <div class="passage-container" fxFlex="50%">
+            <app-tpo-review-player [src]="recordUrl"></app-tpo-review-player>
+            <div class="passage" [froalaView]="passage"></div>
+        </div>
+    </div>
+</div>
+
