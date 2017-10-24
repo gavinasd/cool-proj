@@ -35,6 +35,8 @@ export const environment = {
 	getAssignmentInfoUrl: 'http://localhost:3000/api/assignment/info',
 	submitAssignmentInfoUrl: 'http://localhost:3000/api/assignment/info',
 	submitAssignmentDoneUrl: 'http://localhost:3000/api/assignment/done',
+	uploadSpeakingRecordUrl: 'http://localhost:3000/api/upload/record',
+	studentRecordUrl: 'http://localhost:3000/uploads/',
 	teacherEditorOptions: {
 		placeholderText: '',
 		charCounterCount: false,

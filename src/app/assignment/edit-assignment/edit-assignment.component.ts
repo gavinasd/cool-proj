@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Assignment} from "../../models/assignments/Assignment";
 import {AssignmentService} from "../../services/assignment.service";

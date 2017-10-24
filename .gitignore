@@ -44,3 +44,5 @@ testem.log
 .DS_Store
 Thumbs.db
 output.log
+
+src/assets/tpo

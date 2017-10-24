@@ -16,7 +16,7 @@ export class EditTporeadingQuestionComponent implements OnInit {
 	@Input() assignmentId: string;
 	@Input() groupId: string;
 	protected questionGroup:QuestionGroup;
-	editorPassage:string;                                       //用来接收Editor里面的内容
+	editorPassage:string;                //用来接收Editor里面的内容
 	public questionType:string;          //用来接收题目的类型
 
 	public EditorOptions = environment.studentEditorOptions;

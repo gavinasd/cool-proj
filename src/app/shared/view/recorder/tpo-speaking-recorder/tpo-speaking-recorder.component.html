@@ -1,0 +1,16 @@
+<div *ngIf="!start" fxLayout="column" fxLayoutAlign="start center">
+    <md-icon>headset</md-icon>
+    <div class="time">Preparation Time: {{prepareTime}} Seconds</div>
+    <div class="time">Response Time: {{responseTime}} Seconds</div>
+</div>
+
+<div *ngIf="start" fxLayout="column" fxLayoutAlign="start center">
+    <app-background-audio-player
+            [src]="!startSpeak?prepareRecordUrl:speakRecordUrl" (completed)="completePlayRecord()">
+    </app-background-audio-player>
+    <div class="prepare-label">{{!startSpeak?'Prepare your response':'Recording'}}</div>
+    <div class="count-down">00:{{countDownTime<10?'0'+countDownTime:countDownTime}}</div>
+    <progress value="{{!startSpeak?prepareTime-countDownTime:responseTime-countDownTime}}"
+              max="{{!startSpeak?prepareTime:responseTime}}"></progress>
+    <p *ngIf="isUploading">正在上传录音</p>
+</div>

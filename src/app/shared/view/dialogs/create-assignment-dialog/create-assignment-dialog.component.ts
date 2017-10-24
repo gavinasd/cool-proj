@@ -22,6 +22,10 @@ export class CreateAssignmentDialogComponent{
 			name:'TPO听力'
 		},
 		{
+			value:'tpo_speaking',
+			name:'TPO口语'
+		},
+		{
 			value:'independent_writing',
 			name:'独立写作'
 		},

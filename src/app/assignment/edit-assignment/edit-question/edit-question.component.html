@@ -24,5 +24,10 @@
         [assignmentId]="assignmentId"
         [groupId]="questionGroupId"
     ></app-edit-tpolistening-question>
+    <app-edit-tpospeaking-question
+        *ngSwitchCase="'tpo_speaking'"
+        [assignmentId]="assignmentId"
+        [groupId]="questionGroupId"
+    ></app-edit-tpospeaking-question>
 </div>
 

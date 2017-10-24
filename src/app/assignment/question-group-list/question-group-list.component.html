@@ -75,5 +75,17 @@
             [contentIndex]="contentIndex$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
     ></app-tpo-listening-question-detail>
+    <app-tpo-speaking-question-detail
+            *ngSwitchCase="'tpo_speaking'"
+            [question]="currentQuestion$ | async"
+            [lastAnswer]="lastAnswer$ | async"
+            [markingScore]="markingScore$ | async"
+            [mode]="mode"
+            [questionIndex]="questionIndex$ | async"
+            [questionListLength]="questionListLength$ | async"
+            (OnChangeAnswer)="changeAnswer($event)"
+            (OnMarkScore)="changeScore($event)"
+            (next)="next()"
+    ></app-tpo-speaking-question-detail>
     <div *ngSwitchDefault>{{group}}</div>
 </div>

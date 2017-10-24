@@ -34,7 +34,7 @@ export class UserService {
 	public register(name:string, avatar:string, email:string,
 					password:string, type:number):Observable<string>{
 
-		console.log('service register start');
+		let url = environment.registerUrl;
 		var body = JSON.stringify({
 			'nickName':name,
 			'avatar': avatar,
@@ -43,7 +43,7 @@ export class UserService {
 			'userType':type.toString()
 		});
 		return this.httpService
-			.makePost(environment.registerUrl,body)
+			.makePost(url,body)
 			.map((resp)=>{
 				this.httpService.setToken(resp.json().token);
 				this.httpService.setCurrentId(resp.json().id);

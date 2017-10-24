@@ -1,0 +1,35 @@
+<div id="question-div">
+    <fieldset>
+        <legend>编辑题目</legend>
+        <form ngNativeValidate #form="ngForm" (ngSubmit)="addQuestion(form)"
+              fxLayout="column" fxLayoutGap="30px">
+            <md-input-container>
+                <input mdInput name="tpoIndex" type="text" required ngModel placeholder="这是第几套TPO">
+            </md-input-container>
+
+            <md-select placeholder="这是第几道题目" name="questionIndex" required [(ngModel)]="questionIndex">
+                <md-option [value]="1">1</md-option>
+                <md-option [value]="2">2</md-option>
+                <md-option [value]="3">3</md-option>
+                <md-option [value]="4">4</md-option>
+                <md-option [value]="5">5</md-option>
+                <md-option [value]="6">6</md-option>
+            </md-select>
+
+            <textarea class="form-control"
+                      *ngIf="questionIndex == 3 || questionIndex == 4"
+                      [froalaEditor]="passageEditorOptions"
+                      [(froalaModel)]="passage"
+                      [(ngModel)]="passage"
+                      name="passage"
+                      rows="5" required></textarea>
+
+            <md-input-container>
+                <input mdInput name="question" type="text" required ngModel placeholder="题目">
+            </md-input-container>
+
+
+            <button md-raised-button color="primary" type="submit">确认</button>
+        </form>
+    </fieldset>
+</div>

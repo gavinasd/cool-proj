@@ -41,6 +41,9 @@ export class QuestionHeaderComponent implements OnInit {
 	}
 
 	needToShowPre():boolean{
+		if(this.mode == Mode.Review || this.mode == Mode.Marking){
+			return true;
+		}
 		if(!this.questionType){
 			return false;
 		}

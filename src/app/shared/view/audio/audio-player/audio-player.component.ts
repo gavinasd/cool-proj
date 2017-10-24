@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 
 @Component({
@@ -8,6 +8,7 @@ import {Observable} from "rxjs/Observable";
 })
 export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() src:string;
+	@Output() completed:EventEmitter<boolean> = new EventEmitter<boolean>()
 	public progress:number = 100;
 	public progressString:string= '';
 	myAudio:HTMLAudioElement;
@@ -37,6 +38,9 @@ export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
 	ngOnChanges(changes: SimpleChanges): void {
 		this.myAudio = new Audio(this.src);
 		this.myAudio.play();
+		this.myAudio.addEventListener('ended', ()=>{
+			this.completed.emit(true);
+		});
 	}
 
 	ngOnDestroy(): void {

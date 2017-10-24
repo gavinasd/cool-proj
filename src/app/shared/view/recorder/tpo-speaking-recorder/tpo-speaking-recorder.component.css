@@ -1,0 +1,54 @@
+md-icon{
+    font-size:45px;
+    height:45px;
+    width: 45px;
+    color: #929292;
+}
+
+.time{
+    text-align: center;
+    line-height: 42px;
+    background-color: #929292;
+    font-size: 18px;
+    color: white;
+    height: 42px;
+    margin-top: 10px;
+    width: 450px;
+}
+
+.prepare-label{
+    text-align: center;
+    line-height: 60px;
+    background-color: #929292;
+    font-size: 18px;
+    color: black;
+    height: 60px;
+    margin-top: 30px;
+    width: 450px;
+}
+
+.count-down{
+    text-align: center;
+    line-height: 60px;
+    background-color: white;
+    font-size: 18px;
+    color: black;
+    height: 60px;
+    margin: 0px;
+    width: 450px;
+}
+
+progress {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 45px;
+    width: 450px;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #eee;
+}
+
+progress[value]::-webkit-progress-value {
+    background-color: #4caf50;
+}

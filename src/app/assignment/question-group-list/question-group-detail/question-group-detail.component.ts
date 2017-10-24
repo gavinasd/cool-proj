@@ -27,7 +27,6 @@ export class QuestionGroupDetailComponent implements OnInit {
 	ngOnInit() {
 	}
 
-
 	changeAnswer(){
 		this.OnChangeAnswer.emit(this.answer);
 	}

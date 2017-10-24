@@ -20,6 +20,9 @@ import { FollowClassDialogComponent } from './view/dialogs/follow-class-dialog/f
 import {ClassDetailNavComponent} from "./view/navbar/class-detail-nav/class-detail-nav.component";
 import { AudioPlayerComponent } from './view/audio/audio-player/audio-player.component';
 import { TpoReviewPlayerComponent } from './view/audio/tpo-review-player/tpo-review-player.component';
+import { BackgroundAudioPlayerComponent } from './view/audio/background-audio-player/background-audio-player.component';
+import { TpoSpeakingRecorderComponent } from './view/recorder/tpo-speaking-recorder/tpo-speaking-recorder.component';
+import { CountDownTimerComponent } from './view/count-down-timer/count-down-timer.component';
 
 @NgModule({
     imports: [
@@ -46,7 +49,10 @@ import { TpoReviewPlayerComponent } from './view/audio/tpo-review-player/tpo-rev
 	    SubmitConfirmDialogComponent,
 	    FollowClassDialogComponent,
 	    AudioPlayerComponent,
-	    TpoReviewPlayerComponent
+	    TpoReviewPlayerComponent,
+	    BackgroundAudioPlayerComponent,
+	    TpoSpeakingRecorderComponent,
+	    CountDownTimerComponent
     ],
 	entryComponents:[CreateClassDialogComponent],
 	exports:[
@@ -59,7 +65,10 @@ import { TpoReviewPlayerComponent } from './view/audio/tpo-review-player/tpo-rev
 		ClassDetailNavComponent,
 		SimpleAudioPlayerComponent,
 		AudioPlayerComponent,
-		TpoReviewPlayerComponent
+		TpoReviewPlayerComponent,
+		BackgroundAudioPlayerComponent,
+		TpoSpeakingRecorderComponent,
+		CountDownTimerComponent
 	]
 })
 export class SharedModule { }

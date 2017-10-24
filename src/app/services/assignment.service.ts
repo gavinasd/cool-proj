@@ -58,6 +58,18 @@ export class AssignmentService {
     	return Question.TPO_LISTENING_REPEAT_TYPE;
 	}
 
+	public getTpoSpeakingQ1Q2Type():string{
+    	return Question.TPO_SPEAKING_Q1Q2_TYPE;
+	}
+
+	public getTpoSpeakingQ3Q4Type():string{
+		return Question.TPO_SPEAKING_Q3Q4_TYPE;
+	}
+
+	public getTpoSpeakingQ5Q6Type():string{
+		return Question.TPO_SPEAKING_Q5Q6_TYPE;
+	}
+
     public addQuestionToGroup(assignmentId: string, groupId: string, question: Question): Observable<Question> {
         let url = environment.addQuestionToGroupUrl;
         var body = JSON.stringify({
@@ -231,5 +243,13 @@ export class AssignmentService {
 	    return this.httpService.makePostWithToken(url,body)
 		    .map( resp=> resp.json().questionGroup)
 		    .catch( HttpService.handleError);
+    }
+
+    public uploadSpeakingRecord(formData:FormData):Observable<any>{
+	    let url = environment.uploadSpeakingRecordUrl;
+
+	    return this.httpService.uploadFile(url, formData)
+		    .map(resp => resp.json())
+		    .catch(HttpService.handleError);
     }
 }

@@ -19,7 +19,6 @@ export class HttpService {
 			});
 	}
 
-
 	public makeGetWithToken(url:string):Observable<Response>{
 		var header = new Headers();
 		header.append('Authorization',"Bearer " + this.getToken());
@@ -45,6 +44,12 @@ export class HttpService {
 		header.append('Content-Type', 'application/json');
 		header.append('Authorization', 'Bearer ' + this.getToken());
 		return this.http.put(url,body,{headers:header});
+	}
+
+	public uploadFile(url:string, formData:FormData):Observable<Response>{
+		let header = new Headers();
+		header.append('Authorization', 'Bearer ' + this.getToken());
+		return this.http.post(url, formData, {headers:header});
 	}
 
 	public getToken():string{

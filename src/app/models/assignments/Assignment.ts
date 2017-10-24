@@ -25,6 +25,7 @@ export class Assignment{
 		if(type == 'independent_writing'
 			|| type == 'integrated_writing'
 			|| type == 'vocabulary'
+			|| type == 'tpo_speaking'
 		){
 			return true;
 		}

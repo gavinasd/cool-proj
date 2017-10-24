@@ -23,7 +23,11 @@ export class AddAssignmentDialogComponent implements OnInit {
 		},
 		{
 			value: 'tpo_listening',
-			name:'TPO听力'
+			name: 'TPO听力'
+		},
+		{
+			value:'tpo_speaking',
+			name: 'TPO口语'
 		},
 		{
 			value:'independent_writing',

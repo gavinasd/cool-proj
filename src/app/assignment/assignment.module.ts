@@ -41,6 +41,8 @@ import { TpoListeningQuestionDetailComponent } from './question-group-list/quest
 import { Convert09ToAZPipe} from "../shared/pipes/convert09-to-az.pipe";
 import {DndModule} from "ng2-dnd";
 import { QuestionIndexComponent } from './question-group-list/question-group-detail/common/question-index/question-index.component';
+import { EditTpospeakingQuestionComponent } from './edit-assignment/edit-question/edit-tpospeaking-question/edit-tpospeaking-question.component';
+import { TpoSpeakingQuestionDetailComponent } from './question-group-list/question-group-detail/tpo-speaking-question-detail/tpo-speaking-question-detail.component';
 
 @NgModule({
 	imports: [
@@ -81,7 +83,9 @@ import { QuestionIndexComponent } from './question-group-list/question-group-det
 		IntegratedWritingItemComponent,
 		EditTpolisteningQuestionComponent,
 		TpoListeningQuestionDetailComponent,
-		QuestionIndexComponent
+		QuestionIndexComponent,
+		EditTpospeakingQuestionComponent,
+		TpoSpeakingQuestionDetailComponent
 	],
 	entryComponents:[
 		AddAssignmentDialogComponent,

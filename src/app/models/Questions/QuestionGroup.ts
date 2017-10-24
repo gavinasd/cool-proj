@@ -3,6 +3,7 @@ import {Question} from "./Question";
 import {VocabularyQuestion} from "./VocabularyQuestion";
 import {TPOReadingQuestion} from "./TPOReadingQuestion";
 import {TPOListeningQuestion} from "./TPOListeningQuestion";
+import {TPOSpeakingQuestion} from "./TPOSpeakingQuestion";
 export class QuestionGroup{
 	public type:string;
 	public totalScore:number;
@@ -32,6 +33,11 @@ export class QuestionGroup{
 					case Question.TPO_LISTENING_REPEAT_TYPE:
 					case Question.TPO_LISTENING_MULTIPLE_CHOICE_TYPE:
 						newQuestion = new TPOListeningQuestion(question);
+						break;
+					case Question.TPO_SPEAKING_Q1Q2_TYPE:
+					case Question.TPO_SPEAKING_Q3Q4_TYPE:
+					case Question.TPO_SPEAKING_Q5Q6_TYPE:
+						newQuestion = new TPOSpeakingQuestion(question);
 						break;
 					default:
 						newQuestion = new Question(question);
