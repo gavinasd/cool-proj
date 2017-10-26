@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AssignmentService} from "../../../services/assignment.service";
+import {AssignmentService} from "../../../core/services/assignment.service";
 import {Mode} from "../../../models/assignments/Assignment";
 import {Router} from "@angular/router";
 

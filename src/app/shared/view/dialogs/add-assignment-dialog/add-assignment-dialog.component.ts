@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Assignment} from "../../../../models/assignments/Assignment";
-import {AssignmentService} from "../../../../services/assignment.service";
+import {AssignmentService} from "../../../../core/services/assignment.service";
 import {MdDialogRef} from "@angular/material";
 
 @Component({

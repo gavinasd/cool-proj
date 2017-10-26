@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import 'rxjs/Rx';
-import {ClassService} from "../services/class.service";
+import {ClassService} from "../core/services/class.service";
 
 @Component({
   selector: 'app-class-detail',

@@ -2,9 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {Assignment} from "../../../../models/assignments/Assignment";
-import {HttpService} from "../../../../services/http.service";
-import {AssignmentService} from "../../../../services/assignment.service";
-import {ToastService} from "../../../../services/toast.service";
+import {HttpService} from "../../../../core/services/http.service";
+import {AssignmentService} from "../../../../core/services/assignment.service";
+import {ToastService} from "../../../../core/services/toast.service";
 
 @Component({
   selector: 'app-class-detail-nav',
@@ -32,7 +32,7 @@ export class ClassDetailNavComponent implements OnInit {
 
 	searchClass(form:NgForm){
 		console.log(form.value.classForSearch);
-		this.router.navigate(['/class/search',form.value.classForSearch]);
+		this.router.navigate(['/search',form.value.classForSearch]);
 	}
 
 	logout(){

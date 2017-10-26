@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ClassService} from "../../services/class.service";
+import {ClassService} from "../../core/services/class.service";
 
 @Component({
     selector: 'app-class-user-list',

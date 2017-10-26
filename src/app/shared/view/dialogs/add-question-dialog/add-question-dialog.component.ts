@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialogRef} from "@angular/material";
-import {AssignmentService} from "../../../../services/assignment.service";
+import {AssignmentService} from "../../../../core/services/assignment.service";
 
 @Component({
   selector: 'app-add-question-dialog',

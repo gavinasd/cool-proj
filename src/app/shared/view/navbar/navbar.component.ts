@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ClassService} from "../../../services/class.service";
+import {ClassService} from "../../../core/services/class.service";
 import {Router} from "@angular/router";
-import {HttpService} from "../../../services/http.service";
-import {ToastService} from "../../../services/toast.service";
+import {HttpService} from "../../../core/services/http.service";
+import {ToastService} from "../../../core/services/toast.service";
 import {MdDialog, MdDialogConfig} from "@angular/material";
 import {CreateClassDialogComponent} from "../dialogs/create-class-dialog/create-class-dialog.component";
 

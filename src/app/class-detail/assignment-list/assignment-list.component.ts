@@ -1,11 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {ToastService} from "../../services/toast.service";
-import {AssignmentService} from "../../services/assignment.service";
+import {ToastService} from "../../core/services/toast.service";
+import {AssignmentService} from "../../core/services/assignment.service";
 import {AssignmentInfo} from "../../models/models";
 import {Subject} from "rxjs/Subject";
 import {MdDialog, MdDialogConfig} from "@angular/material";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {HttpService} from "../../services/http.service";
+import {HttpService} from "../../core/services/http.service";
 import {AddAssignmentDialogComponent} from "../../shared/view/dialogs/add-assignment-dialog/add-assignment-dialog.component";
 import {Assignment} from "../../models/assignments/Assignment";
 

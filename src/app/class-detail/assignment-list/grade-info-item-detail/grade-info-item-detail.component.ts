@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {GradeInfo} from "../../../models/models";
-import {HttpService} from "../../../services/http.service";
+import {HttpService} from "../../../core/services/http.service";
 import {Mode} from "../../../models/assignments/Assignment";
 import {DomSanitizer} from "@angular/platform-browser";
 import {MdIconRegistry} from "@angular/material";

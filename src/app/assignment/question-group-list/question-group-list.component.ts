@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {AssignmentService} from "../../services/assignment.service";
+import {AssignmentService} from "../../core/services/assignment.service";
 import {QuestionGroup} from "../../models/Questions/QuestionGroup";
 import {Observable} from "rxjs/Observable";
 import {Mode} from "../../models/assignments/Assignment";

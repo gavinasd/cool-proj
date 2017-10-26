@@ -8,13 +8,12 @@ import { Convert09ToAZPipe } from './pipes/convert09-to-az.pipe';
 import { SimpleAudioPlayerComponent } from './view/audio/simple-audio-player/simple-audio-player.component';
 import { HalfPipe } from './pipes/half.pipe';
 import { PronunciationOfWordPipe } from './pipes/pronunciation-of-word.pipe';
-import {MaterialModule} from "../view/common/material.module";
+import {MaterialModule} from "./material.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { CreateClassDialogComponent } from './view/dialogs/create-class-dialog/create-class-dialog.component';
 import { AddAssignmentDialogComponent } from './view/dialogs/add-assignment-dialog/add-assignment-dialog.component';
 import { CreateAssignmentDialogComponent } from './view/dialogs/create-assignment-dialog/create-assignment-dialog.component';
 import { AddQuestionDialogComponent } from './view/dialogs/add-question-dialog/add-question-dialog.component';
-import { DataComponent } from './view/dev/data/data.component';
 import { SubmitConfirmDialogComponent } from './view/dialogs/submit-confirm-dialog/submit-confirm-dialog.component';
 import { FollowClassDialogComponent } from './view/dialogs/follow-class-dialog/follow-class-dialog.component';
 import {ClassDetailNavComponent} from "./view/navbar/class-detail-nav/class-detail-nav.component";
@@ -23,52 +22,44 @@ import { TpoReviewPlayerComponent } from './view/audio/tpo-review-player/tpo-rev
 import { BackgroundAudioPlayerComponent } from './view/audio/background-audio-player/background-audio-player.component';
 import { TpoSpeakingRecorderComponent } from './view/recorder/tpo-speaking-recorder/tpo-speaking-recorder.component';
 import { CountDownTimerComponent } from './view/count-down-timer/count-down-timer.component';
+import {HttpModule} from "@angular/http";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {RouterModule} from "@angular/router";
+import {VocabularyListComponent} from "./view/vocabulary/vocabulary-list/vocabulary-list.component";
+import {VocabularyItemComponent} from "./view/vocabulary/vocabulary-item/vocabulary-item.component";
 
 @NgModule({
     imports: [
-    	MaterialModule,
         FlexLayoutModule,
         CommonModule,
-	    FormsModule
+	    FormsModule,
+	    MaterialModule,
     ],
     declarations: [
-    	OddEvenPipe,
-	    Convert09ToAZPipe,
-	    FooterComponent,
-	    NavbarComponent,
-	    ClassDetailNavComponent,
-	    Convert09ToAZPipe,
-	    SimpleAudioPlayerComponent,
-	    HalfPipe,
-	    PronunciationOfWordPipe,
-	    CreateClassDialogComponent,
-	    AddAssignmentDialogComponent,
-	    CreateAssignmentDialogComponent,
-	    AddQuestionDialogComponent,
-	    DataComponent,
-	    SubmitConfirmDialogComponent,
-	    FollowClassDialogComponent,
-	    AudioPlayerComponent,
-	    TpoReviewPlayerComponent,
-	    BackgroundAudioPlayerComponent,
-	    TpoSpeakingRecorderComponent,
-	    CountDownTimerComponent
+    	OddEvenPipe, Convert09ToAZPipe, FooterComponent,
+	    NavbarComponent, ClassDetailNavComponent, Convert09ToAZPipe, SimpleAudioPlayerComponent,
+	    HalfPipe, PronunciationOfWordPipe, CreateClassDialogComponent,
+	    AddAssignmentDialogComponent, CreateAssignmentDialogComponent,
+	    AddQuestionDialogComponent, SubmitConfirmDialogComponent, FollowClassDialogComponent, AudioPlayerComponent,
+	    TpoReviewPlayerComponent, BackgroundAudioPlayerComponent, TpoSpeakingRecorderComponent,
+	    CountDownTimerComponent,VocabularyListComponent,VocabularyItemComponent
     ],
-	entryComponents:[CreateClassDialogComponent],
+	entryComponents:[CreateClassDialogComponent,AddAssignmentDialogComponent,CreateAssignmentDialogComponent,
+		AddQuestionDialogComponent, SubmitConfirmDialogComponent, FollowClassDialogComponent,],
 	exports:[
-		OddEvenPipe,
-		Convert09ToAZPipe,
-		HalfPipe,
-		PronunciationOfWordPipe,
-		FooterComponent,
-		NavbarComponent,
-		ClassDetailNavComponent,
-		SimpleAudioPlayerComponent,
-		AudioPlayerComponent,
-		TpoReviewPlayerComponent,
-		BackgroundAudioPlayerComponent,
-		TpoSpeakingRecorderComponent,
-		CountDownTimerComponent
+		OddEvenPipe, Convert09ToAZPipe, HalfPipe,
+		PronunciationOfWordPipe, FooterComponent,
+		NavbarComponent,ClassDetailNavComponent,
+		SimpleAudioPlayerComponent, AudioPlayerComponent,
+		TpoReviewPlayerComponent, BackgroundAudioPlayerComponent,
+		TpoSpeakingRecorderComponent, CountDownTimerComponent,
+		VocabularyListComponent,
+		MaterialModule,
+		FlexLayoutModule,
+		FormsModule,
+		HttpModule,
+		CommonModule,
+		RouterModule
 	]
 })
 export class SharedModule { }

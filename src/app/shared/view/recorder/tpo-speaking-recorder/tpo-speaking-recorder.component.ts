@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
 import * as RecordRTC from 'recordrtc';
-import {AssignmentService} from "../../../../services/assignment.service";
+import {AssignmentService} from "../../../../core/services/assignment.service";
 
 @Component({
   selector: 'app-tpo-speaking-recorder',

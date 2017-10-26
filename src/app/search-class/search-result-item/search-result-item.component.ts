@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {ClassInfo} from "../../models/models";
-import {ClassService} from "../../services/class.service";
-import {ToastService} from "../../services/toast.service";
+import {ClassService} from "../../core/services/class.service";
+import {ToastService} from "../../core/services/toast.service";
 import {MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig} from "@angular/material";
 import {FollowClassDialogComponent} from "../../shared/view/dialogs/follow-class-dialog/follow-class-dialog.component";
 

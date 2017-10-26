@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Actions, Effect, toPayload} from "@ngrx/effects";
-import {AssignmentService} from "../../services/assignment.service";
+import {AssignmentService} from "../../core/services/assignment.service";
 import {Observable} from "rxjs/Observable";
 import * as AssignmentAction from './assignment.actions';
 import {Action, Store} from "@ngrx/store";

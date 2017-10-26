@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {TPOListeningQuestion} from "../../../../models/Questions/TPOListeningQuestion";
-import {AssignmentService} from "../../../../services/assignment.service";
+import {AssignmentService} from "../../../../core/services/assignment.service";
 import {Convert09ToAZPipe} from "../../../../shared/pipes/convert09-to-az.pipe";
 
 @Component({
