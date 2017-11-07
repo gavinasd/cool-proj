@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {AssignmentService} from "../../core/services/assignment.service";
 import {QuestionGroup} from "../../models/Questions/QuestionGroup";
@@ -138,15 +138,6 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 
 	pre(){
 		this.store.dispatch(new assignmentActions.PreAction());
-	}
-
-	changeView(){
-		if(this.viewMode == 'question'){
-			this.viewMode = 'text';
-		}
-		else{
-			this.viewMode = 'question';
-		}
 	}
 
 	autoSave() {

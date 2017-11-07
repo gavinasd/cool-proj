@@ -1,16 +1,18 @@
-<app-question-header
-        [assignmentName]="assignmentName$ | async"
-        [mode]="mode"
-        [questionType]="currentQuestionType$ | async"
-        [classId]="classId"
-        (next)="next()"
-        (pre)="pre()"
-        (viewChanged)="changeView()"
-></app-question-header>
+<!--<app-question-header-->
+        <!--[assignmentName]="assignmentName$ | async"-->
+        <!--[mode]="mode"-->
+        <!--[questionType]="currentQuestionType$ | async"-->
+        <!--[classId]="classId"-->
+        <!--(next)="next()"-->
+        <!--(pre)="pre()"-->
+        <!--(viewChanged)="changeView()"-->
+<!--&gt;</app-question-header>-->
 
 <div class="container" id="question-group-list" [ngSwitch]="groupType$ | async">
     <app-tpo-reading-question-detail
             *ngSwitchCase="assignmentService.getTPOReadingQuestionType()"
+            [classId]="classId"
+            [assignmentName]="assignmentName$ | async"
             [groupContent]="groupContent$ | async"
             [question]="currentQuestion$ | async"
             [lastAnswer]="lastAnswer$ | async"
@@ -21,9 +23,12 @@
             [questionIndex]="questionIndex$ | async"
             [questionListLength]="questionListLength$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
+            (OnNext)="next()"
+            (OnPre)="pre()"
     ></app-tpo-reading-question-detail>
     <app-vocabulary-question-detail
             *ngSwitchCase="assignmentService.getVocabularyQuestionType()"
+            [classId]="classId"
             [groupContent]="groupContent$ | async"
             [question]="currentQuestion$ | async"
             [lastAnswer]="lastAnswer$ | async"
@@ -34,9 +39,13 @@
             [questionIndex]="questionIndex$ | async"
             [questionListLength]="questionListLength$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
+            (OnNext)="next()"
+            (OnPre)="pre()"
     ></app-vocabulary-question-detail>
     <app-independent-writing-question-detail
             *ngSwitchCase="assignmentService.getIndependentWritingType()"
+            [classId]="classId"
+            [assignmentName]="assignmentName$ | async"
             [groupContent]="groupContent$ | async"
             [question]="currentQuestion$ | async"
             [lastAnswer]="lastAnswer$ | async"
@@ -47,9 +56,13 @@
             [questionListLength]="questionListLength$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
             (OnMarkScore)="changeScore($event)"
+            (OnNext)="next()"
+            (OnPre)="pre()"
     ></app-independent-writing-question-detail>
     <app-integrated-writing-question-detail
             *ngSwitchCase="assignmentService.getIntegratedWritingType()"
+            [classId]="classId"
+            [assignmentName]="assignmentName$ | async"
             [groupContent]="groupContent$ | async"
             [question]="currentQuestion$ | async"
             [lastAnswer]="lastAnswer$ | async"
@@ -61,9 +74,13 @@
             [questionListLength]="questionListLength$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
             (OnMarkScore)="changeScore($event)"
+            (OnNext)="next()"
+            (OnPre)="pre()"
     ></app-integrated-writing-question-detail>
     <app-tpo-listening-question-detail
             *ngSwitchCase="'tpo_listening'"
+            [classId]="classId"
+            [assignmentName]="assignmentName$ | async"
             [groupContent]="groupContent$ | async"
             [question]="currentQuestion$ | async"
             [lastAnswer]="lastAnswer$ | async"
@@ -74,9 +91,13 @@
             [questionListLength]="questionListLength$ | async"
             [contentIndex]="contentIndex$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
+            (OnNext)="next()"
+            (OnPre)="pre()"
     ></app-tpo-listening-question-detail>
     <app-tpo-speaking-question-detail
             *ngSwitchCase="'tpo_speaking'"
+            [classId]="classId"
+            [assignmentName]="assignmentName$ | async"
             [question]="currentQuestion$ | async"
             [lastAnswer]="lastAnswer$ | async"
             [markingScore]="markingScore$ | async"
@@ -85,7 +106,8 @@
             [questionListLength]="questionListLength$ | async"
             (OnChangeAnswer)="changeAnswer($event)"
             (OnMarkScore)="changeScore($event)"
-            (next)="next()"
+            (OnNext)="next()"
+            (OnPre)="pre()"
     ></app-tpo-speaking-question-detail>
     <div *ngSwitchDefault>{{group}}</div>
 </div>

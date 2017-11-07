@@ -1,7 +1,15 @@
+.container{
+    background-color: #efeff0;
+    position: absolute;
+    top: 90px;
+    bottom: 0px;
+    width: 100%;
+}
+
 .question-page{
     background-color: #efeff0;
     padding: 60px 30px 30px 100px;
-    min-height: 100vh;
+    min-height: 100%;
 }
 
 .question-page.review{
@@ -13,9 +21,17 @@
 }
 
 #content-page{
-    background-color: white;
-    padding: 30px 30px 30px 60px;
-    min-height: 100vh;
+    padding: 0px 30px 30px 60px;
+    min-height: 100%;
+}
+
+app-question-pager{
+    padding-bottom: 10px;
+}
+
+.review-question p{
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 p{

@@ -14,7 +14,7 @@ export class IndependentWritingQuestionDetailComponent extends QuestionGroupDeta
 		placeholderText: '',
 		charCounterCount: false,
 		toolbarButtons: [],
-		height: 500,
+		height: 450,
 		quickInsertTags: [],
 		spellcheck: false,
 		events: {
@@ -29,7 +29,7 @@ export class IndependentWritingQuestionDetailComponent extends QuestionGroupDeta
 		charCounterCount: false,
 		toolbarButtons: ['fullscreen','bold','italic','strikeThrough','color',],
 		colorsText:['#d71345','#f58220','#ffe600','#bed742','#1d953f','#2b4490','#000000'],
-		height: 500,
+		height: 450,
 		quickInsertTags: [],
 		spellcheck: true,
 	};

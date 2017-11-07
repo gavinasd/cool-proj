@@ -25,7 +25,7 @@ export class TpoSpeakingRecorderComponent implements OnInit,OnChanges {
 	private stream: MediaStream;
 	private options = {
 		mimeType: 'audio/x-wav',
-		bitsPerSecond: 64000
+		bitsPerSecond: 128000
 	};
 	private recordRTC:any;
 
@@ -89,8 +89,7 @@ export class TpoSpeakingRecorderComponent implements OnInit,OnChanges {
 	successCallback(stream : MediaStream){
 		this.stream = stream;
 		this.recordRTC = RecordRTC(stream, this.options);
-		this.recordRTC.setRecordDuration(this.responseTime * 1000)
-			.onRecordingStopped(this.uploadRecordToServer.bind(this));
+		this.recordRTC.startRecording();
 	}
 
 	uploadRecordToServer(){

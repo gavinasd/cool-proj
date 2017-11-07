@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Question} from "../../../models/Questions/Question";
 import {Mode} from "../../../models/assignments/Assignment";
 
@@ -8,6 +8,8 @@ import {Mode} from "../../../models/assignments/Assignment";
   styleUrls: ['./question-group-detail.component.css']
 })
 export class QuestionGroupDetailComponent implements OnInit {
+	@Input() assignmentName:string;     //这个变量是专门用来传递给header使用的\
+	@Input() classId:string;
 	@Input() mode:Mode;
 	@Input() groupContent:string;
 	@Input() question:Question;
@@ -18,13 +20,26 @@ export class QuestionGroupDetailComponent implements OnInit {
 	@Input() questionListLength:number;
 	@Output() OnChangeAnswer:EventEmitter<string> = new EventEmitter<string>();
 	@Output() OnMarkScore:EventEmitter<number> = new EventEmitter<number>();
+	@Output() OnNext:EventEmitter<boolean> = new EventEmitter<boolean>();
+	@Output() OnPre:EventEmitter<boolean> = new EventEmitter<boolean>();
 	public ModeType = Mode;
 	public answer:string;
+	public showPreButton:boolean = true;
+	public showNextButton:boolean = true;
+	public disableNextButton:boolean = false;
 
 	constructor() {
 	}
 
 	ngOnInit() {
+	}
+
+	pre(){
+		this.OnPre.emit(true);
+	}
+
+	next(){
+		this.OnNext.emit(true);
 	}
 
 	changeAnswer(){

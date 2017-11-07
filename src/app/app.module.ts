@@ -8,7 +8,6 @@ import {EffectsModule} from "@ngrx/effects";
 import {AssignmentEffect} from "./redux/assignment/assignment.effects";
 import {IndexModule} from "./index/index.module";
 import {AppRoutingModule} from "./app-routing.module";
-import {ToastyModule} from "ng2-toasty";
 import {CoreModule} from "./core/core.module";
 import {SharedModule} from "./shared/shared.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -23,7 +22,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
       AppRoutingModule,
 	  CoreModule,
 	  IndexModule,
-	  ToastyModule,
 	  SharedModule,
 	  StoreModule.forRoot(reducers),
 	  EffectsModule.forRoot([AssignmentEffect])

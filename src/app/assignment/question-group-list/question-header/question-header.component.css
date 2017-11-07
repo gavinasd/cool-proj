@@ -19,6 +19,14 @@ md-toolbar{
     line-height: 26px;
 }
 
+.tooltip{
+    height: 26px;
+}
+
+.tooltip button{
+    top: -5px;
+}
+
 
 
 

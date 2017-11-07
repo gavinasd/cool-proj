@@ -6,11 +6,11 @@ import {HttpService} from "./services/http.service";
 import {ToastService} from "./services/toast.service";
 import {UserService} from "./services/user.service";
 import {HttpModule} from "@angular/http";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
 	imports: [
-	    CommonModule,
-		HttpModule,
+		SharedModule
 	],
 	declarations: [],
 	providers:[

@@ -1,6 +1,5 @@
 .container{
     background-color: #efeff0;
-    min-height: 100vh;
 }
 
 .container p{
@@ -11,7 +10,10 @@
     padding: 30px;
     background-color: white;
     border-right: 1px solid dimgray;
-}
+    position: absolute;
+    top: 90px;
+    bottom: 0px;
+    width: 100%;}
 
 .direction{
     border-bottom: 1px solid lightgray;
@@ -21,7 +23,10 @@
 .content-page-2{
     background-color: white;
     padding: 30px 30px 30px 60px;
-    min-height: 100vh;
+    position: absolute;
+    top: 90px;
+    bottom: 0px;
+    width: 100%;
 }
 
 .content-page-2 p{
@@ -31,6 +36,13 @@
 .audio-text{
     height: 24px;
     line-height: 24px;
+}
+
+.question-page{
+    position: absolute;
+    top: 90px;
+    bottom: 0px;
+    width: 100%;
 }
 
 .question{
@@ -43,14 +55,17 @@
     margin-bottom: 5px !important;
 }
 
+.question-content{
+    min-height: 100%;
+}
+
 .question-content .passage {
     padding: 0px 30px 0px 30px;
 }
 
 
 .header md-card{
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 18px 10px 18px;
 }
 
 .review-content{
@@ -68,4 +83,8 @@
 
 .answer p{
     color: #f44336;
+}
+
+app-score-marker{
+    padding-right: 16px;
 }

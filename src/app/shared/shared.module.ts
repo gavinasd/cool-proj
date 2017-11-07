@@ -8,7 +8,7 @@ import { Convert09ToAZPipe } from './pipes/convert09-to-az.pipe';
 import { SimpleAudioPlayerComponent } from './view/audio/simple-audio-player/simple-audio-player.component';
 import { HalfPipe } from './pipes/half.pipe';
 import { PronunciationOfWordPipe } from './pipes/pronunciation-of-word.pipe';
-import {MaterialModule} from "./material.module";
+import {MaterialModule} from "./view/material/material.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { CreateClassDialogComponent } from './view/dialogs/create-class-dialog/create-class-dialog.component';
 import { AddAssignmentDialogComponent } from './view/dialogs/add-assignment-dialog/add-assignment-dialog.component';
@@ -23,10 +23,10 @@ import { BackgroundAudioPlayerComponent } from './view/audio/background-audio-pl
 import { TpoSpeakingRecorderComponent } from './view/recorder/tpo-speaking-recorder/tpo-speaking-recorder.component';
 import { CountDownTimerComponent } from './view/count-down-timer/count-down-timer.component';
 import {HttpModule} from "@angular/http";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {RouterModule} from "@angular/router";
 import {VocabularyListComponent} from "./view/vocabulary/vocabulary-list/vocabulary-list.component";
 import {VocabularyItemComponent} from "./view/vocabulary/vocabulary-item/vocabulary-item.component";
+import { ToastComponent } from './view/toast/toast.component';
 
 @NgModule({
     imports: [
@@ -42,10 +42,10 @@ import {VocabularyItemComponent} from "./view/vocabulary/vocabulary-item/vocabul
 	    AddAssignmentDialogComponent, CreateAssignmentDialogComponent,
 	    AddQuestionDialogComponent, SubmitConfirmDialogComponent, FollowClassDialogComponent, AudioPlayerComponent,
 	    TpoReviewPlayerComponent, BackgroundAudioPlayerComponent, TpoSpeakingRecorderComponent,
-	    CountDownTimerComponent,VocabularyListComponent,VocabularyItemComponent
+	    CountDownTimerComponent,VocabularyListComponent,VocabularyItemComponent, ToastComponent
     ],
 	entryComponents:[CreateClassDialogComponent,AddAssignmentDialogComponent,CreateAssignmentDialogComponent,
-		AddQuestionDialogComponent, SubmitConfirmDialogComponent, FollowClassDialogComponent,],
+		AddQuestionDialogComponent, SubmitConfirmDialogComponent, FollowClassDialogComponent, ToastComponent],
 	exports:[
 		OddEvenPipe, Convert09ToAZPipe, HalfPipe,
 		PronunciationOfWordPipe, FooterComponent,

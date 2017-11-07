@@ -13,6 +13,9 @@ export class QuestionHeaderComponent implements OnInit {
     @Input() public mode:Mode;
     @Input() public questionType:string;
     @Input() public classId:string;
+    @Input() public showPre:boolean;
+    @Input() public showNext:boolean;
+    @Input() public disableNext:boolean;
     @Output() viewChanged:EventEmitter<string> = new EventEmitter<string>();
 	@Output() next:EventEmitter<string> = new EventEmitter<string>();
 	@Output() pre:EventEmitter<string> = new EventEmitter<string>();
@@ -38,26 +41,6 @@ export class QuestionHeaderComponent implements OnInit {
 
 	quit(){
 		this.router.navigate(['/class/' + this.classId]);
-	}
-
-	needToShowPre():boolean{
-		if(this.mode == Mode.Review || this.mode == Mode.Marking){
-			return true;
-		}
-		if(!this.questionType){
-			return false;
-		}
-		return this.questionType.startsWith("tpo_reading");
-	}
-
-	needToShowButton():boolean{
-		if((this.questionType.startsWith('tpo_reading')||this.questionType.startsWith('tpo_listening'))){
-			if(this.reviewMode()){
-				return false;
-			}
-			return true;
-		}
-		return true;
 	}
 
 	nextQuestion(){

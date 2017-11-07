@@ -10,6 +10,7 @@ import {SharedModule} from "../shared/shared.module";
 import {FormsModule} from "@angular/forms";
 import {HttpService} from "../core/services/http.service";
 import {UserService} from "../core/services/user.service";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,8 @@ import {UserService} from "../core/services/user.service";
 		CourseListItemComponent,
 		IndexComponent,
 		LoginComponent,
-		RegisterComponent
+		RegisterComponent,
+		PageNotFoundComponent
 	],
 	providers:[
 		HttpService,

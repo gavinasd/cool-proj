@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {TPOReadingQuestion} from "../../../../models/Questions/TPOReadingQuestion";
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {Convert09ToAZPipe} from "../../../../shared/pipes/convert09-to-az.pipe";
@@ -14,7 +14,7 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 
 	selectedAnswers:number[]=[-1,-1,-1];
 
-	constructor(private convert09ToAZ:Convert09ToAZPipe) {
+	constructor(public convert09ToAZ:Convert09ToAZPipe) {
 		super();
 	}
 
@@ -33,6 +33,15 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 		}
 
 		this.tpoReadingQuestion = <TPOReadingQuestion>this.question;
+	}
+
+	changeView(){
+		if(this.viewMode == 'question'){
+			this.viewMode = 'text';
+		}
+		else{
+			this.viewMode = 'question';
+		}
 	}
 
 	dropAnswer(indexToReplace, data : any){

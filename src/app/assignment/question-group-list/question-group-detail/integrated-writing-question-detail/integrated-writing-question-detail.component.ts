@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {IntegratedWritingQuestion} from "../../../../models/Questions/IntegratedWritingQuestion";
+import {Mode} from "../../../../models/assignments/Assignment";
 
 @Component({
   selector: 'app-integrated-writing-question-detail',
@@ -12,7 +13,7 @@ export class IntegratedWritingQuestionDetailComponent extends QuestionGroupDetai
 		placeholderText: '',
 		charCounterCount: false,
 		toolbarButtons: [],
-		height: 500,
+		height: 400,
 		quickInsertTags: [],
 		spellcheck: false,
 		events: {
@@ -26,7 +27,7 @@ export class IntegratedWritingQuestionDetailComponent extends QuestionGroupDetai
 		charCounterCount: false,
 		toolbarButtons: ['fullscreen','bold','italic','strikeThrough','color',],
 		colorsText:['#d71345','#f58220','#ffe600','#bed742','#1d953f','#2b4490','#000000'],
-		height: 500,
+		height: 400,
 		quickInsertTags: [],
 		spellcheck: true,
 	};
@@ -60,8 +61,20 @@ export class IntegratedWritingQuestionDetailComponent extends QuestionGroupDetai
 			this.wordCount = (JSON.parse(this.lastAnswer) && JSON.parse(this.lastAnswer).wordCount) || 0;
 		}
 		this.integratedWritingQuestion = <IntegratedWritingQuestion>this.question;
+
+		this.setupHeader();
 	}
 
+	setupHeader(){
+		if(this.mode == Mode.HomeWork){
+			this.showPreButton = false;
+		}
+		else {
+			this.showPreButton = true;
+			this.showNextButton = true;
+			this.disableNextButton = false;
+		}
+	}
 
 	changeAnswer(){
 		//只有做作业的学生可能会导致wordCount发生改变

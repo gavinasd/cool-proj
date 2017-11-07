@@ -1,25 +1,37 @@
 .container{
-    background-color: white;
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-    padding: 30px;
-}
+    background-color: #efeff0;
+    position: absolute;
+    top: 90px;
+    bottom: 0px;
+    width: 100%;}
 
 .container p{
     font-weight: 400;
 }
 
+.question-page{
+    background-color: #efeff0;
+    padding-bottom: 10px;
+}
+
+.question-content{
+    background-color: #efeff0;
+    padding-bottom: 10px;
+}
+
 .direction{
     border-bottom: 1px solid lightgray;
-    margin-bottom: 0px;
+    padding: 0 30px 0 30px;
+    margin-bottom: 5px !important;
 }
 
 .question{
-    padding-right: 30px;
+    padding: 0 30px 0 30px;
+    background-color: #efeff0;
 }
 
 .header md-card{
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 18px 10px 18px;
 }
 
 .review-content{
@@ -27,6 +39,8 @@
     height: 500px;
     overflow: scroll;
     border: 1px solid lightgray;
+    background-color: white;
+
 }
 
 .answer{
@@ -36,4 +50,8 @@
 
 .answer p{
     color: #f44336;
+}
+
+app-score-marker{
+    padding-right: 16px;
 }

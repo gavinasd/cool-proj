@@ -1,45 +1,28 @@
 import { Injectable } from '@angular/core';
-import {ToastyService, ToastOptions, ToastyConfig} from "ng2-toasty";
+import {MdSnackBar, MdSnackBarConfig} from "@angular/material";
+import {ToastComponent} from "../../shared/view/toast/toast.component";
 
 @Injectable()
 export class ToastService {
-	private toastOptions: ToastOptions;
+	private snackBarConfig: MdSnackBarConfig = new MdSnackBarConfig;
 
-	constructor(private toastyService: ToastyService, private toastyConfig: ToastyConfig) {
-		this.toastOptions = {
-			title:"",
-			msg:"",
-			showClose:true,
-			timeout:3000,
-			theme:'bootstrap',
-			onAdd:(toast:string)=>{
-				console.log("toasting");
-			},
-			onRemove:(toast:string)=>{}
-		};
-	}
-
-	public info(content:string):void{
-		this.toastOptions.msg = content;
-		this.toastOptions.title = '信息';
-		this.toastyService.info(this.toastOptions);
+	constructor(private snackBar:MdSnackBar) {
+		this.snackBarConfig.duration = 3000;
 	}
 
 	public success(content:string):void{
-		this.toastOptions.msg = content;
-		this.toastOptions.title = '成功';
-		this.toastyService.success(this.toastOptions);
+		let snackBarRef = this.snackBar.openFromComponent(ToastComponent,this.snackBarConfig);
+		snackBarRef.instance.error = false;
+		snackBarRef.instance.content = content;
 	}
 
 	public error(content:string):void{
-		this.toastOptions.msg = content;
-		this.toastOptions.title = '失败';
-		this.toastyService.error(this.toastOptions);
+		let snackBarRef = this.snackBar.openFromComponent(ToastComponent,this.snackBarConfig);
+		snackBarRef.instance.error = true;
+		snackBarRef.instance.content = content;
 	}
 
 	public warning(content:string):void{
-		this.toastOptions.msg = content;
-		this.toastOptions.title = '警告';
-		this.toastyService.warning(this.toastOptions);
+		this.success(content);
 	}
 }

@@ -9,7 +9,8 @@ import {
 	MdSidenavModule,
 	MdSlideToggleModule, MdSnackBarModule,
 	MdTabsModule,
-	MdToolbarModule
+	MdToolbarModule,
+	MdTooltipModule
 } from "@angular/material";
 
 @NgModule({
@@ -33,7 +34,8 @@ import {
 		MdGridListModule,
 		MdSnackBarModule,
 		MdProgressBarModule,
-		MdChipsModule
+		MdChipsModule,
+		MdTooltipModule
 	],
 	exports: [
 		MdToolbarModule,
@@ -54,7 +56,8 @@ import {
 		MdGridListModule,
 		MdSnackBarModule,
 		MdProgressBarModule,
-		MdChipsModule
+		MdChipsModule,
+		MdTooltipModule
 	],
 	declarations: []
 })

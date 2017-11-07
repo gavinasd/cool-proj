@@ -8,7 +8,7 @@ import {Observable} from "rxjs/Observable";
 })
 export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() src:string;
-	@Output() completed:EventEmitter<boolean> = new EventEmitter<boolean>()
+	@Output() completed:EventEmitter<boolean> = new EventEmitter<boolean>();
 	public progress:number = 100;
 	public progressString:string= '';
 	myAudio:HTMLAudioElement;

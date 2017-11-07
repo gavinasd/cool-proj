@@ -8,7 +8,7 @@
 
     <span fxFlex="60" fxLayoutAlign="center">{{assignmentName}}</span>
 
-    <span class="header-button" *ngIf="needToShowButton()"
+    <span class="header-button"
           fxLayout="column" fxFlex="20" fxLayoutAlign="center end" fxLayoutGap="8px">
         <div id="first-line" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="5px">
             <button md-button (click)="quit()">
@@ -19,12 +19,14 @@
                 {{viewText?'View Question':'View Text'}}
             </button>
 
-            <button md-button *ngIf="needToShowPre()" (click)="preQuestion()">
+            <button md-button *ngIf="showPre" (click)="preQuestion()">
                 Back
             </button>
-            <button md-button (click)="nextQuestion()">
-                Next
-            </button>
+            <div class="tooltip" mdTooltip="Click Disable!" [mdTooltipPosition]="'below'" [mdTooltipDisabled]="!disableNext">
+                <button md-button *ngIf="showNext" [disabled]="disableNext" (click)="nextQuestion()">
+                    Next
+                </button>
+            </div>
         </div>
         <app-question-timer *ngIf="homeworkMode()"></app-question-timer>
     </span>

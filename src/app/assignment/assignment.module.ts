@@ -19,6 +19,7 @@ import { QuestionIndexComponent } from './question-group-list/question-group-det
 import { TpoSpeakingQuestionDetailComponent } from './question-group-list/question-group-detail/tpo-speaking-question-detail/tpo-speaking-question-detail.component';
 import {AssignmentRoutingModule} from "./assignment-routing.module";
 import {Convert09ToAZPipe} from "../shared/pipes/convert09-to-az.pipe";
+import {QuestionDetailHostDirective} from "./question-group-list/question-detail-host";
 
 @NgModule({
 	imports: [
@@ -43,6 +44,7 @@ import {Convert09ToAZPipe} from "../shared/pipes/convert09-to-az.pipe";
 		QuestionPagerComponent,
 		QuestionGroupListComponent,
 		QuestionTimerComponent,
+		QuestionDetailHostDirective
 	],
 	entryComponents:[],
 	providers:[Convert09ToAZPipe],

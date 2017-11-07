@@ -1,7 +1,8 @@
-import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {TPOSpeakingQuestion} from "../../../../models/Questions/TPOSpeakingQuestion";
 import {environment} from "../../../../../environments/environment";
+import {Mode} from "../../../../models/assignments/Assignment";
 
 @Component({
 	selector: 'app-tpo-speaking-question-detail',
@@ -10,7 +11,6 @@ import {environment} from "../../../../../environments/environment";
 })
 export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailComponent
 	implements OnInit, OnChanges {
-	@Output() next:EventEmitter<boolean> = new EventEmitter<boolean>();
 	public tpoSpeakingQuestion:TPOSpeakingQuestion;
 	public directionComplete:boolean;
 	public passageComplete:boolean;
@@ -36,22 +36,50 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 		this.directionComplete = false;
 		this.questionComplete = false;
 		this.comment = this.getComment();
+
+		this.setupHeader();
+	}
+
+	setupHeader(){
+		if(this.mode == Mode.HomeWork){
+			this.showPreButton = false;
+			if(!this.directionComplete){
+				this.showNextButton = true;
+			}
+			else {
+				this.showNextButton = false;
+			}
+		}
+
+	}
+
+	next(){
+		if(this.mode == Mode.HomeWork && !this.directionComplete){
+			this.completeDirection();
+		}
+		else {
+			super.next();
+		}
 	}
 
 	completeDirection(){
 		this.directionComplete = true;
+		this.setupHeader();
 	}
 
 	completeQuestion(){
 		this.questionComplete = true;
+		this.setupHeader();
 	}
 
 	completePassage(){
 		this.passageComplete = true;
+		this.setupHeader();
 	}
 
 	completeDialog(){
 		this.dialogComplete = true;
+		this.setupHeader();
 	}
 
 	completeRecording(filename:string){
@@ -59,7 +87,7 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 			'filename': filename
 		});
 		this.changeAnswer();
-		this.next.emit(true);
+		super.next();
 	}
 
 	//老师的评价

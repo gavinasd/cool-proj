@@ -3,6 +3,7 @@ import './assignment.actions';
 import * as AssignmentAction from "./assignment.actions";
 import {createSelector} from "@ngrx/store";
 import {MarkingScore, SpendTime, StudentAnswer} from "../../models/assignments/AssignmentInfo";
+import {QuestionGroup} from "../../models/Questions/QuestionGroup";
 
 export interface State{
 	assignment: Assignment;
@@ -123,7 +124,7 @@ export function reducer(state:State = initialState, action: AssignmentAction.Act
 			let currentGroup = state.assignment.questionGroupList[state.currentGroupIndex];
 			let content = currentGroup && currentGroup.content || '{}';
 
-			const contentLength = Object.keys(JSON.parse(content)).length;
+			const contentLength = getGroupContentLength(state.assignment);
 			//如果这个group的contentIndex没有超过content的key的长度
 			if(currentGroup.content && state.currentContentIndex < contentLength){
 				return Object.assign({}, state, {
@@ -213,7 +214,7 @@ export function reducer(state:State = initialState, action: AssignmentAction.Act
 
 			const currentGroup = state.assignment.questionGroupList[groupIndex];
 			const content = currentGroup && currentGroup.content || '{}';
-			const contentLength = Object.keys(JSON.parse(content)).length;
+			const contentLength = getGroupContentLength(state.assignment);
 			const questionListLength = currentGroup.questionList.length;
 			if(questionIndex >= questionListLength || questionIndex < 0){
 				return state;
@@ -252,6 +253,25 @@ export function reducer(state:State = initialState, action: AssignmentAction.Act
 		}
 	}
 }
+
+const getGroupContentLength = (assignment:Assignment)=>{
+	switch(assignment.type){
+		case 'tpo_reading':
+			return 0;
+		case 'tpo_listening':
+			return 1;
+		case 'vocabulary':
+			return 1;
+		case 'independent_writing':
+			return 0;
+		case 'integrated_writing':
+			return 2;
+		case 'tpo_speaking':
+			return 0;
+		default:
+			return 0;
+	}
+};
 
 export const getAssignment = (state: State) => state.assignment;
 
@@ -300,9 +320,10 @@ export const getCurrentContentIndex = (state: State) =>{
 export const shouldShowContent = (state:State) => {
 	let content = getCurrentGroupContent(state);
 	let contentIndex = getCurrentContentIndex(state);
+	let contentLength = getGroupContentLength(state.assignment);
 
 	if(content && content.length > 0){
-		if(contentIndex < Object.keys(JSON.parse(content)).length){
+		if(contentIndex < contentLength){
 			return true;
 		}
 	}

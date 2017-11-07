@@ -3,6 +3,7 @@ import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {TPOListeningQuestion} from "../../../../models/Questions/TPOListeningQuestion";
 import {AssignmentService} from "../../../../core/services/assignment.service";
 import {Convert09ToAZPipe} from "../../../../shared/pipes/convert09-to-az.pipe";
+import {Mode} from "../../../../models/assignments/Assignment";
 
 @Component({
   selector: 'app-tpo-listening-question-detail',
@@ -19,11 +20,12 @@ export class TpoListeningQuestionDetailComponent
 	private myAudio:any;
 	@Input() contentIndex:number;
 
-	constructor(public assignmentService:AssignmentService, private convert09ToAZ:Convert09ToAZPipe) {
+	constructor(public assignmentService:AssignmentService, public convert09ToAZ:Convert09ToAZPipe) {
 		super();
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+	}
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if(this.groupContent.length > 0) {
@@ -32,6 +34,7 @@ export class TpoListeningQuestionDetailComponent
 		}
 		this.answer = this.lastAnswer;
 		this.setupCheckboxAnswer();
+		this.setupHeader();
 
 		if(this.contentIndex == 0){
 			this.stopPlayRecord();
@@ -119,6 +122,18 @@ export class TpoListeningQuestionDetailComponent
 		}
 	}
 
+	setupHeader(){
+		if(this.mode == Mode.HomeWork){
+			this.showPreButton = false;
+			if(!this.answer || this.answer.length == 0){
+				this.disableNextButton = true;
+			}
+			else {
+				this.disableNextButton = false;
+			}
+		}
+
+	}
 
 
 }

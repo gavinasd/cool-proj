@@ -8,7 +8,7 @@ import {ClassUserListComponent} from "./class-user-list/class-user-list.componen
 import {FormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import {RouterModule} from "@angular/router";
-import {MaterialModule} from "../shared/material.module";
+import {MaterialModule} from "../shared/view/material/material.module";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {ClassDetailRoutingModule} from "./class-detail-routing.module";
 
