@@ -63,7 +63,7 @@ export class EditAssignmentComponent implements OnInit {
 		this.assignmentService.addQuestionGroupToAssignment(this.selectAssignmentId, form.type)
 			.subscribe((questionGroup:QuestionGroup)=>{
 				let group = new QuestionGroup(questionGroup);
-				this.router.navigate(['/question/edit/' + this.selectAssignmentId
+				this.router.navigate(['/edit/' + this.selectAssignmentId
 							+ '/' + group.id + '/' + group.type]);
 		});
     }

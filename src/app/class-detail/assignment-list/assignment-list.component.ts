@@ -1,6 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {ToastService} from "../../core/services/toast.service";
-import {AssignmentService} from "../../core/services/assignment.service";
 import {AssignmentInfo} from "../../models/models";
 import {Subject} from "rxjs/Subject";
 import {MdDialog, MdDialogConfig} from "@angular/material";
@@ -8,6 +7,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {HttpService} from "../../core/services/http.service";
 import {AddAssignmentDialogComponent} from "../../shared/view/dialogs/add-assignment-dialog/add-assignment-dialog.component";
 import {Assignment} from "../../models/assignments/Assignment";
+import {ClassService} from "../../core/services/class.service";
 
 @Component({
     selector: 'app-assignment-list',
@@ -25,7 +25,7 @@ export class AssignmentListComponent implements OnInit {
     constructor(private dialog: MdDialog,
                 private toastService: ToastService,
                 private httpService: HttpService,
-                private assignmentService:AssignmentService) {
+                private classService:ClassService) {
     }
 
     ngOnInit() {
@@ -36,7 +36,7 @@ export class AssignmentListComponent implements OnInit {
         	    console.log('show more');
         	    this.page ++;
         	    this.loading = true;
-        	    return this.assignmentService.getAssignmentList(this.classId, this.page);
+        	    return this.classService.getAssignmentList(this.classId, this.page);
 	        })
 	        .subscribe((assignmentList)=>{
 				this.loading = false;
@@ -62,7 +62,7 @@ export class AssignmentListComponent implements OnInit {
 
 	addAssignment(form:any){
 		console.log(form.assignment);
-		this.assignmentService.addAssignmentToClass(this.classId,form.assignment)
+		this.classService.addAssignment(this.classId,form.assignment)
 			.subscribe(
 				(json)=>{
 					this.toastService.success("成功添加作业");

@@ -1,35 +1,47 @@
 export const environment = {
     production: true,
 	getWordPronunciationUrl:'http://dict.youdao.com/dictvoice?audio',
+	/**
+	 * 登录注册接口
+	 */
 	loginUrl: 'http://123.207.109.53:3000/api/login',
 	registerUrl: 'http://123.207.109.53:3000/api/register',
-	createClassUrl: 'http://123.207.109.53:3000/api/classes',
-	addResourceUrl: 'http://123.207.109.53:3000/api/resource/addResource',
+
+	/**
+	 * 班级class接口
+	 */
+	getClassListUrl : 'http://123.207.109.53:3000/api/classes/list',
+	createClassUrl: 'http://123.207.109.53:3000/api/classes/create',
 	getClassDetailUrl: 'http://123.207.109.53:3000/api/classes/detail',
-	getQuestionGroupListUrl: 'http://123.207.109.53:3000/api/question',
-	getQuestionGroupByIdUrl: 'http://123.207.109.53:3000/api/question/group',
-	addResponseUrlToQuestionUrl: 'http://123.207.109.53:3000/api/question/addResponse',
-	addMarkingScoreUrl:'http://123.207.109.53:3000/api/question/addScore',
-	addQuestionToGroupUrl: 'http://123.207.109.53:3000/api/classes/addQuestion',
-	getAssignmentListUrl: 'http://123.207.109.53:3000/api/classes/getAssignmentList',
-	getClassListUrl : 'http://123.207.109.53:3000/api/classes',
-	getAllAssignmentListUrl : 'http://123.207.109.53:3000/api/assignment',
+	getClassAllUserUrl : 'http://123.207.109.53:3000/api/classes/user',
+	//搜索班级
 	searchClassUrl : 'http://123.207.109.53:3000/api/classes/search',
+	//添加老师/学生
 	addStudentUrl : 'http://123.207.109.53:3000/api/classes/addStudent',
 	addTeacherUrl : 'http://123.207.109.53:3000/api/classes/addTeacher',
-	getAssignmentByIdUrl : 'http://123.207.109.53:3000/api/assignment/assignmentId',
-	getAssignmentDetailUrl : 'http://123.207.109.53:3000/api/assignment/detail',
+	//添加/获取 班级里面的作业列表
 	addAssignmentToClassUrl : 'http://123.207.109.53:3000/api/classes/addAssignment',
-	getClassAllUserUrl : 'http://123.207.109.53:3000/api/classes/user',
-	createAssignmentUrl : 'http://123.207.109.53:3000/api/assignment/createone',
-	updateQuestionGroupContentUrl : 'http://123.207.109.53:3000/api/assignment/content',
-	addQuestionGroupToAssignmentUrl : 'http://123.207.109.53:3000/api/assignment/addQuestionGroup',
-	getQuestionLastAnswerUrl: 'http://123.207.109.53:3000/api/question/lastAnswer',
-	getQuestionMarkingScoreUrl: 'http://123.207.109.53:3000/api/question/markingScore',
-	getQuestionSpendTimeUrl: 'http://123.207.109.53:3000/api/question/spendTime',
+	getAssignmentListInClassUrl: 'http://123.207.109.53:3000/api/classes/getAssignmentList',
+
+	/**
+	 * 作业assignment的接口
+	 */
+	//获取作业
+	getAssignmentByIdUrl : 'http://123.207.109.53:3000/api/assignment/id',
+	getAllAssignmentListUrl : 'http://123.207.109.53:3000/api/assignment',
+	//获取学生的做题信息，学生提交作业
 	getAssignmentInfoUrl: 'http://123.207.109.53:3000/api/assignment/info',
 	submitAssignmentInfoUrl: 'http://123.207.109.53:3000/api/assignment/info',
 	submitAssignmentDoneUrl: 'http://123.207.109.53:3000/api/assignment/done',
+	//编辑一份新的作业，包括创建作业，添加group，添加question，更新groupContent
+	createAssignmentUrl : 'http://123.207.109.53:3000/api/assignment/create',
+	addQuestionGroupToAssignmentUrl : 'http://123.207.109.53:3000/api/assignment/addQuestionGroup',
+	addQuestionToGroupUrl: 'http://123.207.109.53:3000/api/classes/addQuestion',
+	updateQuestionGroupContentUrl : 'http://123.207.109.53:3000/api/assignment/content',
+
+
+	addResourceUrl: 'http://123.207.109.53:3000/api/resource/addResource',
+	getQuestionGroupByIdUrl: 'http://123.207.109.53:3000/api/question/group',
 	uploadSpeakingRecordUrl: 'http://123.207.109.53:3000/api/upload/record',
 	studentRecordUrl: 'http://123.207.109.53:3000/uploads/',
 	teacherEditorOptions: {

@@ -1,6 +1,10 @@
 #question-div{
-    margin: 30px;
-    width: 800px;
+    margin: 30px 0 30px 0;
+    width: 100%;
+}
+
+#passage{
+    overflow: scroll;
 }
 
 button{

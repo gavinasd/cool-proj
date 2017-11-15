@@ -70,6 +70,133 @@ export class AssignmentService {
 		return Question.TPO_SPEAKING_Q5Q6_TYPE;
 	}
 
+	public getAssignment(assignmentId: string):Observable<Assignment>{
+		let url = environment.getAssignmentByIdUrl;
+		url = url + '/' + assignmentId;
+		return this.httpService.makeGetWithToken(url)
+			.map(resp =>{
+				return new Assignment(resp.json());
+			})
+			.catch(HttpService.handleError);
+	}
+
+	public getAllAssignmentList(): Observable<Assignment[]> {
+		let url = environment.getAllAssignmentListUrl;
+		let userId = this.httpService.getCurrentId();
+		url = url + '/' + userId;
+		return this.httpService.makeGetWithToken(url)
+			.map((resp) =>{
+				let assignmentList:Assignment[]= [];
+				for(let assignment of resp.json().assignmentList){
+					assignmentList.push(new Assignment(assignment));
+				}
+				return assignmentList;
+			})
+			.catch(HttpService.handleError);
+	}
+
+	/**
+	 * 	获取学生的做题信息，学生提交作业
+	 */
+	public getAssignmentInfo(classId:string, assignmentId: string, studentId: string):Observable<any> {
+		let url = environment.getAssignmentInfoUrl;
+		url = url + '/' + classId + '/' + assignmentId + '/' + studentId;
+		return this.httpService.makeGetWithToken(url)
+			.map(resp =>{
+				const data = resp.json();
+				const spendTime:SpendTime = new SpendTime(false, data.spendTime);
+
+				let studentAnswer: StudentAnswer = new StudentAnswer(false, new Map());
+				for(let answerItem of data.studentAnswer){
+					let questionId = answerItem.questionId;
+					let answer = answerItem.studentAnswer;
+					studentAnswer.answer.set(questionId, answer);
+				}
+
+				let markScore: MarkingScore = new MarkingScore(false, new Map());
+				for(let scoreItem of data.markScore){
+					let questionId = scoreItem.questionId;
+					let score = scoreItem.score;
+					markScore.score.set(questionId, score);
+				}
+
+				return {
+					spendTime: spendTime,
+					studentAnswer: studentAnswer,
+					markScore: markScore
+				};
+			})
+			.catch(HttpService.handleError);
+	}
+
+	public submitAssignmentInfo(data: any):Observable<any>{
+		let url = environment.submitAssignmentInfoUrl;
+		var body = JSON.stringify({
+			'classId': data.classId,
+			'assignmentId':data.assignmentId,
+			'questionId': data.questionId,
+			'studentId': data.studentId,
+			'spendTime': data.spendTime,
+			'studentAnswer': data.studentAnswer,
+			'markScore': data.markScore
+		});
+
+		if (!data.spendTime && !data.studentAnswer && !data.markScore){
+			return Observable.of('');
+		}
+
+		return this.httpService.makePostWithToken(url, body)
+			.map(resp =>{
+				console.log('submit info');
+			})
+			.catch(HttpService.handleError);
+	}
+
+	public submitAssignmentDone(classId, studentId, assignmentId):Observable<any>{
+		let url = environment.submitAssignmentDoneUrl;
+		var body = JSON.stringify({
+			'classId': classId,
+			'studentId': studentId,
+			'assignmentId':assignmentId,
+		});
+
+		return this.httpService.makePutWithToken(url, body)
+			.map(resp => {
+				console.log((resp.json()));
+			})
+			.catch(HttpService.handleError);
+	}
+	/**------------------------------------------------------------------------------*/
+
+	/**
+	 * 编辑一份新的作业，包括创建作业，添加group，添加question，更新groupContent
+	 */
+
+	public createAssignment(assignmentName:string, type:string):Observable<Assignment>{
+		let url = environment.createAssignmentUrl;
+		var body = JSON.stringify({
+			'creator': this.httpService.getCurrentId(),
+			'assignmentName': assignmentName,
+			'type':type
+		});
+		return this.httpService.makePostWithToken(url,body)
+			.map(resp => resp.json().assignment)
+			.catch(HttpService.handleError);
+	}
+
+	public addQuestionGroupToAssignment(assignmentId:string, type:string):Observable<QuestionGroup>{
+		let url = environment.addQuestionGroupToAssignmentUrl;
+		let body = JSON.stringify({
+			'userId':this.httpService.getCurrentId(),
+			'assignmentId': assignmentId,
+			'type': type
+		});
+
+		return this.httpService.makePostWithToken(url,body)
+			.map( resp=> resp.json().questionGroup)
+			.catch( HttpService.handleError);
+	}
+
     public addQuestionToGroup(assignmentId: string, groupId: string, question: Question): Observable<Question> {
         let url = environment.addQuestionToGroupUrl;
         var body = JSON.stringify({
@@ -83,106 +210,20 @@ export class AssignmentService {
             .map(resp => resp.json()).catch(HttpService.handleError);
     }
 
-    public getAssignmentList(classId: string, page:number): Observable<AssignmentInfo[]> {
-        let url = environment.getAssignmentListUrl;
-        let userId = this.httpService.getCurrentId();
-        url = url + '/' + classId + '/' + userId + '/' + page;
-        return this.httpService.makeGetWithToken(url)
-            .map(resp => resp.json().gradeInfo).catch(HttpService.handleError);
-    }
+	public updateQuestionGroupContent(assignmentId:string, groupId:string, content:string):Observable<any>{
+		let url = environment.updateQuestionGroupContentUrl;
+		var body = JSON.stringify({
+			'assignmentId': assignmentId,
+			'groupId': groupId,
+			'content': content
+		});
 
-    public getAllAssignmentList(): Observable<Assignment[]> {
-        let url = environment.getAllAssignmentListUrl;
-        let userId = this.httpService.getCurrentId();
-        url = url + '/' + userId;
-        return this.httpService.makeGetWithToken(url)
-            .map((resp) =>{
-        	    let assignmentList:Assignment[]= [];
-        	    for(let assignment of resp.json().assignmentList){
-        	    	assignmentList.push(new Assignment(assignment));
-	            }
-	            return assignmentList;
-            })
-	        .catch(HttpService.handleError);
-    }
+		return this.httpService.makePutWithToken(url,body)
+			.map(resp => resp.json())
+			.catch(HttpService.handleError);
+	}
 
-    public getAssignment(assignmentId: string):Observable<Assignment>{
-    	let url = environment.getAssignmentByIdUrl;
-	    url = url + '/' + assignmentId;
-	    return this.httpService.makeGetWithToken(url)
-		    .map(resp =>{
-				return new Assignment(resp.json());
-		    })
-		    .catch(HttpService.handleError);
-    }
-
-    public getAssignmentInfo(assignmentId: string, studentId: string):Observable<any> {
-    	let url = environment.getAssignmentInfoUrl;
-    	url = url + '/' + assignmentId + '/' + studentId;
-    	return this.httpService.makeGetWithToken(url)
-		    .map(resp =>{
-		    	const data = resp.json();
-		    	const spendTime:SpendTime = new SpendTime(false, data.spendTime);
-
-		    	let studentAnswer: StudentAnswer = new StudentAnswer(false, new Map());
-		    	for(let answerItem of data.studentAnswer){
-		    		let questionId = answerItem.questionId;
-		    		let answer = answerItem.studentAnswer;
-		    		studentAnswer.answer.set(questionId, answer);
-			    }
-
-			    let markScore: MarkingScore = new MarkingScore(false, new Map());
-			    for(let scoreItem of data.markScore){
-				    let questionId = scoreItem.questionId;
-				    let score = scoreItem.score;
-				    markScore.score.set(questionId, score);
-			    }
-
-			    return {
-			    	spendTime: spendTime,
-				    studentAnswer: studentAnswer,
-				    markScore: markScore
-			    };
-		    })
-		    .catch(HttpService.handleError);
-    }
-
-    public submitAssignmentInfo(data: any):Observable<any>{
-		let url = environment.submitAssignmentInfoUrl;
-	    var body = JSON.stringify({
-		    'classId': data.classId,
-		    'assignmentId':data.assignmentId,
-		    'questionId': data.questionId,
-		    'studentId': data.studentId,
-		    'spendTime': data.spendTime,
-		    'studentAnswer': data.studentAnswer,
-		    'markScore': data.markScore
-	    });
-
-	    if (!data.spendTime && !data.studentAnswer && !data.markScore){
-	    	return Observable.of('');
-	    }
-
-	    return this.httpService.makePostWithToken(url, body)
-		    .map(resp =>{
-			    console.log('submit info');
-		    })
-		    .catch(HttpService.handleError);
-    }
-
-    public submitAssignmentDone(studentId, assignmentId):Observable<any>{
-    	let url = environment.submitAssignmentDoneUrl;
-    	var body = JSON.stringify({
-		    'studentId': studentId,
-		    'assignmentId':assignmentId,
-	    });
-
-    	return this.httpService.makePutWithToken(url, body)
-		    .map(resp => {
-		    	console.log((resp.json()));
-		    })
-		    .catch(HttpService.handleError);
-    }
+	/**---------------------------------------------------------------------------------------------*/
 
     public getQuestionGroupById(assignmentId: string, questionGroupId:string):Observable<QuestionGroup>{
     	let url = environment.getQuestionGroupByIdUrl;
@@ -193,56 +234,6 @@ export class AssignmentService {
     		    let questionGroup = new QuestionGroup(resp.json().questionGroup);
     		    return questionGroup;
 		    })
-    }
-
-    public addAssignmentToClass(classId:string, assignmentId:string):Observable<any[]>{
-        let url = environment.addAssignmentToClassUrl;
-        var body = JSON.stringify({
-            'userId': this.httpService.getCurrentId(),
-            'classId':classId,
-            'assignmentId':assignmentId
-        });
-        return this.httpService.makePostWithToken(url, body)
-            .map(resp => resp.json())
-            .catch(HttpService.handleError);
-    }
-
-    public createAssignment(assignmentName:string, type:string):Observable<Assignment>{
-		let url = environment.createAssignmentUrl;
-		var body = JSON.stringify({
-			'creator': this.httpService.getCurrentId(),
-			'assignmentName': assignmentName,
-			'type':type
-		});
-		return this.httpService.makePostWithToken(url,body)
-			.map(resp => resp.json().assignment)
-			.catch(HttpService.handleError);
-    }
-
-    public updateQuestionGroupContent(assignmentId:string, groupId:string, content:string):Observable<any>{
-    	let url = environment.updateQuestionGroupContentUrl;
-	    var body = JSON.stringify({
-		    'assignmentId': assignmentId,
-		    'groupId': groupId,
-		    'content': content
-	    });
-
-	    return this.httpService.makePutWithToken(url,body)
-		    .map(resp => resp.json())
-		    .catch(HttpService.handleError);
-    }
-
-    public addQuestionGroupToAssignment(assignmentId:string, type:string):Observable<QuestionGroup>{
-    	let url = environment.addQuestionGroupToAssignmentUrl;
-	    let body = JSON.stringify({
-		    'userId':this.httpService.getCurrentId(),
-		    'assignmentId': assignmentId,
-		    'type': type
-	    });
-
-	    return this.httpService.makePostWithToken(url,body)
-		    .map( resp=> resp.json().questionGroup)
-		    .catch( HttpService.handleError);
     }
 
     public uploadSpeakingRecord(formData:FormData):Observable<any>{

@@ -25,6 +25,10 @@
     overflow: scroll;
 }
 
+p.selected-paragraph:before{
+    content:"<span>slkdjf</span>";
+}
+
 md-radio-button{
     margin: 10px 0px 10px 0px;
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, SimpleChanges, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import {TPOReadingQuestion} from "../../../../models/Questions/TPOReadingQuestion";
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {Convert09ToAZPipe} from "../../../../shared/pipes/convert09-to-az.pipe";
@@ -8,8 +8,12 @@ import {Convert09ToAZPipe} from "../../../../shared/pipes/convert09-to-az.pipe";
   templateUrl: './tpo-reading-question-detail.component.html',
   styleUrls: ['./tpo-reading-question-detail.component.css']
 })
-export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailComponent implements OnInit,OnChanges {
+export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailComponent
+	implements OnInit,OnChanges,AfterViewInit {
 	public tpoReadingQuestion: TPOReadingQuestion;
+	public passage: string = '';
+
+	@ViewChild('passageContainer') passageContainer:ElementRef;
 	@Input() viewMode:string = 'question';
 
 	selectedAnswers:number[]=[-1,-1,-1];
@@ -31,8 +35,49 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 			}
 			this.selectedAnswers = this.parseAnswerForTopicQuestion(this.answer);
 		}
-
+		if(this.groupContent.length > 0) {
+			this.passage = JSON.parse(this.groupContent).passage;
+		}
 		this.tpoReadingQuestion = <TPOReadingQuestion>this.question;
+		this.scroll();
+	}
+
+	ngAfterViewInit(): void {
+		this.scroll();
+	}
+
+	scroll():void{
+		if(!this.passageContainer){
+			return;
+		}
+		let paragraphNum = 0;
+		let scrollTop = 0;
+		for(let e of this.passageContainer.nativeElement.children){
+			while(e.childNodes[0].className == 'star'){
+				e.removeChild(e.childNodes[0]);
+			}
+		}
+		for(let e of this.passageContainer.nativeElement.children){
+			if(e.innerText.length > 1){
+				if(paragraphNum >= this.tpoReadingQuestion.paragraph){
+					let newItem=document.createElement("span");
+					let textnode=document.createTextNode("♦ ");
+					newItem.style.fontSize = '19px';
+					newItem.className='star';
+					newItem.appendChild(textnode);
+
+					if(e.childNodes[0].className !='star'){
+						e.insertBefore(newItem, e.childNodes[0]);
+					}
+					break;
+				}
+
+				paragraphNum ++ ;
+			}
+			scrollTop += e.offsetHeight
+				+ parseInt(getComputedStyle(e).marginTop) + parseInt(getComputedStyle(e).marginBottom);
+		}
+		this.passageContainer.nativeElement.scrollTop = scrollTop - 10;
 	}
 
 	changeView(){

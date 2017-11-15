@@ -3,7 +3,7 @@
         <img md-card-image src="../../../../assets/resources/img/1.jpg">
         <md-card-title>{{classInfo.className}}</md-card-title>
         <md-card-content>
-            <p>{{classInfo.classId}}</p>
+            <p>老师：{{classInfo.teacherList[0].nickName}}</p>
         </md-card-content>
         <md-card-actions align="end">
             <button md-button [routerLink]="['/class',classInfo.classId]">进入班级</button>

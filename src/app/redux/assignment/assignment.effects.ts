@@ -28,10 +28,11 @@ export class AssignmentEffect{
 		.ofType(AssignmentAction.FETCH_INFO)
 		.map(toPayload)
 		.switchMap(data => {
-			let assignmentId = data.assignmentId;
-			let studentId = data.studentId;
+			const classId = data.classId;
+			const assignmentId = data.assignmentId;
+			const studentId = data.studentId;
 
-			return this.assignmentService.getAssignmentInfo(assignmentId, studentId);
+			return this.assignmentService.getAssignmentInfo(classId, assignmentId, studentId);
 		})
 		.map((data) => new AssignmentAction.FetchInfoSuccessAction(data.spendTime, data.studentAnswer, data.markScore))
 		.catch((err) => Observable.of(new AssignmentAction.FetchInfoFailureAction(err)));

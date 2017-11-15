@@ -4,6 +4,8 @@ import {ClassService} from "../../core/services/class.service";
 import {ToastService} from "../../core/services/toast.service";
 import {MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig} from "@angular/material";
 import {FollowClassDialogComponent} from "../../shared/view/dialogs/follow-class-dialog/follow-class-dialog.component";
+import {Router} from "@angular/router";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'app-search-result-item',
@@ -13,7 +15,10 @@ import {FollowClassDialogComponent} from "../../shared/view/dialogs/follow-class
 export class SearchResultItemComponent implements OnInit {
     @Input() classInfo:ClassInfo;
 
-    constructor(private dialog: MdDialog, private classService:ClassService,public snackBar: MdSnackBar) { }
+    constructor(private dialog: MdDialog,
+                private classService:ClassService,
+                public snackBar: MdSnackBar,
+                private router: Router) { }
 
     ngOnInit() {
     }
@@ -34,7 +39,10 @@ export class SearchResultItemComponent implements OnInit {
         snackBarConfig.duration = 3000;
         this.classService.classAddStudent(this.classInfo.classId, verifyCode)
             .subscribe((json)=>{
-				this.snackBar.open("成功加入班级", '', snackBarConfig);
+				this.snackBar.open("成功加入班级,正在跳转到首页···", '', snackBarConfig);
+	            Observable.interval(2000).subscribe(v=>{
+		            this.router.navigate(['/']);
+	            });
             },(err)=>{
 	            this.snackBar.open("验证码错误", '', snackBarConfig);
             });

@@ -27,7 +27,9 @@ export const shouldShowContent = createSelector(getAssignmentState, fromAssignme
 export const getQuestionIndex = createSelector(getAssignmentState, (state) => state.currentQuestionIndex);
 export const getCurrentQuestion = createSelector(getAssignmentState, fromAssignment.getCurrentQuestion);
 export const getCurrentQuestionType = createSelector(getCurrentQuestion, (question)=>question?question.questionType:'');
-export const getQuestionListLength = createSelector(getCurrentGroup, (group) =>group?group.questionList.length:0);
+export const getQuestionListLength = createSelector(getCurrentGroup, (group) =>{
+	return group?group.questionList.length:0;
+});
 export const getLastAnswer = createSelector(getAssignmentState,fromAssignment.getStudentAnswer);
 export const getMarkingScore = createSelector(getAssignmentState, fromAssignment.getMarkScore);
 

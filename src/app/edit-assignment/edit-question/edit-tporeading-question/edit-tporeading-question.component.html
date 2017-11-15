@@ -1,23 +1,22 @@
-<div id="question-div">
-    <fieldset>
+<div id="question-div" fxLayout.gt-sm="row" fxLayout.sm="column">
+    <fieldset fxFlex="50%">
         <legend>编辑题目</legend>
         <form ngNativeValidate #form="ngForm" (ngSubmit)="addQuestion(form)"
-              fxLayout="column" fxLayoutGap="30px">
+                     fxLayout="column" fxLayoutGap="30px">
 
+            <md-input-container>
+                <input mdInput name="paragraph" type="number" required ngModel placeholder="段落">
+            </md-input-container>
 
-            <textarea class="form-control" [froalaEditor]="EditorOptions"
-                      id="passage" [(froalaModel)]="editorPassage"
-                      rows="10" required ></textarea>
+            <md-input-container>
+                <input mdInput name="question" type="text" required ngModel placeholder="题目">
+            </md-input-container>
 
             <md-select placeholder="选择题目类型" name="questionType" required [(ngModel)]="questionType">
                 <md-option [value]="assignmentService.getTPOReadingSingleChoice()">单选题</md-option>
                 <md-option [value]="assignmentService.getTPOReadingInsertChoice()">插入题</md-option>
                 <md-option [value]="assignmentService.getTPOReadingTopic()">主旨题</md-option>
             </md-select>
-
-            <md-input-container>
-                <input mdInput name="question" type="text" required ngModel placeholder="题目">
-            </md-input-container>
 
             <md-input-container>
                 <input mdInput name="option1" type="text" required ngModel placeholder="选项A">
@@ -48,6 +47,21 @@
             </md-input-container>
 
             <button md-raised-button color="primary" type="submit">确认</button>
+    </form>
+    </fieldset>
+
+    <fieldset fxFlex="50%">
+        <legend>阅读文章</legend>
+        <form ngNativeValidate (ngSubmit)="addContent()"
+              fxLayout="column" fxLayoutGap="30px">
+
+
+            <textarea class="form-control" [froalaEditor]="EditorOptions"
+                      id="passage" [(froalaModel)]="editorPassage"
+                      rows="10" required ></textarea>
+
+            <button md-raised-button color="primary" type="submit">确认</button>
         </form>
+
     </fieldset>
 </div>

@@ -1,11 +1,12 @@
 import {RouterModule} from "@angular/router";
 import {NgModule} from "@angular/core";
 import {QuestionGroupListComponent} from "./question-group-list/question-group-list.component";
-import {EditQuestionComponent} from "../edit-assignment/edit-question/edit-question.component";
-import {EditAssignmentComponent} from "../edit-assignment/edit-assignment.component";
+import {CanDeactivateGuard} from "../core/services/route-guard.service";
 @NgModule({
 	imports: [RouterModule.forChild([
-		{ path: 'list/:classId/:assignmentId/:studentId/:mode', component: QuestionGroupListComponent },
+		{   path: 'list/:classId/:assignmentId/:studentId/:mode',
+			canDeactivate:[CanDeactivateGuard],
+			component: QuestionGroupListComponent },
 	])],
 	exports: [RouterModule]
 })

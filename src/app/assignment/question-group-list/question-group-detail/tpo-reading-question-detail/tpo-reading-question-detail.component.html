@@ -13,11 +13,18 @@
 
 <div class="container">
     <div *ngIf="homeworkMode()">
-        <div class="question-content" *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_single'" fxLayout="row"
-             fxLayoutWrap="wrap" fxLayout.sm="column" fxLayoutAlign="space-around">
+        <div class="question-content"
+             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_single'
+             || tpoReadingQuestion.questionType == 'tpo_reading_insert'"
+             fxLayout="row" fxLayoutWrap="wrap" fxLayout.sm="column" fxLayoutAlign="space-around">
             <div class="question" fxLayout="column" fxFlex="1 1 50%">
                 <app-question-index [content]="getPagerContent()"></app-question-index>
-                <p><strong>{{tpoReadingQuestion.question}}</strong></p>
+                <div>
+                    <p *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_insert'">Look at the four squares [] that indicate where the following sentence could be added to the passage.</p>
+                    <p *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_insert'">Where would the sentence best fit?</p>
+                    <p><strong>{{tpoReadingQuestion.question}}</strong></p>
+                </div>
+
                 <md-radio-group fxLayout="column"
                                 fxLayoutGap="5px"
                                 [(ngModel)]="answer"
@@ -29,10 +36,9 @@
                         <p>{{i|convert09ToAZ}}. {{option}}</p>
                     </md-radio-button>
                 </md-radio-group>
+                <p><strong>Paragraph {{tpoReadingQuestion.paragraph}} is marked with ♦</strong></p>
             </div>
-            <div class="passage" fxFlex="1 1 50%">
-                <div [froalaView]="tpoReadingQuestion.passage"></div>
-            </div>
+            <div  fxFlex="1 1 50%" #passageContainer class="passage" [froalaView]="passage"></div>
         </div>
 
         <div class="question-content"
@@ -70,18 +76,22 @@
              *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_topic' && viewMode =='text'"
              fxLayout="row" fxLayoutAlign="end">
 
-            <div class="passage" fxFlex="1 1 50%">
-                <div [froalaView]="tpoReadingQuestion.passage"></div>
-            </div>
+            <div fxFlex="1 1 50%" #passageContainer class="passage" [froalaView]="passage"></div>
         </div>
     </div>
 
     <div *ngIf="reviewMode()">
-        <div class="question-content" *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_single'" fxLayout="row"
-             fxLayoutWrap="wrap" fxLayout.sm="column" fxLayoutAlign="space-around">
+        <div class="question-content"
+             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_single'
+             || tpoReadingQuestion.questionType == 'tpo_reading_insert'"
+             fxLayout="row" fxLayoutWrap="wrap" fxLayout.sm="column" fxLayoutAlign="space-around">
             <div class="question" fxLayout="column" fxFlex="1 1 50%">
                 <app-question-pager></app-question-pager>
-                <p><strong>{{tpoReadingQuestion.question}}</strong></p>
+                <div>
+                    <p *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_insert'">Look at the four squares [] that indicate where the following sentence could be added to the passage.</p>
+                    <p *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_insert'">Where would the sentence best fit?</p>
+                    <p><strong>{{tpoReadingQuestion.question}}</strong></p>
+                </div>
 
                 <md-list>
                     <md-list-item *ngFor="let option of tpoReadingQuestion.options; let i = index">
@@ -89,14 +99,15 @@
                     </md-list-item>
                 </md-list>
 
+                <p><strong>Paragraph {{tpoReadingQuestion.paragraph}} is marked with ♦</strong></p>
+
+
                 <div class="answer">
                     <p [ngClass]="{'correct-answer':correct(),'text-danger':!correct()}">学生答案：{{answer}}</p>
                     <p class="correct-answer">正确答案：{{tpoReadingQuestion.answer}}</p>
                 </div>
             </div>
-            <div class="passage" fxFlex="1 1 50%">
-                <div [froalaView]="tpoReadingQuestion.passage"></div>
-            </div>
+            <div fxFlex="1 1 50%" #passageContainer class="passage" [froalaView]="passage"></div>
         </div>
 
         <div class="question-content"

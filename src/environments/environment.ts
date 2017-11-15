@@ -6,35 +6,47 @@
 export const environment = {
     production: false,
     getWordPronunciationUrl:'http://dict.youdao.com/dictvoice?audio',
+	/**
+	 * 登录注册接口
+	 */
     loginUrl: 'http://localhost:3000/api/login',
     registerUrl: 'http://localhost:3000/api/register',
-    createClassUrl: 'http://localhost:3000/api/classes',
-    addResourceUrl: 'http://localhost:3000/api/resource/addResource',
-    getClassDetailUrl: 'http://localhost:3000/api/classes/detail',
-	getQuestionGroupListUrl: 'http://localhost:3000/api/question',
-    getQuestionGroupByIdUrl: 'http://localhost:3000/api/question/group',
-    addResponseUrlToQuestionUrl: 'http://localhost:3000/api/question/addResponse',
-	addMarkingScoreUrl:'http://localhost:3000/api/question/addScore',
-	addQuestionToGroupUrl: 'http://localhost:3000/api/classes/addQuestion',
-    getAssignmentListUrl: 'http://localhost:3000/api/classes/getAssignmentList',
-    getClassListUrl : 'http://localhost:3000/api/classes',
-    getAllAssignmentListUrl : 'http://localhost:3000/api/assignment',
-    searchClassUrl : 'http://localhost:3000/api/classes/search',
-    addStudentUrl : 'http://localhost:3000/api/classes/addStudent',
-    addTeacherUrl : 'http://localhost:3000/api/classes/addTeacher',
-    getAssignmentByIdUrl : 'http://localhost:3000/api/assignment/assignmentId',
-    getAssignmentDetailUrl : 'http://localhost:3000/api/assignment/detail',
-    addAssignmentToClassUrl : 'http://localhost:3000/api/classes/addAssignment',
-    getClassAllUserUrl : 'http://localhost:3000/api/classes/user',
-	createAssignmentUrl : 'http://localhost:3000/api/assignment/createone',
-	updateQuestionGroupContentUrl : 'http://localhost:3000/api/assignment/content',
-	addQuestionGroupToAssignmentUrl : 'http://localhost:3000/api/assignment/addQuestionGroup',
-	getQuestionLastAnswerUrl: 'http://localhost:3000/api/question/lastAnswer',
-	getQuestionMarkingScoreUrl: 'http://localhost:3000/api/question/markingScore',
-	getQuestionSpendTimeUrl: 'http://localhost:3000/api/question/spendTime',
+
+	/**
+	 * 班级class接口
+	 */
+	getClassListUrl : 'http://localhost:3000/api/classes/list',
+	createClassUrl: 'http://localhost:3000/api/classes/create',
+	getClassDetailUrl: 'http://localhost:3000/api/classes/detail',
+	getClassAllUserUrl : 'http://localhost:3000/api/classes/user',
+	//搜索班级
+	searchClassUrl : 'http://localhost:3000/api/classes/search',
+	//添加老师/学生
+	addStudentUrl : 'http://localhost:3000/api/classes/addStudent',
+	addTeacherUrl : 'http://localhost:3000/api/classes/addTeacher',
+	//添加/获取 班级里面的作业列表
+	addAssignmentToClassUrl : 'http://localhost:3000/api/classes/addAssignment',
+	getAssignmentListInClassUrl: 'http://localhost:3000/api/classes/getAssignmentList',
+
+	/**
+	 * 作业assignment的接口
+	 */
+	//获取作业
+	getAssignmentByIdUrl : 'http://localhost:3000/api/assignment/id',
+	getAllAssignmentListUrl : 'http://localhost:3000/api/assignment',
+	//获取学生的做题信息，学生提交作业
 	getAssignmentInfoUrl: 'http://localhost:3000/api/assignment/info',
 	submitAssignmentInfoUrl: 'http://localhost:3000/api/assignment/info',
 	submitAssignmentDoneUrl: 'http://localhost:3000/api/assignment/done',
+	//编辑一份新的作业，包括创建作业，添加group，添加question，更新groupContent
+	createAssignmentUrl : 'http://localhost:3000/api/assignment/create',
+	addQuestionGroupToAssignmentUrl : 'http://localhost:3000/api/assignment/addQuestionGroup',
+	addQuestionToGroupUrl: 'http://localhost:3000/api/classes/addQuestion',
+	updateQuestionGroupContentUrl : 'http://localhost:3000/api/assignment/content',
+
+
+	addResourceUrl: 'http://localhost:3000/api/resource/addResource',
+	getQuestionGroupByIdUrl: 'http://localhost:3000/api/question/group',
 	uploadSpeakingRecordUrl: 'http://localhost:3000/api/upload/record',
 	studentRecordUrl: 'http://localhost:3000/uploads/',
 	teacherEditorOptions: {

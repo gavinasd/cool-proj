@@ -17,7 +17,7 @@ export class ResponseToQuestion{
 	//创建者
 	creator:string;
 	//所属班级
-	class:string;
+	classId:string;
 	//所属作业
 	assignment:string;
 	//对应的问题
@@ -27,7 +27,7 @@ export class ResponseToQuestion{
 
 	constructor(obj:any){
 		this.creator = obj && obj.creator;
-		this.class = obj && obj.class;
+		this.classId = obj && obj.classId;
 		this.assignment = obj && obj.assignment;
 		this.question = obj && obj.question;
 		this.content = obj && obj.content;
@@ -88,9 +88,12 @@ export class ClassInfo{
     classId:string;
     //班级名称
     className:string;
+    //老师列表
+	teacherList:any[];
 
-    constructor(classId:string, className:string){
+    constructor(classId:string, className:string, teacherList:any[]){
         this.classId = classId;
         this.className = className;
+        this.teacherList = teacherList;
     }
 }

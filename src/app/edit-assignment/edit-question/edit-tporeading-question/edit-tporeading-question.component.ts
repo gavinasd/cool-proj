@@ -28,7 +28,7 @@ export class EditTporeadingQuestionComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.EditorOptions.height = 300;
+		this.EditorOptions.height = 700;
 		this.EditorOptions.placeholderText = '输入文章段落';
 		this.assignmentService.getQuestionGroupById(this.assignmentId, this.groupId)
 			.subscribe((group: QuestionGroup) => {
@@ -36,11 +36,24 @@ export class EditTporeadingQuestionComponent implements OnInit {
 			});
 	}
 
+	addContent(){
+		const body = JSON.stringify({
+			'passage': this.editorPassage
+		});
+
+		this.assignmentService
+			.updateQuestionGroupContent(this.assignmentId, this.groupId, body)
+			.subscribe((assignment)=>{
+				this.toastService.success('成功提交');
+				console.log(assignment);
+			});
+	}
+
 	addQuestion(form:NgForm):boolean{
 		let question = new TPOReadingQuestion({
 			creator:this.httpService.getCurrentId(),
 			questionType : this.questionType,
-			passage: this.editorPassage,
+			paragraph: form.value.paragraph,
 			question : form.value.question,
 			options : this.getOptionList(form),
 			answer:form.value.answer,

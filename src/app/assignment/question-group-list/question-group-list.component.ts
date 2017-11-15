@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {AssignmentService} from "../../core/services/assignment.service";
 import {QuestionGroup} from "../../models/Questions/QuestionGroup";
@@ -11,13 +11,15 @@ import * as assignmentActions from '../../redux/assignment/assignment.actions';
 import {Question} from "../../models/Questions/Question";
 import {MdDialog, MdDialogConfig} from "@angular/material";
 import {SubmitConfirmDialogComponent} from "../../shared/view/dialogs/submit-confirm-dialog/submit-confirm-dialog.component";
+import {ComponentCanDeactivate} from "../../core/services/route-guard.service";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
   selector: 'app-question-group-list',
   templateUrl: './question-group-list.component.html',
   styleUrls: ['./question-group-list.component.css']
 })
-export class QuestionGroupListComponent implements OnInit,OnDestroy {
+export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCanDeactivate {
 	/**
 	 * 题目列表一共分成3种模式
 	 * 做题模式，批改模式，查看模式
@@ -47,6 +49,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 	public loading$:Observable<boolean>;
 
 	private alive:boolean = true;
+	private complete:boolean = false;
 
 	constructor(private route:ActivatedRoute,
 	            public assignmentService:AssignmentService,
@@ -89,6 +92,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 		}
 
 		this.complete$.takeWhile(()=>this.alive).subscribe((complete) => {
+			this.complete = complete;
 			if(complete && this.mode != Mode.HomeWork){
 				this.router.navigate(['/class/' + this.classId]);
 				return;
@@ -108,6 +112,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 		}));
 
 		this.store.dispatch(new assignmentActions.FetchInfoAction({
+			classId: this.classId,
 			assignmentId: this.assignmentId,
 			studentId: this.studentId
 		}));
@@ -174,7 +179,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 				}
 
 				if(result == 'confirm'){
-					this.assignmentService.submitAssignmentDone(this.studentId, this.assignmentId)
+					this.assignmentService.submitAssignmentDone(this.classId, this.studentId, this.assignmentId)
 						.subscribe((data)=>{
 							console.log('确认提交' + data);
 							this.router.navigate(['/class/' + this.classId]);
@@ -183,6 +188,13 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy {
 			});
 	}
 
+	@HostListener('window:beforeunload')
+	canDeactivate():Observable<boolean>|boolean{
+		if(+this.mode !== Mode.HomeWork || this.complete){
+			return true;
+		}
+		return window.confirm('确定要离开作业吗?')
+	}
 
 	ngOnDestroy(): void {
 		this.store.dispatch(new assignmentActions.ResetAction());

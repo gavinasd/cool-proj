@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
 
     searchClass(form: any){
         console.log(form.classForSearch);
-        this.router.navigate(['/class/search', form.classForSearch]);
+        this.router.navigate(['/search', form.classForSearch]);
     }
 
     logout() {

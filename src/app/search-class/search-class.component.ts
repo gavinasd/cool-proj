@@ -24,7 +24,7 @@ export class SearchClassComponent implements OnInit {
         this.classInfoList$ = this.className$.switchMap(className => this.classService.searchClass(className));
         this.classInfoList$.map((classInfoList:any[])=>{
             return classInfoList.map((classInfo:any)=>{
-                let mClassInfo:ClassInfo = new ClassInfo(classInfo._id,classInfo.name);
+                let mClassInfo:ClassInfo = new ClassInfo(classInfo._id,classInfo.name, classInfo.teacherList);
                 return mClassInfo;
             })
         }).subscribe((classInfoList:ClassInfo[])=>{

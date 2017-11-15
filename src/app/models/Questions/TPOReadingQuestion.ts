@@ -1,12 +1,12 @@
 import {Question} from "./Question";
 
 export class TPOReadingQuestion extends Question{
-  passage:string;
+  paragraph:number;
   options:string[] = [];
 
   constructor(obj?:any){
     super(obj);
-    this.passage = obj && obj.passage;
+    this.paragraph = obj && obj.paragraph;
     this.options = obj && obj.options;
   }
 }
