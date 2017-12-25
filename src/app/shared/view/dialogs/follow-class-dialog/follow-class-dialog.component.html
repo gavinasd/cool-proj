@@ -3,14 +3,14 @@
       (ngSubmit) = "dialogRef.close(f.value)">
     <div fxLayout="column" fxLayoutGap="8px">
         <div fxLayout="column" fxLayoutGap="8px">
-            <md-input-container>
-                <input mdInput type="text" class="form-control" name="verifyCode" placeholder="输入验证码:" required ngModel>
-            </md-input-container>
+            <mat-input-container>
+                <input matInput type="text" class="form-control" name="verifyCode" placeholder="输入验证码:" required ngModel>
+            </mat-input-container>
         </div>
     </div>
 
-    <md-dialog-actions align="end">
-        <button md-button type="button" (click)="dialogRef.close()">取消</button>
-        <button md-button type="submit" color="accent">确定</button>
-    </md-dialog-actions>
+    <mat-dialog-actions align="end">
+        <button mat-button type="button" (click)="dialogRef.close()">取消</button>
+        <button mat-button type="submit" color="accent">确定</button>
+    </mat-dialog-actions>
 </form>

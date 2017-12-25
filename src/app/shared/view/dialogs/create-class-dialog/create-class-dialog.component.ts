@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialogRef} from "@angular/material";
+import {MatDialogRef} from "@angular/material";
 
 @Component({
   selector: 'app-create-class-dialog',
@@ -8,7 +8,7 @@ import {MdDialogRef} from "@angular/material";
 })
 export class CreateClassDialogComponent{
 
-	constructor(public dialogRef: MdDialogRef<CreateClassDialogComponent>) {}
+	constructor(public dialogRef: MatDialogRef<CreateClassDialogComponent>) {}
 
 
 }

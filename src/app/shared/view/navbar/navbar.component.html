@@ -1,6 +1,6 @@
-<md-toolbar color="primary" fxLayoutGap="20px">
-    <button md-button class="brand">
-        <md-icon>edit</md-icon>
+<mat-toolbar color="primary" fxLayoutGap="20px">
+    <button mat-button class="brand">
+        <mat-icon>edit</mat-icon>
         <span>琢玉课堂</span>
     </button>
 
@@ -12,24 +12,24 @@
 
         <div class="form-group search-bar" fxLayout="row">
             <input type="text" placeholder="搜索班级" name="classForSearch" required ngModel>
-            <button md-icon-button type="submit" class="input-after">
-                <md-icon >search</md-icon>
+            <button mat-icon-button type="submit" class="input-after">
+                <mat-icon >search</mat-icon>
             </button>
         </div>
         </form>
     </div>
 
-    <button *ngIf="userType == 1" md-button (click)="openCreateClassDialog()">新建班级</button>
+    <button *ngIf="userType == 1" mat-button (click)="openCreateClassDialog()">新建班级</button>
 
     <span fxFlex></span>
 
-    <button md-button [mdMenuTriggerFor]="menu">
-        {{userName}}<md-icon>expand_more</md-icon>
+    <button mat-button [matMenuTriggerFor]="menu">
+        {{userName}}<mat-icon>expand_more</mat-icon>
     </button>
-</md-toolbar>
+</mat-toolbar>
 
-<md-menu #menu="mdMenu" x-position="before">
-    <button md-menu-item (click)="logout()">
+<mat-menu #menu="matMenu" x-position="before">
+    <button mat-menu-item (click)="logout()">
         <span >退出</span>
     </button>
-</md-menu>
+</mat-menu>

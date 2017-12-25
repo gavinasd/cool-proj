@@ -1,0 +1,25 @@
+mat-table{
+    border:1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: none;
+    border-radius: 3px;
+}
+
+mat-header-cell{
+    color: #000;
+    font-size: 15px;
+    text-align: center;
+    padding: 5px;
+}
+
+mat-cell{
+    font-size: 15px;
+    padding: 3px;
+}
+
+.checkbox-cell {
+    text-align: center;
+}
+
+::ng-deep .mat-checkbox-checked.mat-checkbox-disabled .mat-checkbox-background {
+    background-color: #f44336;
+}

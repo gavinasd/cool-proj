@@ -1,0 +1,24 @@
+<mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="header">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let option">{{option}}</mat-cell>
+    </ng-container>
+
+    <ng-container *ngFor="let row of tableRows;let j = index"
+                  matColumnDef="{{row}}">
+        <mat-header-cell *matHeaderCellDef>{{row}}</mat-header-cell>
+        <mat-cell class="checkbox-cell" *matCellDef="let i = index">
+            <mat-checkbox
+                    (change)="changeAnswer(i, j)"
+                    [checked]="answerMatrix[i][j]"
+                    [disabled]="mode == 'review'"></mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row
+            *matHeaderRowDef="['header'].concat(tableRows)">
+    </mat-header-row>
+    <mat-row
+            *matRowDef="let row;columns: ['header'].concat(tableRows);">
+    </mat-row>
+</mat-table>

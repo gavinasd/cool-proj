@@ -1,21 +1,21 @@
 <div class="word-list" fxLayout="row" fxLayoutAlign="center">
-    <md-list fxFlex="50%">
-        <md-list-item *ngFor="let word of (wordList|oddeven:'odd');let i = index">
-            <h4 md-line>
+    <mat-list fxFlex="50%">
+        <mat-list-item *ngFor="let word of (wordList|oddeven:'odd');let i = index">
+            <h4 mat-line>
                 {{2*i+1}}.{{word.english}}
                 <app-simple-audio-player [src]="word.english | pronunciationOfWord"></app-simple-audio-player>
             </h4>
-            <p md-line>{{word.chinese}}</p>
-        </md-list-item>
-    </md-list>
+            <p mat-line>{{word.chinese}}</p>
+        </mat-list-item>
+    </mat-list>
 
-    <md-list fxFlex="50%">
-        <md-list-item *ngFor="let word of (wordList|oddeven:'even');let i = index">
-            <h4 md-line>
+    <mat-list fxFlex="50%">
+        <mat-list-item *ngFor="let word of (wordList|oddeven:'even');let i = index">
+            <h4 mat-line>
                 {{2*i+2}}.{{word.english}}
                 <app-simple-audio-player [src]="word.english | pronunciationOfWord"></app-simple-audio-player>
             </h4>
-            <p md-line>{{word.chinese}}</p>
-        </md-list-item>
-    </md-list>
+            <p mat-line>{{word.chinese}}</p>
+        </mat-list-item>
+    </mat-list>
 </div>

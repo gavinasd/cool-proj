@@ -1,0 +1,40 @@
+<h4 mat-dialog-title>编辑口语题目</h4>
+
+<mat-dialog-content>
+    <form ngNativeValidate id="form" role="form" #f="ngForm"
+          (ngSubmit) = "closeDialogAndSave()" fxLayout="column">
+        <mat-input-container>
+            <input matInput name="tpoIndex" type="text" required [(ngModel)]="tpoIndex" placeholder="这是第几套TPO">
+        </mat-input-container>
+
+        <mat-form-field>
+            <mat-select placeholder="这是第几道题目" name="questionIndex" required [(ngModel)]="questionIndex">
+                <mat-option [value]="1">1</mat-option>
+                <mat-option [value]="2">2</mat-option>
+                <mat-option [value]="3">3</mat-option>
+                <mat-option [value]="4">4</mat-option>
+                <mat-option [value]="5">5</mat-option>
+                <mat-option [value]="6">6</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-input-container *ngIf="questionIndex == 3 || questionIndex == 4">
+            <textarea matInput class="form-control"
+                      [froalaEditor]="passageEditorOptions"
+                      [(froalaModel)]="question.passage"
+                      name="passage" required></textarea>
+        </mat-input-container>
+
+
+        <mat-input-container>
+            <input matInput name="question" type="text" required [(ngModel)]="question.question" placeholder="题目">
+        </mat-input-container>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="closeDialog()">取消</button>
+    <button mat-button type="submit" form="form" color="accent">确定</button>
+</mat-dialog-actions>
+
+

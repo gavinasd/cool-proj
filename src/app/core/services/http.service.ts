@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers, Response} from '@angular/http';
 import { Observable} from 'rxjs';
 import 'rxjs/add/operator/toPromise';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {of} from "rxjs/observable/of";
 
 @Injectable()
 export class HttpService {
 
-	constructor(private http:Http) {
+	constructor(private http:HttpClient) {
 
 	}
 
@@ -18,37 +19,42 @@ export class HttpService {
 			});
 	}
 
-	public makeGetWithToken(url:string):Observable<Response>{
-		var header = new Headers();
-		header.append('Authorization',"Bearer " + this.getToken());
-		return this.http.get(url,{headers:header});
+	public makeGetWithToken(url:string):Observable<any>{
+		var header = new HttpHeaders({
+			'Authorization': 'Bearer ' + this.getToken()});
+		return this.http.get<any>(url,{headers:header});
 	}
 
-	public makePost(url:string, body:any):Observable<Response>{
-		var header = new Headers();
-		header.append('Content-Type', 'application/json');
+	public makePost(url:string, body:any):Observable<any>{
+		var header = new HttpHeaders({ 'Content-Type': 'application/json' });
 		return this.http.post(url,body,
 			{headers:header});
 	}
 
-	public makePostWithToken(url:string, body:any):Observable<Response>{
-		var header = new Headers();
-		header.append('Content-Type', 'application/json');
-		header.append('Authorization', 'Bearer ' + this.getToken());
+	public makePostWithToken(url:string, body:any):Observable<any>{
+		var header = new HttpHeaders({
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + this.getToken()});
 		return this.http.post(url,body,{headers:header});
 	}
 
-	public makePutWithToken(url:string, body:any):Observable<Response>{
-		var header = new Headers();
-		header.append('Content-Type', 'application/json');
-		header.append('Authorization', 'Bearer ' + this.getToken());
+	public makePutWithToken(url:string, body:any):Observable<any>{
+		var header = new HttpHeaders({
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + this.getToken()});
 		return this.http.put(url,body,{headers:header});
 	}
 
-	public uploadFile(url:string, formData:FormData):Observable<Response>{
-		let header = new Headers();
-		header.append('Authorization', 'Bearer ' + this.getToken());
-		return this.http.post(url, formData, {headers:header});
+	public makeDeleteWithToken(url:string):Observable<any>{
+		const header = new HttpHeaders({
+			'Authorization': 'Bearer ' + this.getToken()});
+		return this.http.delete(url,{headers:header});
+	}
+
+	public uploadFile(url:string, formData:FormData):Observable<any>{
+		var header = new HttpHeaders({
+			'Authorization': 'Bearer ' + this.getToken()});
+		return this.http.post<any>(url, formData, {headers:header});
 	}
 
 	public getToken():string{
@@ -123,18 +129,19 @@ export class HttpService {
 		this.deleteToken();
 	}
 
-	public static handleError(error: Response | any){
-		// In a real world app, we might use a remote logging infrastructure
-		let errMsg: string;
-		if (error instanceof Response) {
-			const body = error.json() || '';
-			const err = body.error || JSON.stringify(body.message) || JSON.stringify(body.errmsg);
-			errMsg = `${error.statusText}:${err}`;
-		} else {
-			errMsg = error.message ? error.message : error.toString();
-		}
-		console.error(errMsg);
-		return Observable.throw(errMsg);
+
+	public static handleError<T> (operation = 'operation', result?: T) {
+		return (error: any): Observable<T> => {
+
+			// TODO: send the error to remote logging infrastructure
+			console.error(error); // log to console instead
+
+			// TODO: better job of transforming error for user consumption
+			console.error(`${operation} failed: ${error.message}`);
+
+			// Let the app keep running by returning an empty result.
+			return Observable.throw(error.error.errmsg);
+		};
 	}
 
 }

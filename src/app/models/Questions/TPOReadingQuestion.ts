@@ -7,6 +7,10 @@ export class TPOReadingQuestion extends Question{
   constructor(obj?:any){
     super(obj);
     this.paragraph = obj && obj.paragraph;
-    this.options = obj && obj.options;
+    if(obj && obj.options){
+    	for(let i = 0; i < obj.options.length; i ++ ){
+    		this.options[i] = obj.options[i];
+	    }
+    }
   }
 }

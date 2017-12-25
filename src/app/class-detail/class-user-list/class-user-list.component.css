@@ -2,13 +2,13 @@ h3{
     font-size: 18px;
     font-weight: bolder;
 }
-md-list {
+mat-list {
     border: 1pt solid rgba(0, 0, 0, 0.12);
     border-radius: 3px;
     background-color: white;
 }
 
-md-list .header{
+mat-list .header{
     font-size: 18px;
     color: #262626;
     margin: 10px 0 10px 20px;
@@ -18,7 +18,7 @@ md-list .header{
     height: 72px;
 }
 
-md-icon{
+mat-icon{
     overflow: hidden;
     width: 48px;
     height: 48px;

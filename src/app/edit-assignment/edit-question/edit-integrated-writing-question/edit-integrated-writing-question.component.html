@@ -1,39 +1,41 @@
-
 <form ngNativeValidate #form="ngForm" (ngSubmit)="submit()"
       fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="start center">
+    <h4>编辑综合写作</h4>
 
     <div class="content" fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="space-around">
         <div fxLayout="column" fxLayoutGap="30px" fxFlex="0 0 40%">
-            <md-input-container>
-                <textarea mdInput class="form-control" [froalaEditor]="teacherOptions"
-                          placeholder="请输入阅读文章"
+            <mat-input-container>
+                <label>请输入阅读文章</label>
+                <textarea matInput class="form-control" [froalaEditor]="teacherOptions"
                           [(froalaModel)]="passage"
                           rows="10" columns="5" required ></textarea>
 
-            </md-input-container>
+            </mat-input-container>
 
-            <md-select placeholder="选择听力材料"
-                       name="recordUrl"
-                       [(ngModel)]="recordUrl"
-                       required>
-                <md-option *ngFor="let record of recordUrlList;let i = index"
-                           [value]="record">
-                    TPO{{(i+1)}}-综合写作
-                </md-option>
-            </md-select>
+            <mat-form-field>
+                <mat-select placeholder="选择听力材料"
+                            name="recordUrl"
+                            [(ngModel)]="recordUrl"
+                            required>
+                    <mat-option *ngFor="let record of recordUrlList;let i = index"
+                                [value]="record">
+                        TPO{{(i+1)}}-综合写作
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
         </div>
 
-        <md-input-container fxFlex="0 0 40%">
-            <textarea mdInput class="form-control" [froalaEditor]="teacherOptions"
-                      placeholder="范文"
+        <mat-input-container fxFlex="0 0 40%">
+            <label>范文</label>
+            <textarea matInput class="form-control" [froalaEditor]="teacherOptions"
                       [(froalaModel)]="answer"
                       rows="10" columns="10" required ></textarea>
-
-        </md-input-container>
+        </mat-input-container>
     </div>
 
 
-    <button md-raised-button color="primary" type="submit">
+    <button mat-raised-button color="primary" type="submit">
         提交
     </button>
 </form>

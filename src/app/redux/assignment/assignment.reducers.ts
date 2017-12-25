@@ -3,7 +3,6 @@ import './assignment.actions';
 import * as AssignmentAction from "./assignment.actions";
 import {createSelector} from "@ngrx/store";
 import {MarkingScore, SpendTime, StudentAnswer} from "../../models/assignments/AssignmentInfo";
-import {QuestionGroup} from "../../models/Questions/QuestionGroup";
 
 export interface State{
 	assignment: Assignment;

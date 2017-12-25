@@ -1,25 +1,23 @@
 import { Injectable } from '@angular/core';
-import {MdSnackBar, MdSnackBarConfig} from "@angular/material";
-import {ToastComponent} from "../../shared/view/toast/toast.component";
+import {MatSnackBar, MatSnackBarConfig} from "@angular/material";
 
 @Injectable()
 export class ToastService {
-	private snackBarConfig: MdSnackBarConfig = new MdSnackBarConfig;
+	private snackBarConfig: MatSnackBarConfig = new MatSnackBarConfig;
 
-	constructor(private snackBar:MdSnackBar) {
+	constructor(private snackBar:MatSnackBar) {
 		this.snackBarConfig.duration = 3000;
+		this.snackBarConfig.verticalPosition = 'top';
 	}
 
 	public success(content:string):void{
-		let snackBarRef = this.snackBar.openFromComponent(ToastComponent,this.snackBarConfig);
-		snackBarRef.instance.error = false;
-		snackBarRef.instance.content = content;
+		this.snackBarConfig.extraClasses = ['success-snackbar'];
+		this.snackBar.open(content.trim(), '', this.snackBarConfig);
 	}
 
 	public error(content:string):void{
-		let snackBarRef = this.snackBar.openFromComponent(ToastComponent,this.snackBarConfig);
-		snackBarRef.instance.error = true;
-		snackBarRef.instance.content = content;
+		this.snackBarConfig.extraClasses = ['error-snackbar'];
+		this.snackBar.open(content.trim(), '', this.snackBarConfig);
 	}
 
 	public warning(content:string):void{

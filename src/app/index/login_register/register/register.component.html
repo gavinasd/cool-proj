@@ -9,38 +9,38 @@
         <form ngNativeValidate role="form" #f="ngForm"
               (ngSubmit) = "onSubmit(f.value)" fxLayout="column" fxLayoutGap="20px">
             <div class="name" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="30px">
-                <md-input-container fxFlex>
-                    <input mdInput type="text"
+                <mat-input-container fxFlex>
+                    <input matInput type="text"
                            placeholder="用户昵称" name="name"
                            required ngModel>
-                </md-input-container>
+                </mat-input-container>
 
-                <md-icon class="avatar"
-                         [mdMenuTriggerFor]="menu" svgIcon="avatars:{{selectedAvatarUrl}}">
-                </md-icon>
+                <mat-icon class="avatar"
+                         [matMenuTriggerFor]="menu" svgIcon="avatars:{{selectedAvatarUrl}}">
+                </mat-icon>
             </div>
 
 
-            <md-input-container>
-                <input mdInput type="email"
+            <mat-input-container>
+                <input matInput type="email"
                        placeholder="电子邮箱" name="email"
                        required ngModel>
-                <md-icon mdSuffix>email</md-icon>
-            </md-input-container>
+                <mat-icon matSuffix>email</mat-icon>
+            </mat-input-container>
 
-            <md-input-container>
-                <input mdInput type="password"
+            <mat-input-container>
+                <input matInput type="password"
                        placeholder="密码" name="password"
                        required ngModel>
-                <md-icon mdSuffix>lock</md-icon>
-            </md-input-container>
+                <mat-icon matSuffix>lock</mat-icon>
+            </mat-input-container>
 
-            <md-radio-group fxLayoutGap="10px" name="type" required ngModel>
-                <md-radio-button value="teacher"><p>教师</p></md-radio-button>
-                <md-radio-button value="student"><p>学生</p></md-radio-button>
-            </md-radio-group>
+            <mat-radio-group fxLayoutGap="10px" name="type" required ngModel>
+                <mat-radio-button value="teacher"><p>教师</p></mat-radio-button>
+                <mat-radio-button value="student"><p>学生</p></mat-radio-button>
+            </mat-radio-group>
 
-            <button type="submit" md-raised-button color="primary" fxFlexAlign="end">
+            <button type="submit" mat-raised-button color="primary" fxFlexAlign="end">
                 注册
             </button>
 
@@ -49,10 +49,10 @@
     </div>
 </div>
 
-<md-menu #menu="mdMenu" x-position="before">
-    <md-grid-list cols="4">
-        <md-grid-tile *ngFor="let avatar of avatarList" (click)="changeAvatar(avatar)">
-            <md-icon  class="avatar" svgIcon="avatars:{{avatar}}"></md-icon>
-        </md-grid-tile>
-    </md-grid-list>
-</md-menu>
+<mat-menu #menu="matMenu" x-position="before">
+    <mat-grid-list cols="4">
+        <mat-grid-tile *ngFor="let avatar of avatarList" (click)="changeAvatar(avatar)">
+            <mat-icon  class="avatar" svgIcon="avatars:{{avatar}}"></mat-icon>
+        </mat-grid-tile>
+    </mat-grid-list>
+</mat-menu>

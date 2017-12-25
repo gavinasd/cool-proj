@@ -30,10 +30,14 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
+		if(JSON.stringify(this.tpoSpeakingQuestion) == JSON.stringify(this.question)){
+			//不应该refresh
+			return;
+		}
 		this.tpoSpeakingQuestion = <TPOSpeakingQuestion>this.question;
 		this.directionComplete = false;
 		this.passageComplete = false;
-		this.directionComplete = false;
+		this.dialogComplete = false;
 		this.questionComplete = false;
 		this.comment = this.getComment();
 

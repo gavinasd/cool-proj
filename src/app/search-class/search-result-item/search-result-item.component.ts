@@ -2,10 +2,11 @@ import {Component, OnInit, Input} from '@angular/core';
 import {ClassInfo} from "../../models/models";
 import {ClassService} from "../../core/services/class.service";
 import {ToastService} from "../../core/services/toast.service";
-import {MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig} from "@angular/material";
+import {MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarConfig} from "@angular/material";
 import {FollowClassDialogComponent} from "../../shared/view/dialogs/follow-class-dialog/follow-class-dialog.component";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs/Observable";
+import {first} from "rxjs/operators";
 
 @Component({
     selector: 'app-search-result-item',
@@ -15,16 +16,16 @@ import {Observable} from "rxjs/Observable";
 export class SearchResultItemComponent implements OnInit {
     @Input() classInfo:ClassInfo;
 
-    constructor(private dialog: MdDialog,
+    constructor(private dialog: MatDialog,
                 private classService:ClassService,
-                public snackBar: MdSnackBar,
+                public toastService: ToastService,
                 private router: Router) { }
 
     ngOnInit() {
     }
 
     openFollowClassDialog(){
-	    let config = new MdDialogConfig();
+	    let config = new MatDialogConfig();
 	    config.width = '400px';
 	    this.dialog.open(FollowClassDialogComponent, config).afterClosed()
 		    .filter(result => !!result)
@@ -35,16 +36,18 @@ export class SearchResultItemComponent implements OnInit {
 
     followClass(form:any){
         let verifyCode = form.verifyCode;
-        const snackBarConfig = new MdSnackBarConfig;
+        const snackBarConfig = new MatSnackBarConfig;
         snackBarConfig.duration = 3000;
         this.classService.classAddStudent(this.classInfo.classId, verifyCode)
             .subscribe((json)=>{
-				this.snackBar.open("成功加入班级,正在跳转到首页···", '', snackBarConfig);
-	            Observable.interval(2000).subscribe(v=>{
+				this.toastService.success("成功加入班级,正在跳转到首页···");
+	            Observable.interval(2000).pipe(
+	            	first(),
+	            ).subscribe(v=>{
 		            this.router.navigate(['/']);
 	            });
             },(err)=>{
-	            this.snackBar.open("验证码错误", '', snackBarConfig);
+	            this.toastService.error("验证码错误");
             });
     }
 

@@ -1,10 +1,15 @@
-<div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
-    <div class="pager-item" fxLayoutAlign="center center"
-         *ngFor="let score of (scoreList$ | async);let i = index"
-         [ngClass]="{'selected': selected(score.groupIndex, score.questionIndex),
+<div fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="start center" fxLayoutWrap >
+    <div class="container" fxFlex="5.1%"
+         *ngFor="let score of (scoreList$ | async);let i = index">
+
+        <div class="pager-item" fxLayoutAlign="center center"
+             [ngClass]="{'selected': selected(score.groupIndex, score.questionIndex),
                      'correct': score.correct, 'wrong': !score.correct}"
-         (click)="skipTo(score.groupIndex, score.questionIndex)"
-    >
-        <p>{{i+1}}</p>
+             (click)="skipTo(score.groupIndex, score.questionIndex)">
+            <p>{{i+1}}</p>
+        </div>
     </div>
+    <div fxFlexFill></div>
+
+
 </div>

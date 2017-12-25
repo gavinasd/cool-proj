@@ -1,31 +1,34 @@
 <h4>添加作业</h4>
 <form ngNativeValidate id="addAssignmentForm" role="form" #f="ngForm"
       (ngSubmit) = "dialogRef.close(f.value)">
-    <div fxLayout="column" fxLayoutGap="40px">
-        <md-select placeholder="选择作业类型"
-                   (change)="changeType()"
-                   [ngModelOptions]="{standalone:true}"
-                   [(ngModel)]="type">
-            <md-option *ngFor="let assignmentType of assignmentTypes"
-                       [value]="assignmentType.value">
-                {{assignmentType.name}}
-            </md-option>
-        </md-select>
+    <div fxLayout="column">
+        <mat-form-field>
+            <mat-select placeholder="选择作业类型"
+                        (change)="changeType()"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="type">
+                <mat-option *ngFor="let assignmentType of assignmentTypes"
+                            [value]="assignmentType.value">
+                    {{assignmentType.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-
-        <md-select placeholder="选择作业"
-                   name="assignment"
-                   ngModel
-                   required>
-            <md-option *ngFor="let assignment of assignmentList"
-                       [value]="assignment.id">
-                {{assignment.assignmentName}}
-            </md-option>
-        </md-select>
+        <mat-form-field>
+            <mat-select placeholder="选择作业"
+                        name="assignment"
+                        ngModel
+                        required>
+                <mat-option *ngFor="let assignment of assignmentList"
+                            [value]="assignment.id">
+                    {{assignment.assignmentName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
 
-    <md-dialog-actions align="end">
-        <button md-button type="button" (click)="dialogRef.close()">取消</button>
-        <button md-button type="submit" color="accent">确定</button>
-    </md-dialog-actions>
+    <mat-dialog-actions align="end">
+        <button mat-button type="button" (click)="dialogRef.close()">取消</button>
+        <button mat-button type="submit" color="accent">确定</button>
+    </mat-dialog-actions>
 </form>

@@ -1,33 +1,30 @@
 <div id="container" fxLayout="column" fxFlex>
-    <md-toolbar color="primary">
+    <mat-toolbar color="primary">
         <span>琢玉课堂</span>
 
         <span fxFlex></span>
-    </md-toolbar>
+    </mat-toolbar>
 
-    <md-sidenav-container fxFlex>
+    <mat-sidenav-container fxFlex>
 
-        <md-sidenav mode="side" opened>
-            <md-nav-list>
-                <md-list-item *ngFor="let assignment of assignmentList"
+        <mat-sidenav mode="side" opened>
+            <mat-nav-list>
+                <mat-list-item *ngFor="let assignment of assignmentList"
                    (click)="selectAssignment(assignment.id)">
                     <span>{{assignment.assignmentName}}</span>
-                </md-list-item>
-                <md-list-item (click)="openCreateAssignmentDialog()">
-                    <span>新建作业</span>
-                </md-list-item>
+                </mat-list-item>
 
-            </md-nav-list>
-        </md-sidenav>
+                <mat-list-item (click)="openCreateAssignmentDialog()">
+                    <span>新建作业</span>
+                </mat-list-item>
+            </mat-nav-list>
+        </mat-sidenav>
 
         <div class="content" *ngIf="selectAssignmentId.length > 0">
             <app-edit-question-list [assignmentId]="selectAssignmentId"></app-edit-question-list>
-            <button md-raised-button (click)="openAddQuestionDialog()">
-                添加作业
-            </button>
         </div>
 
-    </md-sidenav-container>
+    </mat-sidenav-container>
 
 
 </div>

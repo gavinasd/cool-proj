@@ -22,9 +22,9 @@
              fxLayout="column">
             <div fxLayout="row" fxLayoutAlign="start center">
                 <p>Listen to the Lecture:  </p>
-                <md-icon>volume_up</md-icon>
+                <mat-icon>volume_up</mat-icon>
             </div>
-            <app-audio-player [src]="'/assets/records/'+recordUrl+'.mp3'"></app-audio-player>
+            <app-audio-player [src]="'/assets/records/'+recordUrl+'.mp3'" (completed)="next()"></app-audio-player>
         </div>
 
         <div class=" question-page" *ngIf="contentIndex > 1"
@@ -43,11 +43,11 @@
                 </div>
                 <div fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 50%">
                     <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                        <md-card>
-                            <md-card-content>
+                        <mat-card>
+                            <mat-card-content>
                                 <label class="word-count">Word Count:{{wordCount}}</label>
-                            </md-card-content>
-                        </md-card>
+                            </mat-card-content>
+                        </mat-card>
 
                         <span fxFlex></span>
                     </div>
@@ -79,23 +79,23 @@
                 </div>
                 <div  fxLayout="column" fxFlex="1 1 50%">
                     <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                        <md-card>
-                            <md-card-content>
+                        <mat-card>
+                            <mat-card-content>
                                 <label class="word-count">Word Count:{{wordCount}}</label>
-                            </md-card-content>
-                        </md-card>
+                            </mat-card-content>
+                        </mat-card>
 
-                        <md-card>
-                            <md-card-content>
+                        <mat-card>
+                            <mat-card-content>
                                 <label>耗时:{{markingScore>=0?markingScore:0}}</label>
-                            </md-card-content>
-                        </md-card>
+                            </mat-card-content>
+                        </mat-card>
 
-                        <md-card>
-                            <md-card-content>
+                        <mat-card>
+                            <mat-card-content>
                                 <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
-                            </md-card-content>
-                        </md-card>
+                            </mat-card-content>
+                        </mat-card>
 
                         <span fxFlex></span>
                         <app-score-marker [score]="integratedWritingQuestion.score" (marking)="markScore($event)"></app-score-marker>
@@ -127,17 +127,17 @@
             </div>
             <div  fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 50%">
                 <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <md-card>
-                        <md-card-content>
+                    <mat-card>
+                        <mat-card-content>
                             <label class="word-count">Word Count:{{wordCount}}</label>
-                        </md-card-content>
-                    </md-card>
+                        </mat-card-content>
+                    </mat-card>
 
-                        <md-card>
-                            <md-card-content>
+                        <mat-card>
+                            <mat-card-content>
                                 <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
-                            </md-card-content>
-                        </md-card>
+                            </mat-card-content>
+                        </mat-card>
 
                         <span fxFlex></span>
                     </div>

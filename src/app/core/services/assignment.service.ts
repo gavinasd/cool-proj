@@ -4,9 +4,9 @@ import {HttpService} from "./http.service";
 import {Question} from "../../models/Questions/Question";
 import {environment} from "../../../environments/environment";
 import {Assignment} from "../../models/assignments/Assignment";
-import {AssignmentInfo} from "../../models/models";
-import {MarkingScore, SpendTime, StudentAnswer} from "../../models/assignments/AssignmentInfo";
 import {QuestionGroup} from "../../models/Questions/QuestionGroup";
+import {catchError, map} from "rxjs/operators";
+import {MarkingScore, SpendTime, StudentAnswer} from "../../models/assignments/AssignmentInfo";
 
 @Injectable()
 export class AssignmentService {
@@ -74,25 +74,29 @@ export class AssignmentService {
 		let url = environment.getAssignmentByIdUrl;
 		url = url + '/' + assignmentId;
 		return this.httpService.makeGetWithToken(url)
-			.map(resp =>{
-				return new Assignment(resp.json());
-			})
-			.catch(HttpService.handleError);
+			.pipe(
+				map(resp =>{
+					return new Assignment(resp);
+				}),
+				catchError(HttpService.handleError<Assignment>('getAssignment'))
+			)
 	}
 
 	public getAllAssignmentList(): Observable<Assignment[]> {
 		let url = environment.getAllAssignmentListUrl;
-		let userId = this.httpService.getCurrentId();
+		const userId = this.httpService.getCurrentId();
 		url = url + '/' + userId;
 		return this.httpService.makeGetWithToken(url)
-			.map((resp) =>{
-				let assignmentList:Assignment[]= [];
-				for(let assignment of resp.json().assignmentList){
-					assignmentList.push(new Assignment(assignment));
-				}
-				return assignmentList;
-			})
-			.catch(HttpService.handleError);
+			.pipe(
+				map((resp) =>{
+					let assignmentList:Assignment[]= [];
+					for(let assignment of resp.assignmentList){
+						assignmentList.push(new Assignment(assignment));
+					}
+					return assignmentList;
+				}),
+				catchError(HttpService.handleError<Assignment[]>('getAllAssignment'))
+			);
 	}
 
 	/**
@@ -102,35 +106,37 @@ export class AssignmentService {
 		let url = environment.getAssignmentInfoUrl;
 		url = url + '/' + classId + '/' + assignmentId + '/' + studentId;
 		return this.httpService.makeGetWithToken(url)
-			.map(resp =>{
-				const data = resp.json();
-				const spendTime:SpendTime = new SpendTime(false, data.spendTime);
+			.pipe(
+				map(resp =>{
+					const data = resp;
+					const spendTime:SpendTime = new SpendTime(false, data.spendTime);
 
-				let studentAnswer: StudentAnswer = new StudentAnswer(false, new Map());
-				for(let answerItem of data.studentAnswer){
-					let questionId = answerItem.questionId;
-					let answer = answerItem.studentAnswer;
-					studentAnswer.answer.set(questionId, answer);
-				}
+					let studentAnswer: StudentAnswer = new StudentAnswer(false, new Map());
+					for(let answerItem of data.studentAnswer){
+						let questionId = answerItem.questionId;
+						let answer = answerItem.studentAnswer;
+						studentAnswer.answer.set(questionId, answer);
+					}
 
-				let markScore: MarkingScore = new MarkingScore(false, new Map());
-				for(let scoreItem of data.markScore){
-					let questionId = scoreItem.questionId;
-					let score = scoreItem.score;
-					markScore.score.set(questionId, score);
-				}
+					let markScore: MarkingScore = new MarkingScore(false, new Map());
+					for(let scoreItem of data.markScore){
+						let questionId = scoreItem.questionId;
+						let score = scoreItem.score;
+						markScore.score.set(questionId, score);
+					}
 
-				return {
-					spendTime: spendTime,
-					studentAnswer: studentAnswer,
-					markScore: markScore
-				};
-			})
-			.catch(HttpService.handleError);
+					return {
+						spendTime: spendTime,
+						studentAnswer: studentAnswer,
+						markScore: markScore
+					};
+				}),
+				catchError(HttpService.handleError<any>('getAssignmentInfo'))
+			)
 	}
 
 	public submitAssignmentInfo(data: any):Observable<any>{
-		let url = environment.submitAssignmentInfoUrl;
+		const url = environment.submitAssignmentInfoUrl;
 		var body = JSON.stringify({
 			'classId': data.classId,
 			'assignmentId':data.assignmentId,
@@ -146,14 +152,16 @@ export class AssignmentService {
 		}
 
 		return this.httpService.makePostWithToken(url, body)
-			.map(resp =>{
-				console.log('submit info');
-			})
-			.catch(HttpService.handleError);
+			.pipe(
+				map(resp =>{
+					console.log('submit info');
+				}),
+				catchError(HttpService.handleError<any>('submitAssignmentInfo'))
+			);
 	}
 
 	public submitAssignmentDone(classId, studentId, assignmentId):Observable<any>{
-		let url = environment.submitAssignmentDoneUrl;
+		const url = environment.submitAssignmentDoneUrl;
 		var body = JSON.stringify({
 			'classId': classId,
 			'studentId': studentId,
@@ -161,10 +169,12 @@ export class AssignmentService {
 		});
 
 		return this.httpService.makePutWithToken(url, body)
-			.map(resp => {
-				console.log((resp.json()));
-			})
-			.catch(HttpService.handleError);
+			.pipe(
+				map(resp => {
+					console.log((resp));
+				}),
+				catchError(HttpService.handleError<any>('submitAssignmentDone'))
+			);
 	}
 	/**------------------------------------------------------------------------------*/
 
@@ -173,45 +183,73 @@ export class AssignmentService {
 	 */
 
 	public createAssignment(assignmentName:string, type:string):Observable<Assignment>{
-		let url = environment.createAssignmentUrl;
-		var body = JSON.stringify({
+		const url = environment.createAssignmentUrl;
+		const body = JSON.stringify({
 			'creator': this.httpService.getCurrentId(),
 			'assignmentName': assignmentName,
 			'type':type
 		});
 		return this.httpService.makePostWithToken(url,body)
-			.map(resp => resp.json().assignment)
-			.catch(HttpService.handleError);
+			.pipe(
+				map(resp => resp.assignment),
+				catchError(HttpService.handleError<Assignment>('createAssignment'))
+			);
 	}
 
-	public addQuestionGroupToAssignment(assignmentId:string, type:string):Observable<QuestionGroup>{
-		let url = environment.addQuestionGroupToAssignmentUrl;
-		let body = JSON.stringify({
-			'userId':this.httpService.getCurrentId(),
-			'assignmentId': assignmentId,
-			'type': type
-		});
+	public addQuestionGroupToAssignment(assignmentId:string, type:string, content?: string):Observable<QuestionGroup>{
+		const url = environment.addQuestionGroupToAssignmentUrl;
+		let body;
+		if(!content){
+			body = JSON.stringify({
+				'userId':this.httpService.getCurrentId(),
+				'assignmentId': assignmentId,
+				'type': type
+			});
+		} else {
+			body = JSON.stringify({
+				'userId': this.httpService.getCurrentId(),
+				'assignmentId': assignmentId,
+				'type': type,
+				'content': content
+			})
+		}
 
 		return this.httpService.makePostWithToken(url,body)
-			.map( resp=> resp.json().questionGroup)
-			.catch( HttpService.handleError);
+			.pipe(
+				map( resp=> resp.questionGroup),
+				catchError(HttpService.handleError<QuestionGroup>('addQuestionGroup'))
+			);
 	}
 
-    public addQuestionToGroup(assignmentId: string, groupId: string, question: Question): Observable<Question> {
-        let url = environment.addQuestionToGroupUrl;
-        var body = JSON.stringify({
-	        'userId': this.httpService.getCurrentId(),
-            'assignmentId': assignmentId,
-            'groupId': groupId,
-            'question': question
-        });
+    public addQuestionToGroup(assignmentId: string, groupId: string, question: Question, index?: number): Observable<Question> {
+        const url = environment.addQuestionToGroupUrl;
+        let body;
+		if(!index) {
+			body = JSON.stringify({
+				'userId': this.httpService.getCurrentId(),
+				'assignmentId': assignmentId,
+				'groupId': groupId,
+				'question': question
+			});
+		} else{
+			body = JSON.stringify({
+				'userId': this.httpService.getCurrentId(),
+				'assignmentId': assignmentId,
+				'groupId': groupId,
+				'question': question,
+				'index' : index
+			});
+		}
 
         return this.httpService.makePostWithToken(url, body)
-            .map(resp => resp.json()).catch(HttpService.handleError);
+	        .pipe(
+		        map(resp => resp),
+		        catchError(HttpService.handleError<Question>('addQuestion'))
+	        )
     }
 
 	public updateQuestionGroupContent(assignmentId:string, groupId:string, content:string):Observable<any>{
-		let url = environment.updateQuestionGroupContentUrl;
+		const url = environment.updateQuestionGroupContentUrl;
 		var body = JSON.stringify({
 			'assignmentId': assignmentId,
 			'groupId': groupId,
@@ -219,8 +257,42 @@ export class AssignmentService {
 		});
 
 		return this.httpService.makePutWithToken(url,body)
-			.map(resp => resp.json())
-			.catch(HttpService.handleError);
+			.pipe(
+				map(resp => resp),
+				catchError(HttpService.handleError<any>('updateGroupContent'))
+			);
+	}
+
+	public updateQuestion(questionId:string, question:Question):Observable<any>{
+		const url = environment.updateQuestionUrl;
+		const body = JSON.stringify({
+			'questionId':questionId,
+			'userId': this.httpService.getCurrentId(),
+			'question': question
+		});
+
+		return this.httpService.makePutWithToken(url, body)
+			.pipe(
+				catchError(HttpService.handleError<any>('updateQuestion'))
+			);
+	}
+
+	public deleteGroup(assignmentId: string, groupId: string):Observable<any>{
+		let url = environment.deleteGroupUrl;
+		url = url + '/' + assignmentId + '/' + groupId + '/' + this.httpService.getCurrentId();
+		return this.httpService.makeDeleteWithToken(url)
+			.pipe(
+				catchError(HttpService.handleError<any>('deleteGroup'))
+			);
+	}
+
+	public deleteQuestion(assignmentId: string, questionId: string):Observable<any>{
+		let url = environment.deleteQuestionUrl;
+		url = url + '/' + assignmentId + '/' + questionId + '/' + this.httpService.getCurrentId();
+		return this.httpService.makeDeleteWithToken(url)
+			.pipe(
+				catchError(HttpService.handleError<any>('deleteQuestion'))
+			);
 	}
 
 	/**---------------------------------------------------------------------------------------------*/
@@ -230,17 +302,21 @@ export class AssignmentService {
     	url = url + '/' + assignmentId + '/' + questionGroupId;
 
     	return this.httpService.makeGetWithToken(url)
-		    .map((resp)=>{
-    		    let questionGroup = new QuestionGroup(resp.json().questionGroup);
-    		    return questionGroup;
-		    })
+		    .pipe(
+			    map((resp)=>{
+				    const questionGroup = new QuestionGroup(resp.questionGroup);
+				    return questionGroup;
+			    }),
+			    catchError(HttpService.handleError<QuestionGroup>('getQuestionGroup'))
+		    );
     }
 
     public uploadSpeakingRecord(formData:FormData):Observable<any>{
-	    let url = environment.uploadSpeakingRecordUrl;
+	    const url = environment.uploadSpeakingRecordUrl;
 
 	    return this.httpService.uploadFile(url, formData)
-		    .map(resp => resp.json())
-		    .catch(HttpService.handleError);
+		    .pipe(
+			    catchError(HttpService.handleError<any>('uploadSpeakingRecord'))
+		    );
     }
 }

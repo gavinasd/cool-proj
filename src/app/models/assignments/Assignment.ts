@@ -10,7 +10,7 @@ export class Assignment{
 	questionGroupList:QuestionGroup[] = [];
 
 	public constructor(obj:any){
-		this.id = obj && obj._id;
+		this.id = (obj && obj._id) || (obj && obj.id);
 		this.creator = obj && obj.creator;
 		this.assignmentName = obj && obj.assignmentName;
 		this.type = obj && obj.type;

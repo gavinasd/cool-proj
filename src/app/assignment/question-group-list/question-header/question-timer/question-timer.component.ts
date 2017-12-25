@@ -3,6 +3,10 @@ import * as fromApplication from "../../../../redux/index.reducer";
 import * as assignmentActions from '../../../../redux/assignment/assignment.actions';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/takeWhile";
+import "rxjs/add/operator/filter";
+import "rxjs/add/operator/first";
+import "rxjs/add/observable/interval";
 
 @Component({
 	selector: 'app-question-timer',

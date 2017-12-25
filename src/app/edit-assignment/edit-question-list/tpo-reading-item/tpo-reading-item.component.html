@@ -1,17 +1,45 @@
-<div class="panel panel-default">
-    <div class="panel-heading">题目列表</div>
-    <div class="panel-body">
-        <fieldset class="question-list">
-            <div id="question"
-                 *ngFor="let question of questionList">
-                <p>{{question.question}}</p>
-                <ul>
-                    <li *ngFor="let option of question.options;let i = index">
-                        {{i | convert09ToAZ}}. {{option}}
-                    </li>
-                </ul>
-                <p>答案：{{question.answer}}</p>
-            </div>
-        </fieldset>
+<div class="group-item">
+    <div class="group-content">
+        <h3>阅读文章</h3>
+        <div class="passage" [froalaView]="passage"></div>
+        <div class="buttons" fxLayout="row" fxLayoutGap="15px">
+            <a class="bottom-button" (click)="openEditPassageDialog()">
+                <i class="material-icons">edit</i>
+                <span>编辑</span>
+            </a>
+        </div>
     </div>
+
+    <div class="question-item" *ngFor="let question of questionList">
+        <h4>{{question.question}}</h4>
+        <mat-list fxLayout="column" fxLayoutGap="5px">
+            <mat-list-item *ngFor="let option of question.options; let i = index">
+                {{i|convert09ToAZ}}. {{option}}
+            </mat-list-item>
+        </mat-list>
+
+        <p class="answer">答案：{{question.answer}}</p>
+
+        <div class="buttons" fxLayout="row" fxLayoutGap="15px">
+            <a class="bottom-button" (click)="openEditQuestionDialog(question)">
+                <i class="material-icons">edit</i>
+                <span>编辑</span>
+            </a>
+            <a class="bottom-button" (click)="openConfirmDeleteQuestionDialog(question)">
+                <i class="material-icons">delete</i>
+                <span>删除</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="add-question" fxLayout="column" fxLayoutAlign="center center">
+        <a class="add-question-button" (click)="addQuestion()">
+            <i class="material-icons">add</i>
+            <span>添加题目</span>
+        </a>
+    </div>
+
+    <a class="delete-group-button" (click)="openConfirmDeleteGroupDialog()">
+        <i class="material-icons" color="accent">cancel</i>
+    </a>
 </div>

@@ -1,12 +1,12 @@
 <div fxLayout="row" fxLayoutAlign="center">
-    <md-card>
-        <img md-card-image src="../../../../assets/resources/img/1.jpg">
-        <md-card-title>{{classInfo.className}}</md-card-title>
-        <md-card-content>
+    <mat-card>
+        <img mat-card-image src="../../../../assets/resources/img/1.jpg">
+        <mat-card-title>{{classInfo.className}}</mat-card-title>
+        <mat-card-content>
             <p>老师：{{classInfo.teacherList[0].nickName}}</p>
-        </md-card-content>
-        <md-card-actions align="end">
-            <button md-button (click)="openFollowClassDialog()">加入班级</button>
-        </md-card-actions>
-    </md-card>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button (click)="openFollowClassDialog()">加入班级</button>
+        </mat-card-actions>
+    </mat-card>
 </div>

@@ -3,6 +3,7 @@ import {HttpService} from "./http.service";
 import {Observable} from "rxjs";
 import {User} from "../../models/models";
 import {environment} from "../../../environments/environment";
+import {catchError, map} from "rxjs/operators";
 
 @Injectable()
 export class UserService {
@@ -11,22 +12,23 @@ export class UserService {
 
 	public login(email:string, password:string):Observable<string>{
 		console.log('service login start');
-		var user:Observable<User>;
 		var body = JSON.stringify({
 			'email':email,
 			'password':password
 		});
 		return this.httpService
 			.makePost(environment.loginUrl,body)
-			.map((resp)=>{
-					this.httpService.setToken(resp.json().token);
-					this.httpService.setCurrentId(resp.json().id);
-                    this.httpService.setUserType(resp.json().userType);
-                    this.httpService.setCurrentUserName(resp.json().userName);
-                    this.httpService.setCurrentUserAvatar(resp.json().avatarUrl);
-					return resp.json();
-				})
-			.catch(HttpService.handleError);
+			.pipe(
+				map((resp:any)=>{
+					this.httpService.setToken(resp.token);
+					this.httpService.setCurrentId(resp.id);
+					this.httpService.setUserType(resp.userType);
+					this.httpService.setCurrentUserName(resp.userName);
+					this.httpService.setCurrentUserAvatar(resp.avatar);
+					return resp;
+				}),
+				catchError(HttpService.handleError<string>('login'))
+			);
 
 	}
 
@@ -43,14 +45,16 @@ export class UserService {
 		});
 		return this.httpService
 			.makePost(url,body)
-			.map((resp)=>{
-				this.httpService.setToken(resp.json().token);
-				this.httpService.setCurrentId(resp.json().id);
-				this.httpService.setUserType(resp.json().userType);
-				this.httpService.setCurrentUserName(resp.json().userName);
-				this.httpService.setCurrentUserAvatar(resp.json().avatar);
-				return resp.json().id;
-			})
-			.catch(HttpService.handleError);
+			.pipe(
+				map((resp)=>{
+					this.httpService.setToken(resp.token);
+					this.httpService.setCurrentId(resp.id);
+					this.httpService.setUserType(resp.userType);
+					this.httpService.setCurrentUserName(resp.userName);
+					this.httpService.setCurrentUserAvatar(resp.avatar);
+					return resp.id;
+				}),
+				catchError(HttpService.handleError<string>('register'))
+			);
 	}
 }

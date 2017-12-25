@@ -1,0 +1,71 @@
+<div class="group-item">
+    <div class="question-content">
+        <h3>听力材料</h3>
+        <app-tpo-review-player [src]="recordUrl"></app-tpo-review-player>
+        <div class="passage" [froalaView]="passage"></div>
+
+        <div class="buttons" fxLayout="row" fxLayoutGap="15px">
+            <a class="bottom-button" (click)="openEditContentDialog()">
+                <i class="material-icons">edit</i>
+                <span>编辑</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="question-item" *ngFor="let question of questionList">
+        <div *ngIf="question.questionType !=='tpo_listening_table_choice'">
+            <h4>{{question.question}}</h4>
+            <mat-list fxLayout="column" fxLayoutGap="5px">
+                <mat-list-item *ngFor="let option of question.options; let i = index">
+                    {{i|convert09ToAZ}}. {{option}}
+                </mat-list-item>
+            </mat-list>
+            <p class="answer">答案：{{question.answer}}</p>
+
+            <div class="buttons" fxLayout="row" fxLayoutGap="15px">
+                <a class="bottom-button" (click)="openEditQuestionDialog(question)">
+                    <i class="material-icons">edit</i>
+                    <span>编辑</span>
+                </a>
+                <a class="bottom-button" (click)="openConfirmDeleteQuestionDialog(question)">
+                    <i class="material-icons">delete</i>
+                    <span>删除</span>
+                </a>
+            </div>
+        </div>
+
+        <div *ngIf="question.questionType == 'tpo_listening_table_choice'">
+            <h4>{{getQuestionForTableChoiceQuestion(question.question)}}</h4>
+            <app-tpo-table-for-view
+                [tableRows]="getRowsForTableChoiceQuestion(question.question)"
+                [tableCols]="question.options"
+                [mode]="'review'"
+                [answer]="question.answer"
+            ></app-tpo-table-for-view>
+            <p class="answer">答案：{{question.answer}}</p>
+
+            <div class="buttons" fxLayout="row" fxLayoutGap="15px">
+                <a class="bottom-button" (click)="openEditQuestionDialog(question)">
+                    <i class="material-icons">edit</i>
+                    <span>编辑</span>
+                </a>
+                <a class="bottom-button" (click)="openConfirmDeleteQuestionDialog(question)">
+                    <i class="material-icons">delete</i>
+                    <span>删除</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="add-question" fxLayout="column" fxLayoutAlign="center center">
+        <a class="add-question-button" (click)="addQuestion()">
+            <i class="material-icons">add</i>
+            <span>添加题目</span>
+        </a>
+    </div>
+
+    <a class="delete-group-button" (click)="openConfirmDeleteGroupDialog()">
+        <i class="material-icons" color="accent">cancel</i>
+    </a>
+</div>

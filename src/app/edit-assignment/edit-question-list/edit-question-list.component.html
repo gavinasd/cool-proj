@@ -1,16 +1,49 @@
-<md-card *ngFor="let group of groupList;let i = index;" [ngSwitch]="group.type">
+<div *ngFor="let group of groupList;let i = index;" [ngSwitch]="group.type">
     <edit-app-vocabulary-item
             *ngSwitchCase="assignmentService.getVocabularyQuestionType()"
             [group]="group"
     >
     </edit-app-vocabulary-item>
     <app-tpo-reading-item
+            *ngSwitchCase="assignmentService.getTPOReadingQuestionType()"
+            [assignmentId]="assignmentId"
             [group]="group"
-            *ngSwitchCase="assignmentService.getTPOReadingQuestionType()">
+            (onDelete)="deleteGroup(group)"
+    >
     </app-tpo-reading-item>
-    <app-independent-writing-item
+
+    <app-tpo-listening-item
+            *ngSwitchCase="'tpo_listening'"
+            [assignmentId]="assignmentId"
             [group]="group"
+            (onDelete)="deleteGroup(group)"
+    >
+    </app-tpo-listening-item>
+
+    <app-independent-writing-item
             *ngSwitchCase="assignmentService.getIndependentWritingType()"
+            [assignmentId]="assignmentId"
+            [group]="group"
+            (onDelete)="deleteGroup(group)"
     ></app-independent-writing-item>
+
+    <app-integrated-writing-item
+            *ngSwitchCase="assignmentService.getIntegratedWritingType()"
+            [assignmentId]="assignmentId"
+            [group]="group"
+            (onDelete)="deleteGroup(group)"
+    >
+    </app-integrated-writing-item>
+
+    <app-tpo-speaking-item
+            *ngSwitchCase="'tpo_speaking'"
+            [assignmentId]="assignmentId"
+            [group]="group"
+            (onDelete)="deleteGroup(group)"
+    ></app-tpo-speaking-item>
     <p *ngSwitchDefault>还需要完成item的设计</p>
-</md-card>
+</div>
+
+<button fxFlexAlign="end" id="add-question-group" mat-fab color="accent" (click)="openAddGroupDialog()">
+    <mat-icon>add</mat-icon>
+</button>

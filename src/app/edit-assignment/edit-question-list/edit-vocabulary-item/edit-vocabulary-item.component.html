@@ -1,16 +1,16 @@
-<md-card-content>
+<mat-card-content>
     <h5>词汇列表</h5>
     <app-vocabulary-list [wordList]="wordList"></app-vocabulary-list>
-</md-card-content>
+</mat-card-content>
 
-<md-card-content>
+<mat-card-content>
     <h5>题目</h5>
-    <md-list>
-        <md-list-item *ngFor="let question of questionList;let i = index">
-            <h4 md-line>{{i+1}}. 英文单词：{{question.question}}</h4>
-            <p md-line>答案：{{question.answer}}</p>
-        </md-list-item>
-    </md-list>
-</md-card-content>
+    <mat-list>
+        <mat-list-item *ngFor="let question of questionList;let i = index">
+            <h4 mat-line>{{i+1}}. 英文单词：{{question.question}}</h4>
+            <p mat-line>答案：{{question.answer}}</p>
+        </mat-list-item>
+    </mat-list>
+</mat-card-content>
 
 

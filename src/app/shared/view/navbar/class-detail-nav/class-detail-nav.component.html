@@ -1,6 +1,6 @@
-<md-toolbar color="primary" fxLayoutGap="20px">
-    <button md-button class="brand" (click)="gotoHome()">
-        <md-icon>edit</md-icon>
+<mat-toolbar color="primary" fxLayoutGap="20px">
+    <button mat-button class="brand" (click)="gotoHome()">
+        <mat-icon>edit</mat-icon>
         <span>琢玉课堂</span>
     </button>
 
@@ -12,8 +12,8 @@
 
             <div class="form-group search-bar" fxLayout="row">
                 <input type="text" placeholder="搜索班级" name="classForSearch" required ngModel>
-                <button md-icon-button class="input-after" type="submit">
-                    <md-icon >search</md-icon>
+                <button mat-icon-button class="input-after" type="submit">
+                    <mat-icon >search</mat-icon>
                 </button>
             </div>
         </form>
@@ -21,13 +21,13 @@
 
     <span fxFlex></span>
 
-    <button md-button [mdMenuTriggerFor]="menu">
-        {{userName}}<md-icon>expand_more</md-icon>
+    <button id="more" mat-button [matMenuTriggerFor]="menu">
+        {{userName}}<mat-icon>expand_more</mat-icon>
     </button>
-</md-toolbar>
+</mat-toolbar>
 
-<md-menu #menu="mdMenu" x-position="before">
-    <button md-menu-item (click)="logout()">
+<mat-menu #menu="matMenu" x-position="before">
+    <button mat-menu-item (click)="logout()">
         <span >退出</span>
     </button>
-</md-menu>
+</mat-menu>

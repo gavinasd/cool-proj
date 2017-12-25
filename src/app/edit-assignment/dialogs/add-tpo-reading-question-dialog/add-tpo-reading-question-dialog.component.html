@@ -1,0 +1,61 @@
+<h4 mat-dialog-title>添加阅读题</h4>
+
+<mat-dialog-content>
+    <form ngNativeValidate id="form" role="form" #f="ngForm"
+          (ngSubmit) = "closeDialogAndSave(f)" fxLayout="column">
+        <mat-input-container>
+            <input matInput name="index" type="number" required
+                   min="1" max="{{questionIndex}}"
+                   [(ngModel)]="questionIndex"  placeholder="插入到第几题">
+        </mat-input-container>
+
+        <mat-input-container>
+            <input matInput name="paragraph" type="number" required ngModel placeholder="段落">
+        </mat-input-container>
+
+        <mat-input-container>
+            <input matInput name="question" type="text" required ngModel placeholder="题目">
+        </mat-input-container>
+
+        <mat-form-field>
+            <mat-select placeholder="选择题目类型" name="questionType" required [(ngModel)]="questionType">
+                <mat-option [value]="assignmentService.getTPOReadingSingleChoice()">单选题</mat-option>
+                <mat-option [value]="assignmentService.getTPOReadingInsertChoice()">插入题</mat-option>
+                <mat-option [value]="assignmentService.getTPOReadingTopic()">主旨题</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-input-container>
+            <input matInput name="option1" type="text" required ngModel placeholder="选项A">
+        </mat-input-container>
+
+        <mat-input-container>
+            <input matInput name="option2" type="text" required ngModel placeholder="选项B">
+        </mat-input-container>
+
+        <mat-input-container>
+            <input matInput name="option3" type="text" required ngModel placeholder="选项C">
+        </mat-input-container>
+
+        <mat-input-container>
+            <input matInput name="option4" type="text" required ngModel placeholder="选项D">
+        </mat-input-container>
+
+        <mat-input-container *ngIf="questionType == 'tpo_reading_topic'">
+            <input matInput name="option5" type="text" required ngModel placeholder="选项E">
+        </mat-input-container>
+
+        <mat-input-container *ngIf="questionType == 'tpo_reading_topic'">
+            <input matInput name="option6" type="text" required ngModel placeholder="选项F">
+        </mat-input-container>
+
+        <mat-input-container>
+            <input matInput name="answer" type="text" required ngModel placeholder="答案">
+        </mat-input-container>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="closeDialog()">取消</button>
+    <button mat-button type="submit" form="form" color="accent">确定</button>
+</mat-dialog-actions>

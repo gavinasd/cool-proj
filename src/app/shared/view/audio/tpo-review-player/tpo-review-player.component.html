@@ -1,16 +1,16 @@
 <div class="container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-    <button md-mini-fab color="white" (click)="togglePlay()">
-        <md-icon>{{isPlaying?'pause':'play_arrow'}}</md-icon>
+    <button mat-mini-fab color="white" (click)="togglePlay()">
+        <mat-icon>{{isPlaying?'pause':'play_arrow'}}</mat-icon>
     </button>
     <p>
         {{currentTime}}
     </p>
-    <md-progress-bar
+    <mat-progress-bar
             [color]="'primary'"
             [mode]="'determinate'"
             [value]="progress"
     >
-    </md-progress-bar>
+    </mat-progress-bar>
 
     <p>
         {{totalTime}}

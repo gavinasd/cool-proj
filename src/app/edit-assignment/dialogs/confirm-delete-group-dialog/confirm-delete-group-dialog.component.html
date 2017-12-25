@@ -1,0 +1,7 @@
+<h2 mat-dialog-title>删除题目</h2>
+<mat-dialog-content>确定删除吗？这一组里面的题目都会被删除，并且无法恢复。</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>取消</button>
+    <!-- Can optionally provide a result for the closing dialog. -->
+    <button mat-button color="accent" [mat-dialog-close]="true">确定</button>
+</mat-dialog-actions>

@@ -2,13 +2,13 @@
     position: relative;
 }
 
-md-list {
+mat-list {
     border: 1pt solid rgba(0, 0, 0, 0.12);
     border-radius: 3px;
     background-color: white;
 }
 
-md-list .header{
+mat-list .header{
     font-size: 18px;
     color: #262626;
     margin: 10px 0 10px 20px;

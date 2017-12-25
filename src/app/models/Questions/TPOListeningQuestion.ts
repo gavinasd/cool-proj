@@ -7,6 +7,10 @@ export class TPOListeningQuestion extends Question{
 	constructor(obj?:any){
 		super(obj);
 		this.recordUrl = obj && obj.recordUrl;
-		this.options = obj && obj.options;
+		if(obj && obj.options){
+			for(let i = 0; i < obj.options.length; i ++ ){
+				this.options[i] = obj.options[i];
+			}
+		}
 	}
 }

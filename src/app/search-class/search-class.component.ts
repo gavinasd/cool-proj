@@ -3,6 +3,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {ClassService} from "../core/services/class.service";
 import {ClassInfo} from "../models/models";
 import {Observable} from "rxjs";
+import {map, switchMap} from "rxjs/operators";
 
 @Component({
     selector: 'app-search-class',
@@ -21,13 +22,15 @@ export class SearchClassComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.classInfoList$ = this.className$.switchMap(className => this.classService.searchClass(className));
-        this.classInfoList$.map((classInfoList:any[])=>{
-            return classInfoList.map((classInfo:any)=>{
-                let mClassInfo:ClassInfo = new ClassInfo(classInfo._id,classInfo.name, classInfo.teacherList);
-                return mClassInfo;
-            })
-        }).subscribe((classInfoList:ClassInfo[])=>{
+	    this.className$.pipe(
+		    switchMap(className => this.classService.searchClass(className)),
+		    map((classInfoList:any[])=>{
+			    return classInfoList.map((classInfo:any)=>{
+				    let mClassInfo:ClassInfo = new ClassInfo(classInfo._id,classInfo.name, classInfo.teacherList);
+				    return mClassInfo;
+			    })
+		    })
+	    ).subscribe((classInfoList:ClassInfo[])=>{
             this.classInfoList = classInfoList;
         });
     }

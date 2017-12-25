@@ -1,11 +1,11 @@
 <div class="user-list">
-    <md-list>
+    <mat-list>
         <p class="header">班级成员</p>
-        <md-divider></md-divider>
+        <mat-divider></mat-divider>
 
 
         <div *ngFor="let teacher of teacherList" class="info" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-            <md-icon svgIcon="avatars:{{teacher.avatar}}"></md-icon>
+            <mat-icon svgIcon="avatars:{{teacher.avatar}}"></mat-icon>
             <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="5px">
                 <h4>{{teacher.nickName}}</h4>
                 <p>老师</p>
@@ -13,11 +13,11 @@
         </div>
 
         <div *ngFor="let student of studentList" class="info" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-            <md-icon svgIcon="avatars:{{student.avatar}}"></md-icon>
+            <mat-icon svgIcon="avatars:{{student.avatar}}"></mat-icon>
             <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="5px">
                 <h4>{{student.nickName}}</h4>
                 <p>学生</p>
             </div>
         </div>
-    </md-list>
+    </mat-list>
 </div>

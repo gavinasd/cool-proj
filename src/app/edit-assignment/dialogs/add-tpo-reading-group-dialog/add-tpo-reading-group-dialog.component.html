@@ -1,0 +1,15 @@
+<h4 mat-dialog-title>添加阅读文章</h4>
+
+<mat-dialog-content>
+    <form ngNativeValidate id="form" role="form" #f="ngForm"
+          (ngSubmit) = "closeDialogAndSave()">
+    <textarea class="form-control" [froalaEditor]="EditorOptions"
+              id="passage" [(froalaModel)]="passage"
+              rows="10" required ></textarea>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogRef.close()">取消</button>
+    <button mat-button type="submit" form="form" color="accent">确定</button>
+</mat-dialog-actions>

@@ -1,0 +1,78 @@
+.group-item{
+    width: 100%;
+    margin: 20px;
+    border: 1px solid rgba(0,0,0,.09);
+    border-radius: 3px;
+    position: relative;
+    background-color: white;
+    padding: 24px 24px 10px 24px;
+}
+
+.passage{
+    margin-bottom: 20px;
+}
+
+.question-item{
+    border-top: 1px solid rgba(0,0,0,.09);
+}
+
+.question-item:first-child{
+    border: none;
+}
+
+.bottom-button{
+    color: #666c84;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.bottom-button i{
+    vertical-align: middle;
+    font-size: 18px;
+    color: #666c84;
+}
+
+.bottom-button span{
+    vertical-align: middle;
+    font-size: 14px;
+    color: #666c84;
+}
+
+mat-list{
+    padding: 0px;
+}
+
+mat-list-item{
+    font-size: inherit;
+}
+
+.answer{
+    padding-left: 16px;
+    margin-bottom: 20px;
+}
+
+.add-question{
+    border-top: 1px solid rgba(0,0,0,.09);
+    height: 30px;
+    font-size: 16px;
+    color: #4caf50;
+    cursor: pointer;
+    height: 40px;
+    padding: 13px 0 3px 0;
+}
+
+.add-question-button{
+    height: 24px;
+}
+
+.add-question-button *{
+    vertical-align: middle;
+}
+
+.delete-group-button{
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    cursor: pointer;
+    color: #f44336;
+}

@@ -8,11 +8,15 @@
     width: 100vh;
 }
 
-md-sidenav {
-    width: 320px;
+mat-toolbar span{
+    color: white;
 }
 
-md-list-item{
+mat-sidenav {
+    width: 240px;
+}
+
+mat-list-item{
     margin-top: 15px;
     margin-bottom: 15px;
     align-content: center;
@@ -20,6 +24,5 @@ md-list-item{
 
 
 .content {
-    padding: 12px;
-    height: 100%;
+    width: 750px;
 }

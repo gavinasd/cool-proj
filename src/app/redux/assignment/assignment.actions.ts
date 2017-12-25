@@ -24,7 +24,7 @@ export const RESET =                '[ASSIGNMENT] RESET';
 
 export class FetchAssignmentAction implements Action{
 	readonly type = FETCH;
-	constructor(public payload:object){}
+	constructor(public payload:any){}
 }
 
 export class FetchAssignmentSuccessAction implements Action{
@@ -39,7 +39,7 @@ export class FetchAssignmentFailureAction implements Action{
 
 export class FetchInfoAction implements Action{
 	readonly type = FETCH_INFO;
-	constructor(public payload:object){}
+	constructor(public payload:any){}
 }
 
 export class FetchInfoSuccessAction implements Action{
@@ -91,7 +91,7 @@ export class SkipToQuestionAction implements Action{
 
 export class SubmitAction implements Action{
 	readonly type = SUBMIT;
-	constructor(public payload:object){}
+	constructor(public payload:any){}
 }
 
 export class SubmitSuccessAction implements Action{

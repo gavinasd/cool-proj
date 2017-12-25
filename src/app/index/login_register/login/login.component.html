@@ -8,21 +8,21 @@
 
         <form ngNativeValidate role="form" #f="ngForm"
               (ngSubmit) = "onSubmit(f.value)" fxLayout="column" fxLayoutGap="20px">
-            <md-input-container>
-                <input mdInput type="email"
+            <mat-input-container>
+                <input matInput type="email"
                        placeholder="电子邮箱" name="email"
                        required ngModel>
-                <md-icon mdSuffix>email</md-icon>
-            </md-input-container>
+                <mat-icon matSuffix>email</mat-icon>
+            </mat-input-container>
 
-            <md-input-container>
-                <input mdInput type="password"
+            <mat-input-container>
+                <input matInput type="password"
                        placeholder="密码" name="password"
                        required ngModel>
-                <md-icon mdSuffix>lock</md-icon>
-            </md-input-container>
+                <mat-icon matSuffix>lock</mat-icon>
+            </mat-input-container>
 
-            <button type="submit" md-raised-button color="primary" fxFlexAlign="end">
+            <button mat-raised-button type="submit" color="primary" fxFlexAlign="end">
                 登录
             </button>
 

@@ -1,5 +1,5 @@
-<md-expansion-panel class="mat-elevation-z0" [expanded]="open">
-    <md-expansion-panel-header><span>{{assignmentInfo.assignmentName}}</span></md-expansion-panel-header>
+<mat-expansion-panel class="mat-elevation-z0" [expanded]="open">
+    <mat-expansion-panel-header><span>{{assignmentInfo.assignmentName}}</span></mat-expansion-panel-header>
     <div fxLayout="column" fxLayoutGap="10px">
         <app-grade-info-item-detail
                 *ngFor="let gradeInfo of assignmentInfo.gradeInfoList"
@@ -9,4 +9,4 @@
                 [assignmentId]="assignmentInfo.assignmentId">
         </app-grade-info-item-detail>
     </div>
-</md-expansion-panel>
+</mat-expansion-panel>

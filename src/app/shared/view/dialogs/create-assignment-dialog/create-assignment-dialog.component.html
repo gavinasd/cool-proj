@@ -2,23 +2,24 @@
 <form ngNativeValidate id="createAssignmentForm" role="form" #form="ngForm"
       (ngSubmit) = "dialogRef.close(form.value)">
     <div fxLayout="column" fxLayoutGap="8px">
-        <md-input-container>
-            <input mdInput type="text" class="form-control" name="assignmentName" placeholder="作业名称:" required ngModel>
-        </md-input-container>
+        <mat-input-container>
+            <input matInput type="text" class="form-control" name="assignmentName" placeholder="作业名称:" required ngModel>
+        </mat-input-container>
 
-        <md-select placeholder="选择作业类型"
-            name="type"
-            ngModel
-            required>
-            <md-option *ngFor="let assignmentType of assignmentTypes"
-                       [value]="assignmentType.value">
-                {{assignmentType.name}}
-            </md-option>
-        </md-select>
+        <mat-form-field>
+            <mat-select placeholder="选择作业类型" name="type"
+                        ngModel required>
+                <mat-option *ngFor="let assignmentType of assignmentTypes"
+                            [value]="assignmentType.value">
+                    {{assignmentType.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
     </div>
 
-    <md-dialog-actions align="end">
-        <button md-button type="button" (click)="dialogRef.close()">取消</button>
-        <button md-button color="accent">确定</button>
-    </md-dialog-actions>
+    <mat-dialog-actions align="end">
+        <button mat-button type="button" (click)="dialogRef.close()">取消</button>
+        <button mat-button color="accent">确定</button>
+    </mat-dialog-actions>
 </form>

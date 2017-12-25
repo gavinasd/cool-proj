@@ -1,4 +1,7 @@
-import {Component, OnInit, Input, OnChanges, SimpleChanges, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import {
+	Component, OnInit, Input, OnChanges, SimpleChanges, AfterViewInit, ViewChild, ElementRef,
+	AfterViewChecked
+} from '@angular/core';
 import {TPOReadingQuestion} from "../../../../models/Questions/TPOReadingQuestion";
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {Convert09ToAZPipe} from "../../../../shared/pipes/convert09-to-az.pipe";
@@ -9,7 +12,7 @@ import {Convert09ToAZPipe} from "../../../../shared/pipes/convert09-to-az.pipe";
   styleUrls: ['./tpo-reading-question-detail.component.css']
 })
 export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailComponent
-	implements OnInit,OnChanges,AfterViewInit {
+	implements OnInit,OnChanges,AfterViewChecked {
 	public tpoReadingQuestion: TPOReadingQuestion;
 	public passage: string = '';
 
@@ -17,6 +20,7 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 	@Input() viewMode:string = 'question';
 
 	selectedAnswers:number[]=[-1,-1,-1];
+	private scrollQuestionId:string; //用来保存已经滚过的题目，不至于重复滚动
 
 	constructor(public convert09ToAZ:Convert09ToAZPipe) {
 		super();
@@ -39,11 +43,14 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 			this.passage = JSON.parse(this.groupContent).passage;
 		}
 		this.tpoReadingQuestion = <TPOReadingQuestion>this.question;
-		this.scroll();
 	}
 
-	ngAfterViewInit(): void {
+	ngAfterViewChecked(): void {
+		if(this.tpoReadingQuestion.id == this.scrollQuestionId){
+			return;
+		}
 		this.scroll();
+		this.scrollQuestionId = this.tpoReadingQuestion.id;
 	}
 
 	scroll():void{
@@ -77,7 +84,13 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 			scrollTop += e.offsetHeight
 				+ parseInt(getComputedStyle(e).marginTop) + parseInt(getComputedStyle(e).marginBottom);
 		}
-		this.passageContainer.nativeElement.scrollTop = scrollTop - 10;
+
+		if(this.tpoReadingQuestion.paragraph == 1){
+			this.passageContainer.nativeElement.scrollTop = 0;
+		} else {
+			this.passageContainer.nativeElement.scrollTop = scrollTop - 10;
+		}
+
 	}
 
 	changeView(){

@@ -1,34 +1,34 @@
-<md-toolbar class="question-header" color="primary">
+<mat-toolbar class="question-header" color="primary">
     <div class="brand" fxFlex="20" fxLayoutAlign="start">
-        <button  md-button class="brand" (click)="gotoHome()">
-            <md-icon>edit</md-icon>
+        <button  mat-button class="brand" (click)="gotoHome()">
+            <mat-icon>edit</mat-icon>
             <span>琢玉课堂</span>
         </button>
     </div>
 
-    <span fxFlex="60" fxLayoutAlign="center">{{assignmentName}}</span>
+    <span id="assignment-name" fxFlex="60" fxLayoutAlign="center">{{assignmentName}}</span>
 
     <span class="header-button"
           fxLayout="column" fxFlex="20" fxLayoutAlign="center end" fxLayoutGap="8px">
         <div id="first-line" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="5px">
-            <button md-button (click)="quit()">
+            <button mat-button (click)="quit()">
                 Quit
             </button>
 
-            <button md-button *ngIf="questionType == 'tpo_reading_topic'" (click)="changeView()">
+            <button mat-button *ngIf="questionType == 'tpo_reading_topic'" (click)="changeView()">
                 {{viewText?'View Question':'View Text'}}
             </button>
 
-            <button md-button *ngIf="showPre" (click)="preQuestion()">
+            <button mat-button *ngIf="showPre" (click)="preQuestion()">
                 Back
             </button>
-            <div class="tooltip" mdTooltip="Click Disable!" [mdTooltipPosition]="'below'" [mdTooltipDisabled]="!disableNext">
-                <button md-button *ngIf="showNext" [disabled]="disableNext" (click)="nextQuestion()">
+            <div class="tooltip" matTooltip="Click Disable!" [matTooltipPosition]="'below'" [matTooltipDisabled]="!disableNext">
+                <button mat-button *ngIf="showNext" [disabled]="disableNext" (click)="nextQuestion()">
                     Next
                 </button>
             </div>
         </div>
         <app-question-timer *ngIf="homeworkMode()"></app-question-timer>
     </span>
-</md-toolbar>
+</mat-toolbar>
 

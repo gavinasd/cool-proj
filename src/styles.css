@@ -1,6 +1,6 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import "https://fonts.googleapis.com/css?family=Material+Icons";
-@import "https://fonts.googleapis.com/css?family=Roboto:400,300";
+@import "https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css";
+@import "https://fonts.cat.net/css?family=Roboto:400,300";
 
 html, body {
     font-family: -apple-system, "San Francisco", "Helvetica Neue", Arial, "Segoe UI", "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft Yahei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", 驿微米黑, SimSun, sans-serif;
@@ -12,7 +12,7 @@ html{
     position:relative;
 }
 
-md-icon > .md-font{
+mat-icon > .mat-font{
     /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
     /* Support for Safari and Chrome. */
@@ -25,6 +25,34 @@ md-icon > .md-font{
     font-feature-settings: 'liga';
 }
 
+.mat-fab.mat-accent,.mat-fab.mat-primary,.mat-fab.mat-warn,.mat-mini-fab.mat-accent,.mat-mini-fab.mat-primary,.mat-mini-fab.mat-warn,.mat-raised-button.mat-accent,.mat-raised-button.mat-primary,.mat-raised-button.mat-warn{color:#fff !important;}
+
 body{
     background-color: #f7f8fa;
+}
+
+snack-bar-container.success-snackbar{
+    border:2px solid #4caf50;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    background-color: #f7f8fa;
+    text-align: center;
+}
+
+snack-bar-container.error-snackbar{
+    border:2px solid #f44336;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    background-color: #f7f8fa;
+    text-align: center;
+}
+
+.success-snackbar simple-snack-bar{
+    display: block;
+    color: #4caf50;
+}
+
+.error-snackbar simple-snack-bar{
+    display: block;
+    color: #f44336;
 }

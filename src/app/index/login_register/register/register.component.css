@@ -19,18 +19,18 @@ form{
     padding: 30px 30px 20px 30px;
 }
 
-md-grid-list{
+mat-grid-list{
     width: 250px;
 }
 
-md-icon.avatar{
+mat-icon.avatar{
     overflow: hidden;
     width: 48px;
     height: 48px;
     cursor: pointer;
 }
 
-md-radio-button p{
+mat-radio-button p{
     margin: 5px 0 0 0;
 }
 

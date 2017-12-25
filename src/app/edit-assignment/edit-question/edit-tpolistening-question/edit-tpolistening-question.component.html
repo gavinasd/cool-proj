@@ -6,10 +6,10 @@
 
         <form ngNativeValidate #form="ngForm" (ngSubmit)="addContent(form)"
               fxLayout="column" fxLayoutGap="20px">
-            <md-input-container>
-                <input mdInput name="passageRecord" ngModel required placeholder="请输入听力文件的代号">
-                <md-hint align="start">输入格式是tpo数/第几部分/第几题:如1/2/1指的就是tpo1的第二部分的第一套听力</md-hint>
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="passageRecord" ngModel required placeholder="请输入听力文件的代号">
+                <mat-hint align="start">输入格式是tpo数/第几部分/第几题:如1/2/1指的就是tpo1的第二部分的第一套听力</mat-hint>
+            </mat-input-container>
 
             <textarea class="form-control"
                       [froalaEditor]="passageEditorOptions"
@@ -17,7 +17,7 @@
                       [(ngModel)]="passage"
                       name="passage"
                       rows="5" required></textarea>
-            <button md-raised-button color="primary" type="submit">确认</button>
+            <button mat-raised-button color="primary" type="submit">确认</button>
         </form>
 
     </fieldset>
@@ -29,42 +29,45 @@
         <legend>单个题目录入</legend>
         <form ngNativeValidate #form1="ngForm" (ngSubmit)="addQuestion(form1)" fxLayout="column">
 
-            <md-input-container>
-                <input mdInput name="question" type="text" required ngModel placeholder="请输入题目">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="question" type="text" required ngModel placeholder="请输入题目">
+            </mat-input-container>
 
             <div class="record-input" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                <md-input-container fxFlex>
-                    <input mdInput name="questionRecord" type="text" required ngModel placeholder="这个题目的录音">
-                    <md-hint align="start">输入格式是tpo数/第几部分/第几题:如1/2/10指的就是tpo1的第二部分的第10题</md-hint>
-                </md-input-container>
+                <mat-input-container fxFlex>
+                    <input matInput name="questionRecord" type="text" required ngModel placeholder="这个题目的录音">
+                    <mat-hint align="start">输入格式是tpo数/第几部分/第几题:如1/2/10指的就是tpo1的第二部分的第10题</mat-hint>
+                </mat-input-container>
 
-                <md-select placeholder="题目类型" name="questionType" required [(ngModel)]="questionType">
-                    <md-option [value]="'tpo_listening_single_choice'">单选题</md-option>
-                    <md-option [value]="'tpo_listening_multiple_choice'">多选题</md-option>
-                    <md-option [value]="'tpo_listening_repeat_type'">重听题</md-option>
-                </md-select>
+                <mat-form-field>
+                    <mat-select placeholder="题目类型" name="questionType" required [(ngModel)]="questionType">
+                        <mat-option [value]="'tpo_listening_single_choice'">单选题</mat-option>
+                        <mat-option [value]="'tpo_listening_multiple_choice'">多选题</mat-option>
+                        <mat-option [value]="'tpo_listening_repeat_type'">重听题</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
             </div>
 
-            <md-input-container>
-                <input mdInput name="option1" type="text" required ngModel placeholder="选项A">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="option1" type="text" required ngModel placeholder="选项A">
+            </mat-input-container>
 
-            <md-input-container>
-                <input mdInput name="option2" type="text" required ngModel placeholder="选项B">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="option2" type="text" required ngModel placeholder="选项B">
+            </mat-input-container>
 
-            <md-input-container>
-                <input mdInput name="option3" type="text" required ngModel placeholder="选项C">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="option3" type="text" required ngModel placeholder="选项C">
+            </mat-input-container>
 
-            <md-input-container>
-                <input mdInput name="option4" type="text" required ngModel placeholder="选项D">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="option4" type="text" required ngModel placeholder="选项D">
+            </mat-input-container>
 
-            <md-input-container>
-                <input mdInput name="answer" type="text" required ngModel placeholder="答案">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="answer" type="text" required ngModel placeholder="答案">
+            </mat-input-container>
 
             <textarea class="form-control"
                       [froalaEditor]="explanationEditorOptions"
@@ -74,7 +77,7 @@
                       rows="3" required></textarea>
 
 
-            <button md-raised-button color="primary" type="submit">确认</button>
+            <button mat-raised-button color="primary" type="submit">确认</button>
         </form>
 
     </fieldset>

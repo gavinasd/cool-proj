@@ -1,0 +1,27 @@
+<h4 mat-dialog-title>添加独立写作题目</h4>
+
+<mat-dialog-content>
+
+    <form ngNativeValidate id="form" role="form" #f="ngForm"
+          (ngSubmit) = "closeDialogAndSave()" fxLayout="column">
+        <mat-input-container>
+            <label>请输入题目</label>
+            <textarea matInput class="form-control" [froalaEditor]="QuestionEditorOptions"
+                      [(froalaModel)]="question" required ></textarea>
+
+        </mat-input-container>
+
+        <mat-input-container>
+            <label>请输入范文</label>
+            <textarea matInput class="form-control" [froalaEditor]="AnswerEditorOptions"
+                      [(froalaModel)]="answer" required ></textarea>
+
+        </mat-input-container>
+
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="closeDialog()">取消</button>
+    <button mat-button type="submit" form="form" color="accent">确定</button>
+</mat-dialog-actions>

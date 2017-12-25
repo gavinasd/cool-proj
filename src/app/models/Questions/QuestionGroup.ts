@@ -32,6 +32,7 @@ export class QuestionGroup{
 					case Question.TPO_LISTENING_SINGLE_CHOICE_TYPE:
 					case Question.TPO_LISTENING_REPEAT_TYPE:
 					case Question.TPO_LISTENING_MULTIPLE_CHOICE_TYPE:
+					case Question.TPO_LISTENING_TABLE_CHOICE_TYPE:
 						newQuestion = new TPOListeningQuestion(question);
 						break;
 					case Question.TPO_SPEAKING_Q1Q2_TYPE:

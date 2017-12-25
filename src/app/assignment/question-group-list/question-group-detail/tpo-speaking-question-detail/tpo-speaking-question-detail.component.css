@@ -28,6 +28,10 @@ app-question-index{
     border-bottom: 1px solid lightgray;
 }
 
+.question-detail{
+    width: 100%;
+}
+
 .passage{
     max-width: 100%;
     min-height: 250px;
@@ -41,12 +45,12 @@ app-audio-player{
     width: 700px;
     margin-top: 50px;
 }
-md-expansion-panel{
+mat-expansion-panel{
     margin-bottom: 10px !important;
     border:1px solid lightgray;
 }
 
-md-expansion-panel .passage{
+mat-expansion-panel .passage{
     margin:0 0px 0 0;
     min-height: 200px;
 }
@@ -62,7 +66,7 @@ md-expansion-panel .passage{
     margin: 0;
 }
 
-md-card.mat-card{
+mat-card.mat-card{
     padding: 8px 15px 8px 15px;
 }
 

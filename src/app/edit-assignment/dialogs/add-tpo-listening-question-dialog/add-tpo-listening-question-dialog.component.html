@@ -1,0 +1,104 @@
+<h4 mat-dialog-title>添加听力题目</h4>
+
+<mat-dialog-content>
+    <form ngNativeValidate id="form" role="form" #f="ngForm"
+          (ngSubmit) = "closeDialogAndSave(f)" fxLayout="column">
+        <mat-input-container>
+            <input matInput name="index" type="number" required
+                   min="1" max="{{questionIndex}}"
+                   [(ngModel)]="questionIndex"  placeholder="插入到第几题">
+        </mat-input-container>
+
+        <mat-input-container>
+            <input matInput name="question" type="text" required ngModel placeholder="请输入题目">
+        </mat-input-container>
+
+        <div class="record-input" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <mat-input-container fxFlex>
+                <input matInput name="questionRecord" type="text"
+                       required ngModel placeholder="这个题目的录音">
+                <mat-hint align="start">输入格式是tpo数/第几部分/第几题:如1/2/10指的就是tpo1的第二部分的第10题</mat-hint>
+            </mat-input-container>
+
+            <mat-form-field>
+                <mat-select placeholder="题目类型" name="questionType" required [(ngModel)]="questionType">
+                    <mat-option [value]="'tpo_listening_single_choice'">单选题</mat-option>
+                    <mat-option [value]="'tpo_listening_multiple_choice'">多选题</mat-option>
+                    <mat-option [value]="'tpo_listening_table_choice'">表格题</mat-option>
+                    <mat-option [value]="'tpo_listening_repeat_type'">重听题</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div *ngIf="questionType == 'tpo_listening_table_choice'"
+             fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <mat-input-container>
+                <input matInput name="row" type="number" required
+                       (change)="initTableRows(f.value.row)" ngModel placeholder="表格题的列数">
+            </mat-input-container>
+
+            <mat-input-container>
+                <input matInput name="column" type="number" required
+                       (change)="initTableCols(f.value.column)" ngModel placeholder="表格题的行数">
+            </mat-input-container>
+        </div>
+
+        <div *ngIf="questionType == 'tpo_listening_table_choice'" fxLayout="column">
+            <mat-input-container
+                    *ngFor="let row of tableRows;let i = index;trackBy:trackByIndex">
+                <input matInput type="text" required
+                       name="tableRow{{i}}"
+                       placeholder="标题{{i+1}}"
+                       [(ngModel)]="tableRows[i]">
+            </mat-input-container>
+        </div>
+
+        <div *ngIf="questionType == 'tpo_listening_table_choice'" fxLayout="column">
+            <mat-input-container *ngFor="let row of tableCols;let i = index;trackBy:trackByIndex">
+                <input matInput type="text" required
+                       name="tableCol{{i}}"
+                       placeholder="选项{{i+1}}"
+                       [(ngModel)]="tableCols[i]">
+            </mat-input-container>
+        </div>
+
+        <div *ngIf="questionType !== 'tpo_listening_table_choice'" fxLayout="column">
+            <mat-input-container>
+                <input matInput name="option1" type="text"
+                       required ngModel placeholder="选项A">
+            </mat-input-container>
+
+            <mat-input-container>
+                <input matInput name="option2" type="text" required
+                       ngModel placeholder="选项B">
+            </mat-input-container>
+
+            <mat-input-container>
+                <input matInput name="option3" type="text" required
+                       ngModel placeholder="选项C">
+            </mat-input-container>
+
+            <mat-input-container>
+                <input matInput name="option4" type="text" required
+                       ngModel placeholder="选项D">
+            </mat-input-container>
+        </div>
+
+        <mat-input-container>
+            <input matInput name="answer" type="text" required
+                   ngModel placeholder="答案">
+        </mat-input-container>
+
+        <textarea class="form-control"
+                  [froalaEditor]="explanationEditorOptions"
+                  [(froalaModel)]="explanation"
+                  [(ngModel)]="explanation"
+                  name="explanation"
+                  rows="3" required></textarea>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="closeDialog()">取消</button>
+    <button mat-button type="submit" form="form" color="accent">确定</button>
+</mat-dialog-actions>

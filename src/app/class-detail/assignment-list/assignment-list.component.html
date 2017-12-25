@@ -1,22 +1,23 @@
 <div class="assignment-list" fxFlex>
-    <md-list>
+    <mat-list>
         <div fxFlexLayout="row" fxLayoutAlign="start center">
             <p class="header">作业列表</p>
             <span fxFlex></span>
-            <button *ngIf="userType == '1'" md-button class="fab-top-right" (click)="openAddAssignmentDialog()">
+            <button *ngIf="userType == '1'" mat-button class="fab-top-right" (click)="openAddAssignmentDialog()">
                 添加作业
             </button>
         </div>
-        <md-divider></md-divider>
-        <md-accordion [displayMode]="'flat'" [multi]="false">
+        <mat-divider></mat-divider>
+        <mat-accordion [displayMode]="'flat'" [multi]="false">
             <app-grade-info-detail
                     *ngFor="let assignmentInfo of listForShow;let i = index"
-                    [open]="i == 0"
+                    [open]="i == 0 || openExpansionList[i]"
+                    (click)="toggleExpansion(i)"
                     [assignmentInfo]="assignmentInfo"
                     [classId]="classId"
                     [needToMark]="needToMark(assignmentInfo.assignmentType)"
             ></app-grade-info-detail>
-        </md-accordion>
+        </mat-accordion>
 
         <div id="more">
             <a fxLayoutAlign="center" *ngIf="listForShow && canShowMore()" (click)="showMore()" type="button">
@@ -31,5 +32,5 @@
         </div>
 
 
-    </md-list>
+    </mat-list>
 </div>

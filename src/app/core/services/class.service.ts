@@ -3,6 +3,7 @@ import {HttpService} from "./http.service";
 import {Observable} from 'rxjs/Observable';
 import {environment} from "../../../environments/environment";
 import {AssignmentInfo} from "../../models/models";
+import {catchError, map} from "rxjs/operators";
 
 @Injectable()
 export class ClassService {
@@ -19,23 +20,29 @@ export class ClassService {
         });
 
         return this.httpService.makePostWithToken(url,body)
-            .map(resp=>resp.json()).catch(HttpService.handleError);
-
+	        .pipe(
+		        map(resp=>resp),
+		        catchError(HttpService.handleError<any[]>('createClass'))
+	        );
     }
 
     public getClassList(userId:string):Observable<any[]>{
         let url = environment.getClassListUrl;
         url = url + '/' + userId;
-        return this.httpService.makeGetWithToken(url).map((resp)=>{
-            return resp.json().classes;
-        });
+        return this.httpService.makeGetWithToken(url).pipe(
+	        map((resp)=>{
+		        return resp.classes;
+	        })
+        );
     }
 
     public searchClass(className:string):Observable<any>{
         let url = environment.searchClassUrl;
         url = url + '/' + className;
         return this.httpService.makeGetWithToken(url)
-            .map(resp=>resp.json().classes);
+            .pipe(
+	            map(resp=>resp.classes)
+            );
     }
 
     public classAddStudent(classId:string, verifyCode:string):Observable<any>{
@@ -48,15 +55,20 @@ export class ClassService {
 
         console.log(body);
         return this.httpService.makePostWithToken(url,body)
-            .map(resp=>resp.json()).catch(HttpService.handleError);
+            .pipe(
+	            map(resp=>resp),
+	            catchError(HttpService.handleError<any>('classAddStudent'))
+            );
     }
 
     public classGetAllUser(classId:string):Observable<any>{
         let url = environment.getClassAllUserUrl;
         url = url + '/' + classId + '/' + this.httpService.getCurrentId();
         return this.httpService.makeGetWithToken(url)
-            .map(resp=>resp.json()).catch(HttpService.handleError);
-
+	        .pipe(
+		        map(resp=>resp),
+		        catchError(HttpService.handleError<any>('classGetAllUser'))
+	        );
     }
 
 	/**
@@ -67,7 +79,10 @@ export class ClassService {
 		let userId = this.httpService.getCurrentId();
 		url = url + '/' + classId + '/' + userId + '/' + page;
 		return this.httpService.makeGetWithToken(url)
-			.map(resp => resp.json().gradeInfo).catch(HttpService.handleError);
+			.pipe(
+				map(resp=>resp.gradeInfo),
+				catchError(HttpService.handleError<AssignmentInfo[]>('getAssignmentList'))
+			);
 	}
 
 	/**
@@ -81,7 +96,9 @@ export class ClassService {
 			'assignmentId':assignmentId
 		});
 		return this.httpService.makePostWithToken(url, body)
-			.map(resp => resp.json())
-			.catch(HttpService.handleError);
+			.pipe(
+				map(resp=>resp),
+				catchError(HttpService.handleError<any[]>('addAssignment'))
+			);
 	}
 }

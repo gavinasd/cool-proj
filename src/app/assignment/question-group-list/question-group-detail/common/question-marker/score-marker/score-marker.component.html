@@ -1,7 +1,7 @@
 <form ngNativeValidate #form="ngForm" (submit)="markScore(form)" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-    <md-input-container>
-        <input mdInput placeholder="分数(满分{{score}}分)" name="score" type="number" step="0.5" max="{{score}}" min="0" required ngModel>
-    </md-input-container>
+    <mat-input-container>
+        <input matInput placeholder="分数(满分{{score}}分)" name="score" type="number" step="0.5" max="{{score}}" min="0" required ngModel>
+    </mat-input-container>
 
-    <button md-raised-button color="accent">评分</button>
+    <button mat-raised-button color="accent">评分</button>
 </form>

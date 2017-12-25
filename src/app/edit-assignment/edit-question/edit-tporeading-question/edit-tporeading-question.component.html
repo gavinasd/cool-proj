@@ -4,49 +4,51 @@
         <form ngNativeValidate #form="ngForm" (ngSubmit)="addQuestion(form)"
                      fxLayout="column" fxLayoutGap="30px">
 
-            <md-input-container>
-                <input mdInput name="paragraph" type="number" required ngModel placeholder="段落">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="paragraph" type="number" required ngModel placeholder="段落">
+            </mat-input-container>
 
-            <md-input-container>
-                <input mdInput name="question" type="text" required ngModel placeholder="题目">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="question" type="text" required ngModel placeholder="题目">
+            </mat-input-container>
 
-            <md-select placeholder="选择题目类型" name="questionType" required [(ngModel)]="questionType">
-                <md-option [value]="assignmentService.getTPOReadingSingleChoice()">单选题</md-option>
-                <md-option [value]="assignmentService.getTPOReadingInsertChoice()">插入题</md-option>
-                <md-option [value]="assignmentService.getTPOReadingTopic()">主旨题</md-option>
-            </md-select>
+            <mat-form-field>
+                <mat-select placeholder="选择题目类型" name="questionType" required [(ngModel)]="questionType">
+                    <mat-option [value]="assignmentService.getTPOReadingSingleChoice()">单选题</mat-option>
+                    <mat-option [value]="assignmentService.getTPOReadingInsertChoice()">插入题</mat-option>
+                    <mat-option [value]="assignmentService.getTPOReadingTopic()">主旨题</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-            <md-input-container>
-                <input mdInput name="option1" type="text" required ngModel placeholder="选项A">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="option1" type="text" required ngModel placeholder="选项A">
+            </mat-input-container>
 
-            <md-input-container>
-                <input mdInput name="option2" type="text" required ngModel placeholder="选项B">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="option2" type="text" required ngModel placeholder="选项B">
+            </mat-input-container>
 
-            <md-input-container>
-                <input mdInput name="option3" type="text" required ngModel placeholder="选项C">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="option3" type="text" required ngModel placeholder="选项C">
+            </mat-input-container>
 
-            <md-input-container>
-                <input mdInput name="option4" type="text" required ngModel placeholder="选项D">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="option4" type="text" required ngModel placeholder="选项D">
+            </mat-input-container>
 
-            <md-input-container *ngIf="questionType == 'tpo_reading_topic'">
-                <input mdInput name="option5" type="text" required ngModel placeholder="选项E">
-            </md-input-container>
+            <mat-input-container *ngIf="questionType == 'tpo_reading_topic'">
+                <input matInput name="option5" type="text" required ngModel placeholder="选项E">
+            </mat-input-container>
 
-            <md-input-container *ngIf="questionType == 'tpo_reading_topic'">
-                <input mdInput name="option6" type="text" required ngModel placeholder="选项F">
-            </md-input-container>
+            <mat-input-container *ngIf="questionType == 'tpo_reading_topic'">
+                <input matInput name="option6" type="text" required ngModel placeholder="选项F">
+            </mat-input-container>
 
-            <md-input-container>
-                <input mdInput name="answer" type="text" required ngModel placeholder="答案">
-            </md-input-container>
+            <mat-input-container>
+                <input matInput name="answer" type="text" required ngModel placeholder="答案">
+            </mat-input-container>
 
-            <button md-raised-button color="primary" type="submit">确认</button>
+            <button mat-raised-button color="primary" type="submit">确认</button>
     </form>
     </fieldset>
 
@@ -60,7 +62,7 @@
                       id="passage" [(froalaModel)]="editorPassage"
                       rows="10" required ></textarea>
 
-            <button md-raised-button color="primary" type="submit">确认</button>
+            <button mat-raised-button color="primary" type="submit">确认</button>
         </form>
 
     </fieldset>

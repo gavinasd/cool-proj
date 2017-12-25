@@ -1,0 +1,44 @@
+<div class="group-item">
+    <div class="none-question" *ngIf="questionList.length == 0">
+        <p>目前没有任何题目，请点击‘添加题目’</p>
+    </div>
+
+    <div class="question-item" *ngFor="let question of questionList;let i = index">
+        <h4>題目{{i+1}}：</h4>
+        <h4 *ngIf="question.questionType == 'tpo_speaking_q3q4_type'">
+            阅读材料：
+        </h4>
+        <div class="passage" *ngIf="question.questionType == 'tpo_speaking_q3q4_type'"
+             [froalaView]="question.passage"></div>
+        <h4 *ngIf="question.questionType == 'tpo_speaking_q3q4_type'
+                || question.questionType == 'tpo_speaking_q5q6_type'">
+            听力材料：
+        </h4>
+        <app-tpo-review-player *ngIf="question.questionType == 'tpo_speaking_q3q4_type'
+                || question.questionType == 'tpo_speaking_q5q6_type'" [src]="question.getDialogRecordUrl()">
+        </app-tpo-review-player>
+        <p>{{question.question}}</p>
+
+        <div class="buttons" fxLayout="row" fxLayoutGap="15px">
+            <a class="bottom-button" (click)="openEditQuestionDialog(question)">
+                <i class="material-icons">edit</i>
+                <span>编辑</span>
+            </a>
+            <a class="bottom-button" (click)="openConfirmDeleteQuestionDialog(question)">
+                <i class="material-icons">delete</i>
+                <span>删除</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="add-question" fxLayout="column" fxLayoutAlign="center center">
+        <a class="add-question-button" (click)="addQuestion()">
+            <i class="material-icons">add</i>
+            <span>添加题目</span>
+        </a>
+    </div>
+
+    <a class="delete-group-button" (click)="openConfirmDeleteGroupDialog()">
+        <i class="material-icons" color="accent">cancel</i>
+    </a>
+</div>

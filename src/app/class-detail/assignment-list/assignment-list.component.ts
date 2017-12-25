@@ -2,12 +2,13 @@ import {Component, OnInit, Input} from '@angular/core';
 import {ToastService} from "../../core/services/toast.service";
 import {AssignmentInfo} from "../../models/models";
 import {Subject} from "rxjs/Subject";
-import {MdDialog, MdDialogConfig} from "@angular/material";
+import {MatDialog, MatDialogConfig} from "@angular/material";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {HttpService} from "../../core/services/http.service";
 import {AddAssignmentDialogComponent} from "../../shared/view/dialogs/add-assignment-dialog/add-assignment-dialog.component";
 import {Assignment} from "../../models/assignments/Assignment";
 import {ClassService} from "../../core/services/class.service";
+import {filter, switchMap} from "rxjs/operators";
 
 @Component({
     selector: 'app-assignment-list',
@@ -21,8 +22,9 @@ export class AssignmentListComponent implements OnInit {
     public userType:string;
     public loading:boolean = true;
     public listForShow:AssignmentInfo[] = [];
+    public openExpansionList: boolean[] = [];
 
-    constructor(private dialog: MdDialog,
+    constructor(private dialog: MatDialog,
                 private toastService: ToastService,
                 private httpService: HttpService,
                 private classService:ClassService) {
@@ -42,6 +44,12 @@ export class AssignmentListComponent implements OnInit {
 				this.loading = false;
 		        for(let assignment of assignmentList){
 		        	this.listForShow.push(assignment);
+		        	if(this.openExpansionList.length == 0){
+		        		this.openExpansionList.push(true);
+			        }
+			        else{
+				        this.openExpansionList.push(false);
+			        }
 		        }
 	        });
     }
@@ -50,11 +58,17 @@ export class AssignmentListComponent implements OnInit {
     	return Assignment.needToMark(assignmentType);
     }
 
+    toggleExpansion(i: number){
+    	this.openExpansionList[i] = !this.openExpansionList[i];
+    }
+
     openAddAssignmentDialog(){
-	    let config = new MdDialogConfig();
+	    let config = new MatDialogConfig();
 	    config.width = '400px';
 	    this.dialog.open(AddAssignmentDialogComponent, config).afterClosed()
-		    .filter(result => !!result)
+		    .pipe(
+		    	filter(result => !!result)
+		    )
 		    .subscribe(data => {
 			    this.addAssignment(data);
 		    });
@@ -63,8 +77,13 @@ export class AssignmentListComponent implements OnInit {
 	addAssignment(form:any){
 		console.log(form.assignment);
 		this.classService.addAssignment(this.classId,form.assignment)
+			.pipe(
+				switchMap(() => this.classService.getAssignmentList(this.classId, 1))
+			)
 			.subscribe(
-				(json)=>{
+				(assignmentList : AssignmentInfo[])=>{
+					this.listForShow = [assignmentList[0]].concat(this.listForShow);
+					this.openExpansionList = [true].concat(this.openExpansionList);
 					this.toastService.success("成功添加作业");
 				},(err)=>{
 					this.toastService.error(err);

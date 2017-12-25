@@ -1,26 +1,24 @@
-
 <form ngNativeValidate #form="ngForm" (ngSubmit)="addQuestion(form)"
-      fxLayout="column" fxLayoutGap="30px" fxLayoutAlign="start center">
-    <md-input-container>
+      fxLayout="column"fxLayoutAlign="start center">
+    <h4>编辑独立写作题</h4>
+    <mat-input-container>
         <label>请输入题目</label>
-        <textarea mdInput class="form-control" [froalaEditor]="EditorOptions"
-                  placeholder="题目"
+        <textarea matInput class="form-control" [froalaEditor]="EditorOptions"
                   [(froalaModel)]="question"
                   rows="10" columns="5" required ></textarea>
 
-    </md-input-container>
+    </mat-input-container>
 
 
-    <md-input-container>
+    <mat-input-container>
         <label>请输入范文</label>
-        <textarea mdInput class="form-control" [froalaEditor]="EditorOptions"
-                  placeholder="范文"
+        <textarea matInput class="form-control" [froalaEditor]="EditorOptions"
                   [(froalaModel)]="answer"
                   rows="10" columns="10" required ></textarea>
 
-    </md-input-container>
+    </mat-input-container>
 
-    <button md-raised-button color="primary" type="submit">
+    <button mat-raised-button color="primary" type="submit">
         提交
     </button>
 </form>

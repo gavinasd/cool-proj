@@ -55,6 +55,19 @@ export class TpoListeningQuestionDetailComponent
 		this.stopPlayRecord();
 	}
 
+	getQuestionForTableChoiceQuestion(question: string):string{
+		return JSON.parse(question).question || '';
+	}
+
+	getRowsForTableChoiceQuestion(question: string): string[]{
+		return JSON.parse(question).tableRows || [];
+	}
+
+	changeTableChoiceAnswer(value: string){
+		this.answer = value;
+		this.changeAnswer();
+	}
+
 	setupCheckboxAnswer(){
 		if(this.question && this.question.questionType == this.assignmentService.getTpoListeningMultipleChoice()){
 			this.checkboxAnswers = [false, false, false, false];

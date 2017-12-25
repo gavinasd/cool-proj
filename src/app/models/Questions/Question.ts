@@ -10,6 +10,7 @@ export class Question {
 	public static INDEPENDENT_WRITING_TYPE = 'independent_writing';
 	public static TPO_LISTENING_SINGLE_CHOICE_TYPE = 'tpo_listening_single_choice';
 	public static TPO_LISTENING_MULTIPLE_CHOICE_TYPE = 'tpo_listening_multiple_choice';
+	public static TPO_LISTENING_TABLE_CHOICE_TYPE = 'tpo_listening_table_choice';
 	public static TPO_LISTENING_REPEAT_TYPE = 'tpo_listening_repeat_type';
 	public static TPO_SPEAKING_Q1Q2_TYPE = 'tpo_speaking_q1q2_type';
 	public static TPO_SPEAKING_Q3Q4_TYPE = 'tpo_speaking_q3q4_type';
@@ -25,7 +26,7 @@ export class Question {
 
 
 	constructor(obj:any,content?:string) {
-		this.id = obj && obj._id;
+		this.id = (obj && obj._id) || (obj && obj.id);
 		this.creator = obj && obj.creator;
 		this.questionType = obj && obj.questionType;
 		this.question = obj && obj.question;

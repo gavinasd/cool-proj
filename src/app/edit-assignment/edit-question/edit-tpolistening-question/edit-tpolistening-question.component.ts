@@ -50,7 +50,7 @@ export class EditTpolisteningQuestionComponent implements OnInit {
 		this.assignmentService
 			.updateQuestionGroupContent(this.assignmentId, this.groupId, body)
 			.subscribe((assignment)=>{
-				console.log(assignment);
+				this.toastService.success("成功提交");
 				//清空input
 				form.resetForm();
 				this.passage = '';

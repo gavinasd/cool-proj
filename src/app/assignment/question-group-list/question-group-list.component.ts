@@ -9,10 +9,11 @@ import {ApplicationState} from "../../redux/index.reducer";
 import * as fromApplication from '../../redux/index.reducer';
 import * as assignmentActions from '../../redux/assignment/assignment.actions';
 import {Question} from "../../models/Questions/Question";
-import {MdDialog, MdDialogConfig} from "@angular/material";
+import {MatDialog, MatDialogConfig} from "@angular/material";
 import {SubmitConfirmDialogComponent} from "../../shared/view/dialogs/submit-confirm-dialog/submit-confirm-dialog.component";
 import {ComponentCanDeactivate} from "../../core/services/route-guard.service";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {filter, first, takeWhile} from "rxjs/operators";
+import {interval} from "rxjs/observable/interval";
 
 @Component({
   selector: 'app-question-group-list',
@@ -55,7 +56,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 	            public assignmentService:AssignmentService,
 				public router:Router,
 	            private store:Store<ApplicationState>,
-	            private dialog: MdDialog
+	            private dialog: MatDialog
 	) {
 		this.route.params.forEach((param:Params)=>{
 			this.classId = param['classId'];
@@ -86,12 +87,12 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 
 	ngOnInit() {
 		if(this.mode != Mode.HomeWork){
-			this.group$.takeWhile(()=>this.alive).subscribe(()=>{
+			this.group$.pipe(takeWhile(()=>this.alive)).subscribe(()=>{
 				this.store.dispatch(new assignmentActions.SkipContentAction());
 			});
 		}
 
-		this.complete$.takeWhile(()=>this.alive).subscribe((complete) => {
+		this.complete$.pipe(takeWhile(()=>this.alive)).subscribe((complete) => {
 			this.complete = complete;
 			if(complete && this.mode != Mode.HomeWork){
 				this.router.navigate(['/class/' + this.classId]);
@@ -135,8 +136,10 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 
 	next(){
 		this.save();
-
-		this.loading$.filter(loading => !loading).first().subscribe(loading => {
+		this.loading$.pipe(
+			filter(loading => !loading),
+			first()
+		).subscribe(loading => {
 			this.store.dispatch(new assignmentActions.NextAction());
 		})
 	}
@@ -147,12 +150,11 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 
 	autoSave() {
 		//每分钟自动保存一次
-		Observable.interval(60 * 1000)
-			.takeWhile(()=>this.alive)
-			.subscribe(data => {
+		interval(60 * 1000).pipe(
+			takeWhile(()=>this.alive)
+		).subscribe(data => {
 			this.save();
 		});
-
 	}
 
 	save(){
@@ -164,7 +166,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 	}
 
 	openSubmitConfirmDialog(){
-		let config = new MdDialogConfig();
+		let config = new MatDialogConfig();
 		config.width = '400px';
 		this.dialog.open(SubmitConfirmDialogComponent, config).afterClosed()
 			.subscribe(result => {

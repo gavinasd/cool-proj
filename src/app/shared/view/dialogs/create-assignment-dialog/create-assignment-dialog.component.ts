@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialogRef} from "@angular/material";
+import {MatDialogRef} from "@angular/material";
 
 @Component({
   selector: 'app-create-assignment-dialog',
@@ -35,6 +35,6 @@ export class CreateAssignmentDialogComponent{
 		}
 	];
 
-	constructor(public dialogRef: MdDialogRef<CreateAssignmentDialogComponent>) {}
+	constructor(public dialogRef: MatDialogRef<CreateAssignmentDialogComponent>) {}
 
 }

@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
 
 @Component({
   selector: 'app-tpo-review-player',

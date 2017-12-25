@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Assignment} from "../../../../models/assignments/Assignment";
 import {AssignmentService} from "../../../../core/services/assignment.service";
-import {MdDialogRef} from "@angular/material";
+import {MatDialogRef} from "@angular/material";
 
 @Component({
   selector: 'app-add-assignment-dialog',
@@ -39,7 +39,7 @@ export class AddAssignmentDialogComponent implements OnInit {
 		}
 	];
 
-	constructor(private assignmentService:AssignmentService,public dialogRef: MdDialogRef<AddAssignmentDialogComponent>) { }
+	constructor(private assignmentService:AssignmentService,public dialogRef: MatDialogRef<AddAssignmentDialogComponent>) { }
 
 	ngOnInit() {
 		this.assignmentService.getAllAssignmentList().subscribe((assignmentList:Assignment[]) => {

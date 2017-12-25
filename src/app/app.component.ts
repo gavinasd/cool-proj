@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
-import {MdIconRegistry} from "@angular/material";
+import {MatIconRegistry} from "@angular/material";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import {MdIconRegistry} from "@angular/material";
 })
 export class AppComponent {
 
-	constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer){
+	constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer){
 		const avatarsSafeUrl = sanitizer.bypassSecurityTrustResourceUrl('/assets/avatars.svg');
 
 		iconRegistry.addSvgIconSetInNamespace('avatars', avatarsSafeUrl);

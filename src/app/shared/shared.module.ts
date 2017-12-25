@@ -22,16 +22,19 @@ import { TpoReviewPlayerComponent } from './view/audio/tpo-review-player/tpo-rev
 import { BackgroundAudioPlayerComponent } from './view/audio/background-audio-player/background-audio-player.component';
 import { TpoSpeakingRecorderComponent } from './view/recorder/tpo-speaking-recorder/tpo-speaking-recorder.component';
 import { CountDownTimerComponent } from './view/count-down-timer/count-down-timer.component';
-import {HttpModule} from "@angular/http";
 import {RouterModule} from "@angular/router";
 import {VocabularyListComponent} from "./view/vocabulary/vocabulary-list/vocabulary-list.component";
 import {VocabularyItemComponent} from "./view/vocabulary/vocabulary-item/vocabulary-item.component";
 import { ToastComponent } from './view/toast/toast.component';
+import {HttpClientModule} from "@angular/common/http";
+import { CustomToastComponent } from './view/toast/custom-toast/custom-toast.component';
+import { TpoTableForViewComponent } from './views/tpo-table-for-view/tpo-table-for-view.component';
 
 @NgModule({
     imports: [
         FlexLayoutModule,
         CommonModule,
+	    HttpClientModule,
 	    FormsModule,
 	    MaterialModule,
     ],
@@ -42,7 +45,7 @@ import { ToastComponent } from './view/toast/toast.component';
 	    AddAssignmentDialogComponent, CreateAssignmentDialogComponent,
 	    AddQuestionDialogComponent, SubmitConfirmDialogComponent, FollowClassDialogComponent, AudioPlayerComponent,
 	    TpoReviewPlayerComponent, BackgroundAudioPlayerComponent, TpoSpeakingRecorderComponent,
-	    CountDownTimerComponent,VocabularyListComponent,VocabularyItemComponent, ToastComponent
+	    CountDownTimerComponent,VocabularyListComponent,VocabularyItemComponent, ToastComponent, CustomToastComponent, TpoTableForViewComponent
     ],
 	entryComponents:[CreateClassDialogComponent,AddAssignmentDialogComponent,CreateAssignmentDialogComponent,
 		AddQuestionDialogComponent, SubmitConfirmDialogComponent, FollowClassDialogComponent, ToastComponent],
@@ -57,9 +60,10 @@ import { ToastComponent } from './view/toast/toast.component';
 		MaterialModule,
 		FlexLayoutModule,
 		FormsModule,
-		HttpModule,
+		HttpClientModule,
 		CommonModule,
-		RouterModule
+		RouterModule,
+		TpoTableForViewComponent
 	]
 })
 export class SharedModule { }

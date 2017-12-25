@@ -1,5 +1,5 @@
 export const environment = {
-    production: true,
+	production: false,
 	getWordPronunciationUrl:'http://dict.youdao.com/dictvoice?audio',
 	/**
 	 * 登录注册接口
@@ -36,8 +36,11 @@ export const environment = {
 	//编辑一份新的作业，包括创建作业，添加group，添加question，更新groupContent
 	createAssignmentUrl : 'http://123.207.109.53:3000/api/assignment/create',
 	addQuestionGroupToAssignmentUrl : 'http://123.207.109.53:3000/api/assignment/addQuestionGroup',
-	addQuestionToGroupUrl: 'http://123.207.109.53:3000/api/classes/addQuestion',
+	addQuestionToGroupUrl: 'http://123.207.109.53:3000/api/assignment/addQuestion',
 	updateQuestionGroupContentUrl : 'http://123.207.109.53:3000/api/assignment/content',
+	updateQuestionUrl : 'http://123.207.109.53:3000/api/assignment/updateQuestion',
+	deleteGroupUrl : 'http://123.207.109.53:3000/api/assignment/deleteGroup',
+	deleteQuestionUrl : 'http://123.207.109.53:3000/api/assignment/deleteQuestion',
 
 
 	addResourceUrl: 'http://123.207.109.53:3000/api/resource/addResource',
@@ -65,5 +68,14 @@ export const environment = {
 				console.log(editor.toolbar.hide());
 			}
 		}
+	},
+	editQuestionOptions:{
+		placeholderText: '',
+		charCounterCount: false,
+		toolbarButtons: ['fullscreen', 'fontFamily', 'fontSize','bold','italic','strikeThrough','color',],
+		colorsText:['#d71345','#f58220','#ffe600','#bed742','#1d953f','#2b4490','#000000'],
+		height: 500,
+		quickInsertTags: [],
+		spellcheck: true,
 	}
 };

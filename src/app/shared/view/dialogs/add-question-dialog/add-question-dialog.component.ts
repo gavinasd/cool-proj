@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialogRef} from "@angular/material";
+import {MatDialogRef} from "@angular/material";
 import {AssignmentService} from "../../../../core/services/assignment.service";
 
 @Component({
@@ -36,7 +36,7 @@ export class AddQuestionDialogComponent implements OnInit{
 	];
 
 	constructor(private assignmentService:AssignmentService,
-	            public dialogRef: MdDialogRef<AddQuestionDialogComponent>) {}
+	            public dialogRef: MatDialogRef<AddQuestionDialogComponent>) {}
 
 
 	ngOnInit() {}

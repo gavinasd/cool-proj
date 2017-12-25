@@ -6,6 +6,7 @@ import {HttpService} from "../../../core/services/http.service";
 import {ToastService} from "../../../core/services/toast.service";
 import {Question} from "../../../models/Questions/Question";
 import {IndependentWritingQuestion} from "../../../models/Questions/IndependentWritingQuestion";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-edit-independent-writing-question',
@@ -19,15 +20,14 @@ export class EditIndependentWritingQuestionComponent implements OnInit {
 	question:string;                //用来接收Editor里面的question内容
 	answer:string;                  //用来接收Editor里面的answer内容,其实就是一篇范文
 
-	public EditorOptions: Object= {
-		wordPasteModal:false,
-		placeHolder:'请输入',
-	};
+	public EditorOptions = environment.teacherEditorOptions;
+
 
 	constructor(private assignmentService:AssignmentService,
 	            private httpService:HttpService,
 	            private toastService:ToastService) {
-
+		this.EditorOptions.height = 250;
+		this.EditorOptions.placeholderText = '请输入';
 	}
 
 	ngOnInit() {

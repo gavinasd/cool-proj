@@ -1,0 +1,39 @@
+<h4 mat-dialog-title>添加综合写作题目</h4>
+
+<mat-dialog-content>
+    <form ngNativeValidate id="form" role="form" #f="ngForm"
+          (ngSubmit) = "closeDialogAndSave()" fxLayout="column">
+        <mat-input-container>
+            <textarea matInput class="form-control" [froalaEditor]="studentOptions"
+                      placeholder="请输入阅读文章"
+                      [(froalaModel)]="passage" required ></textarea>
+
+        </mat-input-container>
+
+        <mat-form-field>
+            <mat-select placeholder="选择听力材料"
+                        name="recordUrl"
+                        [(ngModel)]="recordUrl"
+                        required>
+                <mat-option *ngFor="let record of recordUrlList;let i = index"
+                            [value]="record">
+                    TPO{{(i+1)}}-综合写作
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-input-container fxFlex="0 0 40%">
+        <textarea matInput class="form-control" [froalaEditor]="studentOptions"
+                  placeholder="范文"
+                  [(froalaModel)]="answer" required ></textarea>
+
+        </mat-input-container>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="closeDialog()">取消</button>
+    <button mat-button type="submit" form="form" color="accent">确定</button>
+</mat-dialog-actions>
+
+

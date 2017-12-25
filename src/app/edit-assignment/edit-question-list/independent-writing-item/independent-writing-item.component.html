@@ -1,6 +1,23 @@
-<md-card-content *ngFor="let question of questionList;let i = index">
-    <h4>{{i+1}}. 题目：</h4>
-    <div [froalaView]="question.question"></div>
-    <h4>范文：</h4>
-    <div [froalaView]="question.answer"></div>
-</md-card-content>
+<div class="group-item">
+    <div class="question-item" *ngFor="let question of questionList; let i = index">
+        <h4>{{i+1}}. 题目：</h4>
+        <div class="passage" [froalaView]="question.question"></div>
+        <h4>范文：</h4>
+        <div class="passage" [froalaView]="question.answer"></div>
+
+        <div class="buttons" fxLayout="row" fxLayoutGap="15px">
+            <a class="bottom-button" (click)="openEditQuestionDialog(question)">
+                <i class="material-icons">edit</i>
+                <span>编辑</span>
+            </a>
+            <a class="bottom-button" (click)="openConfirmDeleteQuestionDialog()">
+                <i class="material-icons">delete</i>
+                <span>删除</span>
+            </a>
+        </div>
+    </div>
+
+    <a class="delete-group-button" (click)="openConfirmDeleteGroupDialog()">
+        <i class="material-icons" color="accent">cancel</i>
+    </a>
+</div>

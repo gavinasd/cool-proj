@@ -3,7 +3,7 @@ import {ClassService} from "../../../core/services/class.service";
 import {Router} from "@angular/router";
 import {HttpService} from "../../../core/services/http.service";
 import {ToastService} from "../../../core/services/toast.service";
-import {MdDialog, MdDialogConfig} from "@angular/material";
+import {MatDialog, MatDialogConfig} from "@angular/material";
 import {CreateClassDialogComponent} from "../dialogs/create-class-dialog/create-class-dialog.component";
 
 @Component({
@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
     public userType: number;
     public avatar: string;
 
-    constructor(private router: Router, private httpService: HttpService, private dialog: MdDialog,
+    constructor(private router: Router, private httpService: HttpService, private dialog: MatDialog,
                 private classService: ClassService, private toastService: ToastService) { }
 
     ngOnInit() {
@@ -41,7 +41,7 @@ export class NavbarComponent implements OnInit {
     }
 
     openCreateClassDialog(){
-    	let config = new MdDialogConfig();
+    	let config = new MatDialogConfig();
 	    config.width = '400px';
     	this.dialog.open(CreateClassDialogComponent, config).afterClosed()
 		    .filter(result => !!result)

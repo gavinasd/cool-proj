@@ -70,10 +70,10 @@
         <div class="question-content"
              fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center">
             <app-question-index fxFlexAlign="start" [content]="getPagerContent()"></app-question-index>
-            <md-expansion-panel class="mat-elevation-z0" [expanded]="false"
+            <mat-expansion-panel class="mat-elevation-z0 question-detail" [expanded]="false"
                                 *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'
                             || tpoSpeakingQuestion.questionType == 'tpo_speaking_q5q6_type'">
-                <md-expansion-panel-header><span>题目详情</span></md-expansion-panel-header>
+                <mat-expansion-panel-header><span>题目详情</span></mat-expansion-panel-header>
                 <div fxLayout="column">
                     <div class="passage" *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'"
                          [froalaView]="tpoSpeakingQuestion.passage"></div>
@@ -82,7 +82,7 @@
                         <app-tpo-review-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()"></app-tpo-review-player>
                     </div>
                 </div>
-            </md-expansion-panel>
+            </mat-expansion-panel>
 
             <div class="question-container" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign.sm="start start">
                 <p class="question">{{tpoSpeakingQuestion.question}}</p>
@@ -90,11 +90,11 @@
                     <label>学生的回答：</label>
                     <app-simple-audio-player [src]="getStudentRecordUrl()"></app-simple-audio-player>
                     <span fxFlex></span>
-                    <md-card>
-                        <md-card-content>
+                    <mat-card>
+                        <mat-card-content>
                             <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
-                        </md-card-content>
-                    </md-card>
+                        </mat-card-content>
+                    </mat-card>
                     <app-score-marker [score]="tpoSpeakingQuestion.score" (marking)="markScore($event)"></app-score-marker>
                 </div>
                 <textarea class="form-control"
@@ -110,9 +110,9 @@
         <div class="question-content"
              fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center">
             <app-question-index fxFlexAlign="start" [content]="getPagerContent()"></app-question-index>
-            <md-expansion-panel class="mat-elevation-z0" [expanded]="false" *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'
+            <mat-expansion-panel class="mat-elevation-z0 question-detail" [expanded]="false" *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'
                     || tpoSpeakingQuestion.questionType == 'tpo_speaking_q5q6_type'">
-                <md-expansion-panel-header><span>题目详情</span></md-expansion-panel-header>
+                <mat-expansion-panel-header><span>题目详情</span></mat-expansion-panel-header>
                 <div fxLayout="column">
                     <div class="passage" *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'"
                          [froalaView]="tpoSpeakingQuestion.passage"></div>
@@ -121,17 +121,17 @@
                         <app-tpo-review-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()"></app-tpo-review-player>
                     </div>
                 </div>
-            </md-expansion-panel>
+            </mat-expansion-panel>
             <div class="question-container" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign.sm="start start">
                 <p class="question">{{tpoSpeakingQuestion.question}}</p>
                 <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
                     <label>学生的回答：</label>
                     <app-simple-audio-player [src]="getStudentRecordUrl()"></app-simple-audio-player>
-                    <md-card>
-                        <md-card-content>
+                    <mat-card>
+                        <mat-card-content>
                             <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
-                        </md-card-content>
-                    </md-card>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
                 <p>老师评价：</p>
                 <div class="comment" [froalaView]="comment"></div>

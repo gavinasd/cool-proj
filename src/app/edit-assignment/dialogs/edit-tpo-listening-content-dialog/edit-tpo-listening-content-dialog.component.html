@@ -1,0 +1,22 @@
+<h4 mat-dialog-title>编辑听力材料</h4>
+<mat-dialog-content>
+    <form ngNativeValidate id="form" role="form" #f="ngForm"
+          (ngSubmit) = "closeDialogAndSave()" fxLayout="column" fxLayoutGap="10px">
+        <mat-input-container>
+            <input matInput name="passageRecord" [(ngModel)]="recordUrl" required placeholder="请输入听力文件的代号">
+            <mat-hint align="start">输入格式是tpo数/第几部分/第几题:如1/2/1指的就是tpo1的第二部分的第一套听力</mat-hint>
+        </mat-input-container>
+
+        <textarea class="form-control"
+                  [froalaEditor]="passageEditorOptions"
+                  [(froalaModel)]="passage"
+                  [(ngModel)]="passage"
+                  name="passage"
+                  rows="5" required></textarea>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="closeDialog()">取消</button>
+    <button mat-button type="submit" form="form" color="accent">确定</button>
+</mat-dialog-actions>

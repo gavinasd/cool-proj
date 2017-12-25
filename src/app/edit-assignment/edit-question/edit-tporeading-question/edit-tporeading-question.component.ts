@@ -19,7 +19,7 @@ export class EditTporeadingQuestionComponent implements OnInit {
 	editorPassage:string;                //用来接收Editor里面的内容
 	public questionType:string;          //用来接收题目的类型
 
-	public EditorOptions = environment.studentEditorOptions;
+	public EditorOptions = environment.teacherEditorOptions;
 
 	constructor(public assignmentService:AssignmentService,
 				private httpService:HttpService,
