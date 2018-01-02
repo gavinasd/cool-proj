@@ -87,12 +87,12 @@
                    [(ngModel)]="question.answer" placeholder="答案">
         </mat-input-container>
 
-        <textarea class="form-control"
-                  [froalaEditor]="explanationEditorOptions"
-                  [(froalaModel)]="question.explanation"
-                  [(ngModel)]="question.explanation"
-                  name="explanation"
-                  rows="3" required></textarea>
+        <app-text-editor
+                [(ngModel)]="question.explanation"
+                [editorOptions]="explanationEditorOptions"
+                [required]="true"
+                name="explanation"
+        ></app-text-editor>
     </form>
 </mat-dialog-content>
 

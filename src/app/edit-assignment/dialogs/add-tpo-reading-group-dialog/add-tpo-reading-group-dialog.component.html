@@ -3,9 +3,12 @@
 <mat-dialog-content>
     <form ngNativeValidate id="form" role="form" #f="ngForm"
           (ngSubmit) = "closeDialogAndSave()">
-    <textarea class="form-control" [froalaEditor]="EditorOptions"
-              id="passage" [(froalaModel)]="passage"
-              rows="10" required ></textarea>
+        <app-text-editor
+            [(ngModel)]="passage"
+            [editorOptions]="EditorOptions"
+            [required]="true"
+            name="passage"
+        ></app-text-editor>
     </form>
 </mat-dialog-content>
 

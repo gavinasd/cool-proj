@@ -8,7 +8,7 @@ import {environment} from "../../../../environments/environment";
   styleUrls: ['./edit-tpo-reading-passage-dialog.component.css']
 })
 export class EditTpoReadingPassageDialogComponent implements OnInit {
-	public EditorOptions = environment.studentEditorOptions;
+	public EditorOptions = environment.editQuestionOptions;
 	public passage = '';
 
 	constructor(@Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,

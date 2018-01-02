@@ -31,11 +31,12 @@
                     </mat-card>
                     <span fxFlex></span>
                 </div>
-                <textarea class="form-control"
-                          [froalaEditor]="EditorStudentOptions"
-                          [(froalaModel)]="content"
-                          [(ngModel)]="content" (ngModelChange)="changeAnswer()"
-                          rows="10" required ></textarea>
+                <app-text-editor
+                        [(ngModel)]="content"
+                        [editorOptions]="EditorStudentOptions"
+                        (ngModelChange)="changeAnswer()"
+                        name="passage"
+                ></app-text-editor>
             </div>
         </div>
     </div>
@@ -69,11 +70,14 @@
                     <span fxFlex></span>
                     <app-score-marker [score]="independentWritingQuestion.score" (marking)="markScore($event)"></app-score-marker>
                 </div>
-                <textarea class="form-control"
-                          [froalaEditor]="EditorTeacherOptions"
-                          [(froalaModel)]="content"
-                          [(ngModel)]="content" (ngModelChange)="changeAnswer()"
-                          rows="10" required ></textarea>
+                <app-text-editor
+                        [(ngModel)]="content"
+                        [editorOptions]="EditorTeacherOptions"
+                        [required]="true"
+                        (ngModelChange)="changeAnswer()"
+                        name="passage"
+                ></app-text-editor>
+
             </div>
         </div>
     </div>

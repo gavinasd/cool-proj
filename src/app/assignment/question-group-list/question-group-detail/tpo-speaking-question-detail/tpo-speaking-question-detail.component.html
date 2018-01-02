@@ -97,11 +97,13 @@
                     </mat-card>
                     <app-score-marker [score]="tpoSpeakingQuestion.score" (marking)="markScore($event)"></app-score-marker>
                 </div>
-                <textarea class="form-control"
-                          [froalaEditor]="editorOption"
-                          [(froalaModel)]="comment"
-                          [(ngModel)]="comment" (ngModelChange)="makeComment()"
-                          rows="10" required ></textarea>
+                <app-text-editor
+                        [(ngModel)]="comment"
+                        [editorOptions]="editorOption"
+                        [required]="true"
+                        (ngModelChange)="makeComment()"
+                        name="comment"
+                ></app-text-editor>
             </div>
         </div>
     </div>

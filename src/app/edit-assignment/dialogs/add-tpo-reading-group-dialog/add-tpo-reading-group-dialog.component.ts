@@ -24,5 +24,4 @@ export class AddTpoReadingGroupDialogComponent implements OnInit {
 		});
 		this.dialogRef.close(content);
 	}
-
 }

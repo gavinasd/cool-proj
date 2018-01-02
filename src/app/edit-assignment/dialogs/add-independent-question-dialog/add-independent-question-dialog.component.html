@@ -6,15 +6,24 @@
           (ngSubmit) = "closeDialogAndSave()" fxLayout="column">
         <mat-input-container>
             <label>请输入题目</label>
-            <textarea matInput class="form-control" [froalaEditor]="QuestionEditorOptions"
-                      [(froalaModel)]="question" required ></textarea>
+            <app-text-editor
+                    [(ngModel)]="question"
+                    [editorOptions]="QuestionEditorOptions"
+                    [required]="true"
+                    name="question"
+            ></app-text-editor>
 
         </mat-input-container>
 
         <mat-input-container>
             <label>请输入范文</label>
-            <textarea matInput class="form-control" [froalaEditor]="AnswerEditorOptions"
-                      [(froalaModel)]="answer" required ></textarea>
+
+            <app-text-editor
+                    [(ngModel)]="answer"
+                    [editorOptions]="AnswerEditorOptions"
+                    [required]="true"
+                    name="answer"
+            ></app-text-editor>
 
         </mat-input-container>
 

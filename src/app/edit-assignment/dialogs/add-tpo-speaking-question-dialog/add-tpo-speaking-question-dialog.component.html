@@ -24,12 +24,15 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-input-container *ngIf="questionIndex == 3 || questionIndex == 4">
-            <textarea matInput class="form-control"
-                      [froalaEditor]="passageEditorOptions"
-                      [(froalaModel)]="passage"
-                      name="passage" required></textarea>
-        </mat-input-container>
+        <div *ngIf="questionIndex == 3 || questionIndex == 4">
+            <app-text-editor
+                    class="form-control"
+                    [(ngModel)]="passage"
+                    [editorOptions]="passageEditorOptions"
+                    [required]="true"
+                    name="passage"
+            ></app-text-editor>
+        </div>
 
 
         <mat-input-container>

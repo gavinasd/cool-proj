@@ -50,7 +50,7 @@ export const environment = {
 	teacherEditorOptions: {
 		placeholderText: '',
 		charCounterCount: false,
-		toolbarButtons: ['fullscreen','bold','italic','strikeThrough','color',],
+		toolbarButtons: ['fullscreen','bold','italic','strikeThrough','color'],
 		colorsText:['#d71345','#f58220','#ffe600','#bed742','#1d953f','#2b4490','#000000'],
 		height: 500,
 		quickInsertTags: [],
@@ -72,7 +72,7 @@ export const environment = {
 	editQuestionOptions:{
 		placeholderText: '',
 		charCounterCount: false,
-		toolbarButtons: ['fullscreen', 'fontFamily', 'fontSize','bold','italic','strikeThrough','color',],
+		toolbarButtons: ['fullscreen', 'fontFamily', 'fontSize','bold','italic','strikeThrough','align','color'],
 		colorsText:['#d71345','#f58220','#ffe600','#bed742','#1d953f','#2b4490','#000000'],
 		height: 500,
 		quickInsertTags: [],

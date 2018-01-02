@@ -57,10 +57,12 @@
         <form ngNativeValidate (ngSubmit)="addContent()"
               fxLayout="column" fxLayoutGap="30px">
 
-
-            <textarea class="form-control" [froalaEditor]="EditorOptions"
-                      id="passage" [(froalaModel)]="editorPassage"
-                      rows="10" required ></textarea>
+            <app-text-editor
+                    [(ngModel)]="editorPassage"
+                    [editorOptions]="EditorOptions"
+                    [required]="true"
+                    name="editorPassage"
+            ></app-text-editor>
 
             <button mat-raised-button color="primary" type="submit">确认</button>
         </form>

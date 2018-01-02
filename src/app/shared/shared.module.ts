@@ -29,6 +29,8 @@ import { ToastComponent } from './view/toast/toast.component';
 import {HttpClientModule} from "@angular/common/http";
 import { CustomToastComponent } from './view/toast/custom-toast/custom-toast.component';
 import { TpoTableForViewComponent } from './views/tpo-table-for-view/tpo-table-for-view.component';
+import { TextEditorComponent } from './view/text-editor/text-editor.component';
+import {FroalaEditorModule, FroalaViewModule} from "angular2-froala-wysiwyg";
 
 @NgModule({
     imports: [
@@ -37,15 +39,36 @@ import { TpoTableForViewComponent } from './views/tpo-table-for-view/tpo-table-f
 	    HttpClientModule,
 	    FormsModule,
 	    MaterialModule,
+	    FroalaEditorModule.forRoot(),
+	    FroalaViewModule.forRoot()
     ],
     declarations: [
-    	OddEvenPipe, Convert09ToAZPipe, FooterComponent,
-	    NavbarComponent, ClassDetailNavComponent, Convert09ToAZPipe, SimpleAudioPlayerComponent,
-	    HalfPipe, PronunciationOfWordPipe, CreateClassDialogComponent,
-	    AddAssignmentDialogComponent, CreateAssignmentDialogComponent,
-	    AddQuestionDialogComponent, SubmitConfirmDialogComponent, FollowClassDialogComponent, AudioPlayerComponent,
-	    TpoReviewPlayerComponent, BackgroundAudioPlayerComponent, TpoSpeakingRecorderComponent,
-	    CountDownTimerComponent,VocabularyListComponent,VocabularyItemComponent, ToastComponent, CustomToastComponent, TpoTableForViewComponent
+    	OddEvenPipe,
+	    Convert09ToAZPipe,
+	    FooterComponent,
+	    NavbarComponent,
+	    ClassDetailNavComponent,
+	    Convert09ToAZPipe,
+	    SimpleAudioPlayerComponent,
+	    HalfPipe,
+	    PronunciationOfWordPipe,
+	    CreateClassDialogComponent,
+	    AddAssignmentDialogComponent,
+	    CreateAssignmentDialogComponent,
+	    AddQuestionDialogComponent,
+	    SubmitConfirmDialogComponent,
+	    FollowClassDialogComponent,
+	    AudioPlayerComponent,
+	    TpoReviewPlayerComponent,
+	    BackgroundAudioPlayerComponent,
+	    TpoSpeakingRecorderComponent,
+	    CountDownTimerComponent,
+	    VocabularyListComponent,
+	    VocabularyItemComponent,
+	    ToastComponent,
+	    CustomToastComponent,
+	    TpoTableForViewComponent,
+	    TextEditorComponent
     ],
 	entryComponents:[CreateClassDialogComponent,AddAssignmentDialogComponent,CreateAssignmentDialogComponent,
 		AddQuestionDialogComponent, SubmitConfirmDialogComponent, FollowClassDialogComponent, ToastComponent],
@@ -63,7 +86,8 @@ import { TpoTableForViewComponent } from './views/tpo-table-for-view/tpo-table-f
 		HttpClientModule,
 		CommonModule,
 		RouterModule,
-		TpoTableForViewComponent
+		TpoTableForViewComponent,
+		TextEditorComponent
 	]
 })
 export class SharedModule { }

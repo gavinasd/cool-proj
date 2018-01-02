@@ -11,12 +11,12 @@
                 <mat-hint align="start">输入格式是tpo数/第几部分/第几题:如1/2/1指的就是tpo1的第二部分的第一套听力</mat-hint>
             </mat-input-container>
 
-            <textarea class="form-control"
-                      [froalaEditor]="passageEditorOptions"
-                      [(froalaModel)]="passage"
-                      [(ngModel)]="passage"
-                      name="passage"
-                      rows="5" required></textarea>
+            <app-text-editor
+                    [(ngModel)]="passage"
+                    [editorOptions]="passageEditorOptions"
+                    [required]="true"
+                    name="passage"
+            ></app-text-editor>
             <button mat-raised-button color="primary" type="submit">确认</button>
         </form>
 
@@ -69,13 +69,12 @@
                 <input matInput name="answer" type="text" required ngModel placeholder="答案">
             </mat-input-container>
 
-            <textarea class="form-control"
-                      [froalaEditor]="explanationEditorOptions"
-                      [(froalaModel)]="explanation"
-                      [(ngModel)]="explanation"
-                      name="explanation"
-                      rows="3" required></textarea>
-
+            <app-text-editor
+                    [(ngModel)]="explanation"
+                    [editorOptions]="explanationEditorOptions"
+                    [required]="true"
+                    name="explanation"
+            ></app-text-editor>
 
             <button mat-raised-button color="primary" type="submit">确认</button>
         </form>

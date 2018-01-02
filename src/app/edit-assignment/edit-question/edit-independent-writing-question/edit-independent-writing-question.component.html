@@ -3,18 +3,25 @@
     <h4>编辑独立写作题</h4>
     <mat-input-container>
         <label>请输入题目</label>
-        <textarea matInput class="form-control" [froalaEditor]="EditorOptions"
-                  [(froalaModel)]="question"
-                  rows="10" columns="5" required ></textarea>
+        <app-text-editor
+                [(ngModel)]="question"
+                [editorOptions]="EditorOptions"
+                [required]="true"
+                name="question"
+        ></app-text-editor>
 
     </mat-input-container>
 
 
     <mat-input-container>
         <label>请输入范文</label>
-        <textarea matInput class="form-control" [froalaEditor]="EditorOptions"
-                  [(froalaModel)]="answer"
-                  rows="10" columns="10" required ></textarea>
+
+        <app-text-editor
+                [(ngModel)]="answer"
+                [editorOptions]="EditorOptions"
+                [required]="true"
+                name="answer"
+        ></app-text-editor>
 
     </mat-input-container>
 

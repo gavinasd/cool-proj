@@ -6,9 +6,13 @@
         <div fxLayout="column" fxLayoutGap="30px" fxFlex="0 0 40%">
             <mat-input-container>
                 <label>请输入阅读文章</label>
-                <textarea matInput class="form-control" [froalaEditor]="teacherOptions"
-                          [(froalaModel)]="passage"
-                          rows="10" columns="5" required ></textarea>
+
+                <app-text-editor
+                        [(ngModel)]="passage"
+                        [editorOptions]="teacherOptions"
+                        [required]="true"
+                        name="passage"
+                ></app-text-editor>
 
             </mat-input-container>
 
@@ -28,9 +32,12 @@
 
         <mat-input-container fxFlex="0 0 40%">
             <label>范文</label>
-            <textarea matInput class="form-control" [froalaEditor]="teacherOptions"
-                      [(froalaModel)]="answer"
-                      rows="10" columns="10" required ></textarea>
+            <app-text-editor
+                    [(ngModel)]="answer"
+                    [editorOptions]="teacherOptions"
+                    [required]="true"
+                    name="answer"
+            ></app-text-editor>
         </mat-input-container>
     </div>
 
