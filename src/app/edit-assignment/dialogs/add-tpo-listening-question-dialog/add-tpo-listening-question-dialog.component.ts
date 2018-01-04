@@ -19,6 +19,7 @@ export class AddTpoListeningQuestionDialogComponent implements OnInit {
 	public options:number[];
 	public tableRows:string[];
 	public tableCols:string[];
+	public sequenceChoices:string[];
 
 	constructor(private dialogRef: MatDialogRef<AddTpoListeningQuestionDialogComponent>,
 	            private httpService: HttpService,
@@ -34,7 +35,7 @@ export class AddTpoListeningQuestionDialogComponent implements OnInit {
 	}
 
 	initTableRows(num: number){
-		this.tableRows = Array.from({length: num-1}).map(()=>' ');
+		this.tableRows = Array.from({length: num-1});
 	}
 
 	initTableCols(num: number){
@@ -45,6 +46,10 @@ export class AddTpoListeningQuestionDialogComponent implements OnInit {
 		return index;
 	}
 
+	initSequenceChoice(num: number) {
+		this.sequenceChoices = Array.from({length: num});
+	}
+
 	closeDialog(){
 		this.dialogRef.close();
 	}
@@ -53,6 +58,8 @@ export class AddTpoListeningQuestionDialogComponent implements OnInit {
 		let question: TPOListeningQuestion;
 		if(this.questionType == 'tpo_listening_table_choice'){
 			question = this.assembleTpoListeningTableQuestion(form);
+		} else if (this.questionType == 'tpo_listening_sequence_type'){
+			question = this.assembleTpoListeningSequenceQuestion(form);
 		} else {
 			question = this.assembleTpoNormalQuestion(form);
 		}
@@ -83,6 +90,27 @@ export class AddTpoListeningQuestionDialogComponent implements OnInit {
 			answer: form.value.answer,
 			explanation: this.explanation,
 			score:2
+		});
+		return question;
+	}
+
+	assembleTpoListeningSequenceQuestion(form: NgForm): TPOListeningQuestion{
+		let data = form.value.questionRecord.split('/');
+		if(data.length != 3){
+			this.toastService.error('格式不对');
+			return;
+		}
+		const recordUrl = '/assets/tpo/listening/test' + data[0] + '/sound/listening_question'+data[1]+'_'+data[2]+'.mp3';
+
+		let question = new TPOListeningQuestion({
+			creator: this.httpService.getCurrentId(),
+			questionType: this.questionType,
+			question: form.value.question,
+			recordUrl: recordUrl,
+			options: this.sequenceChoices,
+			answer: form.value.answer,
+			explanation: this.explanation,
+			score:1
 		});
 		return question;
 	}

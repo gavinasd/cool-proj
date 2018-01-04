@@ -12,6 +12,7 @@ export class Question {
 	public static TPO_LISTENING_MULTIPLE_CHOICE_TYPE = 'tpo_listening_multiple_choice';
 	public static TPO_LISTENING_TABLE_CHOICE_TYPE = 'tpo_listening_table_choice';
 	public static TPO_LISTENING_REPEAT_TYPE = 'tpo_listening_repeat_type';
+	public static TPO_LISTENING_SEQUENCE_TYPE = 'tpo_listening_sequence_type';
 	public static TPO_SPEAKING_Q1Q2_TYPE = 'tpo_speaking_q1q2_type';
 	public static TPO_SPEAKING_Q3Q4_TYPE = 'tpo_speaking_q3q4_type';
 	public static TPO_SPEAKING_Q5Q6_TYPE = 'tpo_speaking_q5q6_type';

@@ -21,6 +21,7 @@ export class AddTpoReadingQuestionDialogComponent implements OnInit {
 
     ngOnInit() {
 		this.questionIndex = this.dialogData + 1;
+		this.questionType = this.assignmentService.getTPOReadingSingleChoice();
     }
 
 	closeDialog(){

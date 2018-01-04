@@ -13,7 +13,8 @@ import {HttpService} from "../../../core/services/http.service";
 })
 export class AddIntegratedQuestionDialogComponent implements OnInit {
 
-	public studentOptions;
+	public questionEditorOptions;
+	public passageEditorOptions;
 	public passage:string = '';
 	public recordUrl:string = '';
 	answer:string;                  //用来接收Editor里面的answer内容,其实就是一篇范文
@@ -24,8 +25,13 @@ export class AddIntegratedQuestionDialogComponent implements OnInit {
     constructor(private httpService: HttpService,
     	        public dialogRef: MatDialogRef<AddIntegratedQuestionDialogComponent>,
                 public assignmentService:AssignmentService) {
-	    this.studentOptions = Object.create(environment.studentEditorOptions);
-	    this.studentOptions.height = 200;
+	    this.questionEditorOptions = Object.create(environment.studentEditorOptions);
+	    this.questionEditorOptions.placeholderText = '请输入阅读材料';
+	    this.questionEditorOptions.height = 400;
+
+	    this.passageEditorOptions = Object.create(environment.studentEditorOptions);
+	    this.passageEditorOptions.placeholderText = '请输入范文';
+	    this.passageEditorOptions.height = 400;
     }
 
     ngOnInit() {

@@ -3,15 +3,12 @@
 <mat-dialog-content>
     <form ngNativeValidate id="form" role="form" #f="ngForm"
           (ngSubmit) = "closeDialogAndSave()" fxLayout="column">
-        <mat-input-container>
-            <app-text-editor
-                    [(ngModel)]="passage"
-                    [editorOptions]="studentOptions"
-                    [required]="true"
-                    name="passage"
-            ></app-text-editor>
-
-        </mat-input-container>
+        <app-text-editor
+                [(ngModel)]="passage"
+                [editorOptions]="studentOptions"
+                [required]="true"
+                name="passage"
+        ></app-text-editor>
 
         <mat-form-field>
             <mat-select placeholder="选择听力材料"
@@ -25,15 +22,13 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-input-container fxFlex="0 0 40%">
-            <app-text-editor
-                    [(ngModel)]="question.answer"
-                    [editorOptions]="studentOptions"
-                    [required]="true"
-                    name="passage"
-            ></app-text-editor>
+        <app-text-editor
+                [(ngModel)]="question.answer"
+                [editorOptions]="studentOptions"
+                [required]="true"
+                name="answer"
+        ></app-text-editor>
 
-        </mat-input-container>
     </form>
 </mat-dialog-content>
 

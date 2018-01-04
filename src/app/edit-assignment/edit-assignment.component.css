@@ -8,6 +8,10 @@
     width: 100vh;
 }
 
+mat-toolbar button{
+    color: white;
+}
+
 mat-toolbar span{
     color: white;
 }
@@ -20,6 +24,10 @@ mat-list-item{
     margin-top: 15px;
     margin-bottom: 15px;
     align-content: center;
+}
+
+mat-list-item.selected span{
+    color: #4caf50;
 }
 
 

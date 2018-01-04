@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Assignment} from "../models/assignments/Assignment";
 import {AssignmentService} from "../core/services/assignment.service";
-import {QuestionGroup} from "../models/Questions/QuestionGroup";
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {CreateAssignmentDialogComponent} from "../shared/view/dialogs/create-assignment-dialog/create-assignment-dialog.component";
 import {filter} from "rxjs/operators";
-import {AddTpoReadingGroupDialogComponent} from "./dialogs/add-tpo-reading-group-dialog/add-tpo-reading-group-dialog.component";
 
 @Component({
   selector: 'app-edit-assignment',
@@ -17,7 +15,9 @@ export class EditAssignmentComponent implements OnInit {
     assignmentList:Assignment[];
     selectAssignmentId:string = '';
 
-	constructor(public assignmentService:AssignmentService, private router:Router,private dialog: MatDialog) {
+	constructor(public assignmentService:AssignmentService,
+	            private router:Router,
+	            private dialog: MatDialog) {
 	}
 
 	ngOnInit() {

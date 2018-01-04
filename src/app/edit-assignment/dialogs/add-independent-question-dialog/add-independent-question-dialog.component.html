@@ -4,28 +4,23 @@
 
     <form ngNativeValidate id="form" role="form" #f="ngForm"
           (ngSubmit) = "closeDialogAndSave()" fxLayout="column">
-        <mat-input-container>
-            <label>请输入题目</label>
-            <app-text-editor
-                    [(ngModel)]="question"
-                    [editorOptions]="QuestionEditorOptions"
-                    [required]="true"
-                    name="question"
-            ></app-text-editor>
+        <label>请输入题目</label>
+        <app-text-editor
+                [(ngModel)]="question"
+                [editorOptions]="QuestionEditorOptions"
+                [required]="true"
+                name="question"
+        ></app-text-editor>
 
-        </mat-input-container>
+        <label>请输入范文</label>
 
-        <mat-input-container>
-            <label>请输入范文</label>
+        <app-text-editor
+                [(ngModel)]="answer"
+                [editorOptions]="AnswerEditorOptions"
+                [required]="true"
+                name="answer"
+        ></app-text-editor>
 
-            <app-text-editor
-                    [(ngModel)]="answer"
-                    [editorOptions]="AnswerEditorOptions"
-                    [required]="true"
-                    name="answer"
-            ></app-text-editor>
-
-        </mat-input-container>
 
     </form>
 </mat-dialog-content>

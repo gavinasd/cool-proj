@@ -25,62 +25,83 @@
                     <mat-option [value]="'tpo_listening_multiple_choice'">多选题</mat-option>
                     <mat-option [value]="'tpo_listening_table_choice'">表格题</mat-option>
                     <mat-option [value]="'tpo_listening_repeat_type'">重听题</mat-option>
+                    <mat-option [value]="'tpo_listening_sequence_type'">排序题</mat-option>
                 </mat-select>
             </mat-form-field>
 
         </div>
 
-        <div *ngIf="question.questionType == 'tpo_listening_table_choice'"
-             fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <mat-input-container>
-                <input matInput name="row" type="number" required
-                       (change)="initTableRows()" [(ngModel)]="rowsLength" placeholder="表格题的列数">
-            </mat-input-container>
+        <div [ngSwitch]="question.questionType">
+            <div *ngSwitchCase="'tpo_listening_table_choice'">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                    <mat-input-container>
+                        <input matInput name="row" type="number" required
+                               (change)="initTableRows()" [(ngModel)]="rowsLength" placeholder="表格题的列数">
+                    </mat-input-container>
 
-            <mat-input-container>
-                <input matInput name="column" type="number" required
-                       (change)="initTableCols()" [(ngModel)]="optionsLength" placeholder="表格题的行数">
-            </mat-input-container>
+                    <mat-input-container>
+                        <input matInput name="column" type="number" required
+                               (change)="initTableCols()" [(ngModel)]="optionsLength" placeholder="表格题的行数">
+                    </mat-input-container>
+                </div>
+                <div fxLayout="column">
+                    <mat-input-container
+                            *ngFor="let row of tableRows;let i = index;trackBy:trackByIndex">
+                        <input matInput type="text" required
+                               name="tableRow{{i}}"
+                               placeholder="标题{{i+1}}"
+                               [(ngModel)]="tableRows[i]">
+                    </mat-input-container>
+
+                    <mat-input-container *ngFor="let row of question.options;let i = index;trackBy:trackByIndex">
+                        <input matInput type="text" required
+                               name="tableCol{{i}}"
+                               placeholder="选项{{i+1}}"
+                               [(ngModel)]="question.options[i]">
+                    </mat-input-container>
+                </div>
+            </div>
+
+            <div *ngSwitchCase="'tpo_listening_sequence_type'" fxLayout="column">
+                <mat-input-container>
+                    <input matInput name="sequenceNum" type="number" required
+                           [(ngModel)]="optionsLength"
+                           (change)="initSequenceChoice()"
+                           placeholder="有多少个选项">
+                </mat-input-container>
+
+                <mat-input-container *ngFor="let sequence of question.options;let i = index;trackBy:trackByIndex">
+                    <input matInput type="text" required
+                           name="sequence{{i}}"
+                           placeholder="选项{{i+1}}"
+                           [(ngModel)]="question.options[i]">
+                </mat-input-container>
+            </div>
+
+            <div *ngSwitchDefault  fxLayout="column">
+                <mat-input-container>
+                    <input matInput name="option1" type="text"
+                           required [(ngModel)]="question.options[0]" placeholder="选项A">
+                </mat-input-container>
+
+                <mat-input-container>
+                    <input matInput name="option2" type="text" required
+                           [(ngModel)]="question.options[1]" placeholder="选项B">
+                </mat-input-container>
+
+                <mat-input-container>
+                    <input matInput name="option3" type="text" required
+                           [(ngModel)]="question.options[2]" placeholder="选项C">
+                </mat-input-container>
+
+                <mat-input-container>
+                    <input matInput name="option4" type="text" required
+                           [(ngModel)]="question.options[3]" placeholder="选项D">
+                </mat-input-container>
+            </div>
+
         </div>
 
-        <div *ngIf="question.questionType == 'tpo_listening_table_choice'" fxLayout="column">
-            <mat-input-container
-                    *ngFor="let row of tableRows;let i = index;trackBy:trackByIndex">
-                <input matInput type="text" required
-                       name="tableRow{{i}}"
-                       placeholder="标题{{i+1}}"
-                       [(ngModel)]="tableRows[i]">
-            </mat-input-container>
-
-            <mat-input-container *ngFor="let row of question.options;let i = index;trackBy:trackByIndex">
-                <input matInput type="text" required
-                       name="tableCol{{i}}"
-                       placeholder="选项{{i+1}}"
-                       [(ngModel)]="question.options[i]">
-            </mat-input-container>
-        </div>
-        <div *ngIf="question.questionType !== 'tpo_listening_table_choice'" fxLayout="column">
-
-            <mat-input-container>
-                <input matInput name="option1" type="text"
-                       required [(ngModel)]="question.options[0]" placeholder="选项A">
-            </mat-input-container>
-
-            <mat-input-container>
-                <input matInput name="option2" type="text" required
-                       [(ngModel)]="question.options[1]" placeholder="选项B">
-            </mat-input-container>
-
-            <mat-input-container>
-                <input matInput name="option3" type="text" required
-                       [(ngModel)]="question.options[2]" placeholder="选项C">
-            </mat-input-container>
-
-            <mat-input-container>
-                <input matInput name="option4" type="text" required
-                       [(ngModel)]="question.options[3]" placeholder="选项D">
-            </mat-input-container>
-        </div>
 
         <mat-input-container>
             <input matInput name="answer" type="text" required

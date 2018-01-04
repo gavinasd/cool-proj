@@ -17,6 +17,7 @@ export class TpoListeningQuestionDetailComponent
 	public passage:string;
 	public previousQuestionId:String = '';
 	public checkboxAnswers:boolean[] = [false,false,false,false];
+	public sequenceAnswers:boolean[];
 	private myAudio:any;
 	@Input() contentIndex:number;
 
@@ -34,6 +35,7 @@ export class TpoListeningQuestionDetailComponent
 		}
 		this.answer = this.lastAnswer;
 		this.setupCheckboxAnswer();
+		this.setupSequenceAnswer();
 		this.setupHeader();
 
 		if(this.contentIndex == 0){
@@ -70,19 +72,7 @@ export class TpoListeningQuestionDetailComponent
 
 	setupCheckboxAnswer(){
 		if(this.question && this.question.questionType == this.assignmentService.getTpoListeningMultipleChoice()){
-			this.checkboxAnswers = [false, false, false, false];
-			if(this.answer.includes('A')){
-				this.checkboxAnswers[0] = true;
-			}
-			if(this.answer.includes('B')){
-				this.checkboxAnswers[1] = true;
-			}
-			if(this.answer.includes('C')){
-				this.checkboxAnswers[2] = true;
-			}
-			if(this.answer.includes('D')){
-				this.checkboxAnswers[3] = true;
-			}
+			this.checkboxAnswers = this.getChecboxAnswer(this.answer);
 		}
 	}
 
@@ -99,6 +89,48 @@ export class TpoListeningQuestionDetailComponent
 		});
 
 		super.changeAnswer();
+	}
+
+	setupSequenceAnswer(){
+		if(this.question && this.question.questionType == 'tpo_listening_sequence_type'){
+			this.sequenceAnswers = this.getChecboxAnswer(this.answer);
+		}
+	}
+
+	changeSequenceAnswer(){
+		for(let i = 0; i < this.sequenceAnswers.length; i++){
+			const answer = this.convert09ToAZ.transform(i);
+			const index = this.answer.indexOf(answer);
+			if(this.sequenceAnswers[i] && index <0 ){
+				this.answer += answer;
+			}
+			if(!this.sequenceAnswers[i] && index >=0 ){
+				this.answer = this.answer.slice(0,index) + this.answer.slice(index+1);
+			}
+		}
+	}
+
+	getChecboxAnswer(answer: string): boolean[]{
+		let answers:boolean[] = Array.from({length: 6});
+		if(answer.includes('A')){
+			answers[0] = true;
+		}
+		if(answer.includes('B')){
+			answers[1] = true;
+		}
+		if(answer.includes('C')){
+			answers[2] = true;
+		}
+		if(answer.includes('D')){
+			answers[3] = true;
+		}
+		if(answer.includes('E')){
+			answers[4] = true;
+		}
+		if(answer.includes('F')){
+			answers[5] = true;
+		}
+		return answers;
 	}
 
 	playRecord(){

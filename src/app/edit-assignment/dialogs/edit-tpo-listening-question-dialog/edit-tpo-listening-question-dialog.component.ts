@@ -34,6 +34,9 @@ export class EditTpoListeningQuestionDialogComponent implements OnInit {
 			this.rowsLength = this.tableRows.length + 1;
 			this.optionsLength = this.question.options.length + 1;
 		}
+		if (this.question.questionType == 'tpo_listening_sequence_type') {
+			this.optionsLength = this.question.options.length;
+		}
 	}
 
 	initTableRows(){
@@ -46,6 +49,10 @@ export class EditTpoListeningQuestionDialogComponent implements OnInit {
 
 	trackByIndex(index: number, value: number) {
 		return index;
+	}
+
+	initSequenceChoice() {
+		this.question.options = Array.from({length: this.optionsLength});
 	}
 
 	closeDialog(){

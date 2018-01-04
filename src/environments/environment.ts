@@ -55,11 +55,11 @@ export const environment = {
 	teacherEditorOptions: {
 		placeholderText: '',
 		charCounterCount: false,
-		toolbarButtons: ['fullscreen','bold','italic','strikeThrough','color',],
+		toolbarButtons: ['fullscreen','bold','italic','strikeThrough','spellChecker','color'],
 		colorsText:['#d71345','#f58220','#ffe600','#bed742','#1d953f','#2b4490','#000000'],
 		height: 500,
 		quickInsertTags: [],
-		spellcheck: true,
+		spellcheck: true
 	},
 	studentEditorOptions:{
 		placeholderText: '',
@@ -81,6 +81,6 @@ export const environment = {
 		colorsText:['#d71345','#f58220','#ffe600','#bed742','#1d953f','#2b4490','#000000'],
 		height: 500,
 		quickInsertTags: [],
-		spellcheck: true,
+		spellcheck: true
 	}
 };

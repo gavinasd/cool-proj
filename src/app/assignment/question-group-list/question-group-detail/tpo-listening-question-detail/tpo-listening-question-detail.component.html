@@ -69,6 +69,18 @@
                     (answerChanged)="changeTableChoiceAnswer($event)"
                 ></app-tpo-table-for-view>
             </div>
+
+            <div class="question" fxLayout="column"
+                 *ngIf="tpoListeningQuestion.questionType == 'tpo_listening_sequence_type'">
+                <p><strong>{{tpoListeningQuestion.question}}</strong></p>
+                <div fxLayout="column" fxLayoutGap="10px">
+                    <mat-checkbox *ngFor="let option of tpoListeningQuestion.options;let i = index"
+                                  [(ngModel)]="sequenceAnswers[i]" (change)="changeSequenceAnswer()">
+                        {{i|convert09ToAZ}}. {{option}}
+                    </mat-checkbox>
+                    <p>你的选择:{{answer}}</p>
+                </div>
+            </div>
         </div>
     </div>
 
