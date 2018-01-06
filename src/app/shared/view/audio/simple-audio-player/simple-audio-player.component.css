@@ -1,3 +1,6 @@
-button{
-    display: inline;
+i{
+    line-height: 24px;
+    vertical-align: middle;
+    cursor: pointer;
+    font-size: 19px;
 }

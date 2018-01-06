@@ -14,6 +14,8 @@ mat-toolbar button{
 
 mat-toolbar span{
     color: white;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 mat-sidenav {

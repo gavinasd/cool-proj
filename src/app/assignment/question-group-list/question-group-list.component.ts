@@ -12,7 +12,7 @@ import {Question} from "../../models/Questions/Question";
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {SubmitConfirmDialogComponent} from "../../shared/view/dialogs/submit-confirm-dialog/submit-confirm-dialog.component";
 import {ComponentCanDeactivate} from "../../core/services/route-guard.service";
-import {filter, first, takeWhile} from "rxjs/operators";
+import {combineLatest, distinctUntilChanged, filter, first, map, pairwise, reduce, takeWhile} from "rxjs/operators";
 import {interval} from "rxjs/observable/interval";
 
 @Component({
@@ -32,6 +32,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 	private viewMode = 'question';
 	public assignmentName$:Observable<string>;
 	public assignmentScoreList$:Observable<any[]>;
+	public groupIndex$:Observable<number>;
 	public group$:Observable<QuestionGroup>;
 	public groupType$:Observable<string>;
 	public groupContent$:Observable<string>;
@@ -72,6 +73,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 		this.assignmentName$ = this.store.select(fromApplication.getAssignmentName);
 		this.assignmentScoreList$ = this.store.select(fromApplication.getAssignmentScoreList);
 		this.group$ = this.store.select(fromApplication.getCurrentGroup);
+		this.groupIndex$ = this.store.select(fromApplication.getCurrentGroupIndex);
 		this.groupType$ = this.store.select(fromApplication.getGroupType);
 		this.groupContent$ = this.store.select(fromApplication.getGroupContent);
 		this.contentIndex$ = this.store.select(fromApplication.getContentIndex);
@@ -121,10 +123,6 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 		this.autoSave();
 	}
 
-	skipContent(){
-		this.store.dispatch(new assignmentActions.SkipContentAction());
-	}
-
 	changeAnswer(answer: string){
 		this.store.dispatch(new assignmentActions.SetStudentAnswerAction(answer));
 	}
@@ -140,13 +138,20 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 			filter(loading => !loading),
 			first()
 		).subscribe(loading => {
-			this.store.dispatch(new assignmentActions.NextAction());
+			if(this.mode !== Mode.HomeWork){
+				this.store.dispatch(new assignmentActions.NextAction(true));
+			} else {
+				this.store.dispatch(new assignmentActions.NextAction());
+			}
 		})
 	}
 
 	pre(){
-		this.store.dispatch(new assignmentActions.PreAction());
-	}
+		if(this.mode !== Mode.HomeWork){
+			this.store.dispatch(new assignmentActions.PreAction(true));
+		} else {
+			this.store.dispatch(new assignmentActions.PreAction());
+		}	}
 
 	autoSave() {
 		//每分钟自动保存一次

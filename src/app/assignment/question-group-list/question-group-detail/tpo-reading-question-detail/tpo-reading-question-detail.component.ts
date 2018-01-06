@@ -5,6 +5,7 @@ import {
 import {TPOReadingQuestion} from "../../../../models/Questions/TPOReadingQuestion";
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {Convert09ToAZPipe} from "../../../../shared/pipes/convert09-to-az.pipe";
+import {Question} from "../../../../models/Questions/Question";
 
 @Component({
   selector: 'app-tpo-reading-question-detail',
@@ -18,6 +19,8 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 
 	@ViewChild('passageContainer') passageContainer:ElementRef;
 	@Input() viewMode:string = 'question';
+
+	public checkboxAnswers:boolean[] = [false,false,false,false];
 
 	selectedAnswers:number[]=[-1,-1,-1];
 	private scrollQuestionId:string; //用来保存已经滚过的题目，不至于重复滚动
@@ -33,6 +36,8 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.answer = this.lastAnswer;
+		this.setupCheckboxAnswer();
+
 		if(this.question.questionType == 'tpo_reading_topic'){
 			if(this.answer.length != 3){
 				this.answer = '   ';
@@ -91,6 +96,50 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 			this.passageContainer.nativeElement.scrollTop = scrollTop - 10;
 		}
 
+	}
+
+	setupCheckboxAnswer(){
+		if(this.question && this.question.questionType == Question.TPO_READING_MULTIPLE_TYPE){
+			this.checkboxAnswers = this.getCheckboxAnswer(this.answer);
+		}
+	}
+
+	changeCheckboxAnswer(){
+		this.answer = this.checkboxAnswers.map((checked, index)=>{
+			if(checked){
+				return this.convert09ToAZ.transform(index);
+			}
+			else{
+				return '';
+			}
+		}).reduce((answer, content)=>{
+			return answer+content;
+		});
+
+		super.changeAnswer();
+	}
+
+	getCheckboxAnswer(answer: string): boolean[]{
+		let answers:boolean[] = Array.from({length: 6});
+		if(answer.includes('A')){
+			answers[0] = true;
+		}
+		if(answer.includes('B')){
+			answers[1] = true;
+		}
+		if(answer.includes('C')){
+			answers[2] = true;
+		}
+		if(answer.includes('D')){
+			answers[3] = true;
+		}
+		if(answer.includes('E')){
+			answers[4] = true;
+		}
+		if(answer.includes('F')){
+			answers[5] = true;
+		}
+		return answers;
 	}
 
 	changeView(){

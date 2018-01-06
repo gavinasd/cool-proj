@@ -31,6 +31,25 @@ export class Assignment{
 		}
 		return false;
 	}
+
+	public static getGroupContentLength(type: string):number{
+		switch(type){
+			case 'tpo_reading':
+				return 0;
+			case 'tpo_listening':
+				return 1;
+			case 'vocabulary':
+				return 1;
+			case 'independent_writing':
+				return 0;
+			case 'integrated_writing':
+				return 2;
+			case 'tpo_speaking':
+				return 0;
+			default:
+				return 0;
+		}
+	}
 }
 
 export enum Mode{

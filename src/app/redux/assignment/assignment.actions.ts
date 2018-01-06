@@ -71,12 +71,12 @@ export class SetMarkingScoreAction implements Action{
 
 export class NextAction implements Action{
 	readonly type = NEXT;
-	constructor(){}
+	constructor(public skipContent:boolean=false){}
 }
 
 export class PreAction implements Action{
 	readonly type = PRE;
-	constructor(){}
+	constructor(public skipContent:boolean=false){}
 }
 
 export class SkipContentAction implements Action{

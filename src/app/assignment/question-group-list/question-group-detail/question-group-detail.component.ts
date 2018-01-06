@@ -8,7 +8,7 @@ import {Mode} from "../../../models/assignments/Assignment";
   styleUrls: ['./question-group-detail.component.css']
 })
 export class QuestionGroupDetailComponent implements OnInit {
-	@Input() assignmentName:string;     //这个变量是专门用来传递给header使用的\
+	@Input() assignmentName:string;     //这个变量是专门用来传递给header使用的
 	@Input() classId:string;
 	@Input() mode:Mode;
 	@Input() groupContent:string;

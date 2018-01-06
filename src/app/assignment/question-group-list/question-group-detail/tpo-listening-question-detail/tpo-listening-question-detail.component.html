@@ -100,7 +100,10 @@
                     </div>
 
                     <div class="review-question" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
-                        <p><strong>{{tpoListeningQuestion.question}}</strong></p>
+                        <p>
+                            <strong>{{tpoListeningQuestion.question}}</strong>
+                            <app-simple-audio-player [src]="tpoListeningQuestion.recordUrl"></app-simple-audio-player>
+                        </p>
                     </div>
                     <mat-list>
                         <mat-list-item *ngFor="let option of tpoListeningQuestion.options; let i = index">

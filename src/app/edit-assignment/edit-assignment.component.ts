@@ -51,4 +51,8 @@ export class EditAssignmentComponent implements OnInit {
 			});
     }
 
+    goHome(){
+	    this.router.navigate(['/']);
+    }
+
 }

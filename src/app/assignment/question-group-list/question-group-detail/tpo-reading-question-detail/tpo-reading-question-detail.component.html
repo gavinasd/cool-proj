@@ -46,6 +46,25 @@
         </div>
 
         <div class="question-content"
+             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_multiple'"
+             fxLayout="row" fxLayoutWrap="wrap"
+             fxLayout.sm="column" fxLayoutAlign="space-around">
+            <div class="question" fxLayout="column" fxFlex="1 1 50%">
+                <app-question-index [content]="getPagerContent()"></app-question-index>
+                <p><strong>{{tpoReadingQuestion.question}}</strong></p>
+
+                <div fxLayout="column" fxLayoutGap="10px">
+                    <mat-checkbox *ngFor="let option of tpoReadingQuestion.options;let i = index"
+                                  [(ngModel)]="checkboxAnswers[i]" (change)="changeCheckboxAnswer()">
+                        {{i|convert09ToAZ}}. {{option}}
+                    </mat-checkbox>
+                </div>
+                <p><strong>Paragraph {{tpoReadingQuestion.paragraph}} is marked with ♦</strong></p>
+            </div>
+            <div  fxFlex="1 1 50%" #passageContainer class="passage" [froalaView]="passage"></div>
+        </div>
+
+        <div class="question-content"
              *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_topic' && viewMode =='question'">
             <div class="topic-question" fxLayout="column" fxLayoutAlign="start">
                 <p>Directions:An introductory sentence for a brief summary of the passage is provided below.Complete the summary by selecting THREE answer choices that express the most important ideas in the passage.Some answer choices do not belong in summary because they express ideas that are not presented in the passage or are minor ideas in the passage.The Question is worth 2 points.</p>
@@ -87,7 +106,8 @@
     <div *ngIf="reviewMode()">
         <div class="question-content"
              *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_single'
-             || tpoReadingQuestion.questionType == 'tpo_reading_insert'"
+             || tpoReadingQuestion.questionType == 'tpo_reading_insert'
+             || tpoReadingQuestion.questionType == 'tpo_reading_multiple'"
              fxLayout="row" fxLayoutWrap="wrap" fxLayout.sm="column" fxLayoutAlign="space-around">
             <div class="question" fxLayout="column" fxFlex="1 1 50%">
                 <app-question-pager></app-question-pager>

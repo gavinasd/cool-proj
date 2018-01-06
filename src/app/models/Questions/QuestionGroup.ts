@@ -27,6 +27,7 @@ export class QuestionGroup{
 					case Question.TPO_READING_SINGLE_TYPE:
 					case Question.TPO_READING_INSERT_TYPE:
 					case Question.TPO_READING_TOPIC_TYPE:
+					case Question.TPO_READING_MULTIPLE_TYPE:
 						newQuestion = new TPOReadingQuestion(question);
 						break;
 					case Question.TPO_LISTENING_SINGLE_CHOICE_TYPE:

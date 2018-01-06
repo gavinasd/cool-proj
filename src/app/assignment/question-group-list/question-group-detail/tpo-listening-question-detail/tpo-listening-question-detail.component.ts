@@ -72,7 +72,7 @@ export class TpoListeningQuestionDetailComponent
 
 	setupCheckboxAnswer(){
 		if(this.question && this.question.questionType == this.assignmentService.getTpoListeningMultipleChoice()){
-			this.checkboxAnswers = this.getChecboxAnswer(this.answer);
+			this.checkboxAnswers = this.getCheckboxAnswer(this.answer);
 		}
 	}
 
@@ -93,7 +93,7 @@ export class TpoListeningQuestionDetailComponent
 
 	setupSequenceAnswer(){
 		if(this.question && this.question.questionType == 'tpo_listening_sequence_type'){
-			this.sequenceAnswers = this.getChecboxAnswer(this.answer);
+			this.sequenceAnswers = this.getCheckboxAnswer(this.answer);
 		}
 	}
 
@@ -108,9 +108,11 @@ export class TpoListeningQuestionDetailComponent
 				this.answer = this.answer.slice(0,index) + this.answer.slice(index+1);
 			}
 		}
+		super.changeAnswer();
+
 	}
 
-	getChecboxAnswer(answer: string): boolean[]{
+	getCheckboxAnswer(answer: string): boolean[]{
 		let answers:boolean[] = Array.from({length: 6});
 		if(answer.includes('A')){
 			answers[0] = true;

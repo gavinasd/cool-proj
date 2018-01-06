@@ -34,6 +34,10 @@ export class AssignmentService {
     	return Question.TPO_READING_TOPIC_TYPE;
     }
 
+    public getTPOReadingMultipleChoice(): string{
+    	return Question.TPO_READING_MULTIPLE_TYPE;
+    }
+
 	public getVocabularyQuestionType():string{
 		return Question.VOCABULARY_TYPE;
 	}
