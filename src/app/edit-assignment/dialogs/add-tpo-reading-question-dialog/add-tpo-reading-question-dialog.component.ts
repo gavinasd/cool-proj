@@ -40,13 +40,22 @@ export class AddTpoReadingQuestionDialogComponent implements OnInit {
 				?this.getQuestionForCategoryType(form): form.value.question,
 			options : this.getOptionList(form),
 			answer:form.value.answer,
-			score:this.questionType == (this.assignmentService.getTPOReadingTopic()
-				|| this.assignmentService.getTPOReadingCategoryType())?2:1
+			score:this.getScoreForQuestionType(this.questionType)
 		});
 		this.dialogRef.close({
 			'question': question,
 			'index': this.questionIndex - 1
 		});
+	}
+
+	getScoreForQuestionType(questionType: string) : number{
+		if(questionType == this.assignmentService.getTPOReadingCategoryType()) {
+			return 3;
+		} else if (questionType == this.assignmentService.getTPOReadingTopic()) {
+			return 2;
+		} else {
+			return 1;
+		}
 	}
 
 	getQuestionForCategoryType(form: NgForm): string {
