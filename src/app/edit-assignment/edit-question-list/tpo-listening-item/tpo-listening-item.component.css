@@ -34,11 +34,14 @@
     color: #666c84;
 }
 
-mat-list{
-    padding: 0px;
+ul{
+    list-style: none;
+    padding-left: 20px;
+    margin: 0;
 }
 
-mat-list-item{
+li{
+    margin: 20px 0;
     font-size: inherit;
 }
 

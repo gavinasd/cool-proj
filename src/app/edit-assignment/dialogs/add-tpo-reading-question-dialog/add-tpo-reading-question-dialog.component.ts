@@ -4,6 +4,7 @@ import {TPOReadingQuestion} from "../../../models/Questions/TPOReadingQuestion";
 import {HttpService} from "../../../core/services/http.service";
 import {NgForm} from "@angular/forms";
 import {AssignmentService} from "../../../core/services/assignment.service";
+import {TPOListeningQuestion} from "../../../models/Questions/TPOListeningQuestion";
 
 @Component({
   selector: 'app-add-tpo-reading-question-dialog',
@@ -13,6 +14,8 @@ import {AssignmentService} from "../../../core/services/assignment.service";
 export class AddTpoReadingQuestionDialogComponent implements OnInit {
 	public questionType:string;          //用来接收题目的类型
 	public questionIndex:number;          //插入到第几题
+	public categoryList:string[];
+	public categoryOptions:string[];
 
 	constructor(private httpService: HttpService,
                 public assignmentService: AssignmentService,
@@ -33,10 +36,12 @@ export class AddTpoReadingQuestionDialogComponent implements OnInit {
 			creator:this.httpService.getCurrentId(),
 			questionType : this.questionType,
 			paragraph: form.value.paragraph,
-			question : form.value.question,
+			question : (this.questionType == this.assignmentService.getTPOReadingCategoryType())
+				?this.getQuestionForCategoryType(form): form.value.question,
 			options : this.getOptionList(form),
 			answer:form.value.answer,
-			score:this.questionType == this.assignmentService.getTPOReadingTopic()?2:1
+			score:this.questionType == (this.assignmentService.getTPOReadingTopic()
+				|| this.assignmentService.getTPOReadingCategoryType())?2:1
 		});
 		this.dialogRef.close({
 			'question': question,
@@ -44,9 +49,35 @@ export class AddTpoReadingQuestionDialogComponent implements OnInit {
 		});
 	}
 
+	getQuestionForCategoryType(form: NgForm): string {
+		return JSON.stringify({
+			'question': form.value.question,
+			'categoryList': this.categoryList
+		})
+	}
+
 	getOptionList(form:NgForm):String[]{
-		return this.questionType == this.assignmentService.getTPOReadingTopic()?
-			[form.value.option1,form.value.option2,form.value.option3,form.value.option4,form.value.option5,form.value.option6]:
-			[form.value.option1,form.value.option2,form.value.option3,form.value.option4];
+		switch (this.questionType) {
+			case this.assignmentService.getTPOReadingTopic():
+				return [form.value.option1,form.value.option2,form.value.option3,
+					form.value.option4,form.value.option5,form.value.option6];
+			case this.assignmentService.getTPOReadingCategoryType():
+				return this.categoryOptions;
+			default:
+				return [form.value.option1,form.value.option2,form.value.option3,form.value.option4];
+
+		}
+	}
+
+	initCategoryList(num: number){
+		this.categoryList = Array.from({length: num});
+	}
+
+	initCategoryOptions(num: number){
+		this.categoryOptions = Array.from({length: num});
+	}
+
+	trackByIndex(index: number, value: number) {
+		return index;
 	}
 }

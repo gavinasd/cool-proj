@@ -6,6 +6,7 @@ import {TPOReadingQuestion} from "../../../../models/Questions/TPOReadingQuestio
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {Convert09ToAZPipe} from "../../../../shared/pipes/convert09-to-az.pipe";
 import {Question} from "../../../../models/Questions/Question";
+import index from "@angular/cli/lib/cli";
 
 @Component({
   selector: 'app-tpo-reading-question-detail',
@@ -25,6 +26,8 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 	selectedAnswers:number[]=[-1,-1,-1];
 	private scrollQuestionId:string; //用来保存已经滚过的题目，不至于重复滚动
 
+	categoryAnswers:number[][];
+
 	constructor(public convert09ToAZ:Convert09ToAZPipe) {
 		super();
 	}
@@ -36,18 +39,22 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.answer = this.lastAnswer;
-		this.setupCheckboxAnswer();
+		this.tpoReadingQuestion = <TPOReadingQuestion>this.question;
 
+		this.setupCheckboxAnswer();
 		if(this.question.questionType == 'tpo_reading_topic'){
 			if(this.answer.length != 3){
 				this.answer = '   ';
 			}
 			this.selectedAnswers = this.parseAnswerForTopicQuestion(this.answer);
 		}
+		if(this.question.questionType == 'tpo_reading_category_type') {
+			this.categoryAnswers = this.parseAnswerForCategoryQuestion(this.answer);
+
+		}
 		if(this.groupContent.length > 0) {
 			this.passage = JSON.parse(this.groupContent).passage;
 		}
-		this.tpoReadingQuestion = <TPOReadingQuestion>this.question;
 	}
 
 	ngAfterViewChecked(): void {
@@ -117,6 +124,59 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 		});
 
 		super.changeAnswer();
+	}
+
+	parseAnswerForCategoryQuestion(answer: string) {
+		if(!answer || answer.length == 0){
+			return Array.from({length: this.getCategoryList().length})
+				.map(()=>new Array());
+		} else {
+			return answer.split("-").map(answers => {
+				return answers.split("").map(value => this.convertAZTo09(value));
+			});
+		}
+
+	}
+
+	dropCategoryAnswer(categoryIndex:number, data : any){
+		const indexToSelect = data.dragData;
+		this.categoryAnswers[categoryIndex].push(indexToSelect);
+		this.categoryAnswers[categoryIndex] = this.categoryAnswers[categoryIndex].sort();
+		this.answer = this.getAnswerForCategory();
+		super.changeAnswer();
+	}
+
+	removeCategoryAnswer(categoryIndex: number, indexToRemove){
+		const answers = this.categoryAnswers[categoryIndex].filter(value => value !== indexToRemove);
+		this.categoryAnswers[categoryIndex] = answers;
+		this.answer = this.getAnswerForCategory();
+		super.changeAnswer();
+	}
+
+	getCategoryList(): string[]{
+		return JSON.parse(this.tpoReadingQuestion.question).categoryList;
+	}
+
+	getQuestionForCategoryType(): string {
+		return JSON.parse(this.tpoReadingQuestion.question).question;
+	}
+
+	getAnswerForCategory(): string{
+		let answerForCategory = "";
+		for(let i = 0; i < this.categoryAnswers.length; i++) {
+			const answers = this.categoryAnswers[i];
+			for(let answer of answers) {
+				answerForCategory += this.convert09ToAZ.transform(answer);
+			}
+			if(i !== this.categoryAnswers.length - 1){
+				answerForCategory += "-";
+			}
+		}
+		return answerForCategory;
+	}
+
+	draggableFroCategory(index: number): boolean{
+		return this.categoryAnswers.filter(answers => answers.includes(index)).length == 0;
 	}
 
 	getCheckboxAnswer(answer: string): boolean[]{
@@ -206,4 +266,8 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 		return answers;
 	}
 
+
+	convertAZTo09(value: string): number{
+		return value.charCodeAt(0)-65;
+	}
 }

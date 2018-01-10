@@ -67,3 +67,14 @@ mat-radio-button p{
     height: 100vh;
     overflow: scroll;
 }
+
+ul{
+    list-style: none;
+    padding-left: 20px;
+    margin: 0;
+}
+
+li{
+    margin: 20px 0;
+    font-size: inherit;
+}

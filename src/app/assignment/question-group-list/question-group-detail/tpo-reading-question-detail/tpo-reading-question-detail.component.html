@@ -65,6 +65,41 @@
         </div>
 
         <div class="question-content"
+             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_category_type' && viewMode =='question'">
+            <div class="topic-question" fxLayout="column" fxLayoutAlign="start">
+                <p><strong>{{getQuestionForCategoryType()}}</strong></p>
+
+                <div class="selected-answer"
+                     fxLayout="row" fxLayoutAlign="space-around" fxLayoutGap="20px">
+                    <div *ngFor="let category of getCategoryList(); let i = index"
+                         fxFlex="0 0 47%" fxLayout="column" fxLayoutAlign="start center">
+                        <p><strong>{{category}}</strong></p>
+                        <div class="category-choice-item-container"
+                             dnd-droppable (onDropSuccess)="dropCategoryAnswer(i, $event)">
+                             <p *ngFor="let answerIndex of categoryAnswers[i]"
+                                (click)="removeCategoryAnswer(i, answerIndex)">
+                                 {{answerIndex|convert09ToAZ}}.{{tpoReadingQuestion.options[answerIndex]}}
+                             </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 fxFlexAlign="center">Answer Choices</h3>
+                <div fxLayout="row" fxLayoutWrap fxLayoutAlign="start">
+                    <div class="choice-item-container"
+                         *ngFor="let option of tpoReadingQuestion.options;let i = index"
+                         fxFlex="1 1 50%" dnd-draggable
+                         [dragEnabled]="draggableFroCategory(i)" [dragData]="i">
+                        <div class="choice-item" fxLayout="column" fxLayoutAlign="center">
+                            <p *ngIf="draggableFroCategory(i)">{{i|convert09ToAZ}}.{{option}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="question-content"
              *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_topic' && viewMode =='question'">
             <div class="topic-question" fxLayout="column" fxLayoutAlign="start">
                 <p>Directions:An introductory sentence for a brief summary of the passage is provided below.Complete the summary by selecting THREE answer choices that express the most important ideas in the passage.Some answer choices do not belong in summary because they express ideas that are not presented in the passage or are minor ideas in the passage.The Question is worth 2 points.</p>
@@ -83,9 +118,9 @@
                 </div>
 
                 <h3 fxFlexAlign="center">Answer Choices</h3>
-                <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-around" fxLayoutGap="20px">
+                <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-around">
                     <div class="choice-item-container" *ngFor="let option of tpoReadingQuestion.options;let i = index"
-                         fxFlex="1 1 47%" dnd-draggable [dragEnabled]="!selectedAnswers.includes(i)" [dragData]="i">
+                         fxFlex="1 1 50%" dnd-draggable [dragEnabled]="!selectedAnswers.includes(i)" [dragData]="i">
                         <div class="choice-item" fxLayout="column" fxLayoutAlign="center">
                             <p *ngIf="!selectedAnswers.includes(i)">{{i|convert09ToAZ}}.{{option}}</p>
                         </div>
@@ -96,9 +131,10 @@
         </div>
 
         <div class="question-content"
-             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_topic' && viewMode =='text'"
+             *ngIf="(tpoReadingQuestion.questionType == 'tpo_reading_topic' ||
+                    tpoReadingQuestion.questionType == 'tpo_reading_category_type')&&
+                    viewMode =='text'"
              fxLayout="row" fxLayoutAlign="end">
-
             <div fxFlex="1 1 50%" #passageContainer class="passage" [froalaView]="passage"></div>
         </div>
     </div>
@@ -116,11 +152,11 @@
                     <p><strong>{{tpoReadingQuestion.question}}</strong></p>
                 </div>
 
-                <mat-list *ngIf="tpoReadingQuestion.questionType !== 'tpo_reading_insert'">
-                    <mat-list-item *ngFor="let option of tpoReadingQuestion.options; let i = index">
+                <ul *ngIf="tpoReadingQuestion.questionType !== 'tpo_reading_insert'">
+                    <li *ngFor="let option of tpoReadingQuestion.options; let i = index">
                         {{i|convert09ToAZ}}. {{option}}
-                    </mat-list-item>
-                </mat-list>
+                    </li>
+                </ul>
 
                 <p><strong>Paragraph {{tpoReadingQuestion.paragraph}} is marked with ♦</strong></p>
 
@@ -134,15 +170,61 @@
         </div>
 
         <div class="question-content"
+             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_category_type' && viewMode == 'question'">
+            <div class="topic-question" fxLayout="column" fxLayoutAlign="start">
+                <p><strong>{{getQuestionForCategoryType()}}</strong></p>
+
+                <h3 fxFlexAlign="center">Answer Choices</h3>
+                <div fxLayout="row" fxLayoutWrap fxLayoutAlign="start">
+                    <div class="choice-item-container"
+                         *ngFor="let option of tpoReadingQuestion.options;let i = index"
+                         fxFlex="1 1 50%" dnd-draggable
+                         [dragEnabled]="false" [dragData]="i">
+                        <div class="choice-item" fxLayout="column" fxLayoutAlign="center">
+                            <p>{{i|convert09ToAZ}}.{{option}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="answer" [style.padding-left]="'20px'">
+                    <div fxLayout="row" fxLayoutWrap fxLayoutAlign="start" fxLayoutGap="50px">
+                        <p fxFlex="100%" [ngClass]="{'correct-answer':correct(),'wrong-answer':!correct()}">
+                            <strong>
+                                学生答案：
+                            </strong>
+                        </p>
+                        <div *ngFor="let category of getCategoryList();let i = index">
+                            <p><strong>{{category}}:</strong></p>
+                            <p *ngFor="let answerIndex of categoryAnswers[i]">
+                                {{answerIndex|convert09ToAZ}}.{{tpoReadingQuestion.options[answerIndex]}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutWrap fxLayoutAlign="start" fxLayoutGap="50px">
+                        <p fxFlex="100%" class="correct-answer"><strong>正确答案：</strong></p>
+                        <div *ngFor="let category of getCategoryList();let i = index">
+                            <p><strong>{{category}}:</strong></p>
+                            <p *ngFor="let answerIndex of parseAnswerForCategoryQuestion(tpoReadingQuestion.answer)[i]">
+                                {{answerIndex|convert09ToAZ}}.{{tpoReadingQuestion.options[answerIndex]}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="question-content"
              *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_topic' && viewMode =='question'">
             <div class="topic-question" fxLayout="column" fxLayoutAlign="start">
                 <p>Directions:An introductory sentence for a brief summary of the passage is provided below.Complete the summary by selecting THREE answer choices that express the most important ideas in the passage.Some answer choices do not belong in summary because they express ideas that are not presented in the passage or are minor ideas in the passage.The Question is worth 2 points.</p>
                 <p><strong>{{tpoReadingQuestion.question}}</strong></p>
 
                 <h3 fxFlexAlign="center">Answer Choices</h3>
-                <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-around" fxLayoutGap="20px">
+                <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-around">
                     <div class="choice-item-container" *ngFor="let option of tpoReadingQuestion.options;let i = index"
-                         fxFlex="1 1 47%" dnd-draggable [dragEnabled]="false" [dragData]="i">
+                         fxFlex="1 1 50%" dnd-draggable [dragEnabled]="false" [dragData]="i">
                         <div class="choice-item" fxLayout="column" fxLayoutAlign="center">
                             <p>{{i|convert09ToAZ}}.{{option}}</p>
                         </div>
@@ -157,7 +239,9 @@
         </div>
 
         <div class="question-content"
-             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_topic' && viewMode =='text'"
+             *ngIf="(tpoReadingQuestion.questionType == 'tpo_reading_topic'
+                   ||tpoReadingQuestion.questionType == 'tpo_reading_category_type')
+                   && viewMode =='text'"
              fxLayout="row" fxLayoutAlign="end">
 
             <div fxFlex="1 1 50%" #passageContainer class="passage" [froalaView]="passage"></div>

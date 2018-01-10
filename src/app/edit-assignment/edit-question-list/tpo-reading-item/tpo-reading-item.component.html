@@ -11,12 +11,23 @@
     </div>
 
     <div class="question-item" *ngFor="let question of questionList">
-        <h4>{{question.question}}</h4>
-        <mat-list fxLayout="column" fxLayoutGap="5px">
-            <mat-list-item *ngFor="let option of question.options; let i = index">
+        <h4 *ngIf="question.questionType !== 'tpo_reading_category_type'">{{question.question}}</h4>
+        <h4 *ngIf="question.questionType == 'tpo_reading_category_type'">
+            {{getQuestionForCategoryType(question.question)}}
+        </h4>
+
+        <ul *ngIf="question.questionType == 'tpo_reading_category_type'"
+            fxLayout="column" fxLayoutGap="5px">
+            <li *ngFor="let category of getCategoryList(question.question)">
+                <strong>{{category}}</strong>
+            </li>
+        </ul>
+
+        <ul fxLayout="column" fxLayoutGap="5px">
+            <li *ngFor="let option of question.options; let i = index">
                 {{i|convert09ToAZ}}. {{option}}
-            </mat-list-item>
-        </mat-list>
+            </li>
+        </ul>
 
         <p class="answer">答案：{{question.answer}}</p>
 

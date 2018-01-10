@@ -105,11 +105,11 @@
                             <app-simple-audio-player [src]="tpoListeningQuestion.recordUrl"></app-simple-audio-player>
                         </p>
                     </div>
-                    <mat-list>
-                        <mat-list-item *ngFor="let option of tpoListeningQuestion.options; let i = index">
+                    <ul>
+                        <li *ngFor="let option of tpoListeningQuestion.options; let i = index">
                             {{i|convert09ToAZ}}. {{option}}
-                        </mat-list-item>
-                    </mat-list>
+                        </li>
+                    </ul>
                 </div>
                 <div class="answer">
                     <p [ngClass]="{'correct-answer':correct(),'text-danger':!correct()}">学生答案：{{answer}}</p>

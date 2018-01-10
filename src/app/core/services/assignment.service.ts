@@ -38,6 +38,10 @@ export class AssignmentService {
     	return Question.TPO_READING_MULTIPLE_TYPE;
     }
 
+    public getTPOReadingCategoryType(): string{
+    	return Question.TPO_READING_CATEGORY_TYPE;
+    }
+
 	public getVocabularyQuestionType():string{
 		return Question.VOCABULARY_TYPE;
 	}

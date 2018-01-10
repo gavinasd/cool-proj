@@ -6,6 +6,7 @@ export class Question {
 	public static TPO_READING_INSERT_TYPE = 'tpo_reading_insert';
 	public static TPO_READING_TOPIC_TYPE = 'tpo_reading_topic';
 	public static TPO_READING_MULTIPLE_TYPE = 'tpo_reading_multiple';
+	public static TPO_READING_CATEGORY_TYPE = 'tpo_reading_category_type';
 	public static VOCABULARY_TYPE = 'vocabulary';
 	public static INTEGRATED_WRITING_TYPE = 'integrated_writing';
 	public static INDEPENDENT_WRITING_TYPE = 'independent_writing';

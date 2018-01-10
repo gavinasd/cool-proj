@@ -23,32 +23,73 @@
                 <mat-option [value]="assignmentService.getTPOReadingInsertChoice()">插入题</mat-option>
                 <mat-option [value]="assignmentService.getTPOReadingTopic()">主旨题</mat-option>
                 <mat-option [value]="assignmentService.getTPOReadingMultipleChoice()">多选题</mat-option>
+                <mat-option [value]="assignmentService.getTPOReadingCategoryType()">分组题</mat-option>
             </mat-select>
         </mat-form-field>
 
-        <mat-input-container>
-            <input matInput name="option1" type="text" required ngModel placeholder="选项A">
-        </mat-input-container>
+        <div [ngSwitch]="questionType">
+            <div *ngSwitchCase="assignmentService.getTPOReadingCategoryType()">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                    <mat-input-container>
+                        <input matInput name="row" type="number" required
+                               (change)="initCategoryList(f.value.row)" ngModel placeholder="分组的数量">
+                    </mat-input-container>
 
-        <mat-input-container>
-            <input matInput name="option2" type="text" required ngModel placeholder="选项B">
-        </mat-input-container>
+                    <mat-input-container>
+                        <input matInput name="column" type="number" required
+                               (change)="initCategoryOptions(f.value.column)" ngModel placeholder="选项个数">
+                    </mat-input-container>
+                </div>
 
-        <mat-input-container>
-            <input matInput name="option3" type="text" required ngModel placeholder="选项C">
-        </mat-input-container>
+                <div fxLayout="column">
+                    <mat-input-container
+                            *ngFor="let category of categoryList;let i = index;trackBy:trackByIndex">
+                        <input matInput type="text" required
+                               name="category{{i}}"
+                               placeholder="分组{{i+1}}"
+                               [(ngModel)]="categoryList[i]">
+                    </mat-input-container>
+                </div>
 
-        <mat-input-container>
-            <input matInput name="option4" type="text" required ngModel placeholder="选项D">
-        </mat-input-container>
+                <div fxLayout="column">
+                    <mat-input-container *ngFor="let categoryOption of categoryOptions;
+                    let i = index;trackBy:trackByIndex">
+                        <input matInput type="text" required
+                               name="categoryOption{{i}}"
+                               placeholder="选项{{i+1}}"
+                               [(ngModel)]="categoryOptions[i]">
+                    </mat-input-container>
+                </div>
+            </div>
 
-        <mat-input-container *ngIf="questionType == 'tpo_reading_topic'">
-            <input matInput name="option5" type="text" required ngModel placeholder="选项E">
-        </mat-input-container>
+            <div *ngSwitchDefault fxLayout="column">
+                <mat-input-container>
+                    <input matInput name="option1" type="text" required ngModel placeholder="选项A">
+                </mat-input-container>
 
-        <mat-input-container *ngIf="questionType == 'tpo_reading_topic'">
-            <input matInput name="option6" type="text" required ngModel placeholder="选项F">
-        </mat-input-container>
+                <mat-input-container>
+                    <input matInput name="option2" type="text" required ngModel placeholder="选项B">
+                </mat-input-container>
+
+                <mat-input-container>
+                    <input matInput name="option3" type="text" required ngModel placeholder="选项C">
+                </mat-input-container>
+
+                <mat-input-container>
+                    <input matInput name="option4" type="text" required ngModel placeholder="选项D">
+                </mat-input-container>
+
+                <mat-input-container *ngIf="questionType == 'tpo_reading_topic'">
+                    <input matInput name="option5" type="text" required ngModel placeholder="选项E">
+                </mat-input-container>
+
+                <mat-input-container *ngIf="questionType == 'tpo_reading_topic'">
+                    <input matInput name="option6" type="text" required ngModel placeholder="选项F">
+                </mat-input-container>
+            </div>
+
+        </div>
+
 
         <mat-input-container>
             <input matInput name="answer" type="text" required ngModel placeholder="答案">

@@ -29,6 +29,17 @@ p.selected-paragraph:before{
     content:"<span>slkdjf</span>";
 }
 
+ul{
+    list-style: none;
+    padding-left: 20px;
+    margin: 0;
+}
+
+li{
+    margin: 20px 0;
+    font-size: inherit;
+}
+
 mat-radio-button{
     margin: 10px 0px 10px 0px;
 }
@@ -40,6 +51,10 @@ mat-radio-button p{
 
 .correct-answer{
     color: #4caf50;
+}
+
+.wrong-answer{
+    color: #f44336;
 }
 
 .answer{
@@ -56,9 +71,18 @@ h3{
     -webkit-transform: none !important;
     width: 600px;
     min-height: 80px;
-    margin-right: 20px;
     margin-top: 5px;
     margin-bottom: 5px;
+    padding: 0px 10px;
+}
+
+.category-choice-item-container{
+    transform: none !important;
+    -webkit-transform: none !important;
+    width: 100%;
+    min-height: 150px;
+    padding: 0 10px;
+    border: 1px solid lightgray;
 }
 
 .choice-item{

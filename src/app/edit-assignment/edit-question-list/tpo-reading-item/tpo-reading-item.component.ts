@@ -135,4 +135,12 @@ export class TpoReadingItemComponent implements OnInit {
 			);
 	}
 
+	getQuestionForCategoryType(question: string):string{
+		return JSON.parse(question).question || '';
+	}
+
+	getCategoryList(question: string): string[] {
+		return JSON.parse(question).categoryList || '';
+	}
+
 }
