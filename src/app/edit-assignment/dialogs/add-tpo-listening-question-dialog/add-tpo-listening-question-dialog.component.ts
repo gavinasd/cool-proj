@@ -16,7 +16,7 @@ export class AddTpoListeningQuestionDialogComponent implements OnInit {
 	public explanationEditorOptions;
 	public explanation:string;
 	public questionIndex:number;          //插入到第几题
-	public options:number[];
+	public options:string[] = Array.from({length: 4});
 	public tableRows:string[];
 	public tableCols:string[];
 	public sequenceChoices:string[];
@@ -48,6 +48,10 @@ export class AddTpoListeningQuestionDialogComponent implements OnInit {
 
 	initSequenceChoice(num: number) {
 		this.sequenceChoices = Array.from({length: num});
+	}
+
+	initOptions(num: number) {
+		this.options = Array.from({length: num});
 	}
 
 	closeDialog(){
@@ -128,8 +132,7 @@ export class AddTpoListeningQuestionDialogComponent implements OnInit {
 			questionType : form.value.questionType,
 			question : form.value.question,
 			recordUrl : recordUrl,
-			options : [form.value.option1,form.value.option2,
-				form.value.option3,form.value.option4],
+			options : this.options,
 			answer:form.value.answer,
 			explanation: this.explanation,
 			score:1

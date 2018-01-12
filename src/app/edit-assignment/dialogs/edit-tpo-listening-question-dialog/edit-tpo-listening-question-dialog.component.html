@@ -78,6 +78,21 @@
                 </mat-input-container>
             </div>
 
+            <div *ngSwitchCase="'tpo_listening_multiple_choice'" fxLayout="column">
+                <mat-input-container>
+                    <input matInput name="optionNum" type="number" required ngModel
+                           (change)="initOptions(f.value.optionNum)"
+                           placeholder="有多少个选项">
+                </mat-input-container>
+
+                <mat-input-container
+                        *ngFor="let option of question.options;let i = index;trackBy:trackByIndex">
+                    <input matInput name="option{{i}}}" type="text"
+                           required [(ngModel)]="question.options[i]"
+                           placeholder="选项{{i|convert09ToAZ}}">
+                </mat-input-container>
+            </div>
+
             <div *ngSwitchDefault  fxLayout="column">
                 <mat-input-container>
                     <input matInput name="option1" type="text"

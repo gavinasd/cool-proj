@@ -55,6 +55,10 @@ export class EditTpoListeningQuestionDialogComponent implements OnInit {
 		this.question.options = Array.from({length: this.optionsLength});
 	}
 
+	initOptions(num: number) {
+		this.question.options = Array.from({length: num});
+	}
+
 	closeDialog(){
 		this.dialogRef.close();
 	}
