@@ -22,7 +22,9 @@ export class EditAssignmentComponent implements OnInit {
 
 	ngOnInit() {
 		this.assignmentService.getAllAssignmentList().subscribe((assignmentList:Assignment[])=>{
-			this.assignmentList = assignmentList;
+			this.assignmentList = assignmentList.sort((a,b)=> {
+				return a.assignmentName.localeCompare(b.assignmentName);
+			});
 		});
 	}
 
