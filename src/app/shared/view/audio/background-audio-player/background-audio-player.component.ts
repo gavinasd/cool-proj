@@ -20,6 +20,9 @@ export class BackgroundAudioPlayerComponent implements OnInit, OnDestroy, OnChan
 		this.myAudio.addEventListener('ended', ()=>{
 			this.completed.emit(true);
 		}, false);
+		this.myAudio.addEventListener('error', ()=>{
+			this.completed.emit(true);
+		}, false);
 		this.myAudio.load();
 		this.myAudio.play();
 	}

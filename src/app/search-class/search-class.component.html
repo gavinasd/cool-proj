@@ -4,11 +4,11 @@
     <app-search-result-item
             fxFlex="33%"
             fxFlex.sm="100%"
-            *ngFor="let classInfo of classInfoList"
-            [classInfo]="classInfo"
+            *ngFor="let courseItem of courseItemList"
+            [courseItem]="courseItem"
     ></app-search-result-item>
 
-    <h5 *ngIf="classInfoList && classInfoList.length == 0">
+    <h5 *ngIf="courseItemList && courseItemList.length == 0">
         找不到任何班级，请重新搜索
     </h5>
 </div>

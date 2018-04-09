@@ -1,6 +1,6 @@
 <app-question-header
         [assignmentName]="assignmentName"
-        [classId]="classId"
+        [courseId]="courseId"
         [mode]="mode"
         (next)="next()"
         (pre)="pre()"
@@ -43,7 +43,7 @@
         </div>
 
         <div class="question-content"
-             *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'
+             *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
          && directionComplete && !passageComplete && !dialogComplete"
              fxLayout="column" fxLayoutAlign="center center">
             <app-count-down-timer fxFlexAlign="center" [time]="45" (completed)="completePassage()" ></app-count-down-timer>
@@ -51,14 +51,14 @@
         </div>
 
         <div class="question-content"
-             *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'
+             *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
          && directionComplete && passageComplete && !dialogComplete"
              fxLayout="column" fxLayoutAlign="center center">
             <app-audio-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()" (completed)="completeDialog()"></app-audio-player>
         </div>
 
         <div class="question-content"
-             *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q5q6_type'
+             *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE
          && directionComplete && !dialogComplete"
              fxLayout="column" fxLayoutAlign="center center">
             <app-audio-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()" (completed)="completeDialog()"></app-audio-player>
@@ -71,11 +71,11 @@
              fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center">
             <app-question-index fxFlexAlign="start" [content]="getPagerContent()"></app-question-index>
             <mat-expansion-panel class="mat-elevation-z0 question-detail" [expanded]="false"
-                                *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'
-                            || tpoSpeakingQuestion.questionType == 'tpo_speaking_q5q6_type'">
+                                *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
+                            || tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE">
                 <mat-expansion-panel-header><span>题目详情</span></mat-expansion-panel-header>
                 <div fxLayout="column">
-                    <div class="passage" *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'"
+                    <div class="passage" *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE"
                          [froalaView]="tpoSpeakingQuestion.passage"></div>
                     <div fxLayout="row" fxLayoutAlign="start center">
                         <label>对话录音：</label>
@@ -112,11 +112,12 @@
         <div class="question-content"
              fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center">
             <app-question-index fxFlexAlign="start" [content]="getPagerContent()"></app-question-index>
-            <mat-expansion-panel class="mat-elevation-z0 question-detail" [expanded]="false" *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'
-                    || tpoSpeakingQuestion.questionType == 'tpo_speaking_q5q6_type'">
+            <mat-expansion-panel class="mat-elevation-z0 question-detail" [expanded]="false"
+                                 *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
+                                || tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE">
                 <mat-expansion-panel-header><span>题目详情</span></mat-expansion-panel-header>
                 <div fxLayout="column">
-                    <div class="passage" *ngIf="tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'"
+                    <div class="passage" *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE"
                          [froalaView]="tpoSpeakingQuestion.passage"></div>
                     <div fxLayout="row" fxLayoutAlign="start center">
                         <label>对话录音：</label>

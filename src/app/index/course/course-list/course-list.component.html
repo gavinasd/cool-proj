@@ -3,12 +3,12 @@
     <app-course-list-item
             fxFlex="33%"
             fxFlex.sm="100%"
-            *ngFor="let classInfo of classInfoList"
-            [classInfo]="classInfo"
+            *ngFor="let courseItem of courseItemList"
+            [courseItem]="courseItem"
     ></app-course-list-item>
 
 
-    <h5 *ngIf="classInfoList && classInfoList.length == 0">
+    <h5 *ngIf="courseItemList && courseItemList.length == 0">
         你还没有加入任何班级，可以尝试搜索班级加入
     </h5>
 </div>

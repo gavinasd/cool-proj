@@ -3,7 +3,8 @@ import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {TPOListeningQuestion} from "../../../../models/Questions/TPOListeningQuestion";
 import {AssignmentService} from "../../../../core/services/assignment.service";
 import {Convert09ToAZPipe} from "../../../../shared/pipes/convert09-to-az.pipe";
-import {Mode} from "../../../../models/assignments/Assignment";
+import {QuestionType} from "../../../../shared/enums/QuestionType";
+import {Mode} from "../../../../shared/enums/Mode";
 
 @Component({
   selector: 'app-tpo-listening-question-detail',
@@ -44,8 +45,8 @@ export class TpoListeningQuestionDetailComponent
 		}
 
 		if(this.contentIndex != 0
-			&& this.question && this.question.id !== this.previousQuestionId) {
-			this.previousQuestionId = this.question.id;
+			&& this.question && this.question.questionId !== this.previousQuestionId) {
+			this.previousQuestionId = this.question.questionId;
 			this.tpoListeningQuestion = <TPOListeningQuestion>this.question;
 			if(super.homeworkMode()){
 				this.playRecord();
@@ -57,21 +58,13 @@ export class TpoListeningQuestionDetailComponent
 		this.stopPlayRecord();
 	}
 
-	getQuestionForTableChoiceQuestion(question: string):string{
-		return JSON.parse(question).question || '';
-	}
-
-	getRowsForTableChoiceQuestion(question: string): string[]{
-		return JSON.parse(question).tableRows || [];
-	}
-
 	changeTableChoiceAnswer(value: string){
 		this.answer = value;
 		this.changeAnswer();
 	}
 
 	setupCheckboxAnswer(){
-		if(this.question && this.question.questionType == this.assignmentService.getTpoListeningMultipleChoice()){
+		if(this.question && this.question.questionType == QuestionType.TPO_LISTENING_MULTIPLE_CHOICE_TYPE){
 			this.checkboxAnswers = this.getCheckboxAnswer(this.answer);
 		}
 	}
@@ -92,7 +85,8 @@ export class TpoListeningQuestionDetailComponent
 	}
 
 	setupSequenceAnswer(){
-		if(this.question && this.question.questionType == 'tpo_listening_sequence_type'){
+		if(this.question
+			&& this.question.questionType == QuestionType.TPO_LISTENING_SEQUENCE_TYPE){
 			this.sequenceAnswers = this.getCheckboxAnswer(this.answer);
 		}
 	}
@@ -145,7 +139,7 @@ export class TpoListeningQuestionDetailComponent
 
 		if (this.tpoListeningQuestion && this.tpoListeningQuestion.recordUrl.length > 0) {
 			this.stopPlayRecord();
-			if(this.question.questionType !== this.assignmentService.getTpoListeningRepeatQuestion()){
+			if(this.question.questionType !== QuestionType.TPO_LISTENING_REPEAT_TYPE){
 				this.myAudio = new Audio(this.tpoListeningQuestion.recordUrl);
 				this.myAudio.play();
 			}
@@ -154,7 +148,11 @@ export class TpoListeningQuestionDetailComponent
 				this.myAudio = new Audio(repeatUrl);
 				this.myAudio.play();
 
-				this.myAudio.addEventListener('ended',()=>{
+				this.myAudio.addEventListener("error", ()=>{
+					this.myAudio = new Audio(this.tpoListeningQuestion.recordUrl);
+					this.myAudio.play();
+				});
+				this.myAudio.addEventListener("ended", ()=>{
 					this.myAudio = new Audio(this.tpoListeningQuestion.recordUrl);
 					this.myAudio.play();
 				});

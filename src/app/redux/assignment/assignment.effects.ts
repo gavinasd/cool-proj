@@ -35,11 +35,11 @@ export class AssignmentEffect {
 		.pipe(
 			map((action: AssignmentAction.FetchInfoAction) => action.payload),
 			switchMap(data => {
-				const classId = data.classId;
+				const courseId = data.courseId;
 				const assignmentId = data.assignmentId;
 				const studentId = data.studentId;
 
-				return this.assignmentService.getAssignmentInfo(classId, assignmentId, studentId);
+				return this.assignmentService.getAssignmentInfo(courseId, assignmentId, studentId);
 			}),
 			map(data => new AssignmentAction.FetchInfoSuccessAction(data.spendTime, data.studentAnswer, data.markScore)),
 			catchError((err) => Observable.of(new AssignmentAction.FetchInfoFailureAction(err)))
@@ -47,18 +47,18 @@ export class AssignmentEffect {
 
 
 	@Effect()
-	submitInfo:Observable<Action> = this.action$
+	submitInfo: Observable<Action> = this.action$
 		.ofType(AssignmentAction.SUBMIT)
-		.withLatestFrom(this.store$,(action:AssignmentAction.SubmitAction,state:fromApplication.ApplicationState)=> {
+		.withLatestFrom(this.store$, (action: AssignmentAction.SubmitAction, state: fromApplication.ApplicationState) => {
 			return [action.payload, state.assignment];
 		})
 		.pipe(
-			switchMap(([payload, state])=> {
+			switchMap(([payload, state]) => {
 				const questionId = state.assignment.questionGroupList[state.currentGroupIndex]
-					.questionList[state.currentQuestionIndex].id;
-				const spendTime = state.spendTime.changed?state.spendTime.time:null;
-				const studentAnswer = state.studentAnswer.changed?state.studentAnswer.answer.get(questionId):null;
-				const markScore = state.markScore.changed?state.markScore.score.get(questionId):null;
+					.questionList[state.currentQuestionIndex].questionId;
+				const spendTime = state.spendTime.changed ? state.spendTime.time : -1;
+				const studentAnswer = state.studentAnswer.changed ? state.studentAnswer.answer.get(questionId) : "";
+				const markScore = state.markScore.changed ? state.markScore.score.get(questionId) : -1;
 
 				const data = Object.assign({}, payload, {
 					questionId: questionId,
@@ -67,9 +67,9 @@ export class AssignmentEffect {
 					markScore: markScore
 				});
 				return this.assignmentService.submitAssignmentInfo(data)
-					.map((data) => new AssignmentAction.SubmitSuccessAction())
+					.pipe(map((data) => new AssignmentAction.SubmitSuccessAction()));
 			}),
-			catchError((err)=> Observable.of(new AssignmentAction.SubmitFailureAction(err)))
+			catchError((err) => Observable.of(new AssignmentAction.SubmitFailureAction(err)))
 		);
 
 }

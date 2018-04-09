@@ -1,12 +1,12 @@
 <div fxLayout="row" fxLayoutAlign="center">
     <mat-card>
         <img mat-card-image src="../../../../assets/resources/img/1.jpg">
-        <mat-card-title>{{classInfo.className}}</mat-card-title>
+        <mat-card-title>{{courseItem.className}}</mat-card-title>
         <mat-card-content>
-            <p>老师：{{classInfo.teacherList[0].nickName}}</p>
+            <p>老师：{{courseItem.teacherName}}</p>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-button [routerLink]="['/class',classInfo.classId]">进入班级</button>
+            <button mat-button [routerLink]="['/class',courseItem.courseId]">进入班级</button>
         </mat-card-actions>
     </mat-card>
 </div>

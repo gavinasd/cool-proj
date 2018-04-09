@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Question} from "../../../models/Questions/Question";
-import {Mode} from "../../../models/assignments/Assignment";
+import {QuestionType} from "../../../shared/enums/QuestionType";
+import {Mode} from "../../../shared/enums/Mode";
 
 @Component({
   selector: 'app-question-group-detail',
@@ -9,7 +10,7 @@ import {Mode} from "../../../models/assignments/Assignment";
 })
 export class QuestionGroupDetailComponent implements OnInit {
 	@Input() assignmentName:string;     //这个变量是专门用来传递给header使用的
-	@Input() classId:string;
+	@Input() courseId:string;
 	@Input() mode:Mode;
 	@Input() groupContent:string;
 	@Input() question:Question;
@@ -23,6 +24,7 @@ export class QuestionGroupDetailComponent implements OnInit {
 	@Output() OnNext:EventEmitter<boolean> = new EventEmitter<boolean>();
 	@Output() OnPre:EventEmitter<boolean> = new EventEmitter<boolean>();
 	public ModeType = Mode;
+	public QuestionType:any = QuestionType;
 	public answer:string;
 	public showPreButton:boolean = true;
 	public showNextButton:boolean = true;

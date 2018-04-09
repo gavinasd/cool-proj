@@ -6,7 +6,7 @@ import {Question} from "./Question";
  */
 export class IndependentWritingQuestion extends Question{
 
-	constructor(obj?:any,content?:string){
-		super(obj,content);
+	constructor(obj?:any){
+		super(obj);
 	}
 }

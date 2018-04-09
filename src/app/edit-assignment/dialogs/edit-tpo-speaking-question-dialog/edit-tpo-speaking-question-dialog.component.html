@@ -18,14 +18,15 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-input-container *ngIf="questionIndex == 3 || questionIndex == 4">
+        <div *ngIf="questionIndex == 3 || questionIndex == 4">
             <app-text-editor
+                    matInput
                     [(ngModel)]="question.passage"
                     [editorOptions]="passageEditorOptions"
                     [required]="true"
                     name="passage"
             ></app-text-editor>
-        </mat-input-container>
+        </div>
 
 
         <mat-input-container>

@@ -4,7 +4,7 @@ import {QuestionGroupListComponent} from "./question-group-list/question-group-l
 import {CanDeactivateGuard} from "../core/services/route-guard.service";
 @NgModule({
 	imports: [RouterModule.forChild([
-		{   path: 'list/:classId/:assignmentId/:studentId/:mode',
+		{   path: 'list/:courseId/:assignmentId/:studentId/:mode',
 			canDeactivate:[CanDeactivateGuard],
 			component: QuestionGroupListComponent },
 	])],

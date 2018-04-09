@@ -15,8 +15,8 @@
                 Quit
             </button>
 
-            <button mat-button *ngIf="questionType == 'tpo_reading_topic'
-                                    || questionType == 'tpo_reading_category_type'"
+            <button mat-button *ngIf="questionType == QuestionType.TPO_READING_TOPIC_TYPE
+                                    || questionType == QuestionType.TPO_READING_CATEGORY_TYPE"
                     (click)="changeView()">
                 {{viewText?'View Question':'View Text'}}
             </button>

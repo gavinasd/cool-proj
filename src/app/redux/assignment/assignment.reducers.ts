@@ -35,7 +35,7 @@ export const initialState: State = {
 export function reducer(state:State = initialState, action: AssignmentAction.Actions ): State {
 	switch (action.type){
 		case AssignmentAction.FETCH_SUCCESS:{
-			return Object.assign({}, initialState, {
+			return Object.assign({}, initialState, state, {
 				loading: false,
 				assignment: (<AssignmentAction.FetchAssignmentSuccessAction>action).payload
 			});
@@ -92,7 +92,7 @@ export function reducer(state:State = initialState, action: AssignmentAction.Act
 
 		case AssignmentAction.SET_STUDENT_ANSWER:{
 			const currentQuestionId = state.assignment.questionGroupList[state.currentGroupIndex]
-				.questionList[state.currentQuestionIndex].id;
+				.questionList[state.currentQuestionIndex].questionId;
 			let newAnswer = state.studentAnswer.answer;
 			newAnswer.set(currentQuestionId, (<AssignmentAction.SetStudentAnswerAction>action).payload);
 
@@ -106,7 +106,7 @@ export function reducer(state:State = initialState, action: AssignmentAction.Act
 
 		case AssignmentAction.SET_MARKING_SCORE:{
 			const currentQuestionId = state.assignment.questionGroupList[state.currentGroupIndex]
-				.questionList[state.currentQuestionIndex].id;
+				.questionList[state.currentQuestionIndex].questionId;
 			let newScore = state.markScore.score;
 			newScore.set(currentQuestionId, (<AssignmentAction.SetMarkingScoreAction>action).payload);
 
@@ -268,7 +268,7 @@ export function reducer(state:State = initialState, action: AssignmentAction.Act
 }
 
 const getGroupContentLength = (assignment:Assignment)=>{
-	return Assignment.getGroupContentLength(assignment.type);
+	return Assignment.getGroupContentLength(assignment.assignmentType);
 };
 
 export const getAssignment = (state: State) => state.assignment;
@@ -289,7 +289,7 @@ export const getAssignmentScoreList = (state:State) => {
 			if(!state.markScore){
 				continue;
 			}
-			let score = state.markScore.score.get(question.id) || 0;
+			let score = state.markScore.score.get(question.questionId) || 0;
 			let scoreItem = {
 				'groupIndex':groupIndex,
 				'questionIndex': questionIndex,
@@ -336,7 +336,7 @@ export const getCurrentQuestion = (state: State ) => {
 
 export const getStudentAnswer = (state: State) =>{
 	const questionId = state.assignment.questionGroupList[state.currentGroupIndex] &&
-		state.assignment.questionGroupList[state.currentGroupIndex].questionList[state.currentQuestionIndex].id;
+		state.assignment.questionGroupList[state.currentGroupIndex].questionList[state.currentQuestionIndex].questionId;
 	if(!state.studentAnswer){
 		return '';
 	}
@@ -345,7 +345,7 @@ export const getStudentAnswer = (state: State) =>{
 
 export const getMarkScore = (state: State) =>{
 	const questionId = state.assignment.questionGroupList[state.currentGroupIndex] &&
-		state.assignment.questionGroupList[state.currentGroupIndex].questionList[state.currentQuestionIndex].id;
+		state.assignment.questionGroupList[state.currentGroupIndex].questionList[state.currentQuestionIndex].questionId;
 
 	if(!state.markScore){
 		return 0;

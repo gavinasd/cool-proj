@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import {HttpService} from "./http.service";
 import {Observable} from "rxjs";
-import {User} from "../../models/models";
 import {environment} from "../../../environments/environment";
 import {catchError, map} from "rxjs/operators";
+import {ResultVO} from "../../shared/VO/ResultVO";
+import {LoginRegisterVO} from "../../shared/VO/LoginRegisterVO";
 
 @Injectable()
 export class UserService {
 
 	constructor(private httpService:HttpService) { }
 
-	public login(email:string, password:string):Observable<string>{
+	public login(email:string, password:string):Observable<ResultVO<LoginRegisterVO>>{
 		console.log('service login start');
 		var body = JSON.stringify({
 			'email':email,
@@ -19,21 +20,19 @@ export class UserService {
 		return this.httpService
 			.makePost(environment.loginUrl,body)
 			.pipe(
-				map((resp:any)=>{
-					this.httpService.setToken(resp.token);
-					this.httpService.setCurrentId(resp.id);
-					this.httpService.setUserType(resp.userType);
-					this.httpService.setCurrentUserName(resp.userName);
-					this.httpService.setCurrentUserAvatar(resp.avatar);
+				map((resp:ResultVO<LoginRegisterVO>)=>{
+					this.httpService.setToken(resp.data.token);
+					this.httpService.setCurrentId(resp.data.userId);
+					this.httpService.setUserType(resp.data.userType);
+					this.httpService.setCurrentUserName(resp.data.userName);
+					this.httpService.setCurrentUserAvatar(resp.data.avatar);
 					return resp;
-				}),
-				catchError(HttpService.handleError<string>('login'))
+				})
 			);
-
 	}
 
 	public register(name:string, avatar:string, email:string,
-					password:string, type:number):Observable<string>{
+					password:string, type:string):Observable<ResultVO<LoginRegisterVO>>{
 
 		let url = environment.registerUrl;
 		var body = JSON.stringify({
@@ -41,20 +40,19 @@ export class UserService {
 			'avatar': avatar,
 			'email':email,
 			'password':password,
-			'userType':type.toString()
+			'type':type
 		});
 		return this.httpService
 			.makePost(url,body)
 			.pipe(
-				map((resp)=>{
-					this.httpService.setToken(resp.token);
-					this.httpService.setCurrentId(resp.id);
-					this.httpService.setUserType(resp.userType);
-					this.httpService.setCurrentUserName(resp.userName);
-					this.httpService.setCurrentUserAvatar(resp.avatar);
-					return resp.id;
-				}),
-				catchError(HttpService.handleError<string>('register'))
+				map((resp:ResultVO<LoginRegisterVO>)=>{
+					this.httpService.setToken(resp.data.token);
+					this.httpService.setCurrentId(resp.data.userId);
+					this.httpService.setUserType(resp.data.userType);
+					this.httpService.setCurrentUserName(resp.data.userName);
+					this.httpService.setCurrentUserAvatar(resp.data.avatar);
+					return resp;
+				})
 			);
 	}
 }

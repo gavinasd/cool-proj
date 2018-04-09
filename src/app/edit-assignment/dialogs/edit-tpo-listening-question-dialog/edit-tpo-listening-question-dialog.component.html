@@ -4,12 +4,8 @@
     <form ngNativeValidate id="form" role="form" #f="ngForm"
           (ngSubmit) = "closeDialogAndSave()" fxLayout="column">
         <mat-input-container>
-            <input *ngIf="question.questionType !== 'tpo_listening_table_choice'"
-                   matInput name="question" type="text" required
+            <input matInput name="question" type="text" required
                    [(ngModel)]="question.question" placeholder="请输入题目">
-            <input *ngIf="question.questionType == 'tpo_listening_table_choice'"
-                   matInput name="question" type="text" required
-                   [(ngModel)]="questionForTable" placeholder="请输入题目">
         </mat-input-container>
 
         <div class="record-input" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
@@ -21,18 +17,18 @@
 
             <mat-form-field>
                 <mat-select placeholder="题目类型" name="questionType" required [(ngModel)]="question.questionType">
-                    <mat-option [value]="'tpo_listening_single_choice'">单选题</mat-option>
-                    <mat-option [value]="'tpo_listening_multiple_choice'">多选题</mat-option>
-                    <mat-option [value]="'tpo_listening_table_choice'">表格题</mat-option>
-                    <mat-option [value]="'tpo_listening_repeat_type'">重听题</mat-option>
-                    <mat-option [value]="'tpo_listening_sequence_type'">排序题</mat-option>
+                    <mat-option [value]="QuestionType.TPO_LISTENING_SINGLE_CHOICE_TYPE">单选题</mat-option>
+                    <mat-option [value]="QuestionType.TPO_LISTENING_MULTIPLE_CHOICE_TYPE">多选题</mat-option>
+                    <mat-option [value]="QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE">表格题</mat-option>
+                    <mat-option [value]="QuestionType.TPO_LISTENING_REPEAT_TYPE">重听题</mat-option>
+                    <mat-option [value]="QuestionType.TPO_LISTENING_SEQUENCE_TYPE">排序题</mat-option>
                 </mat-select>
             </mat-form-field>
 
         </div>
 
         <div [ngSwitch]="question.questionType">
-            <div *ngSwitchCase="'tpo_listening_table_choice'">
+            <div *ngSwitchCase="QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE">
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
                     <mat-input-container>
                         <input matInput name="row" type="number" required
@@ -46,11 +42,11 @@
                 </div>
                 <div fxLayout="column">
                     <mat-input-container
-                            *ngFor="let row of tableRows;let i = index;trackBy:trackByIndex">
+                            *ngFor="let row of question.tableRows;let i = index;trackBy:trackByIndex">
                         <input matInput type="text" required
                                name="tableRow{{i}}"
                                placeholder="标题{{i+1}}"
-                               [(ngModel)]="tableRows[i]">
+                               [(ngModel)]="question.tableRows[i]">
                     </mat-input-container>
 
                     <mat-input-container *ngFor="let row of question.options;let i = index;trackBy:trackByIndex">
@@ -62,7 +58,7 @@
                 </div>
             </div>
 
-            <div *ngSwitchCase="'tpo_listening_sequence_type'" fxLayout="column">
+            <div *ngSwitchCase="QuestionType.TPO_LISTENING_SEQUENCE_TYPE" fxLayout="column">
                 <mat-input-container>
                     <input matInput name="sequenceNum" type="number" required
                            [(ngModel)]="optionsLength"
@@ -78,7 +74,7 @@
                 </mat-input-container>
             </div>
 
-            <div *ngSwitchCase="'tpo_listening_multiple_choice'" fxLayout="column">
+            <div *ngSwitchCase="QuestionType.TPO_LISTENING_MULTIPLE_CHOICE_TYPE" fxLayout="column">
                 <mat-input-container>
                     <input matInput name="optionNum" type="number" required ngModel
                            (change)="initOptions(f.value.optionNum)"

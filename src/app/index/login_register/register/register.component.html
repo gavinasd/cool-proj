@@ -36,8 +36,8 @@
             </mat-input-container>
 
             <mat-radio-group fxLayoutGap="10px" name="type" required ngModel>
-                <mat-radio-button value="teacher"><p>教师</p></mat-radio-button>
-                <mat-radio-button value="student"><p>学生</p></mat-radio-button>
+                <mat-radio-button value="{{UserType.TEACHER}}"><p>教师</p></mat-radio-button>
+                <mat-radio-button value="{{UserType.STUDENT}}"><p>学生</p></mat-radio-button>
             </mat-radio-group>
 
             <button type="submit" mat-raised-button color="primary" fxFlexAlign="end">

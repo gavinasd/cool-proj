@@ -5,17 +5,17 @@
 
     <div class="question-item" *ngFor="let question of questionList;let i = index">
         <h4>題目{{i+1}}：</h4>
-        <h4 *ngIf="question.questionType == 'tpo_speaking_q3q4_type'">
+        <h4 *ngIf="question.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE">
             阅读材料：
         </h4>
-        <div class="passage" *ngIf="question.questionType == 'tpo_speaking_q3q4_type'"
+        <div class="passage" *ngIf="question.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE"
              [froalaView]="question.passage"></div>
-        <h4 *ngIf="question.questionType == 'tpo_speaking_q3q4_type'
-                || question.questionType == 'tpo_speaking_q5q6_type'">
+        <h4 *ngIf="question.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
+                || question.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE">
             听力材料：
         </h4>
-        <app-tpo-review-player *ngIf="question.questionType == 'tpo_speaking_q3q4_type'
-                || question.questionType == 'tpo_speaking_q5q6_type'" [src]="question.getDialogRecordUrl()">
+        <app-tpo-review-player *ngIf="question.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
+                || question.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE" [src]="question.getDialogRecordUrl()">
         </app-tpo-review-player>
         <p>{{question.question}}</p>
 

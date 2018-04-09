@@ -10,6 +10,7 @@ import {AddIntegratedQuestionDialogComponent} from "../dialogs/add-integrated-qu
 import {IntegratedWritingQuestion} from "../../models/Questions/IntegratedWritingQuestion";
 import {AddIndependentQuestionDialogComponent} from "../dialogs/add-independent-question-dialog/add-independent-question-dialog.component";
 import {IndependentWritingQuestion} from "../../models/Questions/IndependentWritingQuestion";
+import {AssignmentType} from "../../shared/enums/AssignmentType";
 
 @Component({
   selector: 'app-edit-question-list',
@@ -18,8 +19,9 @@ import {IndependentWritingQuestion} from "../../models/Questions/IndependentWrit
 })
 export class EditQuestionListComponent implements OnInit, OnChanges {
     @Input() assignmentId: string;
-    type:string;
+    type:AssignmentType;
     groupList: QuestionGroup[];
+    public AssignmentType:any = AssignmentType;
 
     constructor(protected assignmentService: AssignmentService, private dialog: MatDialog) { }
 
@@ -29,17 +31,17 @@ export class EditQuestionListComponent implements OnInit, OnChanges {
     ngOnChanges() {
         this.assignmentService.getAssignment(this.assignmentId)
             .subscribe((assignment:Assignment) => {
-        	    this.type = assignment.type;
+        	    this.type = assignment.assignmentType;
                 this.groupList = assignment.questionGroupList;
             });
     }
 
     deleteGroup(group: QuestionGroup){
-    	this.groupList = this.groupList.filter(item => item.id !== group.id);
+    	this.groupList = this.groupList.filter(item => item.groupId !== group.groupId);
     }
 
     openAddGroupDialog() {
-    	if(this.type == 'tpo_speaking'){
+    	if(this.type == AssignmentType.TPO_SPEAKING){
     		this.addQuestionGroup();
     		return;
 	    }
@@ -48,16 +50,16 @@ export class EditQuestionListComponent implements OnInit, OnChanges {
     	let config = new MatDialogConfig();
     	config.width = '800px';
     	switch (this.type) {
-		    case 'tpo_reading':
+		    case AssignmentType.TPO_READING:
 		    	dialog = AddTpoReadingGroupDialogComponent;
 			    break;
-		    case 'tpo_listening':
+		    case AssignmentType.TPO_LISTENING:
 		    	dialog = AddTpoListeningGroupDialogComponent;
 		    	break;
-		    case 'integrated_writing':
+		    case AssignmentType.TPO_INTEGRATED_WRITING:
 		    	dialog = AddIntegratedQuestionDialogComponent;
 		    	break;
-		    case 'independent_writing':
+		    case AssignmentType.TPO_INDEPENDENT_WRITING:
 		    	dialog = AddIndependentQuestionDialogComponent;
 		    	break;
 	    }
@@ -72,7 +74,7 @@ export class EditQuestionListComponent implements OnInit, OnChanges {
 
 	addQuestionGroup(content?:any){
 
-    	if(this.type == 'tpo_reading' || this.type == 'tpo_listening') {
+    	if(this.type == AssignmentType.TPO_READING || this.type == AssignmentType.TPO_LISTENING) {
 		    this.assignmentService.addQuestionGroupToAssignment(this.assignmentId, this.type, content)
 			    .subscribe((questionGroup: QuestionGroup) => {
 				    const group = new QuestionGroup(questionGroup);
@@ -80,7 +82,7 @@ export class EditQuestionListComponent implements OnInit, OnChanges {
 			    });
 	    }
 
-	    if(this.type == 'integrated_writing') {
+	    if(this.type == AssignmentType.TPO_INTEGRATED_WRITING) {
 		    let loadingContent = JSON.stringify({
 			    passage: JSON.parse(content).passage,
 			    recordUrl: JSON.parse(content).recordUrl
@@ -93,17 +95,16 @@ export class EditQuestionListComponent implements OnInit, OnChanges {
 			    	switchMap((questionGroup: QuestionGroup)=> {
 					    thatGroup = new QuestionGroup(questionGroup);
 					    this.groupList.push(thatGroup);
-			    		return this.assignmentService.addQuestionToGroup(this.assignmentId, thatGroup.id, loadingQuestion);
+			    		return this.assignmentService.addQuestionToGroup(this.assignmentId, thatGroup.groupId, loadingQuestion);
 				    })
 			    ).subscribe(data=>{
-				    console.log(data);
-				    const question = new IntegratedWritingQuestion(data.question);
+				    const question = new IntegratedWritingQuestion(data);
 					thatGroup.questionList.push(question);
 		    })
 
 	    }
 
-	    if(this.type == 'independent_writing'){
+	    if(this.type == AssignmentType.TPO_INDEPENDENT_WRITING){
     		let thatGroup;
     		let question = <IndependentWritingQuestion>content;
 		    this.assignmentService.addQuestionGroupToAssignment(this.assignmentId, this.type)
@@ -111,16 +112,16 @@ export class EditQuestionListComponent implements OnInit, OnChanges {
 				    switchMap((questionGroup: QuestionGroup)=> {
 					    thatGroup = new QuestionGroup(questionGroup);
 					    this.groupList.push(thatGroup);
-					    return this.assignmentService.addQuestionToGroup(this.assignmentId, thatGroup.id, question);
+					    return this.assignmentService.addQuestionToGroup(this.assignmentId, thatGroup.groupId, question);
 				    })
 			    ).subscribe(data=>{
 			    console.log(data);
-			    question = new IndependentWritingQuestion(data.question);
+			    question = new IndependentWritingQuestion(data);
 			    thatGroup.questionList.push(question);
 		    })
 	    }
 
-	    if(this.type == 'tpo_speaking') {
+	    if(this.type == AssignmentType.TPO_SPEAKING) {
 	    	this.assignmentService.addQuestionGroupToAssignment(this.assignmentId, this.type)
 			    .subscribe((questionGroup: QuestionGroup) => {
 	    		    this.groupList.push(new QuestionGroup(questionGroup))

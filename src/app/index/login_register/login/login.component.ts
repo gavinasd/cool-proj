@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import {Resolve, Router} from "@angular/router";
 import {UserService} from "../../../core/services/user.service";
 import {ToastService} from "../../../core/services/toast.service";
 import {HttpService} from "../../../core/services/http.service";
+import {ResultVO} from "../../../shared/VO/ResultVO";
 
 @Component({
   selector: 'app-login',
@@ -26,9 +27,8 @@ export class LoginComponent implements OnInit {
               (resp)=>{
                   this.router.navigate(['']);
               },
-              (error:string)=>{
-                  console.log(error);
-                  this.toastService.error(error);
+              (error:any)=>{
+                  this.toastService.error(error.error.msg);
               }
           );
       return false;

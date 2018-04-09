@@ -1,6 +1,6 @@
 <app-question-header
         [assignmentName]="assignmentName"
-        [classId]="classId"
+        [courseId]="courseId"
         [mode]="mode"
         (next)="next()"
         (pre)="pre()"
@@ -14,14 +14,14 @@
 <div class="container">
     <div *ngIf="homeworkMode()">
         <div class="question-content"
-             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_single'
-             || tpoReadingQuestion.questionType == 'tpo_reading_insert'"
+             *ngIf="tpoReadingQuestion.questionType == QuestionType.TPO_READING_SINGLE_TYPE
+             || tpoReadingQuestion.questionType == QuestionType.TPO_READING_INSERT_TYPE"
              fxLayout="row" fxLayoutWrap="wrap" fxLayout.sm="column" fxLayoutAlign="space-around">
             <div class="question" fxLayout="column" fxFlex="1 1 50%">
                 <app-question-index [content]="getPagerContent()"></app-question-index>
                 <div>
-                    <p *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_insert'">Look at the four squares [] that indicate where the following sentence could be added to the passage.</p>
-                    <p *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_insert'">Where would the sentence best fit?</p>
+                    <p *ngIf="tpoReadingQuestion.questionType == QuestionType.TPO_READING_INSERT_TYPE">Look at the four squares [] that indicate where the following sentence could be added to the passage.</p>
+                    <p *ngIf="tpoReadingQuestion.questionType == QuestionType.TPO_READING_INSERT_TYPE">Where would the sentence best fit?</p>
                     <p><strong>{{tpoReadingQuestion.question}}</strong></p>
                 </div>
 
@@ -34,7 +34,7 @@
                                      name="choices"
                                      [value]="i|convert09ToAZ">
                         <p>{{i|convert09ToAZ}}
-                            <span *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_single'">
+                            <span *ngIf="tpoReadingQuestion.questionType == QuestionType.TPO_READING_SINGLE_TYPE">
                                 .{{option}}
                             </span>
                         </p>
@@ -46,7 +46,7 @@
         </div>
 
         <div class="question-content"
-             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_multiple'"
+             *ngIf="tpoReadingQuestion.questionType == QuestionType.TPO_READING_MULTIPLE_TYPE"
              fxLayout="row" fxLayoutWrap="wrap"
              fxLayout.sm="column" fxLayoutAlign="space-around">
             <div class="question" fxLayout="column" fxFlex="1 1 50%">
@@ -65,13 +65,13 @@
         </div>
 
         <div class="question-content"
-             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_category_type' && viewMode =='question'">
+             *ngIf="tpoReadingQuestion.questionType == QuestionType.TPO_READING_CATEGORY_TYPE && viewMode =='question'">
             <div class="topic-question" fxLayout="column" fxLayoutAlign="start">
-                <p><strong>{{getQuestionForCategoryType()}}</strong></p>
+                <p><strong>{{tpoReadingQuestion.question}}</strong></p>
 
                 <div class="selected-answer"
                      fxLayout="row" fxLayoutAlign="space-around" fxLayoutGap="20px">
-                    <div *ngFor="let category of getCategoryList(); let i = index"
+                    <div *ngFor="let category of tpoReadingQuestion.categoryList; let i = index"
                          fxFlex="0 0 47%" fxLayout="column" fxLayoutAlign="start center">
                         <p><strong>{{category}}</strong></p>
                         <div class="category-choice-item-container"
@@ -100,7 +100,7 @@
         </div>
 
         <div class="question-content"
-             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_topic' && viewMode =='question'">
+             *ngIf="tpoReadingQuestion.questionType == QuestionType.TPO_READING_TOPIC_TYPE && viewMode =='question'">
             <div class="topic-question" fxLayout="column" fxLayoutAlign="start">
                 <p>Directions:An introductory sentence for a brief summary of the passage is provided below.Complete the summary by selecting THREE answer choices that express the most important ideas in the passage.Some answer choices do not belong in summary because they express ideas that are not presented in the passage or are minor ideas in the passage.The Question is worth 2 points.</p>
                 <p><strong>{{tpoReadingQuestion.question}}</strong></p>
@@ -131,8 +131,8 @@
         </div>
 
         <div class="question-content"
-             *ngIf="(tpoReadingQuestion.questionType == 'tpo_reading_topic' ||
-                    tpoReadingQuestion.questionType == 'tpo_reading_category_type')&&
+             *ngIf="(tpoReadingQuestion.questionType == QuestionType.TPO_READING_TOPIC_TYPE ||
+                    tpoReadingQuestion.questionType == QuestionType.TPO_READING_CATEGORY_TYPE)&&
                     viewMode =='text'"
              fxLayout="row" fxLayoutAlign="end">
             <div fxFlex="1 1 50%" #passageContainer class="passage" [froalaView]="passage"></div>
@@ -141,18 +141,18 @@
 
     <div *ngIf="reviewMode()">
         <div class="question-content"
-             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_single'
-             || tpoReadingQuestion.questionType == 'tpo_reading_insert'
-             || tpoReadingQuestion.questionType == 'tpo_reading_multiple'"
+             *ngIf="tpoReadingQuestion.questionType == QuestionType.TPO_READING_SINGLE_TYPE
+             || tpoReadingQuestion.questionType == QuestionType.TPO_READING_INSERT_TYPE
+             || tpoReadingQuestion.questionType == QuestionType.TPO_READING_MULTIPLE_TYPE"
              fxLayout="row" fxLayoutWrap="wrap" fxLayout.sm="column" fxLayoutAlign="space-around">
             <div class="question" fxLayout="column" fxFlex="1 1 50%">
                 <app-question-pager></app-question-pager>
                 <div>
-                    <p *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_insert'">Look at the four squares [] that indicate where the following sentence could be added to the passage.<br/>Where would the sentence best fit?</p>
+                    <p *ngIf="tpoReadingQuestion.questionType == QuestionType.TPO_READING_INSERT_TYPE">Look at the four squares [] that indicate where the following sentence could be added to the passage.<br/>Where would the sentence best fit?</p>
                     <p><strong>{{tpoReadingQuestion.question}}</strong></p>
                 </div>
 
-                <ul *ngIf="tpoReadingQuestion.questionType !== 'tpo_reading_insert'">
+                <ul *ngIf="tpoReadingQuestion.questionType !== QuestionType.TPO_READING_INSERT_TYPE">
                     <li *ngFor="let option of tpoReadingQuestion.options; let i = index">
                         {{i|convert09ToAZ}}. {{option}}
                     </li>
@@ -170,9 +170,9 @@
         </div>
 
         <div class="question-content"
-             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_category_type' && viewMode == 'question'">
+             *ngIf="tpoReadingQuestion.questionType == QuestionType.TPO_READING_CATEGORY_TYPE && viewMode == 'question'">
             <div class="topic-question" fxLayout="column" fxLayoutAlign="start">
-                <p><strong>{{getQuestionForCategoryType()}}</strong></p>
+                <p><strong>{{tpoReadingQuestion.question}}</strong></p>
 
                 <h3 fxFlexAlign="center">Answer Choices</h3>
                 <div fxLayout="row" fxLayoutWrap fxLayoutAlign="start">
@@ -193,7 +193,7 @@
                                 学生答案：
                             </strong>
                         </p>
-                        <div *ngFor="let category of getCategoryList();let i = index">
+                        <div *ngFor="let category of tpoReadingQuestion.categoryList;let i = index">
                             <p><strong>{{category}}:</strong></p>
                             <p *ngFor="let answerIndex of categoryAnswers[i]">
                                 {{answerIndex|convert09ToAZ}}.{{tpoReadingQuestion.options[answerIndex]}}
@@ -203,7 +203,7 @@
 
                     <div fxLayout="row" fxLayoutWrap fxLayoutAlign="start" fxLayoutGap="50px">
                         <p fxFlex="100%" class="correct-answer"><strong>正确答案：</strong></p>
-                        <div *ngFor="let category of getCategoryList();let i = index">
+                        <div *ngFor="let category of tpoReadingQuestion.categoryList;let i = index">
                             <p><strong>{{category}}:</strong></p>
                             <p *ngFor="let answerIndex of parseAnswerForCategoryQuestion(tpoReadingQuestion.answer)[i]">
                                 {{answerIndex|convert09ToAZ}}.{{tpoReadingQuestion.options[answerIndex]}}
@@ -216,7 +216,7 @@
         </div>
 
         <div class="question-content"
-             *ngIf="tpoReadingQuestion.questionType == 'tpo_reading_topic' && viewMode =='question'">
+             *ngIf="tpoReadingQuestion.questionType == QuestionType.TPO_READING_TOPIC_TYPE && viewMode =='question'">
             <div class="topic-question" fxLayout="column" fxLayoutAlign="start">
                 <p>Directions:An introductory sentence for a brief summary of the passage is provided below.Complete the summary by selecting THREE answer choices that express the most important ideas in the passage.Some answer choices do not belong in summary because they express ideas that are not presented in the passage or are minor ideas in the passage.The Question is worth 2 points.</p>
                 <p><strong>{{tpoReadingQuestion.question}}</strong></p>
@@ -239,8 +239,8 @@
         </div>
 
         <div class="question-content"
-             *ngIf="(tpoReadingQuestion.questionType == 'tpo_reading_topic'
-                   ||tpoReadingQuestion.questionType == 'tpo_reading_category_type')
+             *ngIf="(tpoReadingQuestion.questionType == QuestionType.TPO_READING_TOPIC_TYPE
+                   ||tpoReadingQuestion.questionType == QuestionType.TPO_READING_CATEGORY_TYPE)
                    && viewMode =='text'"
              fxLayout="row" fxLayoutAlign="end">
 

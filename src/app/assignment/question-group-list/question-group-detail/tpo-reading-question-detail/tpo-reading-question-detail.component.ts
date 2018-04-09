@@ -7,6 +7,7 @@ import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {Convert09ToAZPipe} from "../../../../shared/pipes/convert09-to-az.pipe";
 import {Question} from "../../../../models/Questions/Question";
 import index from "@angular/cli/lib/cli";
+import {QuestionType} from "../../../../shared/enums/QuestionType";
 
 @Component({
   selector: 'app-tpo-reading-question-detail',
@@ -42,13 +43,13 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 		this.tpoReadingQuestion = <TPOReadingQuestion>this.question;
 
 		this.setupCheckboxAnswer();
-		if(this.question.questionType == 'tpo_reading_topic'){
+		if(this.question.questionType == QuestionType.TPO_READING_TOPIC_TYPE){
 			if(this.answer.length != 3){
 				this.answer = '   ';
 			}
 			this.selectedAnswers = this.parseAnswerForTopicQuestion(this.answer);
 		}
-		if(this.question.questionType == 'tpo_reading_category_type') {
+		if(this.question.questionType == QuestionType.TPO_READING_CATEGORY_TYPE) {
 			this.categoryAnswers = this.parseAnswerForCategoryQuestion(this.answer);
 
 		}
@@ -58,11 +59,11 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 	}
 
 	ngAfterViewChecked(): void {
-		if(this.tpoReadingQuestion.id == this.scrollQuestionId){
+		if(this.tpoReadingQuestion.questionId == this.scrollQuestionId){
 			return;
 		}
 		this.scroll();
-		this.scrollQuestionId = this.tpoReadingQuestion.id;
+		this.scrollQuestionId = this.tpoReadingQuestion.questionId;
 	}
 
 	scroll():void{
@@ -106,7 +107,7 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 	}
 
 	setupCheckboxAnswer(){
-		if(this.question && this.question.questionType == Question.TPO_READING_MULTIPLE_TYPE){
+		if(this.question && this.question.questionType == QuestionType.TPO_READING_MULTIPLE_TYPE){
 			this.checkboxAnswers = this.getCheckboxAnswer(this.answer);
 		}
 	}
@@ -128,7 +129,7 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 
 	parseAnswerForCategoryQuestion(answer: string) {
 		if(!answer || answer.length == 0){
-			return Array.from({length: this.getCategoryList().length})
+			return Array.from({length: this.tpoReadingQuestion.categoryList.length})
 				.map(()=>new Array());
 		} else {
 			return answer.split("-").map(answers => {
@@ -151,14 +152,6 @@ export class TpoReadingQuestionDetailComponent extends QuestionGroupDetailCompon
 		this.categoryAnswers[categoryIndex] = answers;
 		this.answer = this.getAnswerForCategory();
 		super.changeAnswer();
-	}
-
-	getCategoryList(): string[]{
-		return JSON.parse(this.tpoReadingQuestion.question).categoryList;
-	}
-
-	getQuestionForCategoryType(): string {
-		return JSON.parse(this.tpoReadingQuestion.question).question;
 	}
 
 	getAnswerForCategory(): string{

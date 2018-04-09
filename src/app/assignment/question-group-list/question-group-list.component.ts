@@ -3,7 +3,6 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {AssignmentService} from "../../core/services/assignment.service";
 import {QuestionGroup} from "../../models/Questions/QuestionGroup";
 import {Observable} from "rxjs/Observable";
-import {Mode} from "../../models/assignments/Assignment";
 import {Store} from "@ngrx/store";
 import {ApplicationState} from "../../redux/index.reducer";
 import * as fromApplication from '../../redux/index.reducer';
@@ -14,6 +13,9 @@ import {SubmitConfirmDialogComponent} from "../../shared/view/dialogs/submit-con
 import {ComponentCanDeactivate} from "../../core/services/route-guard.service";
 import {combineLatest, distinctUntilChanged, filter, first, map, pairwise, reduce, takeWhile} from "rxjs/operators";
 import {interval} from "rxjs/observable/interval";
+import {QuestionType} from "../../shared/enums/QuestionType";
+import {AssignmentType} from "../../shared/enums/AssignmentType";
+import {Mode} from "../../shared/enums/Mode";
 
 @Component({
   selector: 'app-question-group-list',
@@ -26,22 +28,23 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 	 * 做题模式，批改模式，查看模式
 	 */
 	public mode:Mode;
+	public AssignmentType:any = AssignmentType;
 	public assignmentId:string;
 	public studentId:string;    //老师所需要查看成绩内容的学生id
-	public classId:string;
+	public courseId:string;
 	private viewMode = 'question';
 	public assignmentName$:Observable<string>;
 	public assignmentScoreList$:Observable<any[]>;
 	public groupIndex$:Observable<number>;
 	public group$:Observable<QuestionGroup>;
-	public groupType$:Observable<string>;
+	public groupType$:Observable<AssignmentType>;
 	public groupContent$:Observable<string>;
 	public contentIndex$:Observable<number>;
 	public shouldShowContent$:Observable<boolean>;
 
 	public questionIndex$:Observable<number>;
 	public currentQuestion$:Observable<Question>;
-	public currentQuestionType$:Observable<string>;
+	public currentQuestionType$:Observable<QuestionType>;
 	public questionListLength$:Observable<number>;
 	public lastAnswer$:Observable<string>;
 	public markingScore$:Observable<number>;
@@ -60,7 +63,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 	            private dialog: MatDialog
 	) {
 		this.route.params.forEach((param:Params)=>{
-			this.classId = param['classId'];
+			this.courseId = param['courseId'];
 			this.assignmentId = param['assignmentId'];
 			this.studentId = param['studentId'];
 			this.mode = param['mode'];
@@ -97,7 +100,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 		this.complete$.pipe(takeWhile(()=>this.alive)).subscribe((complete) => {
 			this.complete = complete;
 			if(complete && this.mode != Mode.HomeWork){
-				this.router.navigate(['/class/' + this.classId]);
+				this.router.navigate(['/class/' + this.courseId]);
 				return;
 			}
 			else if(complete){
@@ -115,7 +118,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 		}));
 
 		this.store.dispatch(new assignmentActions.FetchInfoAction({
-			classId: this.classId,
+			courseId: this.courseId,
 			assignmentId: this.assignmentId,
 			studentId: this.studentId
 		}));
@@ -164,7 +167,7 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 
 	save(){
 		this.store.dispatch(new assignmentActions.SubmitAction({
-			classId: this.classId,
+			courseId: this.courseId,
 			assignmentId: this.assignmentId,
 			studentId: this.studentId
 		}));
@@ -181,15 +184,15 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 				}
 
 				if(result == 'save'){
-					this.router.navigate(['/class/' + this.classId]);
+					this.router.navigate(['/class/' + this.courseId]);
 					return;
 				}
 
 				if(result == 'confirm'){
-					this.assignmentService.submitAssignmentDone(this.classId, this.studentId, this.assignmentId)
+					this.assignmentService.submitAssignmentDone(this.courseId, this.studentId, this.assignmentId)
 						.subscribe((data)=>{
 							console.log('确认提交' + data);
-							this.router.navigate(['/class/' + this.classId]);
+							this.router.navigate(['/class/' + this.courseId]);
 						});
 				}
 			});

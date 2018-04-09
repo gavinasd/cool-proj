@@ -2,7 +2,8 @@ import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {TPOSpeakingQuestion} from "../../../../models/Questions/TPOSpeakingQuestion";
 import {environment} from "../../../../../environments/environment";
-import {Mode} from "../../../../models/assignments/Assignment";
+import {QuestionType} from "../../../../shared/enums/QuestionType";
+import {Mode} from "../../../../shared/enums/Mode";
 
 @Component({
 	selector: 'app-tpo-speaking-question-detail',
@@ -11,13 +12,13 @@ import {Mode} from "../../../../models/assignments/Assignment";
 })
 export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailComponent
 	implements OnInit, OnChanges {
-	public tpoSpeakingQuestion:TPOSpeakingQuestion;
-	public directionComplete:boolean;
-	public passageComplete:boolean;
-	public dialogComplete:boolean;
-	public questionComplete:boolean;
-	public editorOption:any;
-	public comment:string;
+	public tpoSpeakingQuestion: TPOSpeakingQuestion;
+	public directionComplete: boolean;
+	public passageComplete: boolean;
+	public dialogComplete: boolean;
+	public questionComplete: boolean;
+	public editorOption: any;
+	public comment: string;
 
 	constructor() {
 		super();
@@ -30,7 +31,7 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		if(JSON.stringify(this.tpoSpeakingQuestion) == JSON.stringify(this.question)){
+		if (JSON.stringify(this.tpoSpeakingQuestion) == JSON.stringify(this.question)) {
 			//不应该refresh
 			return;
 		}
@@ -44,10 +45,10 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 		this.setupHeader();
 	}
 
-	setupHeader(){
-		if(this.mode == Mode.HomeWork){
+	setupHeader() {
+		if (this.mode == Mode.HomeWork) {
 			this.showPreButton = false;
-			if(!this.directionComplete){
+			if (!this.directionComplete) {
 				this.showNextButton = true;
 			}
 			else {
@@ -57,8 +58,8 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 
 	}
 
-	next(){
-		if(this.mode == Mode.HomeWork && !this.directionComplete){
+	next() {
+		if (this.mode == Mode.HomeWork && !this.directionComplete) {
 			this.completeDirection();
 		}
 		else {
@@ -66,27 +67,27 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 		}
 	}
 
-	completeDirection(){
+	completeDirection() {
 		this.directionComplete = true;
 		this.setupHeader();
 	}
 
-	completeQuestion(){
+	completeQuestion() {
 		this.questionComplete = true;
 		this.setupHeader();
 	}
 
-	completePassage(){
+	completePassage() {
 		this.passageComplete = true;
 		this.setupHeader();
 	}
 
-	completeDialog(){
+	completeDialog() {
 		this.dialogComplete = true;
 		this.setupHeader();
 	}
 
-	completeRecording(filename:string){
+	completeRecording(filename: string) {
 		this.answer = JSON.stringify({
 			'filename': filename
 		});
@@ -95,60 +96,60 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 	}
 
 	//老师的评价
-	makeComment(){
+	makeComment() {
 		this.answer = JSON.stringify({
 			'filename': (JSON.parse(this.lastAnswer) && JSON.parse(this.lastAnswer).filename) || "",
-			'comment' : this.comment
+			'comment': this.comment
 		});
 		this.changeAnswer();
 	}
 
-	shouldShowQuestion():boolean {
-		if(this.tpoSpeakingQuestion.questionType == 'tpo_speaking_q1q2_type'){
+	shouldShowQuestion(): boolean {
+		if (this.tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q1Q2_TYPE) {
 			return this.directionComplete;
 		}
-		if(this.tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'){
+		if (this.tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE) {
 			return this.directionComplete && this.passageComplete && this.dialogComplete;
 		}
-		if(this.tpoSpeakingQuestion.questionType == 'tpo_speaking_q5q6_type'){
+		if (this.tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE) {
 			return this.directionComplete && this.dialogComplete;
 		}
 	}
 
-	getPrepareTime():number{
-		if(this.tpoSpeakingQuestion.questionType == 'tpo_speaking_q1q2_type'){
+	getPrepareTime(): number {
+		if (this.tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q1Q2_TYPE) {
 			return 15;
 		}
-		if(this.tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'){
+		if (this.tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE) {
 			return 30
 		}
-		if(this.tpoSpeakingQuestion.questionType == 'tpo_speaking_q5q6_type'){
+		if (this.tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE) {
 			return 20;
 		}
 	}
 
-	getResponseTime():number{
-		if(this.tpoSpeakingQuestion.questionType == 'tpo_speaking_q1q2_type'){
+	getResponseTime(): number {
+		if (this.tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q1Q2_TYPE) {
 			return 45;
 		}
-		if(this.tpoSpeakingQuestion.questionType == 'tpo_speaking_q3q4_type'){
+		if (this.tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE) {
 			return 60;
 		}
-		if(this.tpoSpeakingQuestion.questionType == 'tpo_speaking_q5q6_type'){
+		if (this.tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE) {
 			return 60;
 		}
 	}
 
-	getStudentRecordUrl():string{
-		if(!this.lastAnswer || this.lastAnswer.length == 0){
+	getStudentRecordUrl(): string {
+		if (!this.lastAnswer || this.lastAnswer.length == 0) {
 			return '';
 		}
 		return environment.studentRecordUrl +
 			(JSON.parse(this.lastAnswer) && JSON.parse(this.lastAnswer).filename || '');
 	}
 
-	getComment():string{
-		if(!this.lastAnswer || this.lastAnswer.length == 0){
+	getComment(): string {
+		if (!this.lastAnswer || this.lastAnswer.length == 0) {
 			return '';
 		}
 		return (JSON.parse(this.lastAnswer) && JSON.parse(this.lastAnswer).comment || '');

@@ -1,17 +1,7 @@
-<!--<app-question-header-->
-        <!--[assignmentName]="assignmentName$ | async"-->
-        <!--[mode]="mode"-->
-        <!--[questionType]="currentQuestionType$ | async"-->
-        <!--[classId]="classId"-->
-        <!--(next)="next()"-->
-        <!--(pre)="pre()"-->
-        <!--(viewChanged)="changeView()"-->
-<!--&gt;</app-question-header>-->
-
 <div class="container" id="question-group-list" [ngSwitch]="groupType$ | async">
     <app-tpo-reading-question-detail
-            *ngSwitchCase="assignmentService.getTPOReadingQuestionType()"
-            [classId]="classId"
+            *ngSwitchCase="AssignmentType.TPO_READING"
+            [courseId]="courseId"
             [assignmentName]="assignmentName$ | async"
             [groupContent]="groupContent$ | async"
             [question]="currentQuestion$ | async"
@@ -27,8 +17,8 @@
             (OnPre)="pre()"
     ></app-tpo-reading-question-detail>
     <app-vocabulary-question-detail
-            *ngSwitchCase="assignmentService.getVocabularyQuestionType()"
-            [classId]="classId"
+            *ngSwitchCase="AssignmentType.VOCABULARY_ASSIGNMENT"
+            [courseId]="courseId"
             [groupContent]="groupContent$ | async"
             [question]="currentQuestion$ | async"
             [lastAnswer]="lastAnswer$ | async"
@@ -43,8 +33,8 @@
             (OnPre)="pre()"
     ></app-vocabulary-question-detail>
     <app-independent-writing-question-detail
-            *ngSwitchCase="assignmentService.getIndependentWritingType()"
-            [classId]="classId"
+            *ngSwitchCase="AssignmentType.TPO_INDEPENDENT_WRITING"
+            [courseId]="courseId"
             [assignmentName]="assignmentName$ | async"
             [groupContent]="groupContent$ | async"
             [question]="currentQuestion$ | async"
@@ -60,8 +50,8 @@
             (OnPre)="pre()"
     ></app-independent-writing-question-detail>
     <app-integrated-writing-question-detail
-            *ngSwitchCase="assignmentService.getIntegratedWritingType()"
-            [classId]="classId"
+            *ngSwitchCase="AssignmentType.TPO_INTEGRATED_WRITING"
+            [courseId]="courseId"
             [assignmentName]="assignmentName$ | async"
             [groupContent]="groupContent$ | async"
             [question]="currentQuestion$ | async"
@@ -78,8 +68,8 @@
             (OnPre)="pre()"
     ></app-integrated-writing-question-detail>
     <app-tpo-listening-question-detail
-            *ngSwitchCase="'tpo_listening'"
-            [classId]="classId"
+            *ngSwitchCase="AssignmentType.TPO_LISTENING"
+            [courseId]="courseId"
             [assignmentName]="assignmentName$ | async"
             [groupContent]="groupContent$ | async"
             [question]="currentQuestion$ | async"
@@ -95,8 +85,8 @@
             (OnPre)="pre()"
     ></app-tpo-listening-question-detail>
     <app-tpo-speaking-question-detail
-            *ngSwitchCase="'tpo_speaking'"
-            [classId]="classId"
+            *ngSwitchCase="AssignmentType.TPO_SPEAKING"
+            [courseId]="courseId"
             [assignmentName]="assignmentName$ | async"
             [question]="currentQuestion$ | async"
             [lastAnswer]="lastAnswer$ | async"

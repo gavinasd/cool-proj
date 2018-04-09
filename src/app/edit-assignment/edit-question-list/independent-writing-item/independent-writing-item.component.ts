@@ -39,12 +39,12 @@ export class IndependentWritingItemComponent implements OnInit {
 				filter(result=> !!result),
 				switchMap(question =>{
 					this.loadingQuestion = question;
-					return this.assignmentService.updateQuestion(question.id,question);
+					return this.assignmentService.updateQuestion(question.questionId,question);
 				})
 			).subscribe(data=>{
 				this.toastService.success('编辑成功');
 				this.questionList = this.questionList.map((question)=>{
-					if(question.id == this.loadingQuestion.id){
+					if(question.questionId == this.loadingQuestion.questionId){
 						return this.loadingQuestion;
 					}
 					return question;
@@ -56,7 +56,7 @@ export class IndependentWritingItemComponent implements OnInit {
 		this.dialog.open(ConfirmDeleteGroupDialogComponent).afterClosed()
 			.pipe(
 				filter(result => !!result),
-				switchMap(()=> this.assignmentService.deleteGroup(this.assignmentId, this.group.id))
+				switchMap(()=> this.assignmentService.deleteGroup(this.assignmentId, this.group.groupId))
 			)
 			.subscribe(data=> {
 					this.onDelete.emit();
@@ -74,10 +74,10 @@ export class IndependentWritingItemComponent implements OnInit {
 		this.dialog.open(ConfirmDeleteQuestionDialogComponent, config).afterClosed()
 			.pipe(
 				filter(result => !!result),
-				switchMap(()=> this.assignmentService.deleteQuestion(this.assignmentId, question.id))
+				switchMap(()=> this.assignmentService.deleteQuestion(this.assignmentId, question.questionId))
 			)
 			.subscribe(data=> {
-					this.questionList = this.questionList.filter(item => item.id !== question.id);
+					this.questionList = this.questionList.filter(item => item.questionId !== question.questionId);
 					this.toastService.success('删除成功');
 				},
 				(error:string)=>{

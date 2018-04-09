@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ClassInfo} from "../../../models/models";
 import {ClassService} from "../../../core/services/class.service";
 import {HttpService} from "../../../core/services/http.service";
 import {Observable} from "rxjs";
-import 'rxjs/add/operator/map';
+import {CourseItemVO} from "../../../shared/VO/CourseItemVO";
 
 @Component({
   selector: 'app-course-list',
@@ -12,26 +11,18 @@ import 'rxjs/add/operator/map';
 })
 export class CourseListComponent implements OnInit {
     tests:String[];
-    classInfoList:ClassInfo[];
-    classInfoList$:Observable<any[]>;
+    courseItemList:CourseItemVO[];
+    courseItemList$:Observable<CourseItemVO[]>;
 
     constructor(private classService:ClassService, private httpService:HttpService) {
         this.tests = ["ab","d","c","d","ddfdf"];
     }
 
     ngOnInit() {
-        this.classInfoList$ = this.classService.getClassList(this.httpService.getCurrentId());
-        this.classInfoList$.map((classInfoList:any[])=>{
-            return classInfoList.map((classInfo:any)=>{
-                let mClassInfo:ClassInfo = new ClassInfo(classInfo._id,classInfo.name, classInfo.teacherList);
-                return mClassInfo;
-            })
-        }).subscribe((classInfoList:ClassInfo[])=>{
-            console.log(JSON.stringify(classInfoList));
-            this.classInfoList = classInfoList;
-        })
-
-
+        this.courseItemList$ = this.classService.getClassList(this.httpService.getCurrentId());
+        this.courseItemList$.subscribe((courseItemList:CourseItemVO[])=>{
+            this.courseItemList = courseItemList;
+        });
     }
 
 }

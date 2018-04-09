@@ -5,6 +5,7 @@ import {environment} from "../../../../environments/environment";
 import {IntegratedWritingQuestion} from "../../../models/Questions/IntegratedWritingQuestion";
 import {Question} from "../../../models/Questions/Question";
 import {HttpService} from "../../../core/services/http.service";
+import {QuestionType} from "../../../shared/enums/QuestionType";
 
 @Component({
   selector: 'app-add-integrated-question-dialog',
@@ -49,7 +50,7 @@ export class AddIntegratedQuestionDialogComponent implements OnInit {
 	getFormData(){
 		const question = new IntegratedWritingQuestion({
 			creator:this.httpService.getCurrentId(),
-			questionType : Question.INTEGRATED_WRITING_TYPE,
+			questionType : QuestionType.INTEGRATED_WRITING_TYPE,
 			question : '',
 			answer: this.answer,
 			score: 5

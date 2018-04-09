@@ -19,16 +19,16 @@
 
         <mat-form-field>
             <mat-select placeholder="选择题目类型" name="questionType" required [(ngModel)]="questionType">
-                <mat-option [value]="assignmentService.getTPOReadingSingleChoice()">单选题</mat-option>
-                <mat-option [value]="assignmentService.getTPOReadingInsertChoice()">插入题</mat-option>
-                <mat-option [value]="assignmentService.getTPOReadingTopic()">主旨题</mat-option>
-                <mat-option [value]="assignmentService.getTPOReadingMultipleChoice()">多选题</mat-option>
-                <mat-option [value]="assignmentService.getTPOReadingCategoryType()">分组题</mat-option>
+                <mat-option [value]="QuestionType.TPO_READING_SINGLE_TYPE">单选题</mat-option>
+                <mat-option [value]="QuestionType.TPO_READING_INSERT_TYPE">插入题</mat-option>
+                <mat-option [value]="QuestionType.TPO_READING_TOPIC_TYPE">主旨题</mat-option>
+                <mat-option [value]="QuestionType.TPO_READING_MULTIPLE_TYPE">多选题</mat-option>
+                <mat-option [value]="QuestionType.TPO_READING_CATEGORY_TYPE">分组题</mat-option>
             </mat-select>
         </mat-form-field>
 
         <div [ngSwitch]="questionType">
-            <div *ngSwitchCase="assignmentService.getTPOReadingCategoryType()">
+            <div *ngSwitchCase="QuestionType.TPO_READING_CATEGORY_TYPE">
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
                     <mat-input-container>
                         <input matInput name="row" type="number" required
@@ -79,11 +79,11 @@
                     <input matInput name="option4" type="text" required ngModel placeholder="选项D">
                 </mat-input-container>
 
-                <mat-input-container *ngIf="questionType == 'tpo_reading_topic'">
+                <mat-input-container *ngIf="questionType == QuestionType.TPO_READING_TOPIC_TYPE">
                     <input matInput name="option5" type="text" required ngModel placeholder="选项E">
                 </mat-input-container>
 
-                <mat-input-container *ngIf="questionType == 'tpo_reading_topic'">
+                <mat-input-container *ngIf="questionType == QuestionType.TPO_READING_TOPIC_TYPE">
                     <input matInput name="option6" type="text" required ngModel placeholder="选项F">
                 </mat-input-container>
             </div>

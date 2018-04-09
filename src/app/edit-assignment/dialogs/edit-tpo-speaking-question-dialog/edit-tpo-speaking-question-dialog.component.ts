@@ -3,21 +3,23 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {TPOSpeakingQuestion} from "../../../models/Questions/TPOSpeakingQuestion";
 import {AssignmentService} from "../../../core/services/assignment.service";
 import {environment} from "../../../../environments/environment";
+import {QuestionType} from "../../../shared/enums/QuestionType";
 
 @Component({
-  selector: 'app-edit-tpo-speaking-question-dialog',
-  templateUrl: './edit-tpo-speaking-question-dialog.component.html',
-  styleUrls: ['./edit-tpo-speaking-question-dialog.component.css']
+	selector: 'app-edit-tpo-speaking-question-dialog',
+	templateUrl: './edit-tpo-speaking-question-dialog.component.html',
+	styleUrls: ['./edit-tpo-speaking-question-dialog.component.css']
 })
 export class EditTpoSpeakingQuestionDialogComponent implements OnInit {
-	public question:TPOSpeakingQuestion;
-	public passageEditorOptions:any;
+	public question: TPOSpeakingQuestion;
+	public passageEditorOptions: any;
 	public tpoIndex: number;
 	public questionIndex: number;
 
 	constructor(@Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
 	            public dialogRef: MatDialogRef<EditTpoSpeakingQuestionDialogComponent>,
-	            public assignmentService:AssignmentService) { }
+	            public assignmentService: AssignmentService) {
+	}
 
 
 	ngOnInit(): void {
@@ -29,31 +31,31 @@ export class EditTpoSpeakingQuestionDialogComponent implements OnInit {
 		this.passageEditorOptions.height = 300;
 	}
 
-	closeDialog(){
+	closeDialog() {
 		this.dialogRef.close();
 	}
 
-	closeDialogAndSave(){
+	closeDialogAndSave() {
 		this.question.recordUrl = this.tpoIndex + '/' + this.questionIndex;
 		this.question.questionType = this.getQuestionType();
-		this.question.passage =  (this.questionIndex == 3 || this.questionIndex == 4)?this.question.passage:'';
-		if(JSON.stringify(this.question) !== JSON.stringify(this.dialogData)){
+		this.question.passage = (this.questionIndex == 3 || this.questionIndex == 4) ? this.question.passage : '';
+		if (JSON.stringify(this.question) !== JSON.stringify(this.dialogData)) {
 			this.dialogRef.close(this.question);
 			return;
 		}
 		this.dialogRef.close();
 	}
 
-	getQuestionType():string{
-		let questionType ='';
-		if(this.questionIndex == 1 || this.questionIndex == 2){
-			questionType = this.assignmentService.getTpoSpeakingQ1Q2Type();
+	getQuestionType(): QuestionType {
+		let questionType;
+		if (this.questionIndex == 1 || this.questionIndex == 2) {
+			questionType = QuestionType.TPO_SPEAKING_Q1Q2_TYPE;
 		}
-		else if(this.questionIndex == 3 || this.questionIndex == 4){
-			questionType = this.assignmentService.getTpoSpeakingQ3Q4Type();
+		else if (this.questionIndex == 3 || this.questionIndex == 4) {
+			questionType = QuestionType.TPO_SPEAKING_Q3Q4_TYPE;
 		}
-		else{
-			questionType = this.assignmentService.getTpoSpeakingQ5Q6Type();
+		else {
+			questionType = QuestionType.TPO_SPEAKING_Q5Q6_TYPE;
 		}
 
 		return questionType;

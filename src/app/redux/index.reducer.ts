@@ -19,14 +19,14 @@ export const getAssignmentScoreList = createSelector(getAssignmentState, fromAss
 
 export const getCurrentGroupIndex = createSelector(getAssignmentState, (state)=> state.currentGroupIndex);
 export const getCurrentGroup = createSelector(getAssignmentState, fromAssignment.getCurrentQuestionGroup);
-export const getGroupType = createSelector(getCurrentGroup, (group) =>group?group.type:'');
+export const getGroupType = createSelector(getCurrentGroup, (group) =>group?group.type:null);
 export const getGroupContent = createSelector(getAssignmentState, fromAssignment.getCurrentGroupContent);
 export const getContentIndex = createSelector(getAssignmentState, fromAssignment.getCurrentContentIndex);
 export const shouldShowContent = createSelector(getAssignmentState, fromAssignment.shouldShowContent);
 
 export const getQuestionIndex = createSelector(getAssignmentState, (state) => state.currentQuestionIndex);
 export const getCurrentQuestion = createSelector(getAssignmentState, fromAssignment.getCurrentQuestion);
-export const getCurrentQuestionType = createSelector(getCurrentQuestion, (question)=>question?question.questionType:'');
+export const getCurrentQuestionType = createSelector(getCurrentQuestion, (question)=>question?question.questionType:null);
 export const getQuestionListLength = createSelector(getCurrentGroup, (group) =>{
 	return group?group.questionList.length:0;
 });

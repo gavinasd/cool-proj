@@ -3,19 +3,19 @@
         <div fxFlexLayout="row" fxLayoutAlign="start center">
             <p class="header">作业列表</p>
             <span fxFlex></span>
-            <button *ngIf="userType == '1'" mat-button class="fab-top-right" (click)="openAddAssignmentDialog()">
+            <button *ngIf="userType == UserType.TEACHER" mat-button class="fab-top-right" (click)="openAddAssignmentDialog()">
                 添加作业
             </button>
         </div>
         <mat-divider></mat-divider>
         <mat-accordion [displayMode]="'flat'" [multi]="false">
             <app-grade-info-detail
-                    *ngFor="let assignmentInfo of listForShow;let i = index"
+                    *ngFor="let assignmentGradeVO of listForShow;let i = index"
                     [open]="i == 0 || openExpansionList[i]"
                     (click)="toggleExpansion(i)"
-                    [assignmentInfo]="assignmentInfo"
+                    [assignmentGradeVO]="assignmentGradeVO"
                     [classId]="classId"
-                    [needToMark]="needToMark(assignmentInfo.assignmentType)"
+                    [needToMark]="needToMark(assignmentGradeVO.assignmentType)"
             ></app-grade-info-detail>
         </mat-accordion>
 

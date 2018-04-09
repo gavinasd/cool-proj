@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {AssignmentInfo} from "../../../models/models";
+import {AssignmentGradeVO} from "../../../shared/VO/AssignmentGradeVO";
 
 @Component({
     selector: 'app-grade-info-detail',
@@ -8,7 +9,7 @@ import {AssignmentInfo} from "../../../models/models";
 })
 export class GradeInfoDetailComponent implements OnInit {
 	@Input() open: boolean;
-    @Input() assignmentInfo:AssignmentInfo;
+    @Input() assignmentGradeVO:AssignmentGradeVO;
     @Input() classId:string;
     @Input() needToMark:boolean = false; //是否需要批改
 

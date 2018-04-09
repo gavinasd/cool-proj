@@ -1,6 +1,6 @@
 <app-question-header
         [assignmentName]="assignmentName"
-        [classId]="classId"
+        [courseId]="courseId"
         [mode]="mode"
         (next)="next()"
         (pre)="pre()"
@@ -24,10 +24,10 @@
             <app-question-index [content]="getPagerContent()"></app-question-index>
 
             <div class="question" fxLayout="column" fxLayoutAlign="start"
-                 *ngIf="tpoListeningQuestion.questionType == assignmentService.getTpoListeningSingleChoice() ||
-                tpoListeningQuestion.questionType == assignmentService.getTpoListeningRepeatQuestion()">
+                 *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_SINGLE_CHOICE_TYPE ||
+                tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_REPEAT_TYPE">
 
-                <div *ngIf="tpoListeningQuestion.questionType == assignmentService.getTpoListeningRepeatQuestion()"
+                <div *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_REPEAT_TYPE"
                      fxLayout="row" fxLayoutAlign="start center">
                     <p>Listen again to part of the conversation. Then answer the question.</p>
                     <mat-icon>volume_up</mat-icon>
@@ -48,7 +48,7 @@
             </div>
 
             <div class="question" fxLayout="column"
-                 *ngIf="tpoListeningQuestion.questionType == assignmentService.getTpoListeningMultipleChoice()">
+                 *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_MULTIPLE_CHOICE_TYPE">
                 <p><strong>{{tpoListeningQuestion.question}}</strong></p>
                 <div fxLayout="column" fxLayoutGap="10px">
                     <mat-checkbox *ngFor="let option of tpoListeningQuestion.options;let i = index"
@@ -59,10 +59,10 @@
             </div>
 
             <div class="question" fxLayout="column"
-                 *ngIf="tpoListeningQuestion.questionType == 'tpo_listening_table_choice'">
-                <p><strong>{{getQuestionForTableChoiceQuestion(tpoListeningQuestion.question)}}</strong></p>
+                 *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE">
+                <p><strong>{{tpoListeningQuestion.question}}</strong></p>
                 <app-tpo-table-for-view
-                    [tableRows]="getRowsForTableChoiceQuestion(tpoListeningQuestion.question)"
+                    [tableRows]="tpoListeningQuestion.tableRows"
                     [tableCols]="tpoListeningQuestion.options"
                     [mode]="'homework'"
                     [answer]="answer"
@@ -71,7 +71,7 @@
             </div>
 
             <div class="question" fxLayout="column"
-                 *ngIf="tpoListeningQuestion.questionType == 'tpo_listening_sequence_type'">
+                 *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_SEQUENCE_TYPE">
                 <p><strong>{{tpoListeningQuestion.question}}</strong></p>
                 <div fxLayout="column" fxLayoutGap="10px">
                     <mat-checkbox *ngFor="let option of tpoListeningQuestion.options;let i = index"
@@ -89,11 +89,11 @@
              *ngIf="contentIndex > 0" fxLayout="row" fxLayoutAlign="start">
 
             <div class="question-container" fxFlex="50%"
-                 *ngIf="tpoListeningQuestion.questionType !== 'tpo_listening_table_choice'">
+                 *ngIf="tpoListeningQuestion.questionType !== QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE">
                 <app-question-pager></app-question-pager>
                 <div class="question" fxLayout="column" fxLayoutAlign="start">
                     <div class="review-question"
-                         *ngIf="tpoListeningQuestion.questionType == assignmentService.getTpoListeningRepeatQuestion()"
+                         *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_REPEAT_TYPE"
                          fxLayout="row" fxLayoutAlign="start center">
                         <p>Listen again to part of the conversation. Then answer the question.</p>
                         <app-simple-audio-player [src]="tpoListeningQuestion.recordUrl.replace('question','repeat')"></app-simple-audio-player>
@@ -119,14 +119,14 @@
             </div>
 
             <div class="question-container" fxFlex="50%"
-                 *ngIf="tpoListeningQuestion.questionType == 'tpo_listening_table_choice'">
+                 *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE">
                 <app-question-pager></app-question-pager>
                 <div class="question" fxLayout="column" fxLayoutAlign="start">
                     <div class="review-question" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
-                        <p><strong>{{getQuestionForTableChoiceQuestion(tpoListeningQuestion.question)}}</strong></p>
+                        <p><strong>{{tpoListeningQuestion.question}}</strong></p>
                     </div>
                     <app-tpo-table-for-view
-                            [tableRows]="getRowsForTableChoiceQuestion(tpoListeningQuestion.question)"
+                            [tableRows]="tpoListeningQuestion.tableRows"
                             [tableCols]="tpoListeningQuestion.options"
                             [mode]="'review'"
                             [answer]="answer"
@@ -137,7 +137,7 @@
                 <div class="answer">
                     <p class="correct-answer">正确答案：</p>
                     <app-tpo-table-for-view
-                            [tableRows]="getRowsForTableChoiceQuestion(tpoListeningQuestion.question)"
+                            [tableRows]="tpoListeningQuestion.tableRows"
                             [tableCols]="tpoListeningQuestion.options"
                             [mode]="'review'"
                             [answer]="tpoListeningQuestion.answer"

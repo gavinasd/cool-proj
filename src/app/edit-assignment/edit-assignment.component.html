@@ -14,8 +14,8 @@
         <mat-sidenav mode="side" #snav opened>
             <mat-nav-list>
                 <mat-list-item *ngFor="let assignment of assignmentList"
-                   (click)="selectAssignment(assignment.id)"
-                    [class.selected]="assignment.id == selectAssignmentId"
+                   (click)="selectAssignment(assignment.assignmentId)"
+                    [class.selected]="assignment.assignmentId == selectAssignmentId"
                 >
                     <span>{{assignment.assignmentName}}</span>
                 </mat-list-item>

@@ -11,14 +11,11 @@
     </div>
 
     <div class="question-item" *ngFor="let question of questionList">
-        <h4 *ngIf="question.questionType !== 'tpo_reading_category_type'">{{question.question}}</h4>
-        <h4 *ngIf="question.questionType == 'tpo_reading_category_type'">
-            {{getQuestionForCategoryType(question.question)}}
-        </h4>
+        <h4 >{{question.question}}</h4>
 
-        <ul *ngIf="question.questionType == 'tpo_reading_category_type'"
+        <ul *ngIf="question.questionType == QuestionType.TPO_READING_CATEGORY_TYPE"
             fxLayout="column" fxLayoutGap="5px">
-            <li *ngFor="let category of getCategoryList(question.question)">
+            <li *ngFor="let category of question.categoryList">
                 <strong>{{category}}</strong>
             </li>
         </ul>

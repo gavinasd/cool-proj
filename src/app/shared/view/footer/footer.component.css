@@ -11,12 +11,14 @@ footer{
     max-height: 70px !important;
 }
 
-footer h6{
-    font-size: 18px;
-    margin-top: 0px;
-    margin-bottom: 0px;
+.logo{
+    font-weight: 600;
 }
 
 p{
     margin: 0px;
+}
+
+a{
+    color: white;
 }

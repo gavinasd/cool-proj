@@ -9,101 +9,105 @@ import {AddAssignmentDialogComponent} from "../../shared/view/dialogs/add-assign
 import {Assignment} from "../../models/assignments/Assignment";
 import {ClassService} from "../../core/services/class.service";
 import {filter, switchMap} from "rxjs/operators";
+import {UserType} from "../../shared/enums/UserType";
+import {AssignmentGradeVO} from "../../shared/VO/AssignmentGradeVO";
+import {AssignmentType} from "../../shared/enums/AssignmentType";
 
 @Component({
-    selector: 'app-assignment-list',
-    templateUrl: './assignment-list.component.html',
-    styleUrls: ['./assignment-list.component.css']
+	selector: 'app-assignment-list',
+	templateUrl: './assignment-list.component.html',
+	styleUrls: ['./assignment-list.component.css']
 })
 export class AssignmentListComponent implements OnInit {
-    @Input() public classId:string;
-    private more$:Subject<boolean> = new BehaviorSubject<boolean>(true);
-    private page:number = 0;
-    public userType:string;
-    public loading:boolean = true;
-    public listForShow:AssignmentInfo[] = [];
-    public openExpansionList: boolean[] = [];
+	@Input() public classId: string;
+	private more$: Subject<boolean> = new BehaviorSubject<boolean>(true);
+	private page: number = -1;
+	public userType: string;
+	public loading: boolean = true;
+	public listForShow: AssignmentGradeVO[] = [];
+	public openExpansionList: boolean[] = [];
+	public UserType: any = UserType;
 
-    constructor(private dialog: MatDialog,
-                private toastService: ToastService,
-                private httpService: HttpService,
-                private classService:ClassService) {
-    }
+	constructor(private dialog: MatDialog,
+	            private toastService: ToastService,
+	            private httpService: HttpService,
+	            private classService: ClassService) {
+	}
 
-    ngOnInit() {
+	ngOnInit() {
 		this.userType = this.httpService.getUserType();
 
 		this.more$.switchMap(
-			()=>{
-        	    console.log('show more');
-        	    this.page ++;
-        	    this.loading = true;
-        	    return this.classService.getAssignmentList(this.classId, this.page);
-	        })
-	        .subscribe((assignmentList)=>{
+			() => {
+				console.log('show more');
+				this.page++;
+				this.loading = true;
+				return this.classService.getAssignmentList(this.classId, this.page);
+			})
+			.subscribe((assignmentList) => {
 				this.loading = false;
-		        for(let assignment of assignmentList){
-		        	this.listForShow.push(assignment);
-		        	if(this.openExpansionList.length == 0){
-		        		this.openExpansionList.push(true);
-			        }
-			        else{
-				        this.openExpansionList.push(false);
-			        }
-		        }
-	        });
-    }
+				for (let assignment of assignmentList) {
+					this.listForShow.push(assignment);
+					if (this.openExpansionList.length == 0) {
+						this.openExpansionList.push(true);
+					}
+					else {
+						this.openExpansionList.push(false);
+					}
+				}
+			});
+	}
 
-    needToMark(assignmentType:string):boolean{
-    	return Assignment.needToMark(assignmentType);
-    }
+	needToMark(assignmentType: AssignmentType): boolean {
+		return Assignment.needToMark(assignmentType);
+	}
 
-    toggleExpansion(i: number){
-    	this.openExpansionList[i] = !this.openExpansionList[i];
-    }
+	toggleExpansion(i: number) {
+		this.openExpansionList[i] = !this.openExpansionList[i];
+	}
 
-    openAddAssignmentDialog(){
-	    let config = new MatDialogConfig();
-	    config.width = '400px';
-	    this.dialog.open(AddAssignmentDialogComponent, config).afterClosed()
-		    .pipe(
-		    	filter(result => !!result)
-		    )
-		    .subscribe(data => {
-			    this.addAssignment(data);
-		    });
-    }
-
-	addAssignment(form:any){
-		console.log(form.assignment);
-		this.classService.addAssignment(this.classId,form.assignment)
+	openAddAssignmentDialog() {
+		let config = new MatDialogConfig();
+		config.width = '400px';
+		this.dialog.open(AddAssignmentDialogComponent, config).afterClosed()
 			.pipe(
-				switchMap(() => this.classService.getAssignmentList(this.classId, 1))
+				filter(result => !!result)
+			)
+			.subscribe(data => {
+				this.addAssignment(data);
+			});
+	}
+
+	addAssignment(form: any) {
+		console.log(form.assignment);
+		this.classService.addAssignment(this.classId, form.assignment)
+			.pipe(
+				switchMap(() => this.classService.getAssignmentList(this.classId, 0))
 			)
 			.subscribe(
-				(assignmentList : AssignmentInfo[])=>{
+				(assignmentList: AssignmentGradeVO[]) => {
 					this.listForShow = [assignmentList[0]].concat(this.listForShow);
 					this.openExpansionList = [true].concat(this.openExpansionList);
 					this.toastService.success("成功添加作业");
-				},(err)=>{
+				}, (err) => {
 					this.toastService.error(err);
 				}
 			)
 	}
 
-    //还有更多的作业可以显示
-	public canShowMore():boolean{
-		if(this.loading){
+	//还有更多的作业可以显示
+	public canShowMore(): boolean {
+		if (this.loading) {
 			//这个时候应该还没有获取到assignmentList
 			return false;
 		}
 		else {
-			return this.page*5 == this.listForShow.length;
+			return (this.page + 1) * 5 == this.listForShow.length;
 		}
 	}
 
-	public showMore(){
-    	this.more$.next(true);
+	public showMore() {
+		this.more$.next(true);
 	}
 
 

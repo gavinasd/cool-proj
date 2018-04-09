@@ -1,11 +1,11 @@
 <div *ngFor="let group of groupList;let i = index;" [ngSwitch]="group.type">
     <edit-app-vocabulary-item
-            *ngSwitchCase="assignmentService.getVocabularyQuestionType()"
+            *ngSwitchCase="AssignmentType.VOCABULARY_ASSIGNMENT"
             [group]="group"
     >
     </edit-app-vocabulary-item>
     <app-tpo-reading-item
-            *ngSwitchCase="assignmentService.getTPOReadingQuestionType()"
+            *ngSwitchCase="AssignmentType.TPO_READING"
             [assignmentId]="assignmentId"
             [group]="group"
             (onDelete)="deleteGroup(group)"
@@ -13,7 +13,7 @@
     </app-tpo-reading-item>
 
     <app-tpo-listening-item
-            *ngSwitchCase="'tpo_listening'"
+            *ngSwitchCase="AssignmentType.TPO_LISTENING"
             [assignmentId]="assignmentId"
             [group]="group"
             (onDelete)="deleteGroup(group)"
@@ -21,14 +21,14 @@
     </app-tpo-listening-item>
 
     <app-independent-writing-item
-            *ngSwitchCase="assignmentService.getIndependentWritingType()"
+            *ngSwitchCase="AssignmentType.TPO_INDEPENDENT_WRITING"
             [assignmentId]="assignmentId"
             [group]="group"
             (onDelete)="deleteGroup(group)"
     ></app-independent-writing-item>
 
     <app-integrated-writing-item
-            *ngSwitchCase="assignmentService.getIntegratedWritingType()"
+            *ngSwitchCase="AssignmentType.TPO_INTEGRATED_WRITING"
             [assignmentId]="assignmentId"
             [group]="group"
             (onDelete)="deleteGroup(group)"
@@ -36,7 +36,7 @@
     </app-integrated-writing-item>
 
     <app-tpo-speaking-item
-            *ngSwitchCase="'tpo_speaking'"
+            *ngSwitchCase="AssignmentType.TPO_SPEAKING"
             [assignmentId]="assignmentId"
             [group]="group"
             (onDelete)="deleteGroup(group)"

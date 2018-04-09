@@ -3,8 +3,8 @@ import {
 	ViewContainerRef
 } from "@angular/core";
 import {Question} from "../../models/Questions/Question";
-import {Mode} from "../../models/assignments/Assignment";
 import {AssignmentService} from "../../core/services/assignment.service";
+import {Mode} from "../../shared/enums/Mode";
 
 @Directive({
 	selector:'[question-detail-host]'

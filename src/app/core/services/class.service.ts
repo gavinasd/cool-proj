@@ -4,83 +4,82 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from "../../../environments/environment";
 import {AssignmentInfo} from "../../models/models";
 import {catchError, map} from "rxjs/operators";
+import {HttpParams} from "@angular/common/http";
+import {CourseItemVO} from "../../shared/VO/CourseItemVO";
+import {UserVO} from "../../shared/VO/UserVO";
+import {AssignmentGradeVO} from "../../shared/VO/AssignmentGradeVO";
 
 @Injectable()
 export class ClassService {
 
-    constructor(private httpService: HttpService) {
-    }
+	constructor(private httpService: HttpService) {
+	}
 
-    public createClass(className:string,verifier:string):Observable<any[]>{
-        let url = environment.createClassUrl;
-        url = url + '/' + this.httpService.getCurrentId();
-        var body = JSON.stringify({
-            name:className,
-            verifier:verifier
-        });
+	public createClass(className: string, verifier: string): Observable<any[]> {
+		let url = environment.createClassUrl;
+		var body = JSON.stringify({
+			userId: this.httpService.getCurrentId(),
+			courseName: className,
+			verifier: verifier
+		});
 
-        return this.httpService.makePostWithToken(url,body)
-	        .pipe(
-		        map(resp=>resp),
-		        catchError(HttpService.handleError<any[]>('createClass'))
-	        );
-    }
+		return this.httpService.makePostWithToken(url, body)
+			.pipe(
+				map(resp => resp),
+				catchError(HttpService.handleError<any[]>('createClass'))
+			);
+	}
 
-    public getClassList(userId:string):Observable<any[]>{
-        let url = environment.getClassListUrl;
-        url = url + '/' + userId;
-        return this.httpService.makeGetWithToken(url).pipe(
-	        map((resp)=>{
-		        return resp.classes;
-	        })
-        );
-    }
+	public getClassList(userId: string): Observable<CourseItemVO[]> {
+		let url = environment.getClassListUrl;
+		let param = new HttpParams().set("userId", this.httpService.getCurrentId());
+		return this.httpService.makeGetWithToken(url, param)
+			.pipe(
+				map(resp => resp.data)
+			);
+	}
 
-    public searchClass(className:string):Observable<any>{
-        let url = environment.searchClassUrl;
-        url = url + '/' + className;
-        return this.httpService.makeGetWithToken(url)
-            .pipe(
-	            map(resp=>resp.classes)
-            );
-    }
+	public searchClass(courseName: string): Observable<CourseItemVO[]> {
+		let url = environment.searchClassUrl;
+		let param = new HttpParams().set("courseName", courseName);
+		return this.httpService.makeGetWithToken(url, param)
+			.pipe(
+				map(resp => resp.data)
+			);
+	}
 
-    public classAddStudent(classId:string, verifyCode:string):Observable<any>{
-        let url = environment.addStudentUrl;
-        var body = JSON.stringify({
-            studentId:this.httpService.getCurrentId(),
-            classId:classId,
-            verifyCode:verifyCode
-        });
+	public classAddStudent(courseId: string, verifyCode: string): Observable<any> {
+		let url = environment.addStudentUrl;
+		var body = JSON.stringify({
+			studentId: this.httpService.getCurrentId(),
+			courseId: courseId,
+			verifier: verifyCode
+		});
 
-        console.log(body);
-        return this.httpService.makePostWithToken(url,body)
-            .pipe(
-	            map(resp=>resp),
-	            catchError(HttpService.handleError<any>('classAddStudent'))
-            );
-    }
+		return this.httpService.makePutWithToken(url, body);
+	}
 
-    public classGetAllUser(classId:string):Observable<any>{
-        let url = environment.getClassAllUserUrl;
-        url = url + '/' + classId + '/' + this.httpService.getCurrentId();
-        return this.httpService.makeGetWithToken(url)
-	        .pipe(
-		        map(resp=>resp),
-		        catchError(HttpService.handleError<any>('classGetAllUser'))
-	        );
-    }
+	public classGetAllUser(courseId: string): Observable<UserVO[]> {
+		let url = environment.getClassAllUserUrl;
+		let param = new HttpParams().set("courseId", courseId);
+		return this.httpService.makeGetWithToken(url, param)
+			.pipe(
+				map(resp => resp.data)
+			);
+	}
 
 	/**
 	 * 返回这个班级的作业列表，并且附上学生的做题情况
 	 */
-	public getAssignmentList(classId: string, page:number): Observable<AssignmentInfo[]> {
+	public getAssignmentList(courseId: string, page: number): Observable<AssignmentGradeVO[]> {
 		let url = environment.getAssignmentListInClassUrl;
-		let userId = this.httpService.getCurrentId();
-		url = url + '/' + classId + '/' + userId + '/' + page;
-		return this.httpService.makeGetWithToken(url)
+		let param = new HttpParams().set("courseId", courseId)
+			.set("userId", this.httpService.getCurrentId())
+			.set("page", page.toString());
+
+		return this.httpService.makeGetWithToken(url, param)
 			.pipe(
-				map(resp=>resp.gradeInfo),
+				map(resp => resp.data),
 				catchError(HttpService.handleError<AssignmentInfo[]>('getAssignmentList'))
 			);
 	}
@@ -88,17 +87,13 @@ export class ClassService {
 	/**
 	 * 在班级中添加上一个作业
 	 */
-	public addAssignment(classId:string, assignmentId:string):Observable<any[]>{
+	public addAssignment(courseId: string, assignmentId: string): Observable<any[]> {
 		let url = environment.addAssignmentToClassUrl;
 		var body = JSON.stringify({
 			'userId': this.httpService.getCurrentId(),
-			'classId':classId,
-			'assignmentId':assignmentId
+			'courseId': courseId,
+			'assignmentId': assignmentId
 		});
-		return this.httpService.makePostWithToken(url, body)
-			.pipe(
-				map(resp=>resp),
-				catchError(HttpService.handleError<any[]>('addAssignment'))
-			);
+		return this.httpService.makePutWithToken(url, body);
 	}
 }

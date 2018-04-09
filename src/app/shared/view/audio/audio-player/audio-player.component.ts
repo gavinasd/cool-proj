@@ -41,6 +41,9 @@ export class AudioPlayerComponent implements OnInit, OnChanges, OnDestroy {
 		this.myAudio.addEventListener('ended', ()=>{
 			this.completed.emit(true);
 		});
+		this.myAudio.addEventListener('error', ()=>{
+			this.completed.emit(true);
+		});
 	}
 
 	ngOnDestroy(): void {

@@ -11,6 +11,7 @@ import {EditTpoListeningQuestionDialogComponent} from "../../dialogs/edit-tpo-li
 import {ConfirmDeleteQuestionDialogComponent} from "../../dialogs/confirm-delete-question-dialog/confirm-delete-question-dialog.component";
 import {ConfirmDeleteGroupDialogComponent} from "../../dialogs/confirm-delete-group-dialog/confirm-delete-group-dialog.component";
 import {AddTpoListeningQuestionDialogComponent} from "../../dialogs/add-tpo-listening-question-dialog/add-tpo-listening-question-dialog.component";
+import {QuestionType} from "../../../shared/enums/QuestionType";
 
 
 @Component({
@@ -27,7 +28,7 @@ export class TpoListeningItemComponent implements OnInit {
 	public loadingQuestion:TPOListeningQuestion;
 	public recordUrl:string;
 	public passage:string;
-	public dataSource;
+	public QuestionType: any = QuestionType;
 
 	constructor(private dialog: MatDialog,
 	            private assignmentService:AssignmentService,
@@ -44,7 +45,24 @@ export class TpoListeningItemComponent implements OnInit {
 	addQuestion(){
 		let config = new MatDialogConfig();
 		config.width = '600px';
-		config.data = this.questionList.length;
+		config.data = {
+			'questionIndex' : this.questionList.length
+		};
+		if(this.questionList.length > 0) {
+			let record:number[] = [];
+			let previousRecordUrl = this.questionList[this.questionList.length - 1].recordUrl;
+			const firstIndex = previousRecordUrl.indexOf('/sound/listening_question');
+			const secondIndex = previousRecordUrl.indexOf('_', firstIndex + '/sound/listening_question'.length);
+			const thirdIndex = previousRecordUrl.indexOf('.mp3', secondIndex);
+			record.push(+previousRecordUrl.slice('/assets/tpo/listening/test'.length, firstIndex));
+			record.push(+previousRecordUrl.slice(firstIndex +'/sound/listening_question'.length, secondIndex));
+			record.push(+previousRecordUrl.slice(secondIndex + 1, thirdIndex));
+
+			config.data = {
+				'questionIndex' : this.questionList.length,
+				'record' : record
+			};
+		}
 		let questionIndex = this.questionList.length;
 
 		this.dialog.open(AddTpoListeningQuestionDialogComponent, config).afterClosed()
@@ -53,11 +71,11 @@ export class TpoListeningItemComponent implements OnInit {
 				switchMap(result =>{
 					questionIndex = result.index;
 					return this.assignmentService
-						.addQuestionToGroup(this.assignmentId, this.group.id, result.question, result.index)
+						.addQuestionToGroup(this.assignmentId, this.group.groupId, result.question, result.index)
 				})
 			).subscribe(data=>{
 			console.log(data);
-			let question = new TPOListeningQuestion(data.question);
+			let question = new TPOListeningQuestion(data);
 			this.questionList.splice(questionIndex, 0, question);
 		})
 	}
@@ -71,7 +89,7 @@ export class TpoListeningItemComponent implements OnInit {
 				filter(result => !!result),
 				switchMap(content =>{
 					this.loadingContent = content;
-					return this.assignmentService.updateQuestionGroupContent(this.assignmentId,this.group.id,content);
+					return this.assignmentService.updateQuestionGroupContent(this.assignmentId,this.group.groupId,content);
 				})
 			).subscribe(data => {
 				this.group.content = this.loadingContent;
@@ -90,12 +108,12 @@ export class TpoListeningItemComponent implements OnInit {
 				filter(result=> !!result),
 				switchMap(question =>{
 					this.loadingQuestion = question;
-					return this.assignmentService.updateQuestion(question.id,question);
+					return this.assignmentService.updateQuestion(question.questionId,question);
 				})
 			).subscribe(data=>{
 			this.toastService.success('编辑成功');
 			this.questionList = this.questionList.map((question)=>{
-				if(question.id == this.loadingQuestion.id){
+				if(question.questionId == this.loadingQuestion.questionId){
 					return this.loadingQuestion;
 				}
 				return question;
@@ -107,7 +125,7 @@ export class TpoListeningItemComponent implements OnInit {
 		this.dialog.open(ConfirmDeleteGroupDialogComponent).afterClosed()
 			.pipe(
 				filter(result => !!result),
-				switchMap(()=> this.assignmentService.deleteGroup(this.assignmentId, this.group.id))
+				switchMap(()=> this.assignmentService.deleteGroup(this.assignmentId, this.group.groupId))
 			)
 			.subscribe(data=> {
 					this.onDelete.emit();
@@ -125,10 +143,11 @@ export class TpoListeningItemComponent implements OnInit {
 		this.dialog.open(ConfirmDeleteQuestionDialogComponent, config).afterClosed()
 			.pipe(
 				filter(result => !!result),
-				switchMap(()=> this.assignmentService.deleteQuestion(this.assignmentId, question.id))
+				switchMap(()=> this.assignmentService.deleteQuestion(this.assignmentId, question.questionId))
 			)
 			.subscribe(data=> {
-					this.questionList = this.questionList.filter(item => item.id !== question.id);
+					this.questionList = this.questionList
+						.filter(item => item.questionId !== question.questionId);
 					this.toastService.success('删除成功');
 				},
 				(error:string)=>{
@@ -136,14 +155,6 @@ export class TpoListeningItemComponent implements OnInit {
 					this.toastService.error(error);
 				}
 			);
-	}
-
-	getQuestionForTableChoiceQuestion(question: string):string{
-		return JSON.parse(question).question || '';
-	}
-
-	getRowsForTableChoiceQuestion(question: string): string[]{
-		return JSON.parse(question).tableRows || [];
 	}
 
 }

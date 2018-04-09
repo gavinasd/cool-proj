@@ -1,17 +1,4 @@
 import {enableProdMode} from "@angular/core";
-export class User{
-	//基本注册信息
-	id:string;
-	email:string;
-	nickName:string;
-	userType:Number;
-
-	//班级信息
-	classList:string[];
-	courseList:string[];
-	school:String;
-	phone:String;
-}
 
 export class ResponseToQuestion{
 	//创建者
@@ -80,20 +67,5 @@ export class GradeInfo{
         this.undoneNum = obj && obj.undoneNum;
         this.spendTime = obj && obj.spendTime;
         this.done = obj && obj.done;
-    }
-}
-
-export class ClassInfo{
-    //班级ID
-    classId:string;
-    //班级名称
-    className:string;
-    //老师列表
-	teacherList:any[];
-
-    constructor(classId:string, className:string, teacherList:any[]){
-        this.classId = classId;
-        this.className = className;
-        this.teacherList = teacherList;
     }
 }

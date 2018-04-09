@@ -5,7 +5,7 @@ import {Question} from "./Question";
  */
 export class VocabularyQuestion extends Question{
 
-	constructor(obj?:any,content?:string){
-        super(obj,content);
+	constructor(obj?:any){
+        super(obj);
     }
 }

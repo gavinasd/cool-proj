@@ -5,6 +5,7 @@ import {AssignmentService} from "../../../core/services/assignment.service";
 import {Question} from "../../../models/Questions/Question";
 import {HttpService} from "../../../core/services/http.service";
 import {IndependentWritingQuestion} from "../../../models/Questions/IndependentWritingQuestion";
+import {QuestionType} from "../../../shared/enums/QuestionType";
 
 @Component({
   selector: 'app-add-independent-question-dialog',
@@ -38,7 +39,7 @@ export class AddIndependentQuestionDialogComponent implements OnInit {
 	closeDialogAndSave(){
 		let question = new IndependentWritingQuestion({
 			creator:this.httpService.getCurrentId(),
-			questionType : Question.INDEPENDENT_WRITING_TYPE,
+			questionType : QuestionType.INDEPENDENT_WRITING_TYPE,
 			question : this.question,
 			answer: this.answer,
 			score: 5

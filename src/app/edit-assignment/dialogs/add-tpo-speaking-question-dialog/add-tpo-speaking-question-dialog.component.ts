@@ -5,6 +5,7 @@ import {HttpService} from "../../../core/services/http.service";
 import {AssignmentService} from "../../../core/services/assignment.service";
 import {NgForm} from "@angular/forms";
 import {TPOSpeakingQuestion} from "../../../models/Questions/TPOSpeakingQuestion";
+import {QuestionType} from "../../../shared/enums/QuestionType";
 
 @Component({
   selector: 'app-add-tpo-speaking-question-dialog',
@@ -52,15 +53,15 @@ export class AddTpoSpeakingQuestionDialogComponent implements OnInit {
 		});	}
 
 	getQuestionType():string{
-		let questionType ='';
+		let questionType;
 		if(this.questionIndex == 1 || this.questionIndex == 2){
-			questionType = this.assignmentService.getTpoSpeakingQ1Q2Type();
+			questionType = QuestionType.TPO_SPEAKING_Q1Q2_TYPE;
 		}
 		else if(this.questionIndex == 3 || this.questionIndex == 4){
-			questionType = this.assignmentService.getTpoSpeakingQ3Q4Type();
+			questionType = QuestionType.TPO_SPEAKING_Q3Q4_TYPE;
 		}
 		else{
-			questionType = this.assignmentService.getTpoSpeakingQ5Q6Type();
+			questionType = QuestionType.TPO_SPEAKING_Q5Q6_TYPE;
 		}
 
 		return questionType;

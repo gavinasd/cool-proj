@@ -21,7 +21,7 @@ import {
 	MatTabsModule,
 	MatToolbarModule,
 	MatTooltipModule,
-	MatTableModule,
+	MatTableModule, MatFormFieldModule
 } from "@angular/material";
 
 @NgModule({
@@ -47,7 +47,8 @@ import {
 		MatProgressBarModule,
 		MatChipsModule,
 		MatTooltipModule,
-		MatTableModule
+		MatTableModule,
+		MatFormFieldModule,
 	],
 	exports: [
 		MatToolbarModule,
@@ -70,7 +71,8 @@ import {
 		MatProgressBarModule,
 		MatChipsModule,
 		MatTooltipModule,
-		MatTableModule
+		MatTableModule,
+		MatFormFieldModule,
 	],
 	declarations: []
 })

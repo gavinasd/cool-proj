@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {QuestionGroupDetailComponent} from "../question-group-detail.component";
 import {IntegratedWritingQuestion} from "../../../../models/Questions/IntegratedWritingQuestion";
-import {Mode} from "../../../../models/assignments/Assignment";
+import {Mode} from "../../../../shared/enums/Mode";
 
 @Component({
   selector: 'app-integrated-writing-question-detail',

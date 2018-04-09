@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {TPOListeningQuestion} from "../../../models/Questions/TPOListeningQuestion";
 import {AssignmentService} from "../../../core/services/assignment.service";
 import {environment} from "../../../../environments/environment";
+import {QuestionType} from "../../../shared/enums/QuestionType";
 
 @Component({
   selector: 'app-edit-tpo-listening-question-dialog',
@@ -12,10 +13,9 @@ import {environment} from "../../../../environments/environment";
 export class EditTpoListeningQuestionDialogComponent implements OnInit {
 	public explanationEditorOptions;
 	public question:TPOListeningQuestion;
-	public questionForTable:string;
-	public tableRows:string[];
 	public rowsLength:number = 0;
 	public optionsLength:number = 0;
+	public QuestionType:any = QuestionType;
 
 	constructor(@Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
 	            public dialogRef: MatDialogRef<EditTpoListeningQuestionDialogComponent>,
@@ -28,19 +28,17 @@ export class EditTpoListeningQuestionDialogComponent implements OnInit {
 	ngOnInit() {
 		this.question = new TPOListeningQuestion(this.dialogData);
 
-		if(this.question.questionType == 'tpo_listening_table_choice'){
-			this.questionForTable = JSON.parse(this.question.question).question;
-			this.tableRows = JSON.parse(this.question.question).tableRows;
-			this.rowsLength = this.tableRows.length + 1;
+		if(this.question.questionType == QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE){
+			this.rowsLength = this.question.tableRows.length + 1;
 			this.optionsLength = this.question.options.length + 1;
 		}
-		if (this.question.questionType == 'tpo_listening_sequence_type') {
+		if (this.question.questionType == QuestionType.TPO_LISTENING_SEQUENCE_TYPE) {
 			this.optionsLength = this.question.options.length;
 		}
 	}
 
 	initTableRows(){
-		this.tableRows = Array.from({length: this.rowsLength-1});
+		this.question.tableRows = Array.from({length: this.rowsLength-1});
 	}
 
 	initTableCols(){
@@ -64,13 +62,6 @@ export class EditTpoListeningQuestionDialogComponent implements OnInit {
 	}
 
 	closeDialogAndSave(){
-		if(this.question.questionType == 'tpo_listening_table_choice'){
-			this.question.question = JSON.stringify({
-				'question': this.questionForTable,
-				'tableRows': this.tableRows
-			});
-		}
-
 		if(JSON.stringify(this.question) !== JSON.stringify(this.dialogData)){
 			this.dialogRef.close(this.question);
 			return;

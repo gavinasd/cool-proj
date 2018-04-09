@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
@@ -7,121 +7,127 @@ import {of} from "rxjs/observable/of";
 @Injectable()
 export class HttpService {
 
-	constructor(private http:HttpClient) {
+	constructor(private http: HttpClient) {
 
 	}
 
-	public testReadOneUser(){
-		this.makeGetWithToken("http://localhost:3000/api/user/"+this.getCurrentId())
-			.subscribe((resp)=>{
+	public testReadOneUser() {
+		this.makeGetWithToken("http://localhost:3000/api/user/" + this.getCurrentId())
+			.subscribe((resp) => {
 				console.log(resp.json());
 				console.log(JSON.stringify(resp.json()));
 			});
 	}
 
-	public makeGetWithToken(url:string):Observable<any>{
+	public makeGetWithToken(url: string, params?: any): Observable<any> {
 		var header = new HttpHeaders({
-			'Authorization': 'Bearer ' + this.getToken()});
-		return this.http.get<any>(url,{headers:header});
+			'Authorization': 'Bearer ' + this.getToken()
+		});
+		return this.http.get<any>(url, {headers: header, params: params});
 	}
 
-	public makePost(url:string, body:any):Observable<any>{
-		var header = new HttpHeaders({ 'Content-Type': 'application/json' });
-		return this.http.post(url,body,
-			{headers:header});
+	public makePost(url: string, body: any): Observable<any> {
+		var header = new HttpHeaders({'Content-Type': 'application/json'});
+		return this.http.post(url, body,
+			{headers: header});
 	}
 
-	public makePostWithToken(url:string, body:any):Observable<any>{
+	public makePostWithToken(url: string, body: any): Observable<any> {
+		var header = new HttpHeaders({
+			'Access-Control-Allow-Origin': '*',
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + this.getToken()
+		});
+		return this.http.post(url, body, {headers: header});
+	}
+
+	public makePutWithToken(url: string, body: any): Observable<any> {
 		var header = new HttpHeaders({
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + this.getToken()});
-		return this.http.post(url,body,{headers:header});
+			'Authorization': 'Bearer ' + this.getToken()
+		});
+		return this.http.put(url, body, {headers: header});
 	}
 
-	public makePutWithToken(url:string, body:any):Observable<any>{
-		var header = new HttpHeaders({
-			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + this.getToken()});
-		return this.http.put(url,body,{headers:header});
-	}
-
-	public makeDeleteWithToken(url:string):Observable<any>{
+	public makeDeleteWithToken(url: string): Observable<any> {
 		const header = new HttpHeaders({
-			'Authorization': 'Bearer ' + this.getToken()});
-		return this.http.delete(url,{headers:header});
+			'Authorization': 'Bearer ' + this.getToken()
+		});
+		return this.http.delete(url, {headers: header});
 	}
 
-	public uploadFile(url:string, formData:FormData):Observable<any>{
+	public uploadFile(url: string, formData: FormData): Observable<any> {
 		var header = new HttpHeaders({
-			'Authorization': 'Bearer ' + this.getToken()});
-		return this.http.post<any>(url, formData, {headers:header});
+			'Authorization': 'Bearer ' + this.getToken()
+		});
+		return this.http.post<any>(url, formData, {headers: header});
 	}
 
-	public getToken():string{
+	public getToken(): string {
 		return localStorage.getItem("auth_token");
 	}
 
-	public setToken(token:string){
-		localStorage.setItem("auth_token",token);
+	public setToken(token: string) {
+		localStorage.setItem("auth_token", token);
 	}
 
-	public deleteToken(){
+	public deleteToken() {
 		localStorage.removeItem("auth_token");
 	}
 
-	public getCurrentId():string{
+	public getCurrentId(): string {
 		return localStorage.getItem("current_id");
 	}
 
-	public setCurrentId(id:string){
+	public setCurrentId(id: string) {
 		localStorage.setItem('current_id', id);
 	}
 
-	public deleteCurrentId(){
+	public deleteCurrentId() {
 		localStorage.removeItem('current_id');
 	}
 
-	public getCurrentUserName(){
-        return localStorage.getItem('current_name');
+	public getCurrentUserName() {
+		return localStorage.getItem('current_name');
 	}
 
-	public setCurrentUserName(userName:string){
-        localStorage.setItem('current_name', userName);
-    }
+	public setCurrentUserName(userName: string) {
+		localStorage.setItem('current_name', userName);
+	}
 
-    public deleteUserName(){
-        localStorage.removeItem('current_name');
-    }
+	public deleteUserName() {
+		localStorage.removeItem('current_name');
+	}
 
-	public getCurrentUserAvatar(){
+	public getCurrentUserAvatar() {
 		return localStorage.getItem('current_avatar');
 	}
 
-	public setCurrentUserAvatar(avatar:string){
+	public setCurrentUserAvatar(avatar: string) {
 		localStorage.setItem('current_avatar', avatar);
 	}
 
-	public deleteUserAvatar(){
+	public deleteUserAvatar() {
 		localStorage.removeItem('current_avatar');
 	}
 
-	public getUserType():string{
+	public getUserType(): string {
 		return localStorage.getItem("current_user_type");
 	}
 
-	public setUserType(userType:string){
+	public setUserType(userType: string) {
 		localStorage.setItem('current_user_type', userType);
 	}
 
-	public deleteUserType(){
+	public deleteUserType() {
 		localStorage.removeItem('current_user_type');
 	}
 
-	public isLoggedIn():boolean{
-		return this.getToken()? true:false;
+	public isLoggedIn(): boolean {
+		return this.getToken() ? true : false;
 	}
 
-	public logout(){
+	public logout() {
 		this.deleteCurrentId();
 		this.deleteUserName();
 		this.deleteUserAvatar();
@@ -130,7 +136,7 @@ export class HttpService {
 	}
 
 
-	public static handleError<T> (operation = 'operation', result?: T) {
+	public static handleError<T>(operation = 'operation', result?: T) {
 		return (error: any): Observable<T> => {
 
 			// TODO: send the error to remote logging infrastructure
