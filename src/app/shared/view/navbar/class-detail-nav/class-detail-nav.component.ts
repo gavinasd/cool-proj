@@ -10,7 +10,7 @@ import {UserType} from "../../../enums/UserType";
 @Component({
 	selector: 'app-class-detail-nav',
 	templateUrl: './class-detail-nav.component.html',
-	styleUrls: ['./class-detail-nav.component.css']
+	styleUrls: ['./class-detail-nav.component.scss']
 })
 export class ClassDetailNavComponent implements OnInit {
 	@Input() classId: string;

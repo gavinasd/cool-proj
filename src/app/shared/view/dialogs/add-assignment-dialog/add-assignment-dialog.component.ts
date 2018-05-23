@@ -7,12 +7,10 @@ import {AssignmentType} from "../../../enums/AssignmentType";
 @Component({
 	selector: 'app-add-assignment-dialog',
 	templateUrl: './add-assignment-dialog.component.html',
-	styleUrls: ['./add-assignment-dialog.component.css']
+	styleUrls: ['./add-assignment-dialog.component.scss']
 })
 export class AddAssignmentDialogComponent implements OnInit {
-	public allAssignment: Assignment[];
 	public assignmentList: Assignment[];
-	public type: string;
 	public assignmentTypes = [
 		{
 			value: AssignmentType.TPO_READING,
@@ -35,6 +33,9 @@ export class AddAssignmentDialogComponent implements OnInit {
 			name: '综合写作'
 		}
 	];
+	public selectedId: string = "";
+	public selectedAssignmentType: string = "选择作业类型";
+	public allAssignment: Assignment[] = [];
 
 	constructor(private assignmentService: AssignmentService, public dialogRef: MatDialogRef<AddAssignmentDialogComponent>) {
 	}
@@ -42,11 +43,26 @@ export class AddAssignmentDialogComponent implements OnInit {
 	ngOnInit() {
 		this.assignmentService.getAllAssignmentList().subscribe((assignmentList: Assignment[]) => {
 			this.allAssignment = assignmentList;
+			this.assignmentList = this.allAssignment.filter(assignment => assignment.assignmentType == AssignmentType.TPO_READING);
 		});
 	}
 
-	public changeType() {
-		this.assignmentList = this.allAssignment.filter(assignment => assignment.assignmentType == this.type);
+	public changeType(assignmentType: any) {
+		this.selectedAssignmentType = assignmentType.name;
+		this.assignmentList = this.allAssignment.filter(assignment => assignment.assignmentType == assignmentType.value);
+	}
+
+	public selectAssignment(assignmentId: string) {
+		this.selectedId = assignmentId;
+	}
+
+	public closeDialog() {
+		if(this.selectedId.length == 0) {
+			this.dialogRef.close();
+		}
+		this.dialogRef.close({
+			'assignment': this.selectedId
+		});
 	}
 
 }

@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/toPromise';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class HttpService {
 
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private router: Router) {
 
 	}
 
@@ -17,6 +18,10 @@ export class HttpService {
 				console.log(resp.json());
 				console.log(JSON.stringify(resp.json()));
 			});
+	}
+
+	public makeGet(url: string, params?:any):Observable<any> {
+		return this.http.get<any>(url, {params: params});
 	}
 
 	public makeGetWithToken(url: string, params?: any): Observable<any> {
@@ -136,8 +141,12 @@ export class HttpService {
 	}
 
 
-	public static handleError<T>(operation = 'operation', result?: T) {
-		return (error: any): Observable<T> => {
+	public handleError<T>(operation = 'operation', result?: T) {
+		return (error: HttpErrorResponse): Observable<T> => {
+
+			if (error.status == 401) {
+				this.router.navigate(['/login']);
+			}
 
 			// TODO: send the error to remote logging infrastructure
 			console.error(error); // log to console instead
@@ -146,7 +155,7 @@ export class HttpService {
 			console.error(`${operation} failed: ${error.message}`);
 
 			// Let the app keep running by returning an empty result.
-			return Observable.throw(error.error.errmsg);
+			return Observable.throw(error.error.msg);
 		};
 	}
 

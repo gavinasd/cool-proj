@@ -14,6 +14,6 @@ export class AssignmentInfoVO {
 		this.studentId = obj && obj.studentId;
 		this.time = obj && obj.time;
 		this.studentAnswerVOList = obj && obj.studentAnswerVOList.map(vo => new StudentAnswerVO(vo));
-		this.scoreVOList = obj && obj.scoreVOList.map(vo => new ScoreVO(obj));
+		this.scoreVOList = obj && obj.scoreVOList.map(vo => new ScoreVO(vo));
 	}
 }

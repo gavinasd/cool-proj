@@ -1,156 +1,163 @@
-<app-question-header
-        [assignmentName]="assignmentName"
-        [courseId]="courseId"
-        [mode]="mode"
-        (next)="next()"
-        (pre)="pre()"
-        [showNext]="showNextButton"
-        [showPre]="showPreButton"
-        [disableNext]="false"
-></app-question-header>
+<nb-layout>
+  <nb-layout-header>
+    <app-question-header
+            [assignmentName]="assignmentName"
+            [courseId]="courseId"
+            [mode]="mode"
+            (next)="next()"
+            (pre)="pre()"
+            [showNext]="showNextButton"
+            [showPre]="showPreButton"
+            [disableNext]="false"
+    ></app-question-header>
+  </nb-layout-header>
 
-<div class="container">
+  <nb-layout-column>
     <div *ngIf="homeworkMode()">
-        <div id="content-page" class="container" *ngIf="contentIndex == 0" fxLayout="column" fxLayoutAlign="start">
-            <div fxLayout="row" fxLayoutAlign="start center">
-                <p>Listen to this material:</p>
-                <mat-icon>volume_up</mat-icon>
-            </div>
-            <app-audio-player [src]="recordUrl" (completed)="next()"></app-audio-player>
+      <div id="content-page" class="container" *ngIf="contentIndex == 0" fxLayout="column" fxLayoutAlign="start">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <p>Listen to this material:</p>
+          <i class="icon ion-md-volume-up"></i>
         </div>
+        <app-audio-player [src]="recordUrl" (completed)="next()"></app-audio-player>
+      </div>
 
-        <div class="question-page"
-             *ngIf="contentIndex > 0" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start">
-            <app-question-index [content]="getPagerContent()"></app-question-index>
+      <div class="question-page"
+           *ngIf="contentIndex > 0" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start">
+        <app-question-index [content]="getPagerContent()"></app-question-index>
 
-            <div class="question" fxLayout="column" fxLayoutAlign="start"
-                 *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_SINGLE_CHOICE_TYPE ||
+        <div class="question" fxLayout="column" fxLayoutAlign="start"
+             *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_SINGLE_CHOICE_TYPE ||
                 tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_REPEAT_TYPE">
 
-                <div *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_REPEAT_TYPE"
-                     fxLayout="row" fxLayoutAlign="start center">
-                    <p>Listen again to part of the conversation. Then answer the question.</p>
-                    <mat-icon>volume_up</mat-icon>
-                </div>
-                <p><strong>{{tpoListeningQuestion.question}}</strong></p>
-                <mat-radio-group fxLayout="column"
-                                fxLayoutGap="5px"
-                                [(ngModel)]="answer"
-                                (change)="changeAnswer()"
-                                [disabled]="reviewMode()">
-                    <mat-radio-button *ngFor="let option of tpoListeningQuestion.options; let i = index"
-                                     color="accent"
-                                     name="choices"
-                                     [value]="i|convert09ToAZ">
-                        <p>{{i|convert09ToAZ}}. {{option}}</p>
-                    </mat-radio-button>
-                </mat-radio-group>
-            </div>
-
-            <div class="question" fxLayout="column"
-                 *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_MULTIPLE_CHOICE_TYPE">
-                <p><strong>{{tpoListeningQuestion.question}}</strong></p>
-                <div fxLayout="column" fxLayoutGap="10px">
-                    <mat-checkbox *ngFor="let option of tpoListeningQuestion.options;let i = index"
-                                 [(ngModel)]="checkboxAnswers[i]" (change)="changeCheckboxAnswer()">
-                        {{i|convert09ToAZ}}. {{option}}
-                    </mat-checkbox>
-                </div>
-            </div>
-
-            <div class="question" fxLayout="column"
-                 *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE">
-                <p><strong>{{tpoListeningQuestion.question}}</strong></p>
-                <app-tpo-table-for-view
-                    [tableRows]="tpoListeningQuestion.tableRows"
-                    [tableCols]="tpoListeningQuestion.options"
-                    [mode]="'homework'"
-                    [answer]="answer"
-                    (answerChanged)="changeTableChoiceAnswer($event)"
-                ></app-tpo-table-for-view>
-            </div>
-
-            <div class="question" fxLayout="column"
-                 *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_SEQUENCE_TYPE">
-                <p><strong>{{tpoListeningQuestion.question}}</strong></p>
-                <div fxLayout="column" fxLayoutGap="10px">
-                    <mat-checkbox *ngFor="let option of tpoListeningQuestion.options;let i = index"
-                                  [(ngModel)]="sequenceAnswers[i]" (change)="changeSequenceAnswer()">
-                        {{i|convert09ToAZ}}. {{option}}
-                    </mat-checkbox>
-                    <p>你的选择:{{answer}}</p>
-                </div>
-            </div>
+          <div class="question-detail" *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_REPEAT_TYPE"
+               fxLayout="row" fxLayoutAlign="start center">
+            <p>Listen again to part of the conversation. Then answer the question.</p>
+            <i class="icon ion-md-volume-up"></i>
+          </div>
+          <p><strong>{{tpoListeningQuestion.question}}</strong></p>
+          <mat-radio-group fxLayout="column"
+                           fxLayoutGap="5px"
+                           [(ngModel)]="answer"
+                           (change)="changeAnswer()"
+                           [disabled]="reviewMode()">
+            <mat-radio-button *ngFor="let option of tpoListeningQuestion.options; let i = index"
+                              color="accent"
+                              name="choices"
+                              [value]="i|convert09ToAZ">
+              <p>{{i|convert09ToAZ}}. {{option}}</p>
+            </mat-radio-button>
+          </mat-radio-group>
         </div>
+
+        <div class="question" fxLayout="column"
+             *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_MULTIPLE_CHOICE_TYPE">
+          <p><strong>{{tpoListeningQuestion.question}}</strong></p>
+          <div fxLayout="column" fxLayoutGap="10px">
+            <mat-checkbox *ngFor="let option of tpoListeningQuestion.options;let i = index"
+                          [(ngModel)]="checkboxAnswers[i]" (change)="changeCheckboxAnswer()">
+              {{i|convert09ToAZ}}. {{option}}
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <div class="question" fxLayout="column"
+             *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE">
+          <p><strong>{{tpoListeningQuestion.question}}</strong></p>
+          <app-tpo-table-for-view
+                  [tableRows]="tpoListeningQuestion.tableRows"
+                  [tableCols]="tpoListeningQuestion.options"
+                  [mode]="'homework'"
+                  [answer]="answer"
+                  (answerChanged)="changeTableChoiceAnswer($event)"
+          ></app-tpo-table-for-view>
+        </div>
+
+        <div class="question" fxLayout="column"
+             *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_SEQUENCE_TYPE">
+          <p><strong>{{tpoListeningQuestion.question}}</strong></p>
+          <div fxLayout="column" fxLayoutGap="10px">
+            <mat-checkbox *ngFor="let option of tpoListeningQuestion.options;let i = index"
+                          [(ngModel)]="sequenceAnswers[i]" (change)="changeSequenceAnswer()">
+              {{i|convert09ToAZ}}. {{option}}
+            </mat-checkbox>
+            <p>你的选择:{{answer}}</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div *ngIf="reviewMode()">
-        <div class="question-page review"
-             *ngIf="contentIndex > 0" fxLayout="row" fxLayoutAlign="start">
+      <div class="question-page review"
+           *ngIf="contentIndex > 0" fxLayout="row" fxLayoutAlign="start">
 
-            <div class="question-container" fxFlex="50%"
-                 *ngIf="tpoListeningQuestion.questionType !== QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE">
-                <app-question-pager></app-question-pager>
-                <div class="question" fxLayout="column" fxLayoutAlign="start">
-                    <div class="review-question"
-                         *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_REPEAT_TYPE"
-                         fxLayout="row" fxLayoutAlign="start center">
-                        <p>Listen again to part of the conversation. Then answer the question.</p>
-                        <app-simple-audio-player [src]="tpoListeningQuestion.recordUrl.replace('question','repeat')"></app-simple-audio-player>
-                    </div>
-
-                    <div class="review-question" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
-                        <p>
-                            <strong>{{tpoListeningQuestion.question}}</strong>
-                            <app-simple-audio-player [src]="tpoListeningQuestion.recordUrl"></app-simple-audio-player>
-                        </p>
-                    </div>
-                    <ul>
-                        <li *ngFor="let option of tpoListeningQuestion.options; let i = index">
-                            {{i|convert09ToAZ}}. {{option}}
-                        </li>
-                    </ul>
-                </div>
-                <div class="answer">
-                    <p [ngClass]="{'correct-answer':correct(),'text-danger':!correct()}">学生答案：{{answer}}</p>
-                    <p class="correct-answer">正确答案：{{tpoListeningQuestion.answer}}</p>
-                    <div [froalaView]="tpoListeningQuestion.explanation"></div>
-                </div>
+        <div class="question-container" fxFlex="50%"
+             *ngIf="tpoListeningQuestion.questionType !== QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE">
+          <app-question-pager></app-question-pager>
+          <div class="question" fxLayout="column" fxLayoutAlign="start">
+            <div class="question-detail"
+                 *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_REPEAT_TYPE"
+                 fxLayout="row" fxLayoutAlign="start center">
+              <p>Listen again to part of the conversation. Then answer the question.</p>
+              <app-simple-audio-player
+                      [src]="tpoListeningQuestion.recordUrl.replace('question','repeat')"></app-simple-audio-player>
             </div>
 
-            <div class="question-container" fxFlex="50%"
-                 *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE">
-                <app-question-pager></app-question-pager>
-                <div class="question" fxLayout="column" fxLayoutAlign="start">
-                    <div class="review-question" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
-                        <p><strong>{{tpoListeningQuestion.question}}</strong></p>
-                    </div>
-                    <app-tpo-table-for-view
-                            [tableRows]="tpoListeningQuestion.tableRows"
-                            [tableCols]="tpoListeningQuestion.options"
-                            [mode]="'review'"
-                            [answer]="answer"
-                            (answerChanged)="changeTableChoiceAnswer($event)"
-                    ></app-tpo-table-for-view>
-                </div>
-
-                <div class="answer">
-                    <p class="correct-answer">正确答案：</p>
-                    <app-tpo-table-for-view
-                            [tableRows]="tpoListeningQuestion.tableRows"
-                            [tableCols]="tpoListeningQuestion.options"
-                            [mode]="'review'"
-                            [answer]="tpoListeningQuestion.answer"
-                            (answerChanged)="changeTableChoiceAnswer($event)"
-                    ></app-tpo-table-for-view>
-                </div>
+            <div class="review-question" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+              <p>
+                <strong>{{tpoListeningQuestion.question}}</strong>
+                <app-simple-audio-player [src]="tpoListeningQuestion.recordUrl"></app-simple-audio-player>
+              </p>
             </div>
-
-            <div class="passage-container" fxFlex="50%">
-                <app-tpo-review-player [src]="recordUrl"></app-tpo-review-player>
-                <div class="passage" [froalaView]="passage"></div>
-            </div>
+            <ul>
+              <li *ngFor="let option of tpoListeningQuestion.options; let i = index">
+                {{i|convert09ToAZ}}. {{option}}
+              </li>
+            </ul>
+          </div>
+          <div class="answer">
+            <p [ngClass]="{'correct-answer':correct(),'wrong-answer':!correct()}">学生答案：{{answer}}</p>
+            <p class="correct-answer">正确答案：{{tpoListeningQuestion.answer}}</p>
+            <app-text-editor-view [passage]="tpoListeningQuestion.explanation"></app-text-editor-view>
+          </div>
         </div>
+
+        <div class="question-container" fxFlex="50%"
+             *ngIf="tpoListeningQuestion.questionType == QuestionType.TPO_LISTENING_TABLE_CHOICE_TYPE">
+          <app-question-pager></app-question-pager>
+          <div class="question" fxLayout="column" fxLayoutAlign="start">
+            <div class="review-question" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+              <p><strong>{{tpoListeningQuestion.question}}</strong></p>
+            </div>
+            <app-tpo-table-for-view
+                    [tableRows]="tpoListeningQuestion.tableRows"
+                    [tableCols]="tpoListeningQuestion.options"
+                    [mode]="'review'"
+                    [answer]="answer"
+                    (answerChanged)="changeTableChoiceAnswer($event)"
+            ></app-tpo-table-for-view>
+          </div>
+
+          <div class="answer">
+            <p class="correct-answer">正确答案：</p>
+            <app-tpo-table-for-view
+                    [tableRows]="tpoListeningQuestion.tableRows"
+                    [tableCols]="tpoListeningQuestion.options"
+                    [mode]="'review'"
+                    [answer]="tpoListeningQuestion.answer"
+                    (answerChanged)="changeTableChoiceAnswer($event)"
+            ></app-tpo-table-for-view>
+          </div>
+        </div>
+
+        <div class="passage-container" fxFlex="50%">
+          <app-tpo-review-player [src]="recordUrl"></app-tpo-review-player>
+          <app-text-editor-view class="passage" [passage]="passage"></app-text-editor-view>
+        </div>
+      </div>
     </div>
-</div>
+  </nb-layout-column>
+</nb-layout>
+
+
 

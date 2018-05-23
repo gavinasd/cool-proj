@@ -1,11 +1,11 @@
 <div class="group-item">
     <div class="question-item" *ngFor="let question of questionList; let i = index">
         <h4>阅读材料：</h4>
-        <div class="passage" [froalaView]="passage"></div>
+        <app-text-editor-view class="passage" [passage]="passage"></app-text-editor-view>
         <h4>听力材料：</h4>
         <app-tpo-review-player  [src]="'/assets/records/'+recordUrl+'.mp3'"></app-tpo-review-player >
         <h4>范文：</h4>
-        <div class="passage" [froalaView]="question.answer"></div>
+        <app-text-editor-view class="passage" [passage]="question.answer"></app-text-editor-view>
 
         <div class="buttons" fxLayout="row" fxLayoutGap="15px">
             <a class="bottom-button" (click)="openEditQuestionDialog(question)">

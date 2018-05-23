@@ -14,8 +14,8 @@ export class AddTpoReadingGroupDialogComponent implements OnInit {
 	constructor(public dialogRef: MatDialogRef<AddTpoReadingGroupDialogComponent>) { }
 
 	ngOnInit() {
-		this.EditorOptions.height = 450;
-		this.EditorOptions.placeholderText = '输入文章段落';
+		this.EditorOptions.height = '450px';
+		this.EditorOptions.placeholder = '输入文章段落';
 	}
 
 	closeDialogAndSave(){

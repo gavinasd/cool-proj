@@ -1,124 +1,138 @@
-<app-question-header
-        [assignmentName]="assignmentName"
-        [courseId]="courseId"
-        [mode]="mode"
-        (next)="next()"
-        (pre)="pre()"
-        [showNext]="showNextButton"
-        [showPre]="showPreButton"
-        [disableNext]="disableNextButton"
-></app-question-header>
+<nb-layout>
+  <nb-layout-header>
+    <app-question-header
+            [assignmentName]="assignmentName"
+            [courseId]="courseId"
+            [mode]="mode"
+            (next)="next()"
+            (pre)="pre()"
+            [showNext]="showNextButton"
+            [showPre]="showPreButton"
+            [disableNext]="disableNextButton"
+    ></app-question-header>
+  </nb-layout-header>
 
-<div class="container">
+  <nb-layout-column>
     <div *ngIf="homeworkMode()" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start">
-        <div class="direction">
-            <p>Directions: You have 30 minutes to plan and write your response. Your response will be judged on the basis of the quality of your writing and on how well your response presents the points in the lecture and their relationship to the reading passage. Typically an effective response will be 300 words at least.</p>
-        </div>
+      <div class="direction">
+        <p>Directions: You have 30 minutes to plan and write your response. Your response will be judged on the basis of
+          the quality of your writing and on how well your response presents the points in the lecture and their
+          relationship to the reading passage. Typically an effective response will be 300 words at least.</p>
+      </div>
 
-        <div class="question-content" fxLayout="row"
-             fxLayoutWrap="wrap" fxLayout.sm="column"
-             fxLayoutAlign="start">
+      <div class="question-content" fxLayout="row"
+           fxLayoutWrap="wrap" fxLayout.sm="column"
+           fxLayoutAlign="start">
 
-            <div class="question" fxLayout="column" fxFlex="1 1 50%">
-                <div [froalaView]="independentWritingQuestion.question"></div>
-            </div>
-            <div class="passage" fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 50%">
-                <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <mat-card>
-                        <mat-card-content>
-                            <label class="word-count">Word Count:{{wordCount}}</label>
-                        </mat-card-content>
-                    </mat-card>
-                    <span fxFlex></span>
-                </div>
-                <app-text-editor
-                        [(ngModel)]="content"
-                        [editorOptions]="EditorStudentOptions"
-                        (ngModelChange)="changeAnswer()"
-                        name="passage"
-                ></app-text-editor>
-            </div>
+        <div class="question" fxLayout="column" fxFlex="1 1 50%">
+          <app-text-editor-view [passage]="independentWritingQuestion.question"></app-text-editor-view>
         </div>
+        <div class="passage" fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 50%">
+          <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+            <mat-card>
+              <mat-card-content>
+                <label class="word-count">Word Count:{{wordCount}}</label>
+              </mat-card-content>
+            </mat-card>
+            <span fxFlex></span>
+          </div>
+          <app-text-editor
+                  [(ngModel)]="content"
+                  [student]="true"
+                  (ngModelChange)="changeAnswer()"
+                  name="passage"
+          ></app-text-editor>
+        </div>
+      </div>
     </div>
 
     <div *ngIf="markingMode()" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start">
+      <div class="direction">
+        <p>Directions: You have 30 minutes to plan and write your response. Your response will be judged on the basis of
+          the quality of your writing and on how well your response presents the points in the lecture and their
+          relationship to the reading passage. Typically an effective response will be 300 words at least.</p>
+      </div>
+
+      <div class="question-content" fxLayout="row"
+           fxLayoutWrap="wrap" fxLayout.sm="column"
+           fxLayoutAlign="start">
+
+        <div class="question" fxLayout="column" fxFlex="1 1 50%">
+          <app-text-editor-view [passage]="independentWritingQuestion.question"></app-text-editor-view>
+        </div>
+        <div class="passage" fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 50%">
+          <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+            <mat-card>
+              <mat-card-content>
+                <label class="word-count">Word Count:{{wordCount}}</label>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card>
+              <mat-card-content>
+                <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
+              </mat-card-content>
+            </mat-card>
+
+            <span fxFlex></span>
+            <app-score-marker [score]="independentWritingQuestion.score"
+                              (marking)="markScore($event)"></app-score-marker>
+          </div>
+          <app-text-editor
+                  [(ngModel)]="content"
+                  [required]="true"
+                  (ngModelChange)="changeAnswer()"
+                  name="passage"
+          ></app-text-editor>
+
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="reviewMode()">
+      <div class="question-page"
+           fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start">
         <div class="direction">
-            <p>Directions: You have 30 minutes to plan and write your response. Your response will be judged on the basis of the quality of your writing and on how well your response presents the points in the lecture and their relationship to the reading passage. Typically an effective response will be 300 words at least.</p>
+          <p>Directions: You have 30 minutes to plan and write your response. Your response will be judged on the basis
+            of
+            the quality of your writing and on how well your response presents the points in the lecture and their
+            relationship to the reading passage. Typically an effective response will be 300 words at least.</p>
         </div>
 
         <div class="question-content" fxLayout="row"
              fxLayoutWrap="wrap" fxLayout.sm="column"
              fxLayoutAlign="start">
 
-            <div class="question" fxLayout="column" fxFlex="1 1 50%">
-                <div [froalaView]="independentWritingQuestion.question"></div>
+          <div class="question" fxLayout="column" fxFlex="1 1 50%">
+            <app-text-editor-view [passage]="independentWritingQuestion.question"></app-text-editor-view>
+          </div>
+          <div class="passage" fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 50%">
+            <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+              <mat-card>
+                <mat-card-content>
+                  <label class="word-count">Word Count:{{wordCount}}</label>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card>
+                <mat-card-content>
+                  <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
+                </mat-card-content>
+              </mat-card>
+
+              <span fxFlex></span>
             </div>
-            <div class="passage" fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 50%">
-                <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                    <mat-card>
-                        <mat-card-content>
-                            <label class="word-count">Word Count:{{wordCount}}</label>
-                        </mat-card-content>
-                    </mat-card>
-
-                    <mat-card>
-                        <mat-card-content>
-                            <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
-                        </mat-card-content>
-                    </mat-card>
-
-                    <span fxFlex></span>
-                    <app-score-marker [score]="independentWritingQuestion.score" (marking)="markScore($event)"></app-score-marker>
-                </div>
-                <app-text-editor
-                        [(ngModel)]="content"
-                        [editorOptions]="EditorTeacherOptions"
-                        [required]="true"
-                        (ngModelChange)="changeAnswer()"
-                        name="passage"
-                ></app-text-editor>
-
-            </div>
+            <app-text-editor-view [passage]="content" class="review-content"></app-text-editor-view>
+          </div>
         </div>
+
+        <div class="answer">
+          <p>参考范文：</p>
+          <app-text-editor-view [passage]="independentWritingQuestion.answer"></app-text-editor-view>
+        </div>
+      </div>
     </div>
 
-    <div *ngIf="reviewMode()">
-        <div class="question-page"
-             fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start">
-            <div class="direction">
-                <p>Directions: You have 30 minutes to plan and write your response. Your response will be judged on the basis of the quality of your writing and on how well your response presents the points in the lecture and their relationship to the reading passage. Typically an effective response will be 300 words at least.</p>
-            </div>
+  </nb-layout-column>
+</nb-layout>
 
-            <div class="question-content" fxLayout="row"
-                 fxLayoutWrap="wrap" fxLayout.sm="column"
-                 fxLayoutAlign="start">
-
-                <div class="question" fxLayout="column" fxFlex="1 1 50%">
-                    <div [froalaView]="independentWritingQuestion.question"></div>
-                </div>
-                <div class="passage" fxLayout="column" fxLayoutGap="10px" fxFlex="1 1 50%">
-                    <div class="header" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                        <mat-card>
-                            <mat-card-content>
-                                <label class="word-count">Word Count:{{wordCount}}</label>
-                            </mat-card-content>
-                        </mat-card>
-
-                        <mat-card>
-                            <mat-card-content>
-                                <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
-                            </mat-card-content>
-                        </mat-card>
-
-                        <span fxFlex></span>
-                    </div>
-                    <div class="review-content" [froalaView]="content"></div>
-                </div>
-            </div>
-            <div class="answer">
-                <p>参考范文：</p>
-                <div [froalaView]="independentWritingQuestion.answer"></div>
-            </div>
-        </div>
-    </div>
-</div>

@@ -1,0 +1,78 @@
+<nb-layout>
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-body>
+
+        <h3>欢迎加入琢玉课堂</h3>
+        <p>让自己变得更好</p>
+
+        <form ngNativeValidate role="form" #f="ngForm"
+              (ngSubmit)="onSubmit(f.value)" fxLayout="column" fxLayoutGap="20px">
+
+          <div class="select-avatar">
+            <div class="input-group">
+              <input class="form-control" type="text"
+                     placeholder="用户昵称" name="name"
+                     required ngModel>
+            </div>
+            <mat-icon class="avatar"
+                      [matMenuTriggerFor]="menu" svgIcon="avatars:{{selectedAvatarUrl}}">
+            </mat-icon>
+          </div>
+
+
+          <div class="input-group">
+            <input type="tel"
+                   class="form-control"
+                   placeholder="手机号码" name="phone"
+                   required ngModel>
+          </div>
+
+          <div class="input-group">
+            <input class="form-control" type="text"
+                   placeholder="输入短信验证码" name="smsCode"
+                   required ngModel>
+
+            <span class="input-group-append"
+                  [ngClass]="{'sending':sendingSMS}"
+                  (click)="getSMS(f.value.phone)">
+              <button class="btn btn-secondary append-button">
+                {{sendingSMS? countdownTime + '秒后可重发' : '获取短信验证码'}}
+              </button>
+            </span>
+          </div>
+
+
+          <div class="input-group">
+            <input type="password"
+                   class="form-control"
+                   placeholder="密码" name="password"
+                   required ngModel>
+          </div>
+
+          <mat-radio-group fxLayoutGap="10px" name="type" required ngModel>
+            <mat-radio-button value="{{UserType.TEACHER}}"><p>教师</p></mat-radio-button>
+            <mat-radio-button value="{{UserType.STUDENT}}"><p>学生</p></mat-radio-button>
+          </mat-radio-group>
+
+          <button type="submit" class="btn btn-success">
+            注册
+          </button>
+
+          <a routerLink="/login" fxFlexAlign="center">
+            <small>已经有账号？立刻登录</small>
+          </a>
+        </form>
+
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>
+
+<mat-menu #menu="matMenu" x-position="before">
+  <mat-grid-list cols="4">
+    <mat-grid-tile *ngFor="let avatar of avatarList" (click)="changeAvatar(avatar)">
+      <mat-icon class="avatar" svgIcon="avatars:{{avatar}}"></mat-icon>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-menu>

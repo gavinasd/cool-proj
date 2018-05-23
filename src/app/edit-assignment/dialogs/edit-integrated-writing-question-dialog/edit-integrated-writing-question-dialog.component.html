@@ -5,7 +5,6 @@
           (ngSubmit) = "closeDialogAndSave()" fxLayout="column">
         <app-text-editor
                 [(ngModel)]="passage"
-                [editorOptions]="studentOptions"
                 [required]="true"
                 name="passage"
         ></app-text-editor>
@@ -24,7 +23,6 @@
 
         <app-text-editor
                 [(ngModel)]="question.answer"
-                [editorOptions]="studentOptions"
                 [required]="true"
                 name="answer"
         ></app-text-editor>

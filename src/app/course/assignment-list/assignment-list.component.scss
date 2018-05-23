@@ -1,0 +1,43 @@
+
+.assignment-list {
+  margin: 0 60px 40px 60px;
+
+  .assignment-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  nb-card-body {
+    padding: 0 20px;
+    border-radius: .375rem;
+    overflow: hidden;
+  }
+}
+
+#more {
+  height: 50px;
+  line-height: 50px;
+  margin: 0;
+}
+
+#more:hover {
+  cursor: pointer;
+}
+
+#more a {
+  width: 100%;
+}
+
+#more p {
+  color: #00d977;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 50px;
+  margin: 0;
+}

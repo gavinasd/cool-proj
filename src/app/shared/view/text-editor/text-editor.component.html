@@ -1,6 +1,31 @@
-<textarea class="froala-editor"
-          [froalaEditor]="editorOptions"
-          [(froalaModel)]="value"
-          id="passage"
-          rows="10"
-></textarea>
+
+
+<div *ngIf="!student" id="{{toolbarId}}">
+
+  <button class="ql-bold"></button>
+  <button class="ql-italic"></button>
+  <button class="ql-underline"></button>
+  <button class="ql-strike"></button>
+  <select class="ql-color"></select>
+  <select class="ql-background"></select>
+  <select class="ql-align"></select>
+  <span class="ql-formats">
+    <select class="ql-font">
+      <option selected>Sans Serif</option>
+      <option value="roboto">Roboto</option>
+      <option value="mirza">Mirza</option>
+    </select>
+  </span>
+  <span class="ql-formats">
+    <select class="ql-size">
+      <option value="14px">Small</option>
+      <option selected>Normal</option>
+      <option value="18px">Large</option>
+      <option value="20px">Huge</option>
+    </select>
+  </span>
+
+
+</div>
+
+<quill-editor class="edit" [options]="student?studentOption:option" [(ngModel)]="value"></quill-editor>

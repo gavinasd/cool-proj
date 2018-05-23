@@ -21,8 +21,8 @@ export class EditTpoListeningQuestionDialogComponent implements OnInit {
 	            public dialogRef: MatDialogRef<EditTpoListeningQuestionDialogComponent>,
 	            public assignmentService:AssignmentService) {
 		this.explanationEditorOptions = Object.create(environment.studentEditorOptions);
-		this.explanationEditorOptions.placeholderText = '请输入题目解释';
-		this.explanationEditorOptions.height = 100;
+		this.explanationEditorOptions.placeholder = '请输入题目解释';
+		this.explanationEditorOptions.height = '100px';
 	}
 
 	ngOnInit() {

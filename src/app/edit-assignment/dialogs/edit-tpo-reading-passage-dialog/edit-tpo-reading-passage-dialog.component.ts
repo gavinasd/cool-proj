@@ -17,8 +17,8 @@ export class EditTpoReadingPassageDialogComponent implements OnInit {
 
     ngOnInit() {
 		this.passage = this.dialogData;
-	    this.EditorOptions.height = 450;
-	    this.EditorOptions.placeholderText = '输入文章段落';
+	    this.EditorOptions.height = '450px';
+	    this.EditorOptions.placeholder = '输入文章段落';
     }
 
 }

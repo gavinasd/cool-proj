@@ -9,6 +9,7 @@ import {Mode} from "../../../shared/enums/Mode";
   styleUrls: ['./question-group-detail.component.css']
 })
 export class QuestionGroupDetailComponent implements OnInit {
+	@Input() assignmentId:string;
 	@Input() assignmentName:string;     //这个变量是专门用来传递给header使用的
 	@Input() courseId:string;
 	@Input() mode:Mode;

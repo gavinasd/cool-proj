@@ -1,0 +1,91 @@
+
+.grade-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #eeeeee;
+  padding: 10px 0;
+  height: 100px;
+
+  mat-icon {
+
+    overflow: hidden;
+    width: 48px;
+    height: 48px;
+    margin: 0 0 0 30px;
+    border-radius: 24px;
+  }
+
+  .user-info {
+    margin: 0 20px 0 30px;
+    font-weight: 500;
+    width: 90px;
+
+    .name {
+      font-size: 17px;
+      margin-bottom: 12px;
+    }
+
+    .score {
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+
+  .chart {
+    margin-right: 15px;
+
+    .percentage {
+      fill: #666;
+      font-size: 16px;
+      text-anchor: middle;
+    }
+  }
+
+  .grade-detail {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+
+    p {
+      margin: 0 15px 3px 15px;
+    }
+  }
+
+  span {
+    flex-grow: 100;
+  }
+
+  .button-zone {
+    margin-right: 30px;
+
+    .btn-success {
+      background-color: #37c977;
+      width: 120px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #5BE190;
+      }
+
+      &:active {
+        background-color: #37BD6C;
+      }
+    }
+
+    .btn-danger {
+      background-color: #ff5777;
+      width: 120px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #FF657F;
+      }
+
+      &:active {
+        background-color: #DB415B;
+      }
+    }
+  }
+}
+

@@ -6,7 +6,7 @@ import {Mode} from "../../../shared/enums/Mode";
 @Component({
 	selector: 'app-question-header',
 	templateUrl: './question-header.component.html',
-	styleUrls: ['./question-header.component.css']
+	styleUrls: ['./question-header.component.scss']
 })
 export class QuestionHeaderComponent implements OnInit {
 	@Input() public assignmentName: string;
@@ -42,7 +42,7 @@ export class QuestionHeaderComponent implements OnInit {
 	}
 
 	quit() {
-		this.router.navigate(['/class/' + this.courseId]);
+		this.router.navigate(['/class/' + this.courseId + '/a'] );
 	}
 
 	nextQuestion() {

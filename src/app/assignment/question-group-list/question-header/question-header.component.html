@@ -1,36 +1,35 @@
-<mat-toolbar class="question-header" color="primary">
-    <div class="brand" fxFlex="20" fxLayoutAlign="start">
-        <button  mat-button class="brand" (click)="gotoHome()">
-            <mat-icon>edit</mat-icon>
-            <span>琢玉课堂</span>
-        </button>
-    </div>
-
-    <span id="assignment-name" fxFlex="60" fxLayoutAlign="center">{{assignmentName}}</span>
-
-    <span class="header-button"
-          fxLayout="column" fxFlex="20" fxLayoutAlign="center end" fxLayoutGap="8px">
+<div class="container">
+  <div class="logo-container" fxFlex="20" fxLayoutAlign="start" (click)="gotoHome()">
+    <i class="icon ion-md-create"></i>
+    <div class="logo">琢玉课堂</div>
+  </div>
+  <span id="assignment-name">{{assignmentName}}</span>
+  <span class="header-button"
+        fxLayout="column" fxFlex="20" fxLayoutAlign="center end" fxLayoutGap="8px">
         <div id="first-line" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="5px">
-            <button mat-button (click)="quit()">
-                Quit
+            <button class="btn btn-default" (click)="quit()">
+                <span>Quit</span>
             </button>
 
-            <button mat-button *ngIf="questionType == QuestionType.TPO_READING_TOPIC_TYPE
+            <button class="btn btn-default" *ngIf="questionType == QuestionType.TPO_READING_TOPIC_TYPE
                                     || questionType == QuestionType.TPO_READING_CATEGORY_TYPE"
                     (click)="changeView()">
-                {{viewText?'View Question':'View Text'}}
+              <span>{{viewText?'View Question':'View Text'}}</span>
             </button>
 
-            <button mat-button *ngIf="showPre" (click)="preQuestion()">
-                Back
+            <button class="btn btn-default" *ngIf="showPre" (click)="preQuestion()">
+                <span>Back</span>
             </button>
-            <div class="tooltip" matTooltip="Click Disable!" [matTooltipPosition]="'below'" [matTooltipDisabled]="!disableNext">
-                <button mat-button *ngIf="showNext" [disabled]="disableNext" (click)="nextQuestion()">
-                    Next
-                </button>
+            <button class="btn btn-default" *ngIf="showNext" [disabled]="disableNext" (click)="nextQuestion()">
+                <span>Next</span>
+            </button>
+            <div class="tooltip" matTooltip="Click Disable!" [matTooltipPosition]="'below'"
+                 [matTooltipDisabled]="!disableNext">
             </div>
         </div>
         <app-question-timer *ngIf="homeworkMode()"></app-question-timer>
     </span>
-</mat-toolbar>
+
+
+</div>
 

@@ -5,7 +5,7 @@ import 'rxjs/add/observable/interval';
 @Component({
   selector: 'app-tpo-review-player',
   templateUrl: './tpo-review-player.component.html',
-  styleUrls: ['./tpo-review-player.component.css']
+  styleUrls: ['./tpo-review-player.component.scss']
 })
 export class TpoReviewPlayerComponent implements OnInit, OnDestroy, OnChanges {
 

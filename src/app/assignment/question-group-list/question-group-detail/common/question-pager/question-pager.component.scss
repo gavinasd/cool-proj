@@ -1,0 +1,34 @@
+.holder {
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+
+.pager-item {
+  height: 26px;
+  width: 26px;
+  text-align: center;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pager-item p {
+  margin: 0px;
+  padding: 0px;
+}
+
+.selected.correct {
+  background-color: #00d977;
+}
+
+.selected.wrong {
+  background-color: #f44336;
+}
+
+.correct {
+  border: 2px solid #00d977;
+}
+
+.wrong {
+  border: 2px solid #f44336;
+}

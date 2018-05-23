@@ -16,8 +16,8 @@ export class AddTpoListeningGroupDialogComponent implements OnInit {
 	constructor(public dialogRef: MatDialogRef<AddTpoListeningGroupDialogComponent>,
 	            private toastService: ToastService) {
 		this.passageEditorOptions = Object.create(environment.studentEditorOptions);
-		this.passageEditorOptions.placeholderText = '请输入听力材料原文';
-		this.passageEditorOptions.height = 300;
+		this.passageEditorOptions.placeholder = '请输入听力材料原文';
+		this.passageEditorOptions.height = '300px';
 	}
 
 	ngOnInit() {

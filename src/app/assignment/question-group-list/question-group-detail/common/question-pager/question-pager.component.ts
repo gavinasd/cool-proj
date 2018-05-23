@@ -9,7 +9,7 @@ import * as assignmentActions from '../../../../../redux/assignment/assignment.a
 @Component({
   selector: 'app-question-pager',
   templateUrl: './question-pager.component.html',
-  styleUrls: ['./question-pager.component.css']
+  styleUrls: ['./question-pager.component.scss']
 })
 export class QuestionPagerComponent implements OnInit {
 	public scoreList$:Observable<any[]>;

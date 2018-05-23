@@ -1,33 +1,16 @@
-<mat-toolbar color="primary" fxLayoutGap="20px">
-    <button mat-button class="brand" (click)="gotoHome()">
-        <mat-icon>edit</mat-icon>
-        <span>琢玉课堂</span>
-    </button>
 
-    <div class="search">
-        <form  ngNativeValidate
-               #form="ngForm"
-               (ngSubmit)="searchClass(form)"
-               class="navbar-form navbar-left">
+<div class="header-container">
+  <div class="logo-container" (click)="gotoHome()">
+    <img src="assets/icon.png">
+    <div class="logo">琢玉课堂</div>
+  </div>
 
-            <div class="form-group search-bar" fxLayout="row">
-                <input type="text" placeholder="搜索班级" name="classForSearch" required ngModel>
-                <button mat-icon-button class="input-after" type="submit">
-                    <mat-icon >search</mat-icon>
-                </button>
-            </div>
-        </form>
-    </div>
+  <div class="main-nav">
 
-    <span fxFlex></span>
+    <span class="nav-button" routerLink="/class/{{classId}}/d" routerLinkActive="selected">班级</span>
+    <span class="nav-button" routerLink="/class/{{classId}}/a" routerLinkActive="selected">作业</span>
+    <!--<span class="nav-button" routerLink="/class/{{classId}}/r" routerLinkActive="selected">资源</span>-->
 
-    <button id="more" mat-button [matMenuTriggerFor]="menu">
-        {{userName}}<mat-icon>expand_more</mat-icon>
-    </button>
-</mat-toolbar>
+  </div>
 
-<mat-menu #menu="matMenu" x-position="before">
-    <button mat-menu-item (click)="logout()">
-        <span >退出</span>
-    </button>
-</mat-menu>
+</div>

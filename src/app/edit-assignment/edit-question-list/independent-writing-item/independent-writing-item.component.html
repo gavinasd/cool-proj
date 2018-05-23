@@ -1,9 +1,9 @@
 <div class="group-item">
     <div class="question-item" *ngFor="let question of questionList; let i = index">
         <h4>{{i+1}}. 题目：</h4>
-        <div class="passage" [froalaView]="question.question"></div>
+        <app-text-editor-view class="passage" [passage]="question.question"></app-text-editor-view>
         <h4>范文：</h4>
-        <div class="passage" [froalaView]="question.answer"></div>
+        <app-text-editor-view class="passage" [passage]="question.answer"></app-text-editor-view>
 
         <div class="buttons" fxLayout="row" fxLayoutGap="15px">
             <a class="bottom-button" (click)="openEditQuestionDialog(question)">

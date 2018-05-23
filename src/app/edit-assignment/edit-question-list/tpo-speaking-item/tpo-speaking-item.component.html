@@ -8,8 +8,8 @@
         <h4 *ngIf="question.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE">
             阅读材料：
         </h4>
-        <div class="passage" *ngIf="question.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE"
-             [froalaView]="question.passage"></div>
+        <app-text-editor-view class="passage" *ngIf="question.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE"
+             [passage]="question.passage"></app-text-editor-view>
         <h4 *ngIf="question.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
                 || question.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE">
             听力材料：

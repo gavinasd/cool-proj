@@ -1,5 +1,6 @@
 mat-progress-bar{
     height: 10px;
+    margin-bottom: 10px;
     border-radius: 5px;
 }
 

@@ -1,14 +1,32 @@
-<div fxLayout="row" fxLayoutAlign="start"
+<div *ngIf="!courseItemList || courseItemList.length !== 0"
+     fxLayout="row" fxLayoutAlign="start" fxLayoutWrap
      fxLayout.sm="column" fxLayoutGap.sm="30px" fxLayoutAlign.sm="start center">
-    <app-course-list-item
-            fxFlex="33%"
-            fxFlex.sm="100%"
-            *ngFor="let courseItem of courseItemList"
-            [courseItem]="courseItem"
-    ></app-course-list-item>
+  <app-course-list-item
+          fxFlex="33%"
+          fxFlex.sm="100%"
+          *ngFor="let courseItem of courseItemList"
+          [courseItem]="courseItem"
+  ></app-course-list-item>
 
-
-    <h5 *ngIf="courseItemList && courseItemList.length == 0">
-        你还没有加入任何班级，可以尝试搜索班级加入
-    </h5>
+  <div id="more" fxFlex="100%">
+    <a fxLayoutAlign="center" *ngIf="courseItemList && canShowMore()" (click)="showMore()">
+      <p class="more-info">
+        <small>更多<i class="icon ion-ios-arrow-down"></i></small>
+      </p>
+    </a>
+    <!--<a fxLayoutAlign="center" *ngIf="courseItemList && !loading && !canShowMore()" disabled="disabled">-->
+      <!--<p class="more-info">-->
+        <!--<small>已经没有更多班级</small>-->
+      <!--</p>-->
+    <!--</a>-->
+    <a fxLayoutAlign="center" *ngIf="loading">
+      <p class="more-info">
+        <small>读取数据中</small>
+      </p>
+    </a>
+  </div>
 </div>
+
+<h5 *ngIf="courseItemList && courseItemList.length == 0">
+  你还没有加入任何班级，可以尝试搜索班级加入
+</h5>

@@ -1,6 +1,11 @@
-<app-class-detail-nav></app-class-detail-nav>
-<div fxLayout="row" fxLayoutAlign="start"
-     fxLayout.sm="column" fxLayoutGap.sm="30px" fxLayoutAlign.sm="start center">
+
+<nb-layout>
+  <nb-layout-header>
+    <app-navbar [showCreateClassButton]="false"></app-navbar>
+  </nb-layout-header>
+
+  <nb-layout-column fxLayoutWrap fxLayout="row" fxLayoutAlign="start start">
+    <h3 fxFlex="100%">搜索结果</h3>
     <app-search-result-item
             fxFlex="33%"
             fxFlex.sm="100%"
@@ -9,6 +14,7 @@
     ></app-search-result-item>
 
     <h5 *ngIf="courseItemList && courseItemList.length == 0">
-        找不到任何班级，请重新搜索
+      找不到任何班级，请重新搜索
     </h5>
-</div>
+  </nb-layout-column>
+</nb-layout>

@@ -11,58 +11,57 @@ import {Question} from "../../models/Questions/Question";
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {SubmitConfirmDialogComponent} from "../../shared/view/dialogs/submit-confirm-dialog/submit-confirm-dialog.component";
 import {ComponentCanDeactivate} from "../../core/services/route-guard.service";
-import {combineLatest, distinctUntilChanged, filter, first, map, pairwise, reduce, takeWhile} from "rxjs/operators";
+import {filter, first, takeWhile} from "rxjs/operators";
 import {interval} from "rxjs/observable/interval";
 import {QuestionType} from "../../shared/enums/QuestionType";
 import {AssignmentType} from "../../shared/enums/AssignmentType";
 import {Mode} from "../../shared/enums/Mode";
 
 @Component({
-  selector: 'app-question-group-list',
-  templateUrl: './question-group-list.component.html',
-  styleUrls: ['./question-group-list.component.css']
+	selector: 'app-question-group-list',
+	templateUrl: './question-group-list.component.html',
+	styleUrls: ['./question-group-list.component.scss']
 })
-export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCanDeactivate {
+export class QuestionGroupListComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
 	/**
 	 * 题目列表一共分成3种模式
 	 * 做题模式，批改模式，查看模式
 	 */
-	public mode:Mode;
-	public AssignmentType:any = AssignmentType;
-	public assignmentId:string;
-	public studentId:string;    //老师所需要查看成绩内容的学生id
-	public courseId:string;
+	public mode: Mode;
+	public AssignmentType: any = AssignmentType;
+	public assignmentId: string;
+	public studentId: string;    //老师所需要查看成绩内容的学生id
+	public courseId: string;
 	private viewMode = 'question';
-	public assignmentName$:Observable<string>;
-	public assignmentScoreList$:Observable<any[]>;
-	public groupIndex$:Observable<number>;
-	public group$:Observable<QuestionGroup>;
-	public groupType$:Observable<AssignmentType>;
-	public groupContent$:Observable<string>;
-	public contentIndex$:Observable<number>;
-	public shouldShowContent$:Observable<boolean>;
+	public assignmentName$: Observable<string>;
+	public assignmentScoreList$: Observable<any[]>;
+	public groupIndex$: Observable<number>;
+	public group$: Observable<QuestionGroup>;
+	public groupType$: Observable<AssignmentType>;
+	public groupContent$: Observable<string>;
+	public contentIndex$: Observable<number>;
+	public shouldShowContent$: Observable<boolean>;
 
-	public questionIndex$:Observable<number>;
-	public currentQuestion$:Observable<Question>;
-	public currentQuestionType$:Observable<QuestionType>;
-	public questionListLength$:Observable<number>;
-	public lastAnswer$:Observable<string>;
-	public markingScore$:Observable<number>;
+	public questionIndex$: Observable<number>;
+	public currentQuestion$: Observable<Question>;
+	public currentQuestionType$: Observable<QuestionType>;
+	public questionListLength$: Observable<number>;
+	public lastAnswer$: Observable<string>;
+	public markingScore$: Observable<number>;
 
-	public complete$:Observable<boolean>;
-	public errMessage$:Observable<string>;
-	public loading$:Observable<boolean>;
+	public complete$: Observable<boolean>;
+	public errMessage$: Observable<string>;
+	public loading$: Observable<boolean>;
 
-	private alive:boolean = true;
-	private complete:boolean = false;
+	private alive: boolean = true;
+	private complete: boolean = false;
 
-	constructor(private route:ActivatedRoute,
-	            public assignmentService:AssignmentService,
-				public router:Router,
-	            private store:Store<ApplicationState>,
-	            private dialog: MatDialog
-	) {
-		this.route.params.forEach((param:Params)=>{
+	constructor(private route: ActivatedRoute,
+	            public assignmentService: AssignmentService,
+	            public router: Router,
+	            private store: Store<ApplicationState>,
+	            private dialog: MatDialog) {
+		this.route.params.forEach((param: Params) => {
 			this.courseId = param['courseId'];
 			this.assignmentId = param['assignmentId'];
 			this.studentId = param['studentId'];
@@ -91,19 +90,19 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 	}
 
 	ngOnInit() {
-		if(this.mode != Mode.HomeWork){
-			this.group$.pipe(takeWhile(()=>this.alive)).subscribe(()=>{
+		if (this.mode != Mode.HomeWork) {
+			this.group$.pipe(takeWhile(() => this.alive)).subscribe(() => {
 				this.store.dispatch(new assignmentActions.SkipContentAction());
 			});
 		}
 
-		this.complete$.pipe(takeWhile(()=>this.alive)).subscribe((complete) => {
+		this.complete$.pipe(takeWhile(() => this.alive)).subscribe((complete) => {
 			this.complete = complete;
-			if(complete && this.mode != Mode.HomeWork){
-				this.router.navigate(['/class/' + this.courseId]);
+			if (complete && this.mode != Mode.HomeWork) {
+				this.router.navigate(['/class/' + this.courseId + '/a']);
 				return;
 			}
-			else if(complete){
+			else if (complete) {
 				this.openSubmitConfirmDialog();
 			}
 		});
@@ -126,22 +125,22 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 		this.autoSave();
 	}
 
-	changeAnswer(answer: string){
+	changeAnswer(answer: string) {
 		this.store.dispatch(new assignmentActions.SetStudentAnswerAction(answer));
 	}
 
-	changeScore(score: number){
+	changeScore(score: number) {
 		this.store.dispatch(new assignmentActions.SetMarkingScoreAction(score));
 		this.save();
 	}
 
-	next(){
+	next() {
 		this.save();
 		this.loading$.pipe(
 			filter(loading => !loading),
 			first()
 		).subscribe(loading => {
-			if(this.mode !== Mode.HomeWork){
+			if (this.mode !== Mode.HomeWork) {
 				this.store.dispatch(new assignmentActions.NextAction(true));
 			} else {
 				this.store.dispatch(new assignmentActions.NextAction());
@@ -149,23 +148,24 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 		})
 	}
 
-	pre(){
-		if(this.mode !== Mode.HomeWork){
+	pre() {
+		if (this.mode !== Mode.HomeWork) {
 			this.store.dispatch(new assignmentActions.PreAction(true));
 		} else {
 			this.store.dispatch(new assignmentActions.PreAction());
-		}	}
+		}
+	}
 
 	autoSave() {
 		//每分钟自动保存一次
 		interval(60 * 1000).pipe(
-			takeWhile(()=>this.alive)
+			takeWhile(() => this.alive)
 		).subscribe(data => {
 			this.save();
 		});
 	}
 
-	save(){
+	save() {
 		this.store.dispatch(new assignmentActions.SubmitAction({
 			courseId: this.courseId,
 			assignmentId: this.assignmentId,
@@ -173,34 +173,34 @@ export class QuestionGroupListComponent implements OnInit,OnDestroy,ComponentCan
 		}));
 	}
 
-	openSubmitConfirmDialog(){
+	openSubmitConfirmDialog() {
 		let config = new MatDialogConfig();
 		config.width = '400px';
 		this.dialog.open(SubmitConfirmDialogComponent, config).afterClosed()
 			.subscribe(result => {
-				if(!result || result == 'cancel'){
+				if (!result || result == 'cancel') {
 					this.store.dispatch(new assignmentActions.SetUnCompleteAction());
 					return;
 				}
 
-				if(result == 'save'){
-					this.router.navigate(['/class/' + this.courseId]);
+				if (result == 'save') {
+					this.router.navigate(['/class/' + this.courseId + '/a']);
 					return;
 				}
 
-				if(result == 'confirm'){
+				if (result == 'confirm') {
 					this.assignmentService.submitAssignmentDone(this.courseId, this.studentId, this.assignmentId)
-						.subscribe((data)=>{
+						.subscribe((data) => {
 							console.log('确认提交' + data);
-							this.router.navigate(['/class/' + this.courseId]);
+							this.router.navigate(['/class/' + this.courseId + '/a']);
 						});
 				}
 			});
 	}
 
 	@HostListener('window:beforeunload')
-	canDeactivate():Observable<boolean>|boolean{
-		if(+this.mode !== Mode.HomeWork || this.complete){
+	canDeactivate(): Observable<boolean> | boolean {
+		if (+this.mode !== Mode.HomeWork || this.complete) {
 			return true;
 		}
 		return window.confirm('确定要离开作业吗?')

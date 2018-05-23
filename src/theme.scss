@@ -1,6 +1,28 @@
 @import '~@angular/material/theming';
 @import 'custom';
 
+@import '~@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/themes/default';
+
+$nb-themes: nb-register-theme((
+        color-bg: #4ca6ff,
+        layout-bg: #f6f6f6,
+        color-fg: #222222,
+        header-shadow: none,
+        header-padding: 14px,
+        header-height: 60px,
+
+        question-header-height: 90px,
+        question-header-bg: #37c977,
+
+        card-body-padding: 0,
+
+        layout-font-family: "Microsoft YaHei",
+
+        course-detail-padding-bottom: 40px,
+), default, default);
+
+
 @include mat-core();
 
 $primary: mat-palette($mat-green);

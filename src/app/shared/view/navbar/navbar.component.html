@@ -1,36 +1,30 @@
-<mat-toolbar color="primary" fxLayoutGap="20px">
-    <button mat-button class="brand">
-        <mat-icon>edit</mat-icon>
-        <span>琢玉课堂</span>
-    </button>
+<div class="header-container">
+  <div class="logo-container" (click)="gotoHome()">
+    <img src="assets/icon.png">
+    <div class="logo">琢玉课堂</div>
+  </div>
 
+  <div class="main-nav">
     <div class="search">
-        <form ngNativeValidate
-              #form="ngForm" id="myForm"
-              (ngSubmit)="searchClass(form.value)"
-              class="navbar-form navbar-left">
+      <form ngNativeValidate
+            #form="ngForm" id="myForm"
+            (ngSubmit)="searchClass(form.value)">
 
-            <div class="form-group search-bar" fxLayout="row">
-                <input type="text" placeholder="搜索班级" name="classForSearch" required ngModel>
-                <button mat-icon-button type="submit" class="input-after">
-                    <mat-icon>search</mat-icon>
-                </button>
-            </div>
-        </form>
+        <div class="input-group">
+          <input type="text" placeholder="搜索班级"
+                 name="classForSearch" required ngModel
+                 class="form-control"/>
+        </div>
+      </form>
     </div>
 
-    <button *ngIf="userType == UserType.TEACHER" mat-button (click)="openCreateClassDialog()">新建班级</button>
+    <span class="create-class" *ngIf="userType == UserType.TEACHER && showCreateClassButton"
+          (click)="openCreateClassDialog()">新建班级</span>
+  </div>
 
-    <span fxFlex></span>
+  <div class="nav-menu" [nbContextMenu]="items" nbContextMenuTag="nav-menu">
 
-    <button mat-button [matMenuTriggerFor]="menu">
-        {{userName}}
-        <mat-icon>expand_more</mat-icon>
-    </button>
-</mat-toolbar>
-
-<mat-menu #menu="matMenu" x-position="before">
-    <button mat-menu-item (click)="logout()">
-        <span>退出</span>
-    </button>
-</mat-menu>
+    <span>{{userName}}</span>
+    <mat-icon svgIcon="avatars:{{avatar}}"></mat-icon>
+  </div>
+</div>

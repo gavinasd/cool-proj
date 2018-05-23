@@ -1,4 +1,4 @@
-<div class="container" id="question-group-list" [ngSwitch]="groupType$ | async">
+<div [ngSwitch]="groupType$ | async">
     <app-tpo-reading-question-detail
             *ngSwitchCase="AssignmentType.TPO_READING"
             [courseId]="courseId"
@@ -88,6 +88,7 @@
             *ngSwitchCase="AssignmentType.TPO_SPEAKING"
             [courseId]="courseId"
             [assignmentName]="assignmentName$ | async"
+            [assignmentId]="assignmentId"
             [question]="currentQuestion$ | async"
             [lastAnswer]="lastAnswer$ | async"
             [markingScore]="markingScore$ | async"

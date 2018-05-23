@@ -1,18 +1,36 @@
-<h4>创建班级</h4>
-<form ngNativeValidate id="createClassForm" role="form" #f="ngForm"
-(ngSubmit) = "dialogRef.close(f.value)">
-    <div fxLayout="column" fxLayoutGap="8px">
-        <mat-input-container>
-            <input matInput type="text" class="form-control" name="className" placeholder="班级名称:" required ngModel>
-        </mat-input-container>
+<!--<h4>创建班级</h4>-->
+<!--<form ngNativeValidate id="createClassForm" role="form" #f="ngForm"-->
+<!--(ngSubmit) = "dialogRef.close(f.value)">-->
+<!--<div fxLayout="column" fxLayoutGap="8px">-->
+<!--<mat-input-container>-->
+<!--<input matInput type="text" class="form-control" name="className" placeholder="班级名称:" required ngModel>-->
+<!--</mat-input-container>-->
 
-        <mat-input-container>
-            <input matInput type="text" class="form-control" name="verifier" placeholder="邀请码(把邀请码告诉学生，他们就可以加入了)" required ngModel>
-        </mat-input-container>
+<!--<mat-input-container>-->
+<!--<input matInput type="text" class="form-control" name="verifier" placeholder="邀请码(把邀请码告诉学生，他们就可以加入了)" required ngModel>-->
+<!--</mat-input-container>-->
+<!--</div>-->
+
+<!--<mat-dialog-actions align="end">-->
+<!--<button mat-button type="button" (click)="dialogRef.close()">取消</button>-->
+<!--<button mat-button color="accent">确定</button>-->
+<!--</mat-dialog-actions>-->
+<!--</form>-->
+<div class="modal-header">
+  <span>创建班级</span>
+  <button class="close" aria-label="Close" (click)="dialogRef.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form ngNativeValidate id="createClassForm" role="form" #f="ngForm"
+        (ngSubmit)="dialogRef.close(f.value)">
+    <div fxLayout="column" fxLayoutGap="8px">
+      <input type="text" class="form-control" name="className" placeholder="班级名称:" required ngModel>
+
+      <input type="text" class="form-control" name="verifier" placeholder="邀请码(把邀请码告诉学生，他们就可以加入了)" required ngModel>
     </div>
 
-    <mat-dialog-actions align="end">
-        <button mat-button type="button" (click)="dialogRef.close()">取消</button>
-        <button mat-button color="accent">确定</button>
-    </mat-dialog-actions>
-</form>
+    <button class="btn btn-primary submit" type="submit">确定</button>
+  </form>
+</div>

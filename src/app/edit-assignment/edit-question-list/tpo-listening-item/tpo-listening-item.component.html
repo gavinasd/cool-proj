@@ -2,7 +2,7 @@
     <div class="question-content">
         <h3>听力材料</h3>
         <app-tpo-review-player [src]="recordUrl"></app-tpo-review-player>
-        <div class="passage" [froalaView]="passage"></div>
+        <app-text-editor-view class="passage" [passage]="passage"></app-text-editor-view>
 
         <div class="buttons" fxLayout="row" fxLayoutGap="15px">
             <a class="bottom-button" (click)="openEditContentDialog()">

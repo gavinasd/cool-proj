@@ -6,11 +6,11 @@ import {Mode} from "../../../../shared/enums/Mode";
 @Component({
   selector: 'app-integrated-writing-question-detail',
   templateUrl: './integrated-writing-question-detail.component.html',
-  styleUrls: ['./integrated-writing-question-detail.component.css']
+  styleUrls: ['./integrated-writing-question-detail.component.scss']
 })
 export class IntegratedWritingQuestionDetailComponent extends QuestionGroupDetailComponent implements OnInit,OnChanges{
 	public EditorStudentOptions: Object= {
-		placeholderText: '',
+		placeholder: '',
 		charCounterCount: false,
 		toolbarButtons: [],
 		height: 400,
@@ -23,7 +23,7 @@ export class IntegratedWritingQuestionDetailComponent extends QuestionGroupDetai
 		}
 	};
 	public EditorTeacherOptions: Object= {
-		placeholderText: '',
+		placeholder: '',
 		charCounterCount: false,
 		toolbarButtons: ['fullscreen','bold','italic','strikeThrough','color',],
 		colorsText:['#d71345','#f58220','#ffe600','#bed742','#1d953f','#2b4490','#000000'],

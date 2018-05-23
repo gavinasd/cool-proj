@@ -1,0 +1,83 @@
+<nb-layout>
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-body>
+
+        <h3>欢迎加入琢玉课堂</h3>
+        <p>让自己变得更好</p>
+
+        <form ngNativeValidate role="form" #f="ngForm"
+              (ngSubmit)="onSubmit(f.value)" fxLayout="column" fxLayoutGap="20px">
+          <div class="input-group">
+            <input type="tel"
+                   class="form-control"
+                   placeholder="手机号码" name="phone"
+                   required ngModel>
+          </div>
+
+          <div class="input-group">
+            <input type="password"
+                   class="form-control"
+                   placeholder="密码" name="password"
+                   required ngModel>
+          </div>
+
+          <a routerLink="/reset-password" fxFlexAlign="end">
+            <small>忘记密码？</small>
+          </a>
+
+          <button class="btn btn-success" type="submit" color="primary" fxFlexAlign="end">
+            登录
+          </button>
+
+          <a routerLink="/register" fxFlexAlign="center">
+            <small>还没有账号？立刻注册</small>
+          </a>
+        </form>
+
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>
+
+<!--<div class="login-screen" fxLayoutAlign="column" fxLayoutAlign="center center">-->
+<!--<nb-card>-->
+<!--<nb-card-body>-->
+<!--<div class="brand">-->
+<!--<h3>欢迎加入琢玉课堂</h3>-->
+<!--<p>让自己变得更好</p>-->
+<!--</div>-->
+
+<!--<form ngNativeValidate role="form" #f="ngForm"-->
+<!--(ngSubmit)="onSubmit(f.value)" fxLayout="column" fxLayoutGap="20px">-->
+<!--<input type="tel"-->
+<!--class="form-control"-->
+<!--placeholder="手机号码" name="phone"-->
+<!--required ngModel>-->
+
+<!--<input type="password"-->
+<!--class="form-control"-->
+<!--placeholder="密码" name="password"-->
+<!--required ngModel>-->
+
+<!--<a routerLink="/reset-password" fxFlexAlign="end">-->
+<!--<small>忘记密码？</small>-->
+<!--</a>-->
+
+
+<!--<button class="btn btn-success" type="submit" color="primary" fxFlexAlign="end">-->
+<!--登录-->
+<!--</button>-->
+
+<!--<a routerLink="/register" fxFlexAlign="center">-->
+<!--<small>还没有账号？立刻注册</small>-->
+<!--</a>-->
+<!--</form>-->
+<!--</nb-card-body>-->
+<!--</nb-card>-->
+<!--</div>-->
+
+<div class="footer">
+  <span>© 2018 琢玉</span>
+  <a href="http://www.miibeian.gov.cn">粤ICP备18012887号</a>
+</div>

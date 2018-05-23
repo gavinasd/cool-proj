@@ -15,6 +15,10 @@ export class TpoSpeakingRecorderComponent implements OnInit,OnChanges {
 	@Input() responseTime:number;
 	@Output() uploaded:EventEmitter<string> = new EventEmitter<string>();
 
+	@Input() courseId;
+	@Input() assignmentId;
+	@Input() questionId;
+
 	startSpeak:boolean;
 	isUploading:boolean;
 	responding:boolean;
@@ -100,6 +104,9 @@ export class TpoSpeakingRecorderComponent implements OnInit,OnChanges {
 			type:'audio/x-wav'
 		});
 		formData.append('record', file, fileName);
+		formData.append('courseId', this.courseId);
+		formData.append('assignmentId', this.assignmentId);
+		formData.append('questionId', this.questionId);
 
 		this.isUploading = true;
 		this.assignmentService.uploadSpeakingRecord(formData)

@@ -1,34 +1,63 @@
-<h4>添加作业</h4>
-<form ngNativeValidate id="addAssignmentForm" role="form" #f="ngForm"
-      (ngSubmit) = "dialogRef.close(f.value)">
-    <div fxLayout="column">
-        <mat-form-field>
-            <mat-select placeholder="选择作业类型"
-                        (change)="changeType()"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="type">
-                <mat-option *ngFor="let assignmentType of assignmentTypes"
-                            [value]="assignmentType.value">
-                    {{assignmentType.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+<!--<div class="title" >-->
+<!--<h4>添加作业</h4>-->
+<!--<button class="menu" mat-button [matMenuTriggerFor]="menu">-->
+<!--{{selectedAssignmentType}}<mat-icon>expand_more</mat-icon>-->
+<!--</button>-->
+<!--</div>-->
 
-        <mat-form-field>
-            <mat-select placeholder="选择作业"
-                        name="assignment"
-                        ngModel
-                        required>
-                <mat-option *ngFor="let assignment of assignmentList"
-                            [value]="assignment.assignmentId">
-                    {{assignment.assignmentName}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+<!--<div class="select-assignment">-->
+<!--<div class="assignment-item"-->
+<!--*ngFor="let assignment of assignmentList"-->
+<!--[ngClass]="{'selected': assignment.assignmentId == selectedId}"-->
+<!--(click)="selectAssignment(assignment.assignmentId)">-->
+<!--<span>{{assignment.assignmentName}}</span>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<!--<mat-dialog-actions align="end">-->
+<!--<button mat-button type="button" (click)="dialogRef.close()">取消</button>-->
+<!--<button mat-button type="submit" (click)="closeDialog()" color="accent">确定</button>-->
+<!--</mat-dialog-actions>-->
+
+<!--<mat-menu #menu="matMenu" x-position="before">-->
+<!--<button *ngFor="let assignmentType of assignmentTypes"-->
+<!--mat-menu-item-->
+<!--(click)="changeType(assignmentType)">-->
+<!--<span>{{assignmentType.name}}</span>-->
+<!--</button>-->
+<!--</mat-menu>-->
+
+<div class="dialog-container">
+  <div class="modal-header">
+    <span class="header">添加作业</span>
+
+    <div class="input-group input-group-sm">
+      <select #s class="form-control input-group-sm" (change)="changeType(assignmentTypes[s.value])">
+        <option *ngFor="let assignmentType of assignmentTypes;let i = index" value="{{i}}">
+          {{assignmentType.name}}
+        </option>
+      </select>
     </div>
+    <button class="close" aria-label="Close" (click)="dialogRef.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
-    <mat-dialog-actions align="end">
-        <button mat-button type="button" (click)="dialogRef.close()">取消</button>
-        <button mat-button type="submit" color="accent">确定</button>
-    </mat-dialog-actions>
-</form>
+  <div class="modal-body">
+    <div class="select-assignment">
+      <div class="assignment-item"
+           *ngFor="let assignment of assignmentList"
+           [ngClass]="{'selected': assignment.assignmentId == selectedId}"
+           (click)="selectAssignment(assignment.assignmentId)">
+        <span>{{assignment.assignmentName}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary btn-sm" (click)="dialogRef.close()">取消</button>
+    <button class="btn btn-primary btn-sm" type="submit" (click)="closeDialog()" color="accent">确定</button>
+  </div>
+</div>
+

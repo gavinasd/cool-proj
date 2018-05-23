@@ -1,0 +1,53 @@
+<div class="grade-container">
+  <mat-icon svgIcon="avatars:{{gradeVO.studentAvatar}}" class="avatar"></mat-icon>
+
+  <div class="user-info">
+    <p class="name">{{gradeVO.studentName}}</p>
+    <p class="score">得分：{{gradeVO.score}}/{{gradeVO.totalScore}}</p>
+  </div>
+
+  <div class="chart">
+    <svg width="48" height="48">
+      <circle cx="24" cy="24" r="20"
+              stroke-width="4" stroke="#D1D3D7" fill="none"></circle>
+      <circle cx="24" cy="24" r="20"
+              stroke-width="4" stroke="#5BE190" fill="none" transform="matrix(0,-1,1,0,0,48)"
+              [ngStyle]="{'stroke-dasharray': gradeVO.score/gradeVO.totalScore * 125.66 + ' ' + 125.66 }"></circle>
+      <text x="24" y="30" class="percentage">{{gradeVO.score/gradeVO.totalScore * 100 | number:'1.0-0'}}</text>
+    </svg>
+  </div>
+
+  <div class="grade-detail">
+    <p>耗时:{{getTimeForShow()}}</p>
+    <p *ngIf="gradeVO.totalQuestionNumber - gradeVO.finishQuestionNumber>0">
+      {{gradeVO.totalQuestionNumber - gradeVO.finishQuestionNumber}}题未做
+    </p>
+    <p *ngIf="gradeVO.totalQuestionNumber - gradeVO.finishQuestionNumber==0">全部完成</p>
+  </div>
+
+  <span></span>
+
+  <div class="button-zone" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="15px">
+    <button *ngIf="!gradeVO.done && userType == UserType.STUDENT"
+            [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ httpService.getCurrentId() + '/' + ModeType.HomeWork]"
+            class="btn btn-danger btn-sm">做题
+    </button>
+
+    <button *ngIf="gradeVO.done && userType == UserType.STUDENT"
+            [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ httpService.getCurrentId() + '/' + ModeType.Review]"
+            class="btn btn-success btn-sm">查看
+    </button>
+
+    <button *ngIf="userType == UserType.TEACHER && needToMark"
+            [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ gradeVO.studentId + '/' + ModeType.Marking]"
+            class="btn btn-danger btn-sm">批改
+    </button>
+
+    <button *ngIf="userType == UserType.TEACHER"
+            [routerLink]="['/question/list/'+ classId + '/'+ assignmentId + '/'+ gradeVO.studentId + '/' + ModeType.Review]"
+            class="btn btn-success btn-sm">查看
+    </button>
+  </div>
+
+
+</div>

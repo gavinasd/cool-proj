@@ -5,13 +5,13 @@ import {IndependentWritingQuestion} from "../../../../models/Questions/Independe
 @Component({
   selector: 'app-independent-writing-question-detail',
   templateUrl: './independent-writing-question-detail.component.html',
-  styleUrls: ['./independent-writing-question-detail.component.css']
+  styleUrls: ['./independent-writing-question-detail.component.scss']
 })
 export class IndependentWritingQuestionDetailComponent extends QuestionGroupDetailComponent implements OnInit,OnChanges{
 	public independentWritingQuestion: IndependentWritingQuestion;
 
 	public EditorStudentOptions: Object= {
-		placeholderText: '',
+		placeholder: '',
 		charCounterCount: false,
 		toolbarButtons: [],
 		height: 450,
@@ -25,7 +25,7 @@ export class IndependentWritingQuestionDetailComponent extends QuestionGroupDeta
 	};
 
 	public EditorTeacherOptions: Object= {
-		placeholderText: '',
+		placeholder: '',
 		charCounterCount: false,
 		toolbarButtons: ['fullscreen','bold','italic','strikeThrough','color',],
 		colorsText:['#d71345','#f58220','#ffe600','#bed742','#1d953f','#2b4490','#000000'],

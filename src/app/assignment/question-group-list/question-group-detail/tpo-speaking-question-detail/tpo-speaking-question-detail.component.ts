@@ -8,7 +8,7 @@ import {Mode} from "../../../../shared/enums/Mode";
 @Component({
 	selector: 'app-tpo-speaking-question-detail',
 	templateUrl: './tpo-speaking-question-detail.component.html',
-	styleUrls: ['./tpo-speaking-question-detail.component.css']
+	styleUrls: ['./tpo-speaking-question-detail.component.scss']
 })
 export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailComponent
 	implements OnInit, OnChanges {
@@ -26,8 +26,8 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 
 	ngOnInit() {
 		this.editorOption = Object.create(environment.teacherEditorOptions);
-		this.editorOption.placeholderText = '请写出评价';
-		this.editorOption.height = 200;
+		this.editorOption.placeholder = '请写出评价';
+		this.editorOption.height = '200px';
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -144,8 +144,7 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 		if (!this.lastAnswer || this.lastAnswer.length == 0) {
 			return '';
 		}
-		return environment.studentRecordUrl +
-			(JSON.parse(this.lastAnswer) && JSON.parse(this.lastAnswer).filename || '');
+		return (JSON.parse(this.lastAnswer) && JSON.parse(this.lastAnswer).filename || '');
 	}
 
 	getComment(): string {

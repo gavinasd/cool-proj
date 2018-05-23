@@ -26,16 +26,19 @@ export class ClassService {
 		return this.httpService.makePostWithToken(url, body)
 			.pipe(
 				map(resp => resp),
-				catchError(HttpService.handleError<any[]>('createClass'))
+				catchError(this.httpService.handleError<any[]>('createClass'))
 			);
 	}
 
-	public getClassList(userId: string): Observable<CourseItemVO[]> {
+	public getClassList(userId: string, page:number): Observable<CourseItemVO[]> {
 		let url = environment.getClassListUrl;
-		let param = new HttpParams().set("userId", this.httpService.getCurrentId());
+		let param = new HttpParams()
+			.set("userId", this.httpService.getCurrentId())
+			.set("page", page.toString());
 		return this.httpService.makeGetWithToken(url, param)
 			.pipe(
-				map(resp => resp.data)
+				map(resp => resp.data),
+				catchError(this.httpService.handleError<any[]>('getClassList'))
 			);
 	}
 
@@ -80,7 +83,7 @@ export class ClassService {
 		return this.httpService.makeGetWithToken(url, param)
 			.pipe(
 				map(resp => resp.data),
-				catchError(HttpService.handleError<AssignmentInfo[]>('getAssignmentList'))
+				catchError(this.httpService.handleError<AssignmentInfo[]>('getAssignmentList'))
 			);
 	}
 

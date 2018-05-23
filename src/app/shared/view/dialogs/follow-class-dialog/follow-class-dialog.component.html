@@ -1,16 +1,34 @@
-<h4>加入班级</h4>
-<form ngNativeValidate id="addAssignmentForm" role="form" #f="ngForm"
-      (ngSubmit) = "dialogRef.close(f.value)">
+<!--<h4>加入班级</h4>-->
+<!--<form ngNativeValidate id="addAssignmentForm" role="form" #f="ngForm"-->
+      <!--(ngSubmit) = "dialogRef.close(f.value)">-->
+    <!--<div fxLayout="column" fxLayoutGap="8px">-->
+        <!--<div fxLayout="column" fxLayoutGap="8px">-->
+            <!--<mat-input-container>-->
+                <!--<input matInput type="text" class="form-control" name="verifyCode" placeholder="输入验证码:" required ngModel>-->
+            <!--</mat-input-container>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<mat-dialog-actions align="end">-->
+        <!--<button mat-button type="button" (click)="dialogRef.close()">取消</button>-->
+        <!--<button mat-button type="submit" color="accent">确定</button>-->
+    <!--</mat-dialog-actions>-->
+<!--</form>-->
+
+
+<div class="modal-header">
+  <span>加入班级</span>
+  <button class="close" aria-label="Close" (click)="dialogRef.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form ngNativeValidate id="createClassForm" role="form" #f="ngForm"
+        (ngSubmit)="dialogRef.close(f.value)">
     <div fxLayout="column" fxLayoutGap="8px">
-        <div fxLayout="column" fxLayoutGap="8px">
-            <mat-input-container>
-                <input matInput type="text" class="form-control" name="verifyCode" placeholder="输入验证码:" required ngModel>
-            </mat-input-container>
-        </div>
+      <input class="form-control" type="text" class="form-control" name="verifyCode" placeholder="输入验证码:" required ngModel>
     </div>
 
-    <mat-dialog-actions align="end">
-        <button mat-button type="button" (click)="dialogRef.close()">取消</button>
-        <button mat-button type="submit" color="accent">确定</button>
-    </mat-dialog-actions>
-</form>
+    <button class="btn btn-primary submit" type="submit">确定</button>
+  </form>
+</div>

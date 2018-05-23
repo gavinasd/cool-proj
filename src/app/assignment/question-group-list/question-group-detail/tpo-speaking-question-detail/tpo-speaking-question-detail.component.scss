@@ -1,0 +1,146 @@
+@import "../../../../../theme";
+
+@include nb-install-component () {
+  nb-layout /deep/ .layout nb-layout-header.fixed ~ .layout-container {
+    padding-top: nb-theme(question-header-height);
+  }
+
+  nb-layout /deep/ .layout{
+    font-family: nb-theme(layout-font-family);
+  }
+
+  nb-layout-header {
+    width: 100%;
+    position: relative;
+
+    /deep/ nav {
+      box-shadow: nb-theme(header-shadow);
+      height: nb-theme(question-header-height);
+      padding: nb-theme(header-padding);
+      background-color: nb-theme(question-header-bg);
+      border-bottom: 2px solid #eee;
+    }
+  }
+
+  nb-layout-column {
+    padding: 0 !important;
+    background: nb-theme(layout-bg);
+    min-height: 100vh;
+    color: #000;
+
+  }
+
+}
+
+nb-card{
+  width: 100%;
+}
+
+.container {
+  background-color: white;
+  position: absolute;
+  top: 90px;
+  bottom: 0px;
+  width: 100%;
+}
+
+.profile {
+  margin: 10px;
+}
+
+.question-content {
+  padding: 24px 30px 24px 30px;
+  min-height: 100%;
+}
+
+app-question-index {
+  margin-bottom: 10px;
+}
+
+.question {
+  max-width: 100%;
+  font-size: 18px;
+  line-height: 28px;
+  padding-bottom: 5px;
+  margin: 15px 0px 10px 0px;
+  border-bottom: 1px solid lightgray;
+}
+
+.question-detail {
+  width: 100%;
+}
+
+label {
+  margin-bottom: 0;
+  color: #000;
+}
+
+.passage {
+  max-width: 100%;
+  min-height: 250px;
+  padding: 0 10px 0 10px;
+  background-color: white;
+  border: 1px solid lightgray;
+  margin: 10px 0px 10px 0px;
+}
+
+app-audio-player {
+  width: 700px;
+  margin-top: 50px;
+}
+
+mat-expansion-panel {
+  margin-bottom: 10px !important;
+  box-shadow: 0 2px 12px 0 #dfe3eb !important;
+}
+
+
+.question-container {
+  width: 100%;
+}
+
+.question-container p {
+  color: #000;
+  font-size: 16px;
+  margin: 0;
+}
+
+mat-card.mat-card {
+  padding: 8px 15px 8px 15px;
+}
+
+app-tpo-review-player {
+  width: 500px;
+}
+
+app-score-marker {
+  margin-left: 20px;
+}
+
+.comment {
+  min-height: 200px;
+  background-color: #F4F7FA;
+  padding: 20px;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.no-comment {
+  font-size: 13px !important;
+  color: #22212a;
+}
+
+.homework-mode .question-container {
+  width: 700px;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+}
+
+app-count-down-timer {
+  width: 722px;
+}
+
+.homework-mode .passage {
+  width: 700px;
+}

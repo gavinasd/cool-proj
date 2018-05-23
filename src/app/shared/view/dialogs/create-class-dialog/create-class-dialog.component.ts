@@ -4,7 +4,7 @@ import {MatDialogRef} from "@angular/material";
 @Component({
   selector: 'app-create-class-dialog',
   templateUrl: './create-class-dialog.component.html',
-  styleUrls: ['./create-class-dialog.component.css']
+  styleUrls: ['./create-class-dialog.component.scss']
 })
 export class CreateClassDialogComponent{
 

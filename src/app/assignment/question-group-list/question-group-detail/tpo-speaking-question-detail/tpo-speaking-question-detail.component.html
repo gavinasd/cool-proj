@@ -1,145 +1,164 @@
-<app-question-header
-        [assignmentName]="assignmentName"
-        [courseId]="courseId"
-        [mode]="mode"
-        (next)="next()"
-        (pre)="pre()"
-        [showNext]="showNextButton"
-        [showPre]="showPreButton"
-        [disableNext]="disableNextButton"
-></app-question-header>
-<div class="container">
+<nb-layout>
+  <nb-layout-header>
+    <app-question-header
+            [assignmentName]="assignmentName"
+            [courseId]="courseId"
+            [mode]="mode"
+            (next)="next()"
+            (pre)="pre()"
+            [showNext]="showNextButton"
+            [showPre]="showPreButton"
+            [disableNext]="disableNextButton"
+    ></app-question-header>
+  </nb-layout-header>
+
+  <nb-layout-column>
     <div *ngIf="homeworkMode()" class="homework-mode">
-        <div class="question-content"
-             *ngIf="!directionComplete"
-             fxLayout="column" fxLayoutAlign="start center">
-            <app-question-index [content]="getPagerContent()"></app-question-index>
-            <img class="profile" src="/assets/tpo/speaking/profile.jpg">
-            <p>播放题型介绍</p>
-            <app-background-audio-player
-                    [src]="tpoSpeakingQuestion.getQuestionDirectionRecordUrl()"
-                    (completed)="completeDirection()"
-            ></app-background-audio-player>
+      <div class="question-content"
+           *ngIf="!directionComplete"
+           fxLayout="column" fxLayoutAlign="start center">
+        <app-question-index [content]="getPagerContent()"></app-question-index>
+        <img class="profile" src="/assets/tpo/speaking/profile.jpg">
+        <p>播放题型介绍</p>
+        <app-background-audio-player
+                [src]="tpoSpeakingQuestion.getQuestionDirectionRecordUrl()"
+                (completed)="completeDirection()"
+        ></app-background-audio-player>
+      </div>
+
+      <div class="question-content"
+           *ngIf="shouldShowQuestion()"
+           fxLayout="column" fxLayoutAlign="start center">
+        <div class="question-container" fxLayout="column">
+          <app-question-index [content]="getPagerContent()"></app-question-index>
+          <p class="question">{{tpoSpeakingQuestion.question}}</p>
+          <app-background-audio-player
+                  [src]="tpoSpeakingQuestion.getQuestionRecordUrl()"
+                  (completed)="completeQuestion()"
+          ></app-background-audio-player>
+          <app-tpo-speaking-recorder
+                  [start]="questionComplete"
+                  [prepareTime]="getPrepareTime()"
+                  [responseTime]="getResponseTime()"
+                  [courseId]="courseId"
+                  [assignmentId]="assignmentId"
+                  [questionId]="tpoSpeakingQuestion.questionId"
+                  (uploaded)="completeRecording($event)"
+          ></app-tpo-speaking-recorder>
         </div>
 
-        <div class="question-content"
-             *ngIf="shouldShowQuestion()"
-             fxLayout="column" fxLayoutAlign="start center">
-            <div class="question-container" fxLayout="column" >
-                <app-question-index [content]="getPagerContent()"></app-question-index>
-                <p class="question">{{tpoSpeakingQuestion.question}}</p>
-                <app-background-audio-player
-                        [src]="tpoSpeakingQuestion.getQuestionRecordUrl()"
-                        (completed)="completeQuestion()"
-                ></app-background-audio-player>
-                <app-tpo-speaking-recorder
-                        [start]="questionComplete"
-                        [prepareTime]="getPrepareTime()"
-                        [responseTime]="getResponseTime()"
-                        (uploaded)="completeRecording($event)"
-                ></app-tpo-speaking-recorder>
-            </div>
+      </div>
 
-        </div>
-
-        <div class="question-content"
-             *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
+      <div class="question-content"
+           *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
          && directionComplete && !passageComplete && !dialogComplete"
-             fxLayout="column" fxLayoutAlign="center center">
-            <app-count-down-timer fxFlexAlign="center" [time]="45" (completed)="completePassage()" ></app-count-down-timer>
-            <div class="passage" [froalaView]="tpoSpeakingQuestion.passage"></div>
-        </div>
+           fxLayout="column" fxLayoutAlign="center center">
+        <app-count-down-timer fxFlexAlign="center" [time]="45" (completed)="completePassage()"></app-count-down-timer>
+        <app-text-editor-view [passage]="tpoSpeakingQuestion.passage" class="passage"></app-text-editor-view>
+      </div>
 
-        <div class="question-content"
-             *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
+      <div class="question-content"
+           *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
          && directionComplete && passageComplete && !dialogComplete"
-             fxLayout="column" fxLayoutAlign="center center">
-            <app-audio-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()" (completed)="completeDialog()"></app-audio-player>
-        </div>
+           fxLayout="column" fxLayoutAlign="center center">
+        <app-audio-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()"
+                          (completed)="completeDialog()"></app-audio-player>
+      </div>
 
-        <div class="question-content"
-             *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE
+      <div class="question-content"
+           *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE
          && directionComplete && !dialogComplete"
-             fxLayout="column" fxLayoutAlign="center center">
-            <app-audio-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()" (completed)="completeDialog()"></app-audio-player>
-        </div>
+           fxLayout="column" fxLayoutAlign="center center">
+        <app-audio-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()"
+                          (completed)="completeDialog()"></app-audio-player>
+      </div>
 
     </div>
 
     <div *ngIf="markingMode()">
-        <div class="question-content"
-             fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center">
-            <app-question-index fxFlexAlign="start" [content]="getPagerContent()"></app-question-index>
-            <mat-expansion-panel class="mat-elevation-z0 question-detail" [expanded]="false"
-                                *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
+      <div class="question-content"
+           fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center">
+        <app-question-index fxFlexAlign="start" [content]="getPagerContent()"></app-question-index>
+        <mat-expansion-panel class="mat-elevation-z0 question-detail" [expanded]="false"
+                             *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
                             || tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE">
-                <mat-expansion-panel-header><span>题目详情</span></mat-expansion-panel-header>
-                <div fxLayout="column">
-                    <div class="passage" *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE"
-                         [froalaView]="tpoSpeakingQuestion.passage"></div>
-                    <div fxLayout="row" fxLayoutAlign="start center">
-                        <label>对话录音：</label>
-                        <app-tpo-review-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()"></app-tpo-review-player>
-                    </div>
-                </div>
-            </mat-expansion-panel>
+          <mat-expansion-panel-header><span>题目详情</span></mat-expansion-panel-header>
 
+          <app-text-editor-view [passage]="tpoSpeakingQuestion.passage"
+                                *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE"
+          ></app-text-editor-view>
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <label>对话录音：</label>
+            <app-tpo-review-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()"></app-tpo-review-player>
+          </div>
+        </mat-expansion-panel>
+        <nb-card>
+          <nb-card-body>
             <div class="question-container" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign.sm="start start">
-                <p class="question">{{tpoSpeakingQuestion.question}}</p>
-                <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
-                    <label>学生的回答：</label>
-                    <app-simple-audio-player [src]="getStudentRecordUrl()"></app-simple-audio-player>
-                    <span fxFlex></span>
-                    <mat-card>
-                        <mat-card-content>
-                            <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
-                        </mat-card-content>
-                    </mat-card>
-                    <app-score-marker [score]="tpoSpeakingQuestion.score" (marking)="markScore($event)"></app-score-marker>
-                </div>
-                <app-text-editor
-                        [(ngModel)]="comment"
-                        [editorOptions]="editorOption"
-                        [required]="true"
-                        (ngModelChange)="makeComment()"
-                        name="comment"
-                ></app-text-editor>
+              <p class="question">{{tpoSpeakingQuestion.question}}</p>
+              <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+                <label>学生的回答：</label>
+                <app-simple-audio-player [src]="getStudentRecordUrl()"></app-simple-audio-player>
+                <span fxFlex></span>
+                <mat-card>
+                  <mat-card-content>
+                    <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
+                  </mat-card-content>
+                </mat-card>
+                <app-score-marker [score]="tpoSpeakingQuestion.score" (marking)="markScore($event)"></app-score-marker>
+              </div>
+              <app-text-editor
+                      [(ngModel)]="comment"
+                      [required]="true"
+                      (ngModelChange)="makeComment()"
+                      name="comment"
+              ></app-text-editor>
             </div>
-        </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
     </div>
 
-    <div *ngIf="reviewMode()" >
-        <div class="question-content"
-             fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center">
-            <app-question-index fxFlexAlign="start" [content]="getPagerContent()"></app-question-index>
-            <mat-expansion-panel class="mat-elevation-z0 question-detail" [expanded]="false"
-                                 *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
+    <div *ngIf="reviewMode()">
+      <div class="question-content"
+           fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center">
+        <app-question-index fxFlexAlign="start" [content]="getPagerContent()"></app-question-index>
+        <mat-expansion-panel class="mat-elevation-z0 question-detail" [expanded]="false"
+                             *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE
                                 || tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q5Q6_TYPE">
-                <mat-expansion-panel-header><span>题目详情</span></mat-expansion-panel-header>
-                <div fxLayout="column">
-                    <div class="passage" *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE"
-                         [froalaView]="tpoSpeakingQuestion.passage"></div>
-                    <div fxLayout="row" fxLayoutAlign="start center">
-                        <label>对话录音：</label>
-                        <app-tpo-review-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()"></app-tpo-review-player>
-                    </div>
-                </div>
-            </mat-expansion-panel>
-            <div class="question-container" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign.sm="start start">
-                <p class="question">{{tpoSpeakingQuestion.question}}</p>
-                <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
-                    <label>学生的回答：</label>
-                    <app-simple-audio-player [src]="getStudentRecordUrl()"></app-simple-audio-player>
-                    <mat-card>
-                        <mat-card-content>
-                            <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-                <p>老师评价：</p>
-                <div class="comment" [froalaView]="comment"></div>
-            </div>
-        </div>
+          <mat-expansion-panel-header><span>题目详情</span></mat-expansion-panel-header>
 
+          <app-text-editor-view *ngIf="tpoSpeakingQuestion.questionType == QuestionType.TPO_SPEAKING_Q3Q4_TYPE"
+                          [passage]="tpoSpeakingQuestion.passage"></app-text-editor-view>
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <label>对话录音：</label>
+            <app-tpo-review-player [src]="tpoSpeakingQuestion.getDialogRecordUrl()"></app-tpo-review-player>
+          </div>
+
+        </mat-expansion-panel>
+        <nb-card>
+          <nb-card-body>
+            <div class="question-container" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign.sm="start start">
+              <p class="question">{{tpoSpeakingQuestion.question}}</p>
+              <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+                <label>学生的回答：</label>
+                <app-simple-audio-player [src]="getStudentRecordUrl()"></app-simple-audio-player>
+                <mat-card>
+                  <mat-card-content>
+                    <label class="grade">分数:{{markingScore>=0?markingScore:0}}</label>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <p>老师评价：</p>
+              <app-text-editor-view *ngIf="comment.length > 0" class="comment"
+                              [passage]="comment"></app-text-editor-view>
+              <div *ngIf="comment.length == 0" class="comment"><p class="no-comment">暂无评价...</p></div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
     </div>
-</div>
+
+  </nb-layout-column>
+</nb-layout>
+

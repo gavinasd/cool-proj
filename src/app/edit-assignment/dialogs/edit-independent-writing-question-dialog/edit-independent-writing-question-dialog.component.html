@@ -7,7 +7,6 @@
         <label>请输入题目</label>
         <app-text-editor
                 [(ngModel)]="question.question"
-                [editorOptions]="QuestionEditorOptions"
                 [required]="true"
                 name="question"
         ></app-text-editor>
@@ -16,7 +15,6 @@
         <label>请输入范文</label>
         <app-text-editor
                 [(ngModel)]="question.answer"
-                [editorOptions]="AnswerEditorOptions"
                 [required]="true"
                 name="answer"
         ></app-text-editor>

@@ -27,8 +27,8 @@ export class EditTpoSpeakingQuestionDialogComponent implements OnInit {
 		this.tpoIndex = +this.question.recordUrl.split('/')[0] || 1;
 		this.questionIndex = +this.question.recordUrl.split('/')[1] || 1;
 		this.passageEditorOptions = Object.create(environment.studentEditorOptions);
-		this.passageEditorOptions.placeholderText = '请输入阅读材料';
-		this.passageEditorOptions.height = 300;
+		this.passageEditorOptions.placeholder = '请输入阅读材料';
+		this.passageEditorOptions.height = '300px';
 	}
 
 	closeDialog() {

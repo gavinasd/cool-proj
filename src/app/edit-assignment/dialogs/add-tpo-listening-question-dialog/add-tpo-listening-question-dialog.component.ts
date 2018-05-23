@@ -29,8 +29,8 @@ export class AddTpoListeningQuestionDialogComponent implements OnInit {
 	            @Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
 	            private toastService: ToastService) {
 		this.explanationEditorOptions = Object.create(environment.studentEditorOptions);
-		this.explanationEditorOptions.placeholderText = '请输入题目解释';
-		this.explanationEditorOptions.height = 100;
+		this.explanationEditorOptions.placeholder = '请输入题目解释';
+		this.explanationEditorOptions.height = '100px';
 	}
 
 	ngOnInit() {

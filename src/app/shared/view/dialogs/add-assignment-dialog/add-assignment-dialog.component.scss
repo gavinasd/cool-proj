@@ -1,0 +1,72 @@
+
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 60px;
+  padding: 0px 0px 20px 0px;
+}
+
+.header {
+  margin: 0;
+}
+
+.close {
+  outline: none;
+}
+
+.input-group {
+  width: 150px;
+}
+
+.modal-body {
+  height: calc(100vh - 24px - 60px - 24px - 70px);
+}
+
+select {
+  height: 40px !important;
+  padding: 5px 10px !important;
+  font-size: 14px !important;
+  margin-left: 10px;
+}
+
+.menu {
+  margin-left: 30px;
+  height: 40px;
+}
+
+.select-assignment {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.assignment-item {
+  flex-basis: 30%;
+  flex-grow: 0;
+  flex-shrink: 1;
+  justify-content: center;
+  border: 1px solid #eee;
+  padding: 10px;
+  margin: 6px 10px;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
+  height: 40px;
+  line-height: 20px;
+  border-radius: 5px;
+}
+
+.assignment-item.selected {
+  border: 1px solid #00d977;
+}
+
+.modal-footer{
+  height: 80px;
+  padding-bottom: 0px !important;
+  margin-bottom: -10px;
+}

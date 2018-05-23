@@ -23,10 +23,10 @@ export class AddIndependentQuestionDialogComponent implements OnInit {
 	             private httpService:HttpService,
 	             public assignmentService:AssignmentService) {
 		this.QuestionEditorOptions = Object.create(environment.studentEditorOptions);
-		this.QuestionEditorOptions.height = 150;
+		this.QuestionEditorOptions.height = '150px';
 
 		this.AnswerEditorOptions = Object.create(environment.studentEditorOptions);
-		this.AnswerEditorOptions.height = 200;
+		this.AnswerEditorOptions.height = '200px';
 	}
 
 	ngOnInit() {

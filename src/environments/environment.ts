@@ -13,6 +13,8 @@ export const environment = {
 	 */
 	loginUrl: host + '/login',
 	registerUrl: host + '/register',
+	smsUrl: host + '/sms',
+	resetPasswordUrl: host + '/resetPassword',
 
 	/**
 	 * 班级class接口
@@ -29,6 +31,9 @@ export const environment = {
 	//添加/获取 班级里面的作业列表
 	addAssignmentToClassUrl: host + '/course/addAssignment',
 	getAssignmentListInClassUrl: host + '/course/assignments',
+
+	//获取、添加留言板的内容
+	bulletinMessageUrl: host + '/bulletinMessage',
 
 	/**
 	 * 作业assignment的接口
@@ -56,21 +61,29 @@ export const environment = {
 	uploadSpeakingRecordUrl: host + '/upload/record',
 	studentRecordUrl: 'http://localhost:3000/uploads/',
 	teacherEditorOptions: {
-		placeholderText: '',
+		placeholder: '',
 		charCounterCount: false,
 		toolbarButtons: ['fullscreen', 'bold', 'italic', 'strikeThrough', 'spellChecker', 'color'],
 		colorsText: ['#d71345', '#f58220', '#ffe600', '#bed742', '#1d953f', '#2b4490', '#000000'],
-		height: 500,
+		height: '500px',
 		quickInsertTags: [],
-		spellcheck: true
+		resizer: 'stack',
+		spellcheck: true,
+		theme:'snow',
+		readOnly:false,
+		scrollingContainer: true,
 	},
 	studentEditorOptions: {
-		placeholderText: '',
+		placeholder: '',
 		charCounterCount: false,
 		toolbarButtons: [],
-		height: 500,
+		height: '500px',
 		quickInsertTags: [],
 		spellcheck: false,
+		resizer: 'stack',
+		scrollingContainer: true,
+		theme:'snow',
+		readOnly:false,
 		events: {
 			'froalaEditor.initialized': function (e, editor) {
 				console.log(editor.toolbar.hide());
@@ -78,12 +91,16 @@ export const environment = {
 		}
 	},
 	editQuestionOptions: {
-		placeholderText: '',
+		placeholder: '',
 		charCounterCount: false,
 		toolbarButtons: ['fullscreen', 'fontFamily', 'fontSize', 'bold', 'italic', 'strikeThrough', 'align', 'color',],
 		colorsText: ['#d71345', '#f58220', '#ffe600', '#bed742', '#1d953f', '#2b4490', '#000000'],
-		height: 500,
+		height: '500px',
 		quickInsertTags: [],
-		spellcheck: true
+		resizer: 'stack',
+		spellcheck: true,
+		theme:'snow',
+		readOnly:false,
+		scrollingContainer: true,
 	}
 };

@@ -6,6 +6,7 @@ import {ToastService} from "./services/toast.service";
 import {UserService} from "./services/user.service";
 import {SharedModule} from "../shared/shared.module";
 import {CanDeactivateGuard} from "./services/route-guard.service";
+import {BulletinService} from "./services/bulletin.service";
 
 @NgModule({
 	imports: [
@@ -18,6 +19,7 @@ import {CanDeactivateGuard} from "./services/route-guard.service";
 		HttpService,
 		ToastService,
 		UserService,
+		BulletinService,
 		CanDeactivateGuard
 	]
 })

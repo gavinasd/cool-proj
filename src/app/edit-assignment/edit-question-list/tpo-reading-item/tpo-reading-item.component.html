@@ -1,7 +1,7 @@
 <div class="group-item">
     <div class="group-content">
         <h3>阅读文章</h3>
-        <div class="passage" [froalaView]="passage"></div>
+        <app-text-editor-view class="passage" [passage]="passage"></app-text-editor-view>
         <div class="buttons" fxLayout="row" fxLayoutGap="15px">
             <a class="bottom-button" (click)="openEditPassageDialog()">
                 <i class="material-icons">edit</i>

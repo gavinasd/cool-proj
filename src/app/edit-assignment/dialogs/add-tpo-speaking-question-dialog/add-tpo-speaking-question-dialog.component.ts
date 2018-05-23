@@ -22,8 +22,8 @@ export class AddTpoSpeakingQuestionDialogComponent implements OnInit {
 	            private httpService:HttpService,
 	            public assignmentService:AssignmentService) {
 		this.passageEditorOptions = Object.create(environment.studentEditorOptions);
-		this.passageEditorOptions.placeholderText = '请输入阅读材料';
-		this.passageEditorOptions.height = 300;
+		this.passageEditorOptions.placeholder = '请输入阅读材料';
+		this.passageEditorOptions.height = '300px';
 	}
 
 	ngOnInit() {

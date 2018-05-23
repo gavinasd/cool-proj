@@ -1,19 +1,20 @@
-<div class="container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-    <button mat-mini-fab color="white" (click)="togglePlay()">
-        <mat-icon>{{isPlaying?'pause':'play_arrow'}}</mat-icon>
-    </button>
-    <p>
-        {{currentTime}}
-    </p>
-    <mat-progress-bar
-            [color]="'primary'"
-            [mode]="'determinate'"
-            [value]="progress"
-    >
-    </mat-progress-bar>
+<div id="container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+  <button mat-mini-fab color="white" (click)="togglePlay()">
+    <i *ngIf="isPlaying" class="icon ion-md-pause"></i>
+    <i *ngIf="!isPlaying" class="icon ion-md-play"></i>
+  </button>
+  <p>
+    {{currentTime}}
+  </p>
+  <mat-progress-bar
+          [color]="'primary'"
+          [mode]="'determinate'"
+          [value]="progress"
+  >
+  </mat-progress-bar>
 
-    <p>
-        {{totalTime}}
-    </p>
+  <p>
+    {{totalTime}}
+  </p>
 </div>
 

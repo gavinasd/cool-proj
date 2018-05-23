@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="start center" fxLayoutWrap >
-    <div class="container" fxFlex="5.1%"
+    <div class="holder" fxFlex="5.1%"
          *ngFor="let score of (scoreList$ | async);let i = index">
 
         <div class="pager-item" fxLayoutAlign="center center"
@@ -10,6 +10,5 @@
         </div>
     </div>
     <div fxFlexFill></div>
-
 
 </div>

@@ -27,12 +27,12 @@ export class AddIntegratedQuestionDialogComponent implements OnInit {
     	        public dialogRef: MatDialogRef<AddIntegratedQuestionDialogComponent>,
                 public assignmentService:AssignmentService) {
 	    this.questionEditorOptions = Object.create(environment.studentEditorOptions);
-	    this.questionEditorOptions.placeholderText = '请输入阅读材料';
-	    this.questionEditorOptions.height = 400;
+	    this.questionEditorOptions.placeholder = '请输入阅读材料';
+	    this.questionEditorOptions.height = '400px';
 
 	    this.passageEditorOptions = Object.create(environment.studentEditorOptions);
-	    this.passageEditorOptions.placeholderText = '请输入范文';
-	    this.passageEditorOptions.height = 400;
+	    this.passageEditorOptions.placeholder = '请输入范文';
+	    this.passageEditorOptions.height = '400px';
     }
 
     ngOnInit() {

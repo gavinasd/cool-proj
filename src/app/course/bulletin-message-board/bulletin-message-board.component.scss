@@ -1,0 +1,73 @@
+
+.info-container{
+  max-height: 370px;
+  overflow: scroll;
+  overflow-x: hidden;
+  margin-bottom: 15px;
+}
+
+
+
+
+.info {
+
+  display: flex;
+  margin-bottom: 20px;
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+
+  mat-icon {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-left: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+
+  .message {
+
+    background-color: #F4F7FA;
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 100%;
+
+    .header {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 20px;
+
+      .time {
+        font-size: 12px;
+        color: #333333;
+        margin-left: 20px;
+        font-weight: normal;
+      }
+    }
+
+    .content {
+      color: #2A2932;
+      font-size: 14px;
+
+      &:last-child{
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+}
+
+
+form {
+  height: 40px;
+  display: flex;
+  align-items: center;
+
+  .input-group {
+    flex-grow: 100;
+    margin-right: 10px !important;
+  }
+}

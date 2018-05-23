@@ -1,0 +1,12 @@
+<div class="assignment-container">
+  <div class="assignment-name">
+    {{assignmentGradeVO.assignmentName}}
+  </div>
+  <app-grade-info-item-detail
+          *ngFor="let gradeVO of assignmentGradeVO.gradeVOList"
+          [gradeVO]="gradeVO"
+          [classId]="classId"
+          [needToMark]="needToMark"
+          [assignmentId]="assignmentGradeVO.assignmentId">
+  </app-grade-info-item-detail>
+</div>

@@ -30,7 +30,7 @@ export class EditIntegratedWritingQuestionDialogComponent implements OnInit {
 		this.recordUrl = JSON.parse(this.dialogData).recordUrl;
 		this.question = <IntegratedWritingQuestion>JSON.parse(this.dialogData).question;
 		this.studentOptions = Object.create(environment.studentEditorOptions);
-		this.studentOptions.height = 200;
+		this.studentOptions.height = '200px';
 	}
 
 	closeDialog(){

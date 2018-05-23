@@ -8,7 +8,7 @@ import {CourseItemVO} from "../shared/VO/CourseItemVO";
 @Component({
 	selector: 'app-search-class',
 	templateUrl: './search-class.component.html',
-	styleUrls: ['./search-class.component.css']
+	styleUrls: ['./search-class.component.scss']
 })
 export class SearchClassComponent implements OnInit {
 	className$: Observable<string>;

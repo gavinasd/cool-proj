@@ -15,10 +15,6 @@ import {AssignmentInfoVO} from "../../shared/VO/AssignmentInfoVO";
 @Injectable()
 export class AssignmentService {
 
-	public questionList: Observable<any[]>
-	public question: Observable<any>;
-	public index: Observable<number> = Observable.from([0]);
-
 	constructor(private httpService: HttpService) {
 	}
 
@@ -30,7 +26,7 @@ export class AssignmentService {
 				map(resp => {
 					return new Assignment(resp.data);
 				}),
-				catchError(HttpService.handleError<Assignment>('getAssignment'))
+				catchError(this.httpService.handleError<Assignment>('getAssignment'))
 			)
 	}
 
@@ -40,7 +36,7 @@ export class AssignmentService {
 		return this.httpService.makeGetWithToken(url, param)
 			.pipe(
 				map((resp: any) => resp.data),
-				catchError(HttpService.handleError<Assignment[]>('getAllAssignment'))
+				catchError(this.httpService.handleError<Assignment[]>('getAllAssignment'))
 			);
 	}
 
@@ -79,7 +75,7 @@ export class AssignmentService {
 						markScore: markScore
 					};
 				}),
-				catchError(HttpService.handleError<any>('getAssignmentInfo'))
+				catchError(this.httpService.handleError<any>('getAssignmentInfo'))
 			)
 	}
 
@@ -104,7 +100,7 @@ export class AssignmentService {
 				map(resp => {
 					console.log('submit info');
 				}),
-				catchError(HttpService.handleError<any>('submitAssignmentInfo'))
+				catchError(this.httpService.handleError<any>('submitAssignmentInfo'))
 			);
 	}
 
@@ -121,7 +117,7 @@ export class AssignmentService {
 				map(resp => {
 					console.log((resp));
 				}),
-				catchError(HttpService.handleError<any>('submitAssignmentDone'))
+				catchError(this.httpService.handleError<any>('submitAssignmentDone'))
 			);
 	}
 
@@ -141,7 +137,7 @@ export class AssignmentService {
 		return this.httpService.makePostWithToken(url, body)
 			.pipe(
 				map(resp => resp.data),
-				catchError(HttpService.handleError<Assignment>('createAssignment'))
+				catchError(this.httpService.handleError<Assignment>('createAssignment'))
 			);
 	}
 
@@ -157,7 +153,7 @@ export class AssignmentService {
 		return this.httpService.makePostWithToken(url, body)
 			.pipe(
 				map(resp => resp.data),
-				catchError(HttpService.handleError<QuestionGroup>('addQuestionGroup'))
+				catchError(this.httpService.handleError<QuestionGroup>('addQuestionGroup'))
 			);
 	}
 
@@ -176,7 +172,7 @@ export class AssignmentService {
 		return this.httpService.makePostWithToken(url, body)
 			.pipe(
 				map(resp => resp.data),
-				catchError(HttpService.handleError<Question>('addQuestion'))
+				catchError(this.httpService.handleError<Question>('addQuestion'))
 			)
 	}
 
@@ -192,7 +188,7 @@ export class AssignmentService {
 		return this.httpService.makePutWithToken(url, body)
 			.pipe(
 				map(resp => resp.data),
-				catchError(HttpService.handleError<any>('updateGroupContent'))
+				catchError(this.httpService.handleError<any>('updateGroupContent'))
 			);
 	}
 
@@ -206,7 +202,7 @@ export class AssignmentService {
 
 		return this.httpService.makePutWithToken(url, body)
 			.pipe(
-				catchError(HttpService.handleError<any>('updateQuestion'))
+				catchError(this.httpService.handleError<any>('updateQuestion'))
 			);
 	}
 
@@ -215,7 +211,7 @@ export class AssignmentService {
 		url = url + '/' + assignmentId + '/' + groupId + '/' + this.httpService.getCurrentId();
 		return this.httpService.makeDeleteWithToken(url)
 			.pipe(
-				catchError(HttpService.handleError<any>('deleteGroup'))
+				catchError(this.httpService.handleError<any>('deleteGroup'))
 			);
 	}
 
@@ -224,7 +220,7 @@ export class AssignmentService {
 		url = url + '/' + assignmentId + '/' + questionId + '/' + this.httpService.getCurrentId();
 		return this.httpService.makeDeleteWithToken(url)
 			.pipe(
-				catchError(HttpService.handleError<any>('deleteQuestion'))
+				catchError(this.httpService.handleError<any>('deleteQuestion'))
 			);
 	}
 
@@ -240,16 +236,17 @@ export class AssignmentService {
 					const questionGroup = new QuestionGroup(resp.questionGroup);
 					return questionGroup;
 				}),
-				catchError(HttpService.handleError<QuestionGroup>('getQuestionGroup'))
+				catchError(this.httpService.handleError<QuestionGroup>('getQuestionGroup'))
 			);
 	}
 
 	public uploadSpeakingRecord(formData: FormData): Observable<any> {
 		const url = environment.uploadSpeakingRecordUrl;
-
+		formData.append('studentId', this.httpService.getCurrentId());
 		return this.httpService.uploadFile(url, formData)
 			.pipe(
-				catchError(HttpService.handleError<any>('uploadSpeakingRecord'))
+				map(resp => resp.data),
+				catchError(this.httpService.handleError<any>('uploadSpeakingRecord'))
 			);
 	}
 }

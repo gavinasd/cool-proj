@@ -1,9 +1,18 @@
-<div id="container" fxLayout="column">
-    <app-navbar></app-navbar>
-    <app-course-list></app-course-list>
-</div>
 
-<app-footer></app-footer>
+<nb-layout>
+  <nb-layout-header>
+    <app-navbar></app-navbar>
+  </nb-layout-header>
+
+  <nb-layout-column>
+    <app-course-list></app-course-list>
+  </nb-layout-column>
+
+  <nb-layout-footer>
+    <app-footer></app-footer>
+  </nb-layout-footer>
+</nb-layout>
+
 
 
 

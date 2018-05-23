@@ -11,7 +11,7 @@ import {CourseItemVO} from "../../shared/VO/CourseItemVO";
 @Component({
 	selector: 'app-search-result-item',
 	templateUrl: './search-result-item.component.html',
-	styleUrls: ['./search-result-item.component.css']
+	styleUrls: ['./search-result-item.component.scss']
 })
 export class SearchResultItemComponent implements OnInit {
 	@Input() courseItem: CourseItemVO;

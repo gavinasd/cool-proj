@@ -1,0 +1,153 @@
+@import "../../../../../theme";
+
+@include nb-install-component () {
+  nb-layout /deep/ .layout nb-layout-header.fixed ~ .layout-container {
+    padding-top: nb-theme(question-header-height);
+  }
+
+  nb-layout /deep/ .layout {
+    font-family: nb-theme(layout-font-family);
+  }
+
+  nb-layout-header {
+    width: 100%;
+    position: relative;
+
+    /deep/ nav {
+      box-shadow: nb-theme(header-shadow);
+      height: nb-theme(question-header-height);
+      padding: nb-theme(header-padding);
+      background-color: nb-theme(question-header-bg);
+      border-bottom: 2px solid #eee;
+    }
+  }
+
+  nb-layout-column {
+    padding: 0 !important;
+    background: nb-theme(layout-bg);
+    //min-height: 100vh;
+    color: #000;
+
+  }
+
+}
+
+/deep/ .ql-container {
+  font-size: 16px !important;
+  border: none !important;
+}
+
+quill-editor {
+  padding: 26px 15px !important;
+}
+
+quill-editor /deep/ p {
+  margin-bottom: 16px !important;
+  text-align: justify;
+}
+
+.question-detail {
+  margin: 5px 0;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.question-content {
+  background-color: #efeff0;
+  position: absolute;
+  top: 90px;
+  bottom: 0px;
+  width: 100%;
+}
+
+.question {
+  padding-left: 40px;
+  padding-top: 20px;
+  padding-right: 20px;
+  overflow: scroll;
+}
+
+.topic-question {
+  padding: 20px 20px 40px 20px;
+  background-color: white;
+}
+
+.passage {
+  padding: 26px 40px 20px 20px;
+  background-color: white;
+  border-left: 1px solid dimgray;
+}
+
+p.selected-paragraph:before {
+  content: "<span>slkdjf</span>";
+}
+
+ul {
+  list-style: none;
+  padding-left: 20px;
+  margin: 0;
+}
+
+li {
+  margin: 20px 0;
+  font-size: inherit;
+}
+
+mat-radio-button {
+  margin: 10px 0px 10px 0px;
+  font-family: "Microsoft YaHei" !important;
+}
+
+mat-radio-button p {
+  margin: 0px;
+  white-space: normal;
+}
+
+.correct-answer {
+  color: #4caf50;
+}
+
+.wrong-answer {
+  color: #f44336;
+}
+
+.answer {
+  padding-top: 20px;
+}
+
+h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.choice-item-container {
+  transform: none !important;
+  -webkit-transform: none !important;
+  width: 600px;
+  min-height: 80px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 0px 10px;
+}
+
+.category-choice-item-container {
+  transform: none !important;
+  -webkit-transform: none !important;
+  width: 100%;
+  min-height: 150px;
+  padding: 0 10px;
+  border: 1px solid lightgray;
+}
+
+.choice-item {
+  border: 1px solid lightgray;
+  background-color: white;
+  min-height: 80px;
+}
+
+.choice-item p {
+  font-size: 15px;
+  margin: 0;
+  padding: 5px 0px 5px 10px;
+}

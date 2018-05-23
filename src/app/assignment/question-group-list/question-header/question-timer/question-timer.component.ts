@@ -11,7 +11,7 @@ import "rxjs/add/observable/interval";
 @Component({
 	selector: 'app-question-timer',
 	templateUrl: './question-timer.component.html',
-	styleUrls: ['./question-timer.component.css']
+	styleUrls: ['./question-timer.component.scss']
 })
 export class QuestionTimerComponent implements OnInit, OnDestroy{
 	@Input() assignmentId:string;

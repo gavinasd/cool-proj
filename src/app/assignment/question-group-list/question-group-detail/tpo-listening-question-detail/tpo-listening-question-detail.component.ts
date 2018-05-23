@@ -9,7 +9,7 @@ import {Mode} from "../../../../shared/enums/Mode";
 @Component({
   selector: 'app-tpo-listening-question-detail',
   templateUrl: './tpo-listening-question-detail.component.html',
-  styleUrls: ['./tpo-listening-question-detail.component.css']
+  styleUrls: ['./tpo-listening-question-detail.component.scss']
 })
 export class TpoListeningQuestionDetailComponent
 	extends QuestionGroupDetailComponent implements OnInit,OnChanges,OnDestroy {
