@@ -29,7 +29,7 @@ export class TpoSpeakingRecorderComponent implements OnInit,OnChanges {
 	private stream: MediaStream;
 	private options = {
 		mimeType: 'audio/x-wav',
-		bitsPerSecond: 128000
+		audioBitsPerSecond: 256000
 	};
 	private recordRTC:any;
 
@@ -79,7 +79,8 @@ export class TpoSpeakingRecorderComponent implements OnInit,OnChanges {
 
 	startRecord(): void {
 		let mediaConstraints = {
-			audio: true
+			audio: true,
+			video: false
 		};
 		navigator.mediaDevices.getUserMedia(mediaConstraints)
 			.then(this.successCallback.bind(this), this.errorCallback.bind(this));

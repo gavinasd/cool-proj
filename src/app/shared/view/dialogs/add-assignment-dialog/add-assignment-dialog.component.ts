@@ -43,13 +43,17 @@ export class AddAssignmentDialogComponent implements OnInit {
 	ngOnInit() {
 		this.assignmentService.getAllAssignmentList().subscribe((assignmentList: Assignment[]) => {
 			this.allAssignment = assignmentList;
-			this.assignmentList = this.allAssignment.filter(assignment => assignment.assignmentType == AssignmentType.TPO_READING);
+			this.assignmentList = this.allAssignment
+				.filter(assignment => assignment.assignmentType == AssignmentType.TPO_READING)
+				.sort((pre, next) => this.naturalSort(pre.assignmentName, next.assignmentName));
 		});
 	}
 
 	public changeType(assignmentType: any) {
 		this.selectedAssignmentType = assignmentType.name;
-		this.assignmentList = this.allAssignment.filter(assignment => assignment.assignmentType == assignmentType.value);
+		this.assignmentList = this.allAssignment
+			.filter(assignment => assignment.assignmentType == assignmentType.value)
+			.sort((pre, next) => this.naturalSort(pre.assignmentName, next.assignmentName));
 	}
 
 	public selectAssignment(assignmentId: string) {
@@ -57,12 +61,41 @@ export class AddAssignmentDialogComponent implements OnInit {
 	}
 
 	public closeDialog() {
-		if(this.selectedId.length == 0) {
+		if (this.selectedId.length == 0) {
 			this.dialogRef.close();
 		}
 		this.dialogRef.close({
 			'assignment': this.selectedId
 		});
+	}
+
+	private naturalSort(a: String, b: string): number {
+		function chunkify(t) {
+			var tz = [], x = 0, y = -1, n = false, i, j;
+
+			while (i = (j = t.charAt(x++)).charCodeAt(0)) {
+				var m = (i == 46 || (i >= 48 && i <= 57));
+				if (m !== n) {
+					tz[++y] = "";
+					n = m;
+				}
+				tz[y] += j;
+			}
+			return tz;
+		}
+
+		var aa = chunkify(a);
+		var bb = chunkify(b);
+
+		for (let x = 0; aa[x] && bb[x]; x++) {
+			if (aa[x] !== bb[x]) {
+				var c = Number(aa[x]), d = Number(bb[x]);
+				if (c == aa[x] && d == bb[x]) {
+					return c - d;
+				} else return (aa[x] > bb[x]) ? 1 : -1;
+			}
+		}
+		return aa.length - bb.length;
 	}
 
 }

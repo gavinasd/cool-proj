@@ -1,4 +1,6 @@
-const host = 'http://123.207.109.53:3000/api';
+
+
+const host = 'https://zhuoyuketang.com:8443/api';
 
 export const environment = {
 	production: false,
