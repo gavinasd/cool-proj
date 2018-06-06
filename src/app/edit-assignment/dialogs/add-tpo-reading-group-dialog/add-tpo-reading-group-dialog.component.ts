@@ -8,14 +8,11 @@ import {environment} from "../../../../environments/environment";
   styleUrls: ['./add-tpo-reading-group-dialog.component.css']
 })
 export class AddTpoReadingGroupDialogComponent implements OnInit {
-	public EditorOptions = environment.editQuestionOptions;
 	public passage = '';
 
 	constructor(public dialogRef: MatDialogRef<AddTpoReadingGroupDialogComponent>) { }
 
 	ngOnInit() {
-		this.EditorOptions.height = '450px';
-		this.EditorOptions.placeholder = '输入文章段落';
 	}
 
 	closeDialogAndSave(){

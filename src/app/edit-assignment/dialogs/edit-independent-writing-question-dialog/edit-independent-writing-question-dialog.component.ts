@@ -11,9 +11,6 @@ import {environment} from "../../../../environments/environment";
 })
 export class EditIndependentWritingQuestionDialogComponent implements OnInit {
 
-	public QuestionEditorOptions;
-	public AnswerEditorOptions;
-
 	public question:IndependentWritingQuestion;
 
 
@@ -23,11 +20,6 @@ export class EditIndependentWritingQuestionDialogComponent implements OnInit {
 
 	ngOnInit() {
 		this.question = new IndependentWritingQuestion(this.dialogData);
-		this.QuestionEditorOptions = Object.create(environment.studentEditorOptions);
-		this.QuestionEditorOptions.height = '150px';
-
-		this.AnswerEditorOptions = Object.create(environment.studentEditorOptions);
-		this.AnswerEditorOptions.height = '200px';
 	}
 
 	closeDialog(){

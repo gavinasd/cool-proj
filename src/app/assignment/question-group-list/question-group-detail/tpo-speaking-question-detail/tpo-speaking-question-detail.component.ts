@@ -17,7 +17,6 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 	public passageComplete: boolean;
 	public dialogComplete: boolean;
 	public questionComplete: boolean;
-	public editorOption: any;
 	public comment: string;
 
 	constructor() {
@@ -25,9 +24,6 @@ export class TpoSpeakingQuestionDetailComponent extends QuestionGroupDetailCompo
 	}
 
 	ngOnInit() {
-		this.editorOption = Object.create(environment.teacherEditorOptions);
-		this.editorOption.placeholder = '请写出评价';
-		this.editorOption.height = '200px';
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {

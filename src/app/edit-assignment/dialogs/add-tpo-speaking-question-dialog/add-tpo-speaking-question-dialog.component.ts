@@ -13,7 +13,6 @@ import {QuestionType} from "../../../shared/enums/QuestionType";
   styleUrls: ['./add-tpo-speaking-question-dialog.component.css']
 })
 export class AddTpoSpeakingQuestionDialogComponent implements OnInit {
-	public passageEditorOptions:any;
 	public passage:string;
 	public questionIndex:number;          //插入到第几题
 
@@ -21,9 +20,6 @@ export class AddTpoSpeakingQuestionDialogComponent implements OnInit {
 	            @Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
 	            private httpService:HttpService,
 	            public assignmentService:AssignmentService) {
-		this.passageEditorOptions = Object.create(environment.studentEditorOptions);
-		this.passageEditorOptions.placeholder = '请输入阅读材料';
-		this.passageEditorOptions.height = '300px';
 	}
 
 	ngOnInit() {

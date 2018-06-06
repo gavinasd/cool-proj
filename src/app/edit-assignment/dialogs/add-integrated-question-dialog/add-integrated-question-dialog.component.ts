@@ -13,9 +13,6 @@ import {QuestionType} from "../../../shared/enums/QuestionType";
   styleUrls: ['./add-integrated-question-dialog.component.css']
 })
 export class AddIntegratedQuestionDialogComponent implements OnInit {
-
-	public questionEditorOptions;
-	public passageEditorOptions;
 	public passage:string = '';
 	public recordUrl:string = '';
 	answer:string;                  //用来接收Editor里面的answer内容,其实就是一篇范文
@@ -26,13 +23,6 @@ export class AddIntegratedQuestionDialogComponent implements OnInit {
     constructor(private httpService: HttpService,
     	        public dialogRef: MatDialogRef<AddIntegratedQuestionDialogComponent>,
                 public assignmentService:AssignmentService) {
-	    this.questionEditorOptions = Object.create(environment.studentEditorOptions);
-	    this.questionEditorOptions.placeholder = '请输入阅读材料';
-	    this.questionEditorOptions.height = '400px';
-
-	    this.passageEditorOptions = Object.create(environment.studentEditorOptions);
-	    this.passageEditorOptions.placeholder = '请输入范文';
-	    this.passageEditorOptions.height = '400px';
     }
 
     ngOnInit() {

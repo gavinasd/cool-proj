@@ -10,14 +10,10 @@ import {NgForm} from "@angular/forms";
   styleUrls: ['./add-tpo-listening-group-dialog.component.css']
 })
 export class AddTpoListeningGroupDialogComponent implements OnInit {
-	public passageEditorOptions;
 	public passage:string;
 
 	constructor(public dialogRef: MatDialogRef<AddTpoListeningGroupDialogComponent>,
 	            private toastService: ToastService) {
-		this.passageEditorOptions = Object.create(environment.studentEditorOptions);
-		this.passageEditorOptions.placeholder = '请输入听力材料原文';
-		this.passageEditorOptions.height = '300px';
 	}
 
 	ngOnInit() {

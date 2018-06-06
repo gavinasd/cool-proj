@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpService} from "./http.service";
 import {environment} from "../../../environments/environment";
 import {HttpParams} from "@angular/common/http";
-import {Assignment} from "../../models/assignments/Assignment";
 import {catchError, map} from "rxjs/operators";
 
 @Injectable()

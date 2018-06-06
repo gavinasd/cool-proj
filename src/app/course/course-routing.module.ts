@@ -3,6 +3,7 @@ import {NgModule} from "@angular/core";
 import {CourseComponent} from "./course.component";
 import {AssignmentListComponent} from "./assignment-list/assignment-list.component";
 import {CourseDetailComponent} from "./course-detail/course-detail.component";
+import {ResourceListComponent} from './resource-list/resource-list.component';
 
 @NgModule({
 	imports: [RouterModule.forChild([
@@ -17,6 +18,10 @@ import {CourseDetailComponent} from "./course-detail/course-detail.component";
 				{
 					path: 'a',
 					component: AssignmentListComponent
+				},
+				{
+					path: 'r',
+					component: ResourceListComponent
 				}
 			]
 		}

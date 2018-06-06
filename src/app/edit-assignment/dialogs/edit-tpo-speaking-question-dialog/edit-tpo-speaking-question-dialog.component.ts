@@ -12,7 +12,6 @@ import {QuestionType} from "../../../shared/enums/QuestionType";
 })
 export class EditTpoSpeakingQuestionDialogComponent implements OnInit {
 	public question: TPOSpeakingQuestion;
-	public passageEditorOptions: any;
 	public tpoIndex: number;
 	public questionIndex: number;
 
@@ -26,9 +25,6 @@ export class EditTpoSpeakingQuestionDialogComponent implements OnInit {
 		this.question = new TPOSpeakingQuestion(this.dialogData);
 		this.tpoIndex = +this.question.recordUrl.split('/')[0] || 1;
 		this.questionIndex = +this.question.recordUrl.split('/')[1] || 1;
-		this.passageEditorOptions = Object.create(environment.studentEditorOptions);
-		this.passageEditorOptions.placeholder = '请输入阅读材料';
-		this.passageEditorOptions.height = '300px';
 	}
 
 	closeDialog() {

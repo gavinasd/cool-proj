@@ -4,6 +4,7 @@ import 'rxjs/add/operator/toPromise';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
 import {Router} from "@angular/router";
+import {ResponseContentType} from '@angular/http';
 
 @Injectable()
 export class HttpService {
@@ -20,7 +21,7 @@ export class HttpService {
 			});
 	}
 
-	public makeGet(url: string, params?:any):Observable<any> {
+	public makeGet(url: string, params?: any): Observable<any> {
 		return this.http.get<any>(url, {params: params});
 	}
 
@@ -54,11 +55,11 @@ export class HttpService {
 		return this.http.put(url, body, {headers: header});
 	}
 
-	public makeDeleteWithToken(url: string): Observable<any> {
+	public makeDeleteWithToken(url: string, params?: any): Observable<any> {
 		const header = new HttpHeaders({
 			'Authorization': 'Bearer ' + this.getToken()
 		});
-		return this.http.delete(url, {headers: header});
+		return this.http.delete(url, {headers: header, params: params});
 	}
 
 	public uploadFile(url: string, formData: FormData): Observable<any> {
@@ -66,6 +67,14 @@ export class HttpService {
 			'Authorization': 'Bearer ' + this.getToken()
 		});
 		return this.http.post<any>(url, formData, {headers: header});
+	}
+
+	public download(url: string, param?: any): Observable<any> {
+		const header = new HttpHeaders({
+			'Authorization': 'Bearer ' + this.getToken()
+		});
+		const options = {headers: header, params:param};
+		return this.http.get(url, {...options, responseType: 'blob' as 'blob'});
 	}
 
 	public getToken(): string {

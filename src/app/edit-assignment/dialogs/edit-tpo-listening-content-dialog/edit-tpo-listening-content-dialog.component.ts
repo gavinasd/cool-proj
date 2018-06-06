@@ -8,15 +8,11 @@ import {environment} from "../../../../environments/environment";
   styleUrls: ['./edit-tpo-listening-content-dialog.component.css']
 })
 export class EditTpoListeningContentDialogComponent implements OnInit {
-	public passageEditorOptions;
 	public recordUrl:string;
 	public passage:string;
 
     constructor(@Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
                 public dialogRef: MatDialogRef<EditTpoListeningContentDialogComponent>) {
-	    this.passageEditorOptions = Object.create(environment.studentEditorOptions);
-	    this.passageEditorOptions.placeholder = '请输入听力材料原文';
-	    this.passageEditorOptions.height = '300px';
     }
 
     ngOnInit() {

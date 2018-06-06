@@ -29,7 +29,7 @@ export class TpoSpeakingRecorderComponent implements OnInit,OnChanges {
 	private stream: MediaStream;
 	private options = {
 		mimeType: 'audio/x-wav',
-		audioBitsPerSecond: 256000
+		audioBitsPerSecond: 512000
 	};
 	private recordRTC:any;
 

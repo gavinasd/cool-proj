@@ -32,8 +32,9 @@ import {TpoTableForViewComponent} from './views/tpo-table-for-view/tpo-table-for
 import {TextEditorComponent} from './view/text-editor/text-editor.component';
 import {NbLayoutModule, NbThemeModule} from "@nebular/theme";
 import {NebularModule} from "./view/nebular/nebular.module";
-import { TextEditorViewComponent } from './view/text-editor-view/text-editor-view.component';
+import {TextEditorViewComponent} from './view/text-editor-view/text-editor-view.component';
 import {QuillEditorModule} from 'ngx-quill-editor';
+import {AddResourceDialogComponent} from './view/dialogs/add-resource-dialog/add-resource-dialog.component';
 
 @NgModule({
 	imports: [
@@ -74,10 +75,19 @@ import {QuillEditorModule} from 'ngx-quill-editor';
 		CustomToastComponent,
 		TpoTableForViewComponent,
 		TextEditorComponent,
-		TextEditorViewComponent
+		TextEditorViewComponent,
+		AddResourceDialogComponent
 	],
-	entryComponents: [CreateClassDialogComponent, AddAssignmentDialogComponent, CreateAssignmentDialogComponent,
-		AddQuestionDialogComponent, SubmitConfirmDialogComponent, FollowClassDialogComponent, ToastComponent],
+	entryComponents: [
+		CreateClassDialogComponent,
+		AddAssignmentDialogComponent,
+		CreateAssignmentDialogComponent,
+		AddQuestionDialogComponent,
+		SubmitConfirmDialogComponent,
+		FollowClassDialogComponent,
+		ToastComponent,
+		AddResourceDialogComponent,
+	],
 	exports: [
 		OddEvenPipe, Convert09ToAZPipe, HalfPipe,
 		PronunciationOfWordPipe, FooterComponent,
@@ -94,7 +104,7 @@ import {QuillEditorModule} from 'ngx-quill-editor';
 		CommonModule,
 		RouterModule,
 		NbLayoutModule,
-		QuillEditorModule ,
+		QuillEditorModule,
 		TpoTableForViewComponent,
 		TextEditorComponent,
 		TextEditorViewComponent

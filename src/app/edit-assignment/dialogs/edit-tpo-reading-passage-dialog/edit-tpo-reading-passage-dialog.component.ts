@@ -8,7 +8,6 @@ import {environment} from "../../../../environments/environment";
   styleUrls: ['./edit-tpo-reading-passage-dialog.component.css']
 })
 export class EditTpoReadingPassageDialogComponent implements OnInit {
-	public EditorOptions = environment.editQuestionOptions;
 	public passage = '';
 
 	constructor(@Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
@@ -17,8 +16,6 @@ export class EditTpoReadingPassageDialogComponent implements OnInit {
 
     ngOnInit() {
 		this.passage = this.dialogData;
-	    this.EditorOptions.height = '450px';
-	    this.EditorOptions.placeholder = '输入文章段落';
     }
 
 }

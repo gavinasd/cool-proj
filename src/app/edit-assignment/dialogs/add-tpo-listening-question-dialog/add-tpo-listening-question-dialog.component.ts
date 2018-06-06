@@ -14,7 +14,6 @@ import {QuestionType} from "../../../shared/enums/QuestionType";
 })
 export class AddTpoListeningQuestionDialogComponent implements OnInit {
 	public questionType: QuestionType;
-	public explanationEditorOptions;
 	public explanation: string;
 	public questionIndex: number;          //插入到第几题
 	public recordUrl: string = '';
@@ -28,9 +27,6 @@ export class AddTpoListeningQuestionDialogComponent implements OnInit {
 	            private httpService: HttpService,
 	            @Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
 	            private toastService: ToastService) {
-		this.explanationEditorOptions = Object.create(environment.studentEditorOptions);
-		this.explanationEditorOptions.placeholder = '请输入题目解释';
-		this.explanationEditorOptions.height = '100px';
 	}
 
 	ngOnInit() {

@@ -1,0 +1,36 @@
+<nb-card class="resource-list">
+  <nb-card-header>
+    <div class="resource-header">
+      <p class="header">作业列表</p>
+      <button class="btn btn-secondary btn-sm" *ngIf="userType == UserType.TEACHER" (click)="openAddResourceDialog()">
+        添加资源
+      </button>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <app-resource-item
+            *ngFor="let resourceVO of listForShow;let i = index"
+            [resourceName]="resourceVO.resourceName"
+            [resourceId]="resourceVO.resourceId"
+            [resourcePath]="resourceVO.path"
+    >
+    </app-resource-item>
+    <div id="more">
+      <a fxLayoutAlign="center" *ngIf="listForShow && canShowMore()" (click)="showMore()">
+        <p class="more-info">
+          <small>更多<i class="icon ion-ios-arrow-down"></i></small>
+        </p>
+      </a>
+      <a fxLayoutAlign="center" *ngIf="listForShow && !loading && !canShowMore()" disabled="disabled">
+        <p class="more-info">
+          <small>已经没有更多资源</small>
+        </p>
+      </a>
+      <a fxLayoutAlign="center" *ngIf="loading">
+        <p class="more-info">
+          <small>读取数据中</small>
+        </p>
+      </a>
+    </div>
+  </nb-card-body>
+</nb-card>

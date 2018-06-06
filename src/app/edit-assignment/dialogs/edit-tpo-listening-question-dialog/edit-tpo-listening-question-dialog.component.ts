@@ -11,7 +11,6 @@ import {QuestionType} from "../../../shared/enums/QuestionType";
   styleUrls: ['./edit-tpo-listening-question-dialog.component.css']
 })
 export class EditTpoListeningQuestionDialogComponent implements OnInit {
-	public explanationEditorOptions;
 	public question:TPOListeningQuestion;
 	public rowsLength:number = 0;
 	public optionsLength:number = 0;
@@ -20,9 +19,6 @@ export class EditTpoListeningQuestionDialogComponent implements OnInit {
 	constructor(@Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
 	            public dialogRef: MatDialogRef<EditTpoListeningQuestionDialogComponent>,
 	            public assignmentService:AssignmentService) {
-		this.explanationEditorOptions = Object.create(environment.studentEditorOptions);
-		this.explanationEditorOptions.placeholder = '请输入题目解释';
-		this.explanationEditorOptions.height = '100px';
 	}
 
 	ngOnInit() {

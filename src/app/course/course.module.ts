@@ -8,6 +8,8 @@ import { BulletinMessageBoardComponent } from './bulletin-message-board/bulletin
 import {CourseComponent} from "./course.component";
 import {CourseRoutingModule} from "./course-routing.module";
 import { CourseDetailComponent } from './course-detail/course-detail.component';
+import { ResourceListComponent } from './resource-list/resource-list.component';
+import { ResourceItemComponent } from './resource-list/resource-item/resource-item.component';
 
 @NgModule({
 	imports: [
@@ -21,7 +23,9 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
 		AssignmentListComponent,
 		ClassUserListComponent,
 		BulletinMessageBoardComponent,
-		CourseDetailComponent
+		CourseDetailComponent,
+		ResourceListComponent,
+		ResourceItemComponent
 	]
 })
 export class CourseModule {

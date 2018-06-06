@@ -11,15 +11,12 @@ import {environment} from "../../../../environments/environment";
 })
 export class EditIntegratedWritingQuestionDialogComponent implements OnInit {
 
-	public studentOptions;
-
 	public passage:string = '';
 	public recordUrl:string = '';
 	public question:IntegratedWritingQuestion;
 	public recordUrlList:String[] = Array(36).fill(0).map((x,i) => {
 		return 'tpo-integrated-writing-' + (i+1);
 	});
-
 
 	constructor(@Optional() @Inject(MAT_DIALOG_DATA) private dialogData: any,
 	            public dialogRef: MatDialogRef<EditIntegratedWritingQuestionDialogComponent>,
@@ -29,8 +26,6 @@ export class EditIntegratedWritingQuestionDialogComponent implements OnInit {
 		this.passage = JSON.parse(this.dialogData).passage;
 		this.recordUrl = JSON.parse(this.dialogData).recordUrl;
 		this.question = <IntegratedWritingQuestion>JSON.parse(this.dialogData).question;
-		this.studentOptions = Object.create(environment.studentEditorOptions);
-		this.studentOptions.height = '200px';
 	}
 
 	closeDialog(){

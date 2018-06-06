@@ -44,7 +44,6 @@ export class AssignmentListComponent implements OnInit {
 
 		this.more$.switchMap(
 			() => {
-				console.log('show more');
 				this.page++;
 				this.loading = true;
 				return this.classService.getAssignmentList(this.classId, this.page);

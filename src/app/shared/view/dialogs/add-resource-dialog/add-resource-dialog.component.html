@@ -1,0 +1,55 @@
+<div class="dialog-container">
+  <div class="modal-header">
+    <span class="header">添加资源</span>
+    <button class="close" (click)="dialogRef.close()">
+      <span>&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="select-resource">
+      <div class="resource-item"
+           *ngFor="let resource of listForShow"
+           [ngClass]="{'selected': resource.resourceId == selectedId}"
+           (click)="toggleSelectResource(resource.resourceId)">
+        <img [src]="getFileImg(resource.resourceName)">
+        <span>{{resource.resourceName}}</span>
+        <span fxFlex></span>
+        <img class="checked"
+             src="/assets/resources/img/checked.png"
+             *ngIf="resource.resourceId == selectedId">
+      </div>
+
+      <div id="more">
+        <a fxLayoutAlign="center" *ngIf="listForShow && canShowMore()" (click)="showMore()">
+          <p class="more-info">
+            <small>更多<i class="icon ion-ios-arrow-down"></i></small>
+          </p>
+        </a>
+        <a fxLayoutAlign="center" *ngIf="loading">
+          <p class="more-info">
+            <small>读取数据中</small>
+          </p>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="upload-btn-wrapper">
+      <button class="btn btn-secondary btn-sm">上传文件</button>
+      <input type="file" (change)="selectFile($event)" />
+      <span>{{fileName.slice(fileName.lastIndexOf('\\') + 1 )}}</span>
+      <span fxFlex></span>
+      <img class="checked"
+           src="/assets/resources/img/checked.png"
+           *ngIf="fileName.length > 0">
+
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-secondary btn-sm" (click)="dialogRef.close()">取消</button>
+    <button class="btn btn-primary btn-sm" type="submit" (click)="closeDialog()" color="accent">确定</button>
+  </div>
+</div>
+
